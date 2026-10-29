@@ -385,7 +385,7 @@ export default function MapView({ variant = 'stage' }: { variant?: 'stage' | 'an
                   <text className="pin-rank-svg" y={0.5}>
                     {rank ?? '–'}
                   </text>
-                  <g className={`pin-label-group ${showLabels || (rank && rank <= 4) ? 'visible' : ''}`}>
+                  <g className={`pin-label-group ${showLabels || rank === 1 ? 'visible' : ''}`}>
                     <rect className="pin-label-bg" x={13} y={-9} width={Math.max(34, site.name.length * 3.4)} height={13} rx={3} />
                     <text className="pin-label-svg" x={17} y={0.8}>
                       {site.name}
