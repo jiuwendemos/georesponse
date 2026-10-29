@@ -1,14 +1,32 @@
 /* GeoResponse offline shell. Cache-first for the app, network-first for data. */
-const CACHE = 'georesponse-v3'
+const CACHE = 'georesponse-v4'
 const SHELL = ['./', './index.html', './favicon.svg', './manifest.webmanifest']
 
+async function precacheShell() {
+  const cache = await caches.open(CACHE)
+  await cache.addAll(SHELL).catch(() => undefined)
+  try {
+    const response = await fetch('./')
+    const html = await response.text()
+    await cache.put('./index.html', new Response(html, { headers: { 'Content-Type': 'text/html' } }))
+    const urls = []
+    const pattern = /(?:src|href)="([^"]+)"/g
+    let match = pattern.exec(html)
+    while (match) {
+      const url = new URL(match[1], self.location.href)
+      if (url.origin === self.location.origin && /\.(js|css|svg|webmanifest)$/.test(url.pathname)) {
+        urls.push(url.href)
+      }
+      match = pattern.exec(html)
+    }
+    await Promise.all(urls.map((url) => cache.add(url).catch(() => undefined)))
+  } catch (error) {
+    // offline install is best-effort; the next online visit completes it
+  }
+}
+
 self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches
-      .open(CACHE)
-      .then((cache) => cache.addAll(SHELL))
-      .catch(() => undefined),
-  )
+  event.waitUntil(precacheShell())
   self.skipWaiting()
 })
 
@@ -19,6 +37,7 @@ self.addEventListener('activate', (event) => {
       return Promise.all(stale.map((key) => caches.delete(key)))
     }),
   )
+  self.clients.claim()
 })
 
 async function networkFirst(request, isNavigation) {
