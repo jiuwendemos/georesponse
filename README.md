@@ -4,7 +4,7 @@
 
 ![GeoResponse stage view](docs/assets/stage.jpg)
 
-**Live demo:** https://jiuwendemos.github.io/georesponse/ · **Stage plan:** [docs/ROADMAP.md](docs/ROADMAP.md) · **Method:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) · **Proactive design:** [docs/PROACTIVE.md](docs/PROACTIVE.md)
+**Live demo:** https://jiuwendemos.github.io/georesponse/ · **Stage plan:** [docs/ROADMAP.md](docs/ROADMAP.md) · **Method:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) · **Proactive design:** [docs/PROACTIVE.md](docs/PROACTIVE.md) · **2026 experience:** [docs/EXPERIENCE_2026.md](docs/EXPERIENCE_2026.md)
 
 GeoResponse is an AI analyst for imagery. It is built around one decision, not a dashboard: *where do we send the three teams?* The demo is a 90-second command story. The product is an analyst workspace with an audit trail, exports and a pilot measurement pack. Everything runs offline from a local data pack.
 
@@ -183,6 +183,7 @@ All technical phases are implemented, including the 155 proactive workstreams, w
 - Phase 3 — multi-tenant, government/agriculture/mining packs, partner motion ✅
 - Product UI — analyst workspace and dashboards ✅
 - Phase 4 — proactive monitoring ✅ — Watch inbox, scopes, coverage, forecast watchlist, digest, governance; see [docs/PROACTIVE.md](docs/PROACTIVE.md)
+- Phase 5 — 2026 product experience · **planned** — 241 checkboxes covering design system, command/agent UX, map craft, mobile, accessibility, performance and rollout; see [docs/EXPERIENCE_2026.md](docs/EXPERIENCE_2026.md)
 
 The proactive phase is built as the **Watch** tab and `georesponse/proactive/`: scheduled scopes, seasonal baselines, multi-temporal and optical/SAR confirmation, forecast watchlists, alert lifecycle, notification outbox, integrations, governance and pilot gates. The demo portfolio is seeded; the launch gate is deliberately red until a real corridor pilot clears it.
 

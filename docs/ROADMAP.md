@@ -7,7 +7,7 @@ result — see [SCORECARD.md](SCORECARD.md).
 
 **Status.** Stage piece, functional demo, pilot pipeline, product UI and scale packs are built. The
 app runs offline from a generated data pack and deploys to GitHub Pages. **Phase 4 — proactive
-monitoring is built and surfaced in the Watch tab; the pilot gate stays open until a real corridor pilot clears it.**
+monitoring is built and surfaced in the Watch tab; the pilot gate stays open until a real corridor pilot clears it. Phase 5 — the 2026 product experience — is planned and every Phase 5 checkbox is intentionally open.**
 
 ---
 
@@ -441,6 +441,341 @@ These remain out of scope even in the proactive phase:
 6. **Notifications + handoff** (4.5) — make the alert reach the right person and the right system.
 7. **Forecast anticipation** (4.3) — only after detection is trustworthy.
 8. **Portfolio and multi-sector expansion** (4.8) — only after one corridor renews.
+
+---
+
+## Phase 5 — 2026 product experience (planned)
+
+**Status: not started. Every checkbox in this phase is intentionally open.**
+
+This is a **design and frontend modernization program**, not a theme refresh. The brief and current
+audit are in [EXPERIENCE_2026.md](EXPERIENCE_2026.md). Phase 4 is built; Phase 5 is how the product
+stops looking like a 2019 dashboard wearing 2026 AI labels and becomes genuinely 2026 in interaction,
+craft, accessibility and speed.
+
+**Entry gate:** a Phase 4 pilot is in use and the core workflows are stable enough to redesign.
+**Exit gate:** the 2026 maturity scorecard in [EXPERIENCE_2026.md](EXPERIENCE_2026.md) is green.
+
+### 5.0 Audit, principles & guardrails
+
+- [ ] Screen-by-screen visual and interaction audit at 1440, 1024 and 390 px **(S)**
+- [ ] Inventory every 2019 tell: tiny type, permanent panels, neon glass, fixed desktop, missing states **(S)**
+- [ ] Interview five users per role about where the interface slows them down **(M)**
+- [ ] Write the 2026 product principles and anti-patterns into the design brief **(S)**
+- [ ] Define role/device/task matrix for presenter, analyst, watch operator, claims lead, field, admin **(S)**
+- [ ] Benchmark five operational products for density, command surfaces and map craft **(S)**
+- [ ] Set target metrics: type, contrast, LCP/INP/CLS, bundle, task success, SUS **(S)**
+- [ ] Baseline the current metrics with the same instrument as the target **(S)**
+- [ ] Create a design-debt ledger with owner, severity and removal date **(S)**
+- [ ] Add a design review gate to every feature PR **(S)**
+- [ ] Define “no AI claim without evidence” as a design rule **(S)**
+- [ ] Publish the deprecation list: old CSS, one-off components, tiny HUD patterns **(S)**
+
+### 5.1 Brand & visual language
+
+- [ ] New logotype and app mark that work at 16 px, 32 px and stage scale **(M)**
+- [ ] One accent colour; semantic red/amber/green reserved for meaning **(S)**
+- [ ] Light theme, dark theme and system-follow, designed together **(M)**
+- [ ] High-contrast theme and a colour-blind-safe semantic palette **(S)**
+- [ ] Surface/elevation system with fewer borders, less glass and no default glow **(M)**
+- [ ] Typography system: variable display face, readable body face, tabular mono **(M)**
+- [ ] Type scale: body 14–15 px, labels ≥ 11 px, HUD ≥ 12 px, stage display scale **(S)**
+- [ ] Self-host fonts with subsetting, licensing and offline fallback **(S)**
+- [ ] Spacing, radius, shadow and z-index tokens used everywhere **(S)**
+- [ ] Icon set with consistent stroke, size and metaphor; no emoji as UI icons **(M)**
+- [ ] Illustration and imagery treatment, including honest “simulated” labelling **(S)**
+- [ ] Data-visualisation palette that survives light/dark/projection/print **(M)**
+- [ ] Map palette and label hierarchy that feel designed, not procedural **(M)**
+- [ ] Motion language: durations, easing, choreography and reduced-motion variants **(S)**
+- [ ] Density modes: comfortable and compact, persisted per user **(S)**
+- [ ] Remove neon glass as the default surface; re-introduce it only for deliberate moments **(S)**
+- [ ] Print theme for field orders, stage kit and A1 map **(S)**
+
+### 5.2 Design system & component library
+
+- [ ] Single source of truth for tokens (colour, type, space, radius, shadow, motion) **(M)**
+- [ ] CSS custom properties and `@layer` architecture; no magic values **(M)**
+- [ ] Headless accessible primitives for dialogs, popovers, menus, tabs, tooltips and comboboxes **(M)**
+- [ ] Core component set: button, input, select, combobox, table, card, badge, toast, drawer, sheet, command, chart frame **(L)**
+- [ ] Every component defines default, hover, active, focus, disabled, loading, error and empty states **(M)**
+- [ ] Storybook (or equivalent) with usage, anatomy and accessibility notes **(M)**
+- [ ] Visual regression tests for every component and theme **(M)**
+- [ ] Automated axe checks in component tests **(M)**
+- [ ] Theme switcher and density switcher in the app shell **(S)**
+- [ ] Component API guidelines: no one-off props for one screen **(S)**
+- [ ] Adoption lint: ban raw hex, magic spacing and new bespoke buttons **(S)**
+- [ ] Versioning and changelog for the design system **(S)**
+- [ ] Map, chart and timeline primitives treated as first-class components **(M)**
+- [ ] Mobile component variants with touch targets ≥ 44 px **(M)**
+- [ ] Documentation site accessible from the product and offline **(S)**
+
+### 5.3 Information architecture & navigation
+
+- [ ] Map-first shell: canvas is the default, panels are contextual **(M)**
+- [ ] Global command palette (`Cmd/Ctrl+K`) with actions, search and recent **(M)**
+- [ ] Role-based navigation that hides what the role cannot act on **(M)**
+- [ ] Context rail: alerts, scopes, layers, evidence, settings in one predictable place **(M)**
+- [ ] Deep links and URL state for every alert, scope, incident, view and filter **(M)**
+- [ ] Back/forward and browser history that match the visible state **(S)**
+- [ ] Saved views per user and per team **(M)**
+- [ ] Workspace/tenant switcher with clear data boundary **(S)**
+- [ ] Cross-links: alert ↔ incident ↔ scope ↔ assessment ↔ claim ↔ audit **(S)**
+- [ ] No dead ends: every empty/error state offers the next action **(S)**
+- [ ] Page/section transitions without full reloads **(S)**
+- [ ] Breadcrumb or location indicator that works on mobile **(S)**
+- [ ] “Where am I?” overview for new users **(S)**
+
+### 5.4 Intent-first & AI-native interaction
+
+- [ ] Natural-language command bar: “show high-confidence flood alerts near Ahr” **(L)**
+- [ ] Intent parser with suggestions, clarification and safe fallbacks **(M)**
+- [ ] Agent sidecar that can read the current context without being asked twice **(M)**
+- [ ] Tool calls rendered as inspectable steps, not hidden magic **(M)**
+- [ ] Action preview before any write: what will change, for whom, and why **(M)**
+- [ ] Explicit approval, cancel and undo for every agent action **(M)**
+- [ ] Grounding and citations: every claim links to evidence, scope, model and time **(M)**
+- [ ] Confidence and uncertainty expressed in words, not only numbers **(S)**
+- [ ] Streaming responses with stop, retry and partial-result handling **(M)**
+- [ ] Conversation history and “continue from here” per alert/scope **(S)**
+- [ ] Proactive nudges with snooze, mute and “why now” **(M)**
+- [ ] “Explain this” available on every number, layer, rank and alert **(M)**
+- [ ] Prompt-injection and unsafe-action guardrails in the UI and API **(M)**
+- [ ] Permission scopes so the agent cannot exceed the user’s rights **(M)**
+- [ ] No fake agent: if there is no tool, no data or no permission, say so **(S)**
+- [ ] Voice input as an optional accessibility path, not a default mic **(S)**
+
+### 5.5 Spatial canvas & map craft
+
+- [ ] Replace the procedural raster with real vector tiles/terrain or an intentionally stylised map **(L)**
+- [ ] Fully local/offline map pack with a size budget **(M)**
+- [ ] Cartography: roads, buildings, land use, water, contours and labels at three zoom bands **(L)**
+- [ ] Label hierarchy, collision and decluttering that stay readable on stage **(M)**
+- [ ] Camera transitions: fly-to, fit-to-scope and reveal with interruptible motion **(S)**
+- [ ] Cluster alerts/scopes above a density threshold **(M)**
+- [ ] Draw, edit, measure and snap scopes with undo **(M)**
+- [ ] Layer panel with opacity, ordering and saved layer sets **(M)**
+- [ ] Time animation with playhead, keyframes and loop **(S)**
+- [ ] Before/after and swipe compare as a first-class control **(S)**
+- [ ] Mini-map and scale/compass for spatial orientation **(S)**
+- [ ] Keyboard pan/zoom and focusable features **(M)**
+- [ ] Mobile gestures: pinch, drag, tap, bottom-sheet detail **(M)**
+- [ ] Accessible alternative: searchable table/description of map features **(M)**
+- [ ] Light/dark/projection/print map styles **(M)**
+- [ ] Map performance: ≤ 16 ms frames at 1,000 features **(M)**
+- [ ] Honest visual treatment for simulated imagery, not accidental blur **(S)**
+
+### 5.6 Role-based flows & decision craft
+
+- [ ] Presenter mode: keyboard-only, large-type stage, no accidental edits **(M)**
+- [ ] Analyst flow: evidence → review → sign in ≤ 2 interactions per site **(M)**
+- [ ] Watch operator flow: triage → assign → hand off in ≤ 2 interactions **(M)**
+- [ ] Claims lead briefing: portfolio, SLA and risk in one screen **(M)**
+- [ ] Field mode: site, access, evidence, directions and check-in **(M)**
+- [ ] Admin flow: scope, recipients, models and budget without a manual **(M)**
+- [ ] First-run onboarding with a real sample scope and a guided first alert **(M)**
+- [ ] Progressive disclosure: summary first, evidence second, raw data third **(M)**
+- [ ] Bulk actions with selection preview and undo **(S)**
+- [ ] Destructive actions require typed confirmation, not just a red button **(S)**
+- [ ] Empty, loading, offline and permission-denied states designed for each flow **(M)**
+- [ ] A “return to the decision” path after every side quest **(S)**
+
+### 5.7 Mobile & field experience
+
+- [ ] Mobile-first layouts at 390 and 768 px, not squeezed desktop **(M)**
+- [ ] Installable PWA with offline shell and cached pack **(S)**
+- [ ] Bottom sheets, sticky actions and one-hand reach **(M)**
+- [ ] 44 px minimum touch targets and no hover-only actions **(S)**
+- [ ] Push/notification deep link into the exact alert **(M)**
+- [ ] Offline alert queue with retry and conflict handling **(M)**
+- [ ] Camera/photo upload and geotag capture with consent **(M)**
+- [ ] Location with explicit permission, never silent tracking **(S)**
+- [ ] Sunlight/high-contrast map and alert cards **(S)**
+- [ ] Field checklist, directions handoff and check-in **(M)**
+- [ ] No horizontal scroll, no clipped tables, no tiny tap chips **(S)**
+- [ ] Mobile performance budget on a mid-range Android **(M)**
+
+### 5.8 Accessibility & inclusive design
+
+- [ ] WCAG 2.2 AA audit with fixes **(M)**
+- [ ] Contrast ≥ 4.5:1 body and ≥ 3:1 large/UI **(S)**
+- [ ] Full keyboard path for every action **(M)**
+- [ ] Visible focus ring in every theme **(S)**
+- [ ] Screen-reader labels for map, charts, alerts and timelines **(M)**
+- [ ] Non-visual table/description alternative for the map **(M)**
+- [ ] Reduced-motion mode and no essential information in motion **(S)**
+- [ ] Colour independence: icons, labels and patterns, not hue alone **(S)**
+- [ ] 200% text zoom without loss of function **(S)**
+- [ ] Target size ≥ 24 px (44 px touch) **(S)**
+- [ ] Form errors: inline, programmatic and recoverable **(S)**
+- [ ] Live regions for alerts, async results and agent streaming **(S)**
+- [ ] Localization: English + German, RTL-ready layout **(M)**
+- [ ] Plain-language review of critical copy **(S)**
+- [ ] Accessibility statement and feedback channel **(S)**
+
+### 5.9 Performance, reliability & resilience
+
+- [ ] Performance budgets in CI: bundle, LCP, INP, CLS, memory **(M)**
+- [ ] Route-level code splitting and lazy map/worker loading **(M)**
+- [ ] Self-hosted, compressed, responsive imagery with no CDN **(S)**
+- [ ] Virtualized alert/scope lists at 10k items **(M)**
+- [ ] Memoization and render profiling for the map and inbox **(M)**
+- [ ] Skeletons that match final layout; no layout shift **(S)**
+- [ ] Error boundaries with retry and a diagnostic ID **(S)**
+- [ ] Partial-failure UI: map works when data is stale **(S)**
+- [ ] Offline detection with a clear, recoverable banner **(S)**
+- [ ] Privacy-safe telemetry for slow paths and errors **(S)**
+- [ ] Low-end device and battery test **(M)**
+- [ ] Load test the UI at 1,000 scopes / 10,000 alerts **(M)**
+- [ ] Cache strategy for packs, fonts, tiles and API **(M)**
+
+### 5.10 Data visualisation & numbers
+
+- [ ] One chart system with shared scales, axes, legends and tooltips **(M)**
+- [ ] Uncertainty and confidence shown as intervals, not just decimals **(M)**
+- [ ] Tabular numerals everywhere for scanability **(S)**
+- [ ] Linked brushing between map, list, timeline and chart **(M)**
+- [ ] Accessible data tables for every chart **(M)**
+- [ ] Annotations for events, thresholds and reviews **(S)**
+- [ ] No misleading truncated axes; label “zoomed” explicitly **(S)**
+- [ ] Colour-blind-safe series and patterns **(S)**
+- [ ] Export/print parity for charts and maps **(S)**
+- [ ] Light/dark/projection chart themes **(S)**
+- [ ] Empty/insufficient-data states that explain why **(S)**
+
+### 5.11 Motion & interaction craft
+
+- [ ] Motion tokens: fast/normal/slow, standard/decelerate/accelerate **(S)**
+- [ ] Map camera choreography that respects reduced motion **(S)**
+- [ ] Panel/drawer transitions with focus management **(S)**
+- [ ] Optimistic updates with rollback on failure **(M)**
+- [ ] Press/hover/focus states that feel responsive on low-end devices **(S)**
+- [ ] Loading transitions that preserve context **(S)**
+- [ ] No gratuitous shimmer, parallax, tilt or neon pulse **(S)**
+- [ ] Optional sound/haptic cues, off by default **(S)**
+- [ ] Motion audit for vestibular safety **(S)**
+- [ ] 60 fps target for core interactions **(M)**
+
+### 5.12 Content, language & localisation
+
+- [ ] Voice and tone guide for operators, analysts and executives **(S)**
+- [ ] Plain-language rewrite of alerts, errors, empty states and disclaimers **(M)**
+- [ ] Terminology glossary: scope, alert, incident, finding, assessment, handoff **(S)**
+- [ ] Date, time, unit and currency formatting per locale **(S)**
+- [ ] AI disclaimer and confidence language that is honest and short **(S)**
+- [ ] Error copy that says what happened, what to do and what not to do **(S)**
+- [ ] Empty states with one clear next action **(S)**
+- [ ] German localisation for the first pilot market **(M)**
+- [ ] Stage script and presenter cues integrated into the interface **(S)**
+- [ ] Readability check: grade level and 10-metre legibility **(S)**
+- [ ] No jargon on stage, no acronym without expansion **(S)**
+
+### 5.13 Trust, privacy & AI transparency
+
+- [ ] Provenance visible on every map, finding, alert and export **(S)**
+- [ ] “What changed” diff for model, baseline and review decisions **(M)**
+- [ ] Human signature visible on assessments and handoffs **(S)**
+- [ ] Audit trail accessible from the UI, not just the API **(M)**
+- [ ] Consent and scope notice before monitoring starts **(S)**
+- [ ] Retention and deletion controls visible to admins **(S)**
+- [ ] Kill switch and pause with clear consequence text **(S)**
+- [ ] Model card and limitation shown next to confidence **(S)**
+- [ ] Uncertainty and false-positive history visible **(S)**
+- [ ] No dark patterns: no pre-checked consent, no hidden auto-renew, no fake urgency **(S)**
+- [ ] Reversible actions and confirmation for destructive ones **(S)**
+- [ ] Privacy review linked from the governance screen **(S)**
+
+### 5.14 Engineering modernization
+
+- [ ] React 19 + Vite + strict TypeScript with no `any` in product code **(M)**
+- [ ] Design tokens compiled from one source into CSS and TS **(M)**
+- [ ] CSS layers and component-scoped styles; delete one-off stylesheets **(M)**
+- [ ] Design system package consumed by all surfaces **(M)**
+- [ ] Vitest unit tests and Playwright visual/E2E tests **(M)**
+- [ ] Accessibility and performance checks in CI **(M)**
+- [ ] Feature flags for shell, themes, command palette and agent **(S)**
+- [ ] Privacy-safe telemetry and error reporting **(S)**
+- [ ] Self-hosted fonts, icons, tiles and imagery **(S)**
+- [ ] Browser support matrix and graceful degradation **(S)**
+- [ ] Remove dead CSS, unused components and scaffold assets **(S)**
+- [ ] Bundle budget ≤ 250 KB gzip initial **(M)**
+- [ ] Storybook/design docs built offline **(S)**
+
+### 5.15 Asset production
+
+- [ ] Final logo, mark, favicon and app icons **(S)**
+- [ ] Coherent icon set for domains, layers, alerts and actions **(M)**
+- [ ] Light/dark map styles and a stylised simulated pack **(M)**
+- [ ] Real orthophoto/vector sample for the demo **(M)**
+- [ ] Stage screenshots, product screenshots and a 30-second loop **(S)**
+- [ ] Printable A1 map, tokens and field order in the new language **(S)**
+- [ ] Alt text and captions for every product image **(S)**
+- [ ] German and English marketing strings **(S)**
+
+### 5.16 Research & measurement
+
+- [ ] Baseline SUS, task success and time-to-decision per role **(M)**
+- [ ] Five-second test: “what does this product do?” **(S)**
+- [ ] Five users per role complete the core task unaided **(M)**
+- [ ] Accessibility audit with a screen-reader user **(M)**
+- [ ] Performance audit on low-end hardware **(M)**
+- [ ] Diary study with a watch operator for two weeks **(M)**
+- [ ] Instrument the decision path without collecting personal data **(S)**
+- [ ] 2026 maturity scorecard reviewed each release **(S)**
+- [ ] Design-debt burn-down tracked in the roadmap **(S)**
+- [ ] Customer-facing “what changed” note for the redesign **(S)**
+
+### 5.17 Rollout & migration
+
+- [ ] Design spike: shell, type, theme and command palette prototype **(M)**
+- [ ] Token and component foundation before screen rewrites **(M)**
+- [ ] Rebuild the app shell and navigation first **(M)**
+- [ ] Migrate Watch inbox and alert detail **(M)**
+- [ ] Migrate Analyst workspace **(M)**
+- [ ] Migrate Stage and Booth **(M)**
+- [ ] Migrate Pilot and Method **(M)**
+- [ ] Mobile/PWA pass after desktop flows stabilize **(M)**
+- [ ] Private beta by role with feature flags **(M)**
+- [ ] Remove the old shell after two green releases **(S)**
+- [ ] Publish migration notes, screenshots and keyboard shortcuts **(S)**
+- [ ] Launch gate: maturity scorecard green **(M)**
+
+### 5.18 Acceptance gates
+
+- [ ] No text below 11 px in product chrome **(S)**
+- [ ] Light, dark and high-contrast themes pass contrast **(M)**
+- [ ] WCAG 2.2 AA audit signed off **(M)**
+- [ ] 100% keyboard-reachable core actions **(M)**
+- [ ] Map has a non-visual alternative **(M)**
+- [ ] Command palette covers the top 10 tasks **(M)**
+- [ ] Agent actions preview, approve and undo **(M)**
+- [ ] Mobile 390 px: no horizontal scroll **(S)**
+- [ ] Initial JS ≤ 250 KB gzip; LCP ≤ 2 s; INP ≤ 200 ms; CLS ≤ 0.05 **(M)**
+- [ ] Offline after one visit **(S)**
+- [ ] Five users per role complete the core task unaided **(M)**
+- [ ] Zero dark patterns and zero AI claims without evidence **(S)**
+
+### 5.19 Explicit non-goals
+
+- No neon glass, AI avatar or 3D globe as a personality.
+- No AR/VR or voice always-on because it is 2026.
+- No generative UI without approval, provenance and rollback.
+- No infinite scroll, gamification or engagement metrics.
+- No redesign that removes the human signature or the audit trail.
+- No mobile adaptation that is just a squeezed desktop.
+- No theme that fails contrast for the sake of the aesthetic.
+
+### Recommended 2026 order
+
+1. **Audit + brief** (5.0, 5.16) — agree what is broken and how it will be measured.
+2. **Tokens, type, colour, themes** (5.1) — fix the visual foundation before screens.
+3. **Design system primitives** (5.2) — stop adding one-off CSS.
+4. **Shell, navigation and command palette** (5.3, 5.4) — change the interaction model.
+5. **Watch + Analyst flows** (5.6) — the daily work first.
+6. **Map craft** (5.5) — the hero surface.
+7. **Mobile + accessibility** (5.7, 5.8) — first-class, not a retrofit.
+8. **Performance and data viz** (5.9, 5.10) — speed and clarity.
+9. **Motion, copy, trust** (5.11–5.13) — the last 10% that feels 2026.
+10. **Research, beta and launch gate** (5.16–5.18).
 
 ---
 
