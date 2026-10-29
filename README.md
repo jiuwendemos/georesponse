@@ -167,6 +167,9 @@ All technical phases are implemented, with field-validation artefacts where a li
 - Phase 2 — more change types, SAR, integrations, monitoring, compliance ✅
 - Phase 3 — multi-tenant, government/agriculture/mining packs, partner motion ✅
 - Product UI — analyst workspace and dashboards ✅
+- Phase 4 — proactive monitoring · **planned** — full roadmap in [docs/ROADMAP.md](docs/ROADMAP.md#phase-4--proactive-monitoring-planned)
+
+The proactive phase (scheduled watch, baseline anomaly alerts, forecast anticipation, alert inbox and monitoring subscriptions) is specified as open checkboxes; it is not claimed as built.
 
 Three items are field tests, not code: the five-stranger test, volunteer completion and the seven-of-ten closing-line recall. A runnable scorecard is in [docs/SCORECARD.md](docs/SCORECARD.md); no result is fabricated.
 
