@@ -80,6 +80,44 @@ def cmd_connectors(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_load_test(args: argparse.Namespace) -> int:
+    from .proactive.ops import load_test
+
+    print(json.dumps(load_test(scopes=args.scopes, alerts_per_scope=args.alerts), indent=2))
+    return 0
+
+
+def cmd_drill(args: argparse.Namespace) -> int:
+    from .proactive.demo import seed_demo
+    from .proactive.ops import backup_restore_drill
+    from .proactive.store import ProactiveStore
+
+    store = ProactiveStore(ROOT / "runtime" / "proactive.db")
+    if not store.list_scopes("demo"):
+        seed_demo(store)
+    print(json.dumps(backup_restore_drill(store, args.path), indent=2))
+    return 0
+
+
+def cmd_airgap(args: argparse.Namespace) -> int:
+    from .proactive.demo import seed_demo
+    from .proactive.ops import run_airgap
+    from .proactive.store import ProactiveStore
+
+    store = ProactiveStore(ROOT / "runtime" / "proactive.db")
+    if not store.list_scopes("demo"):
+        seed_demo(store)
+    print(json.dumps(run_airgap(store, {args.scope: args.folder}), indent=2))
+    return 0
+
+
+def cmd_proactive_demo(args: argparse.Namespace) -> int:
+    from .proactive.demo import write_demo
+
+    print(json.dumps(write_demo(ROOT / "web" / "public" / "data" / "proactive.json"), indent=2))
+    return 0
+
+
 def cmd_static(args: argparse.Namespace) -> int:
     import http.server
     import socketserver
@@ -136,6 +174,23 @@ def main(argv: list[str] | None = None) -> int:
     connectors = sub.add_parser("connectors", help="list imagery connectors")
     connectors.add_argument("--manifest", action="store_true")
     connectors.set_defaults(func=cmd_connectors)
+
+    load = sub.add_parser("load-test", help="run the proactive load test")
+    load.add_argument("--scopes", type=int, default=1000)
+    load.add_argument("--alerts", type=int, default=10)
+    load.set_defaults(func=cmd_load_test)
+
+    drill = sub.add_parser("drill", help="run the proactive backup/restore drill")
+    drill.add_argument("--path", default=str(ROOT / "runtime" / "drill"))
+    drill.set_defaults(func=cmd_drill)
+
+    airgap = sub.add_parser("airgap", help="import imagery into a scope from a folder")
+    airgap.add_argument("--scope", required=True)
+    airgap.add_argument("--folder", required=True)
+    airgap.set_defaults(func=cmd_airgap)
+
+    action = sub.add_parser("proactive-demo", help="rebuild the proactive Watch demo data")
+    action.set_defaults(func=cmd_proactive_demo)
 
     static = sub.add_parser("static", help="serve the built web app")
     static.add_argument("--port", type=int, default=4173)

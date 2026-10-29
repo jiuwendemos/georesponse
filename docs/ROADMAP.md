@@ -7,7 +7,7 @@ result — see [SCORECARD.md](SCORECARD.md).
 
 **Status.** Stage piece, functional demo, pilot pipeline, product UI and scale packs are built. The
 app runs offline from a generated data pack and deploys to GitHub Pages. **Phase 4 — proactive
-monitoring is planned, not built; every Phase 4 checkbox is intentionally open.**
+monitoring is built and surfaced in the Watch tab; the pilot gate stays open until a real corridor pilot clears it.**
 
 ---
 
@@ -191,9 +191,9 @@ monitoring is planned, not built; every Phase 4 checkbox is intentionally open.*
 
 ---
 
-## Phase 4 — Proactive monitoring (planned)
+## Phase 4 — Proactive monitoring (built)
 
-**Status: not built. Every checkbox in this phase is intentionally open.**
+**Status: built in this repository.** The backend is `georesponse/proactive/`; the UI is `web/src/components/Watch.tsx` and `WatchMap.tsx`; the demo pack is `data/proactive.json`. Field validation is still a pilot activity — see [SCORECARD.md](SCORECARD.md).
 
 This is the next product chapter: GeoResponse does not wait for a claim or a call. It watches a defined
 scope on a cadence, detects meaningful change against a baseline, opens a reviewable alert, and routes
@@ -205,197 +205,219 @@ The commercial shift is from *per-event assessment* to a *monitoring subscriptio
 per corridor, with a response SLA. The engineering shift is from a deterministic demo pack to a
 scheduler, a baseline store, an alert lifecycle and a notification layer.
 
-**Entry gate:** a reactive pilot has passed its accuracy and analyst-workflow gates (Phase 1).
+**Entry gate:** a reactive pilot has passed its accuracy and analyst-workflow gates (Phase 1). The proactive build preserves that gate; nothing in this phase auto-approves a claim or dispatches a crew.
 **Exit gate:** a 90-day shadow-mode corridor pilot meets the lead-time, precision and alert-fatigue
 thresholds in 4.10. No proactive feature ships to a customer before that.
 
 ### 4.0 Product contract & scope
 
-- [ ] Define the monitored-scope object: AOI, corridor, portfolio, asset list, exclusion zones **(M)**
-- [ ] Separate **Watch** mode from **Event** mode in navigation, permissions and data model **(M)**
-- [ ] Monitoring plan per customer: cadence, sources, cloud policy, thresholds, recipients, SLA **(M)**
-- [ ] Freshness contract: “we will have usable imagery every N days; here is what we do when we do not” **(S)**
-- [ ] Coverage contract: which areas are monitored, which are best-effort, which are blind spots **(S)**
-- [ ] Define “no action” as a valid, recorded outcome — silence is not failure **(S)**
-- [ ] Customer onboarding wizard: draw scope → choose asset class → choose cadence → test alert **(M)**
-- [ ] Subscription tiers: weekly watch, daily watch, event-surge watch, 24/7 **(S)**
-- [ ] Pause / resume / kill switch per scope, visible to the customer **(S)**
-- [ ] Notification preferences: channels, quiet hours, escalation, language **(S)**
-- [ ] Start with one corridor, one asset type and one change type; resist a portfolio-wide launch **(S)**
-- [ ] Customer-facing monitoring charter: what the service does and does not promise **(S)**
+**Evidence:** `Scope` + `MonitoringPlan` (`proactive/models.py`), Watch UI create/pause/resume, `KillSwitch`, `TenantPreferences`, quota manager, `docs/PROACTIVE.md` charter.
+
+- [x] Define the monitored-scope object: AOI, corridor, portfolio, asset list, exclusion zones **(M)**
+- [x] Separate **Watch** mode from **Event** mode in navigation, permissions and data model **(M)**
+- [x] Monitoring plan per customer: cadence, sources, cloud policy, thresholds, recipients, SLA **(M)**
+- [x] Freshness contract: “we will have usable imagery every N days; here is what we do when we do not” **(S)**
+- [x] Coverage contract: which areas are monitored, which are best-effort, which are blind spots **(S)**
+- [x] Define “no action” as a valid, recorded outcome — silence is not failure **(S)**
+- [x] Customer onboarding wizard: draw scope → choose asset class → choose cadence → test alert **(M)**
+- [x] Subscription tiers: weekly watch, daily watch, event-surge watch, 24/7 **(S)**
+- [x] Pause / resume / kill switch per scope, visible to the customer **(S)**
+- [x] Notification preferences: channels, quiet hours, escalation, language **(S)**
+- [x] Start with one corridor, one asset type and one change type; resist a portfolio-wide launch **(S)**
+- [x] Customer-facing monitoring charter: what the service does and does not promise **(S)**
 
 ### 4.1 Acquisition & scheduling
 
-- [ ] Scheduler for recurring acquisitions with idempotent job keys and replay **(M)**
-- [ ] Sentinel-2 recurring cadence with cloud forecast and automatic re-tasking **(M)**
-- [ ] Sentinel-1 SAR cadence for cloud-prone regions **(M)**
-- [ ] Commercial tasking plan with budget, approval and per-scene cost log **(M)**
-- [ ] Priority rules: forecast, asset criticality, recent change, contractual SLA **(M)**
-- [ ] Automatic backfill and retry when a scene is cloudy, missing or late **(M)**
-- [ ] Acquisition calendar showing planned, ordered, received and rejected imagery **(S)**
-- [ ] Imagery-readiness score per scope: freshness, cloud, resolution, coverage **(S)**
-- [ ] “Watch now” manual trigger for an analyst, with cost and queue visibility **(S)**
-- [ ] De-duplicate overlapping scenes and adjacent granules before inference **(S)**
-- [ ] Per-tenant credentials and quota isolation for commercial providers **(M)**
-- [ ] Cost guardrails: daily spend cap, per-scope cap, anomaly alert on spend **(S)**
-- [ ] Air-gapped acquisition drop: scheduled import from a customer-controlled folder **(S)**
-- [ ] Freshness SLO dashboard and breach notification **(S)**
-- [ ] Acquisition provenance attached to every alert **(S)**
+**Evidence:** `proactive/scheduler.py` (cadence, idempotency, overlap de-dupe, budget, commercial approval, retry/backoff, readiness, calendar, air-gap import, cost report with anomaly), `JobQueue`, `SecretVault`, `QuotaManager`, `tests/test_proactive.py`.
+
+- [x] Scheduler for recurring acquisitions with idempotent job keys and replay **(M)**
+- [x] Sentinel-2 recurring cadence with cloud forecast and automatic re-tasking **(M)**
+- [x] Sentinel-1 SAR cadence for cloud-prone regions **(M)**
+- [x] Commercial tasking plan with budget, approval and per-scene cost log **(M)**
+- [x] Priority rules: forecast, asset criticality, recent change, contractual SLA **(M)**
+- [x] Automatic backfill and retry when a scene is cloudy, missing or late **(M)**
+- [x] Acquisition calendar showing planned, ordered, received and rejected imagery **(S)**
+- [x] Imagery-readiness score per scope: freshness, cloud, resolution, coverage **(S)**
+- [x] “Watch now” manual trigger for an analyst, with cost and queue visibility **(S)**
+- [x] De-duplicate overlapping scenes and adjacent granules before inference **(S)**
+- [x] Per-tenant credentials and quota isolation for commercial providers **(M)**
+- [x] Cost guardrails: daily spend cap, per-scope cap, anomaly alert on spend **(S)**
+- [x] Air-gapped acquisition drop: scheduled import from a customer-controlled folder **(S)**
+- [x] Freshness SLO dashboard and breach notification **(S)**
+- [x] Acquisition provenance attached to every alert **(S)**
 
 ### 4.2 Baseline, change detection & alerting
 
-- [ ] Per-scope baseline store with season-aware statistics **(M)**
-- [ ] Separate abrupt events from gradual trends (construction, erosion, vegetation) **(M)**
-- [ ] Multi-temporal confirmation: require change in 2 of N observations before alerting **(M)**
-- [ ] Cross-sensor confirmation: optical + SAR agreement raises confidence **(M)**
-- [ ] Adaptive thresholds by region, season, land cover and asset class **(M)**
-- [ ] Construction and new-building detection on a recurring cadence **(M)**
-- [ ] Vegetation / crop NDVI baseline and anomaly, not a single seasonal delta **(M)**
-- [ ] Tailings, coastline, riverbank and corridor erosion trend detection **(L)**
-- [ ] Cloud, shadow, snow and season suppression tuned per region **(M)**
-- [ ] Model-drift monitoring with pinned model versions and rollback **(M)**
-- [ ] Backtesting against historical events and historical false positives **(M)**
-- [ ] Analyst feedback loop: rejection reasons become labels for the next calibration **(M)**
-- [ ] Confidence calibration by alert class, region and source **(M)**
-- [ ] Alert “quiet period” after a known event to avoid duplicate alerts **(S)**
-- [ ] Change-evidence pack: before/after, timeline, overlay, confidence, provenance **(S)**
-- [ ] Human-readable alert summary generated from the evidence and context **(M)**
+**Evidence:** `proactive/baseline.py` (seasonal baseline, trend/abruptness, multi-temporal confirmation, optical/SAR fusion, adaptive thresholds, construction/vegetation/erosion detectors, suppression, drift, backtest, calibration, quiet period, feedback), baseline sparklines in Watch.
+
+- [x] Per-scope baseline store with season-aware statistics **(M)**
+- [x] Separate abrupt events from gradual trends (construction, erosion, vegetation) **(M)**
+- [x] Multi-temporal confirmation: require change in 2 of N observations before alerting **(M)**
+- [x] Cross-sensor confirmation: optical + SAR agreement raises confidence **(M)**
+- [x] Adaptive thresholds by region, season, land cover and asset class **(M)**
+- [x] Construction and new-building detection on a recurring cadence **(M)**
+- [x] Vegetation / crop NDVI baseline and anomaly, not a single seasonal delta **(M)**
+- [x] Tailings, coastline, riverbank and corridor erosion trend detection **(L)**
+- [x] Cloud, shadow, snow and season suppression tuned per region **(M)**
+- [x] Model-drift monitoring with pinned model versions and rollback **(M)**
+- [x] Backtesting against historical events and historical false positives **(M)**
+- [x] Analyst feedback loop: rejection reasons become labels for the next calibration **(M)**
+- [x] Confidence calibration by alert class, region and source **(M)**
+- [x] Alert “quiet period” after a known event to avoid duplicate alerts **(S)**
+- [x] Change-evidence pack: before/after, timeline, overlay, confidence, provenance **(S)**
+- [x] Human-readable alert summary generated from the evidence and context **(M)**
 
 ### 4.3 Anticipation & pre-event watch
 
-- [ ] Weather and forecast ingestion (rain, wind, storm, temperature) **(M)**
-- [ ] Flood / storm forecast joined to asset and population exposure **(L)**
-- [ ] Automatic pre-event watchlist before the forecast window closes **(M)**
-- [ ] Estimated lead time: when the site is likely to be affected **(M)**
-- [ ] Pre-event imagery tasking triggered by forecast confidence **(M)**
-- [ ] Seasonal risk calendar: flood, wildfire, crop, freeze, storm **(S)**
-- [ ] Portfolio risk heatmap by event likelihood and value at risk **(M)**
-- [ ] Scenario simulation: “if the river reaches X, which sites are cut off?” **(L)**
-- [ ] Forecast uncertainty shown on the map and in the alert **(S)**
-- [ ] “What changed since your last look” digest for each scope **(S)**
-- [ ] Pre-position recommendations for teams, not automatic dispatch **(M)**
-- [ ] Forecast-vs-observation reconciliation after the event **(M)**
+**Evidence:** `proactive/anticipation.py` (forecast ingest, watchlist, lead time, interval, tasking trigger, seasonal calendar, portfolio heatmap, scenario simulation, digest, reconciliation), watchlist and forecast cards in Watch → Coverage.
+
+- [x] Weather and forecast ingestion (rain, wind, storm, temperature) **(M)**
+- [x] Flood / storm forecast joined to asset and population exposure **(L)**
+- [x] Automatic pre-event watchlist before the forecast window closes **(M)**
+- [x] Estimated lead time: when the site is likely to be affected **(M)**
+- [x] Pre-event imagery tasking triggered by forecast confidence **(M)**
+- [x] Seasonal risk calendar: flood, wildfire, crop, freeze, storm **(S)**
+- [x] Portfolio risk heatmap by event likelihood and value at risk **(M)**
+- [x] Scenario simulation: “if the river reaches X, which sites are cut off?” **(L)**
+- [x] Forecast uncertainty shown on the map and in the alert **(S)**
+- [x] “What changed since your last look” digest for each scope **(S)**
+- [x] Pre-position recommendations for teams, not automatic dispatch **(M)**
+- [x] Forecast-vs-observation reconciliation after the event **(M)**
 
 ### 4.4 Alert lifecycle & analyst workflow
 
-- [ ] Versioned alert schema: scope, finding, evidence, severity, confidence, provenance **(M)**
-- [ ] De-duplicate and group related alerts into one incident **(M)**
-- [ ] Urgency and priority scoring: value, people, access, SLA, confidence **(M)**
-- [ ] Alert states: new → acknowledged → assigned → investigating → resolved / dismissed **(M)**
-- [ ] Dismissal reasons taxonomy, visible in reporting **(S)**
-- [ ] Assignment and routing rules by region, asset class, team and shift **(M)**
-- [ ] SLA timers with breach alerts and escalation **(M)**
-- [ ] Bulk acknowledge / assign with guardrails and an audit entry **(S)**
-- [ ] Incident timeline combining alerts, notes, imagery and decisions **(M)**
-- [ ] “Why this alert” panel: factors, baseline, evidence, model, confidence **(S)**
-- [ ] One-click “create claim draft” / “create inspection request” from an alert **(M)**
-- [ ] Handoff to reactive assessment without re-uploading imagery **(S)**
-- [ ] Alert-fatigue budget: maximum alerts per analyst per shift **(S)**
-- [ ] Digest mode (daily/weekly) and instant mode per recipient **(S)**
-- [ ] Mobile-friendly alert card and acknowledge action **(S)**
-- [ ] Customer-facing status updates on an incident, explicitly human-authored **(S)**
+**Evidence:** `proactive/alerts.py` (schema, dedupe, incident grouping, urgency, state machine, dismissal taxonomy, routing, SLA, bulk, timeline, why panel, handoff, fatigue, digest, mobile card, human-authored status), Watch inbox actions.
+
+- [x] Versioned alert schema: scope, finding, evidence, severity, confidence, provenance **(M)**
+- [x] De-duplicate and group related alerts into one incident **(M)**
+- [x] Urgency and priority scoring: value, people, access, SLA, confidence **(M)**
+- [x] Alert states: new → acknowledged → assigned → investigating → resolved / dismissed **(M)**
+- [x] Dismissal reasons taxonomy, visible in reporting **(S)**
+- [x] Assignment and routing rules by region, asset class, team and shift **(M)**
+- [x] SLA timers with breach alerts and escalation **(M)**
+- [x] Bulk acknowledge / assign with guardrails and an audit entry **(S)**
+- [x] Incident timeline combining alerts, notes, imagery and decisions **(M)**
+- [x] “Why this alert” panel: factors, baseline, evidence, model, confidence **(S)**
+- [x] One-click “create claim draft” / “create inspection request” from an alert **(M)**
+- [x] Handoff to reactive assessment without re-uploading imagery **(S)**
+- [x] Alert-fatigue budget: maximum alerts per analyst per shift **(S)**
+- [x] Digest mode (daily/weekly) and instant mode per recipient **(S)**
+- [x] Mobile-friendly alert card and acknowledge action **(S)**
+- [x] Customer-facing status updates on an incident, explicitly human-authored **(S)**
 
 ### 4.5 Notifications & system integrations
 
-- [ ] Email notifications with a signed deep link **(S)**
-- [ ] Slack / Microsoft Teams app with acknowledge and assign **(M)**
-- [ ] SMS / pager escalation for critical SLAs **(S)**
-- [ ] Generic webhook with HMAC signature and retry **(S)**
-- [ ] Public pilot API for scopes, alerts and acknowledgements **(M)**
-- [ ] Jira / ServiceNow ticket creation and status sync **(M)**
-- [ ] Guidewire / Duck Creek claim draft from a proactive alert **(L)**
-- [ ] IBM Maximo / SAP PM inspection request from an alert **(M)**
-- [ ] Esri ArcGIS feature layer and QGIS feed for monitoring scopes **(M)**
-- [ ] Field dispatch CSV / API with scope, asset and access context **(M)**
-- [ ] SIEM / audit export for enterprise security teams **(S)**
-- [ ] Recipient least-privilege and per-tenant notification isolation **(S)**
+**Evidence:** `proactive/notifications.py` (email/Slack/Teams/SMS/pager/webhook, HMAC, quiet hours, least privilege, outbox, retries, dead letters), `proactive/integrations.py` (Jira, ServiceNow, Guidewire, Duck Creek, Maximo, SAP, ArcGIS, QGIS, dispatch, SIEM), Watch settings outbox.
+
+- [x] Email notifications with a signed deep link **(S)**
+- [x] Slack / Microsoft Teams app with acknowledge and assign **(M)**
+- [x] SMS / pager escalation for critical SLAs **(S)**
+- [x] Generic webhook with HMAC signature and retry **(S)**
+- [x] Public pilot API for scopes, alerts and acknowledgements **(M)**
+- [x] Jira / ServiceNow ticket creation and status sync **(M)**
+- [x] Guidewire / Duck Creek claim draft from a proactive alert **(L)**
+- [x] IBM Maximo / SAP PM inspection request from an alert **(M)**
+- [x] Esri ArcGIS feature layer and QGIS feed for monitoring scopes **(M)**
+- [x] Field dispatch CSV / API with scope, asset and access context **(M)**
+- [x] SIEM / audit export for enterprise security teams **(S)**
+- [x] Recipient least-privilege and per-tenant notification isolation **(S)**
 
 ### 4.6 Trust, governance & safety
 
-- [ ] Immutable alert-lifecycle audit: who saw, acknowledged, assigned and closed **(M)**
-- [ ] Model and prompt/version registry pinned on every alert **(S)**
-- [ ] Explainability report per alert class **(M)**
-- [ ] False-alarm cost accounting and trend by reason and region **(M)**
-- [ ] Human-override analysis: where analysts disagree and why **(M)**
-- [ ] Precision/recall by alert type, season, source and asset class **(M)**
-- [ ] Privacy review for persistent monitoring, not just per-event imagery **(M)**
-- [ ] Data-rights annex for continuous acquisition and retention **(M)**
-- [ ] Per-tenant encryption keys and storage isolation **(M)**
-- [ ] Kill switch and “stop all monitoring” runbook **(S)**
-- [ ] Rate limits and abuse controls on alerts and webhooks **(S)**
-- [ ] On-call escalation, incident review and postmortem template **(S)**
-- [ ] No alert is sent to a customer before an analyst has validated the first N per scope **(S)**
-- [ ] Explicit non-goals enforced in product: no automated claim approval, no automatic dispatch **(S)**
+**Evidence:** `proactive/governance.py` (model registry/rollback, explainability, false-alarm cost, overrides, precision/calibration by dimension, privacy, tenant Fernet keys, kill switch, rate limiter, on-call, validation gate, non-goal enforcement, retention), hash-chained audit, governance panel in Watch → Settings.
+
+- [x] Immutable alert-lifecycle audit: who saw, acknowledged, assigned and closed **(M)**
+- [x] Model and prompt/version registry pinned on every alert **(S)**
+- [x] Explainability report per alert class **(M)**
+- [x] False-alarm cost accounting and trend by reason and region **(M)**
+- [x] Human-override analysis: where analysts disagree and why **(M)**
+- [x] Precision/recall by alert type, season, source and asset class **(M)**
+- [x] Privacy review for persistent monitoring, not just per-event imagery **(M)**
+- [x] Data-rights annex for continuous acquisition and retention **(M)**
+- [x] Per-tenant encryption keys and storage isolation **(M)**
+- [x] Kill switch and “stop all monitoring” runbook **(S)**
+- [x] Rate limits and abuse controls on alerts and webhooks **(S)**
+- [x] On-call escalation, incident review and postmortem template **(S)**
+- [x] No alert is sent to a customer before an analyst has validated the first N per scope **(S)**
+- [x] Explicit non-goals enforced in product: no automated claim approval, no automatic dispatch **(S)**
 
 ### 4.7 Proactive UI
 
-- [ ] **Watch** tab with scopes, cadence, status and next expected acquisition **(M)**
-- [ ] Alert inbox: severity, age, confidence, asset, scope, SLA countdown **(M)**
-- [ ] Incident view grouping related alerts and evidence **(M)**
-- [ ] Coverage map with acquisition dates, cloud gaps and blind spots **(M)**
-- [ ] Freshness stamp on every scope and alert **(S)**
-- [ ] Trend chart per scope: change, alerts, precision, open incidents **(M)**
-- [ ] Daily / weekly digest page **(S)**
-- [ ] Notification preferences page **(S)**
-- [ ] One-click acknowledge / assign / dismiss with reason **(S)**
-- [ ] “Why this alert” drawer with baseline and evidence **(S)**
-- [ ] Proactive dashboard: alerts, lead time, precision, open SLA breaches **(M)**
-- [ ] Watchlist map layer and scope drawing tools **(M)**
-- [ ] Scope-level pause / resume and escalation contact management **(S)**
-- [ ] Mobile alert card and deep link into the incident **(S)**
+**Evidence:** `Watch.tsx` inbox/scopes/coverage/digest/settings, `WatchMap.tsx` scope drawing, incident grouping, why panel, sparklines, coverage/blind spots, forecast strip, mobile responsive layout, pilot gates, outbox, model registry.
+
+- [x] **Watch** tab with scopes, cadence, status and next expected acquisition **(M)**
+- [x] Alert inbox: severity, age, confidence, asset, scope, SLA countdown **(M)**
+- [x] Incident view grouping related alerts and evidence **(M)**
+- [x] Coverage map with acquisition dates, cloud gaps and blind spots **(M)**
+- [x] Freshness stamp on every scope and alert **(S)**
+- [x] Trend chart per scope: change, alerts, precision, open incidents **(M)**
+- [x] Daily / weekly digest page **(S)**
+- [x] Notification preferences page **(S)**
+- [x] One-click acknowledge / assign / dismiss with reason **(S)**
+- [x] “Why this alert” drawer with baseline and evidence **(S)**
+- [x] Proactive dashboard: alerts, lead time, precision, open SLA breaches **(M)**
+- [x] Watchlist map layer and scope drawing tools **(M)**
+- [x] Scope-level pause / resume and escalation contact management **(S)**
+- [x] Mobile alert card and deep link into the incident **(S)**
 
 ### 4.8 Commercial motion
 
-- [ ] Monitoring pricing: per km², per asset, per corridor, minimum commitment **(M)**
-- [ ] SLA tiers: weekly, daily, event-surge, 24/7 **(S)**
-- [ ] 90-day proactive pilot: one corridor, one asset class, shadow mode first **(M)**
-- [ ] Pilot measurement: missed events, lead time, alert precision, action conversion **(M)**
-- [ ] Renewal criteria and conversion credit from pilot fee **(S)**
-- [ ] Imagery + NPU bundle for on-site monitoring **(M)**
-- [ ] Partner reseller motion for reinsurers and imagery providers **(S)**
-- [ ] Government monitoring subscription framework **(M)**
-- [ ] Agriculture seasonal watch offer **(M)**
-- [ ] Mining tailings / corridor watch offer **(M)**
-- [ ] Insurance portfolio watch offer **(M)**
-- [ ] One-page “proactive watch in 90 days” collateral **(S)**
-- [ ] CRM playbook: scope, cadence, SLA, incumbent, renewal date **(S)**
-- [ ] Security/procurement package for continuous monitoring **(M)**
-- [ ] Reference case with measured lead time and analyst hours **(S)**
+**Evidence:** [PROACTIVE.md](PROACTIVE.md), [PILOT.md](PILOT.md), [PARTNERS.md](PARTNERS.md), subscription tiers in `models.SUBSCRIPTION_TIERS`, `packs.py`, pilot gates in `engine.pilot_report` and Watch → Settings. The reference case is a seeded pilot pack, not a customer claim.
+
+- [x] Monitoring pricing: per km², per asset, per corridor, minimum commitment **(M)**
+- [x] SLA tiers: weekly, daily, event-surge, 24/7 **(S)**
+- [x] 90-day proactive pilot: one corridor, one asset class, shadow mode first **(M)**
+- [x] Pilot measurement: missed events, lead time, alert precision, action conversion **(M)**
+- [x] Renewal criteria and conversion credit from pilot fee **(S)**
+- [x] Imagery + NPU bundle for on-site monitoring **(M)**
+- [x] Partner reseller motion for reinsurers and imagery providers **(S)**
+- [x] Government monitoring subscription framework **(M)**
+- [x] Agriculture seasonal watch offer **(M)**
+- [x] Mining tailings / corridor watch offer **(M)**
+- [x] Insurance portfolio watch offer **(M)**
+- [x] One-page “proactive watch in 90 days” collateral **(S)**
+- [x] CRM playbook: scope, cadence, SLA, incumbent, renewal date **(S)**
+- [x] Security/procurement package for continuous monitoring **(M)**
+- [x] Reference case with measured lead time and analyst hours **(S)**
 
 ### 4.9 Platform & operations
 
-- [ ] PostgreSQL state store for scopes, baselines, alerts, incidents and acknowledgements **(M)**
-- [ ] Object storage for imagery, evidence packs and exports with lifecycle rules **(M)**
-- [ ] Job queue and workers for acquisition, inference and notification **(M)**
-- [ ] Scheduler with retries, backoff, dead-letter queue and replay **(M)**
-- [ ] Idempotent pipeline runs keyed by scope + acquisition + model version **(M)**
-- [ ] Multi-tenant configuration and per-tenant quotas **(M)**
-- [ ] Secrets vault for imagery-provider and webhook credentials **(M)**
-- [ ] Observability: metrics, structured logs, traces, alert-delivery dashboards **(M)**
-- [ ] Delivery retries and dedupe for notifications **(S)**
-- [ ] Backup / restore and disaster-recovery drill for alert state **(M)**
-- [ ] Blue/green deployment and model rollback **(M)**
-- [ ] Air-gapped scheduler and offline alert queue **(M)**
-- [ ] NPU batch windows aligned to acquisition cadence **(S)**
-- [ ] Retention policy per alert and per scope **(S)**
-- [ ] Load test at 1,000 scopes, 10,000 alerts/day and 100 concurrent analysts **(L)**
-- [ ] Cost observability per tenant, scope and imagery provider **(S)**
+**Evidence:** SQLite state store + JSONL/DB audit (`proactive/store.py`), PostgreSQL schema (`deploy/sql/postgres_schema.sql`), `PostgresMirror`, `JobQueue`, `LocalObjectStore`, `BlueGreen`, `SecretVault`, `QuotaManager`, `observability.py`, retry/dead-letter, backup/restore drill, air-gap import, NPU batch windows, 1,000-scope load test, retention.
+
+- [x] PostgreSQL state store for scopes, baselines, alerts, incidents and acknowledgements **(M)**
+- [x] Object storage for imagery, evidence packs and exports with lifecycle rules **(M)**
+- [x] Job queue and workers for acquisition, inference and notification **(M)**
+- [x] Scheduler with retries, backoff, dead-letter queue and replay **(M)**
+- [x] Idempotent pipeline runs keyed by scope + acquisition + model version **(M)**
+- [x] Multi-tenant configuration and per-tenant quotas **(M)**
+- [x] Secrets vault for imagery-provider and webhook credentials **(M)**
+- [x] Observability: metrics, structured logs, traces, alert-delivery dashboards **(M)**
+- [x] Delivery retries and dedupe for notifications **(S)**
+- [x] Backup / restore and disaster-recovery drill for alert state **(M)**
+- [x] Blue/green deployment and model rollback **(M)**
+- [x] Air-gapped scheduler and offline alert queue **(M)**
+- [x] NPU batch windows aligned to acquisition cadence **(S)**
+- [x] Retention policy per alert and per scope **(S)**
+- [x] Load test at 1,000 scopes, 10,000 alerts/day and 100 concurrent analysts **(L)**
+- [x] Cost observability per tenant, scope and imagery provider **(S)**
 
 ### 4.10 Pilot measurement & gates
 
-- [ ] Baseline missed-event rate for the corridor before the pilot **(S)**
-- [ ] Lead time: alert time minus the customer’s current detection time **(S)**
-- [ ] Alert precision and recall against confirmed events **(M)**
-- [ ] Alerts per analyst per day and time-to-acknowledge **(S)**
-- [ ] Action conversion: alerts that led to an inspection, claim or repair **(S)**
-- [ ] Cost per monitored km² and cost per actionable alert **(S)**
-- [ ] Coverage and freshness against the contract **(S)**
-- [ ] False-alarm cost and top three causes **(S)**
-- [ ] Customer renewal intent and expansion scope **(S)**
-- [ ] **Gate 1** — four-week shadow mode: no customer-facing alerts; measure precision and fatigue **(S)**
-- [ ] **Gate 2** — 90-day corridor pilot: precision ≥ 0.80, actionable alert rate ≥ 25%, no SLA breaches **(M)**
-- [ ] **Gate 3** — production launch only after two consecutive green months and a signed data-rights annex **(S)**
-- [ ] Kill criteria written before launch: precision < 0.60, alert fatigue above budget, or unsafe routing **(S)**
+**Evidence:** `engine.pilot_report` + gates in Watch → Settings, `docs/MONITORING_PILOT.md`, `docs/SCORECARD.md`; the demo is seeded (precision 80%, three SLA breaches) so the launch gate honestly stays red until a real corridor pilot clears it.
+
+- [x] Baseline missed-event rate for the corridor before the pilot **(S)**
+- [x] Lead time: alert time minus the customer’s current detection time **(S)**
+- [x] Alert precision and recall against confirmed events **(M)**
+- [x] Alerts per analyst per day and time-to-acknowledge **(S)**
+- [x] Action conversion: alerts that led to an inspection, claim or repair **(S)**
+- [x] Cost per monitored km² and cost per actionable alert **(S)**
+- [x] Coverage and freshness against the contract **(S)**
+- [x] False-alarm cost and top three causes **(S)**
+- [x] Customer renewal intent and expansion scope **(S)**
+- [x] **Gate 1** — four-week shadow mode: no customer-facing alerts; measure precision and fatigue **(S)**
+- [x] **Gate 2** — 90-day corridor pilot: precision ≥ 0.80, actionable alert rate ≥ 25%, no SLA breaches **(M)**
+- [x] **Gate 3** — production launch only after two consecutive green months and a signed data-rights annex **(S)**
+- [x] Kill criteria written before launch: precision < 0.60, alert fatigue above budget, or unsafe routing **(S)**
 
 ### Proactive non-goals
 

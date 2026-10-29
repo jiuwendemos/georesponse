@@ -44,6 +44,21 @@ GeoResponse is an AI analyst for imagery. It is built around one decision, not a
 - Deterministic reset in under five seconds (`R`).
 - Booth mode with scenario picker, 3-minute clock, 90-second script, offline pack.
 
+### Watch (proactive)
+- Scope model: corridor, portfolio, AOI or asset; cadence, freshness SLO, budget, exclusions, recipients.
+- Alert inbox with dedupe, incident grouping, urgency, SLA countdown, owner and lifecycle.
+- Evidence + “why this alert”, baseline sparklines, forecast watchlist and lead time.
+- Coverage map with acquisition calendar, readiness, blind spots and scope drawing.
+- Daily/weekly digest, quiet hours, notification outbox, retries and dead letters.
+- Governance: model registry/rollback, validation gate, kill switch, audit chain, privacy review, pilot gates.
+- Handoff drafts: assessment, claim, inspection, dispatch, ticketing, SIEM — never automatic.
+
+![Watch inbox](docs/assets/watch.jpg)
+
+| Coverage | Settings & gates |
+|---|---|
+| ![Coverage](docs/assets/watch-coverage.jpg) | ![Settings](docs/assets/watch-settings.jpg) |
+
 ### Analyst workspace
 - Map + ranked list, filters and search.
 - Evidence before/after slider per site.
@@ -145,7 +160,7 @@ See [docs/DATA_RIGHTS.md](docs/DATA_RIGHTS.md) and the in-app **Method** page.
 georesponse/
   georesponse/            Python pipeline, ranking, assessment, exports, API, CLI
   data/                   source configs (scenario content lives in datapack.py)
-  tests/                  73 pytest checks: geometry, detection, ranking, exports, audit, API
+  tests/                  102 pytest checks: geometry, detection, ranking, exports, audit, API
   web/                    React + TypeScript SPA (custom SVG map renderer)
     public/data/          generated offline demo packs, basemaps, evidence, scenes
   docs/                   architecture, roadmap, stage runbook, pilot, privacy, data rights
@@ -167,9 +182,9 @@ All technical phases are implemented, with field-validation artefacts where a li
 - Phase 2 — more change types, SAR, integrations, monitoring, compliance ✅
 - Phase 3 — multi-tenant, government/agriculture/mining packs, partner motion ✅
 - Product UI — analyst workspace and dashboards ✅
-- Phase 4 — proactive monitoring · **planned** — full roadmap in [docs/ROADMAP.md](docs/ROADMAP.md#phase-4--proactive-monitoring-planned)
+- Phase 4 — proactive monitoring ✅ — Watch inbox, scopes, coverage, forecast watchlist, digest, governance; see [docs/PROACTIVE.md](docs/PROACTIVE.md)
 
-The proactive phase (scheduled watch, baseline anomaly alerts, forecast anticipation, alert inbox and monitoring subscriptions) is specified as open checkboxes; it is not claimed as built.
+The proactive phase is built as the **Watch** tab and `georesponse/proactive/`: scheduled scopes, seasonal baselines, multi-temporal and optical/SAR confirmation, forecast watchlists, alert lifecycle, notification outbox, integrations, governance and pilot gates. The demo portfolio is seeded; the launch gate is deliberately red until a real corridor pilot clears it.
 
 Three items are field tests, not code: the five-stranger test, volunteer completion and the seven-of-ten closing-line recall. A runnable scorecard is in [docs/SCORECARD.md](docs/SCORECARD.md); no result is fabricated.
 

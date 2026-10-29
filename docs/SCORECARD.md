@@ -62,3 +62,21 @@ Recall:                    ___/10
 Reset time:                ___ s
 Notes / changes:
 ```
+
+
+## Proactive monitoring gates
+
+Use the Watch → Settings → Pilot gates panel and the API `GET /api/watch/pilot`:
+
+| Gate | Pass condition |
+|---|---|
+| Shadow validations | At least 3 analyst-validated alerts per scope |
+| Precision | ≥ 0.80 on closed alerts |
+| Alert load | ≤ 8 per analyst per 8h |
+| SLA | 0 breaches in the measurement window |
+| Coverage | freshness within contract; blind spots disclosed |
+| Safety | zero auto-approvals / auto-dispatch |
+| Privacy | DPA, retention and scope review signed |
+
+The bundled demo pack has three SLA breaches, so the launch gate is red by design. Do not launch a
+real customer on a red gate.

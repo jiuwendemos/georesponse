@@ -2,7 +2,7 @@ import type { FeatureCollection, Geometry, Polygon } from 'geojson'
 
 export type Severity = 'red' | 'orange' | 'yellow'
 export type ReviewStatus = 'pending' | 'approved' | 'flagged' | 'rejected'
-export type Mode = 'stage' | 'analyst' | 'dashboard' | 'method' | 'booth'
+export type Mode = 'stage' | 'analyst' | 'watch' | 'dashboard' | 'method' | 'booth'
 
 export interface WhyItem {
   label: string
@@ -336,4 +336,296 @@ export interface PrivacyData {
   open: number
   done: number
   note: string
+}
+
+
+// ---------------------------------------------------------------- proactive
+
+export interface ProactiveScope {
+  id: string
+  tenant: string
+  name: string
+  kind: string
+  region: string
+  center: [number, number]
+  bbox: [number, number, number, number]
+  asset_class: string
+  change_types: string[]
+  cadence: string
+  priority: number
+  subscription_tier: string
+  status: string
+  freshness_slo_hours: number
+  recipients: string[]
+  tags: string[]
+  created_at: string
+  metadata: Record<string, unknown>
+}
+
+export interface ProactivePlan {
+  scope_id: string
+  cadence: string
+  sources: string[]
+  cloud_policy: string
+  threshold_sigma: number
+  min_change: number
+  recipients: string[]
+  sla_hours: number
+  quiet_hours: [number, number] | null
+  digest: string
+  escalation: Record<string, unknown>[]
+  budget_eur_per_month: number
+  paused: boolean
+  kill_switch: boolean
+  coverage_mode: string
+  retention_days: number
+  first_n_alerts_require_analyst: number
+  language: string
+  channels: string[]
+  updated_at: string
+}
+
+export interface ProactiveAlert {
+  id: string
+  tenant: string
+  scope_id: string
+  title: string
+  summary: string
+  severity: Severity
+  urgency: number
+  confidence: number
+  change_type: string
+  observed: number
+  baseline: number
+  lon: number
+  lat: number
+  incident_id: string | null
+  status: string
+  assignee: string | null
+  sla_due: string | null
+  created_at: string
+  updated_at: string
+  acknowledged_at: string | null
+  resolved_at: string | null
+  dismissed_reason: string | null
+  dismissal_note: string | null
+  asset: string | null
+  value_eur: number
+  population: number
+  access: string
+  source: string
+  model_version: string
+  evidence: { before?: string; after?: string; observation?: string }
+  why: Record<string, unknown>
+  provenance: Record<string, unknown>
+  dedupe_key: string
+  schema_version: string
+  validated_by: string | null
+  validation_count: number
+  tags: string[]
+}
+
+export interface ProactiveIncident {
+  id: string
+  tenant: string
+  scope_id: string
+  title: string
+  severity: Severity
+  status: string
+  alert_ids: string[]
+  assignee: string | null
+  opened_at: string
+  closed_at: string | null
+  summary: string
+  timeline: { at: string; event: string; alertId?: string; actor?: string; note?: string }[]
+  metadata: Record<string, unknown>
+}
+
+export interface ProactiveForecast {
+  id: string
+  region: string
+  issued_at: string
+  valid_from: string
+  valid_to: string
+  hazard: string
+  probability: number
+  rainfall_mm: number
+  wind_kmh: number
+  river_level_m: number
+  uncertainty: number
+  source: string
+  confidence: number
+  metadata: Record<string, unknown>
+}
+
+export interface ProactiveAcquisition {
+  id: string
+  scope_id: string
+  source: string
+  scheduled_for: string
+  status: string
+  cloud_forecast: number
+  cost_eur: number
+  priority: number
+  attempts: number
+  next_attempt_at: string | null
+  idempotency_key: string
+  bbox: [number, number, number, number] | null
+  resolution_m: number
+  scene_id: string | null
+  received_at: string | null
+  readiness: number
+  blind_spot_reason: string | null
+  provenance: Record<string, unknown>
+  created_at: string
+}
+
+export interface ProactiveBaseline {
+  scope_id: string
+  metric: string
+  values: number[]
+  season: string
+  mean: number
+  std: number
+  minimum: number
+  maximum: number
+  trend: string
+  updated_at: string
+  model_version: string
+  confirmed_at: string | null
+  metadata: Record<string, unknown>
+}
+
+export interface WatchlistEntry {
+  scopeId: string
+  name: string
+  region: string
+  hazard: string
+  probability: number
+  interval: [number, number]
+  uncertainty: number
+  leadTimeHours: number
+  score: number
+  urgency: number
+  exposure: { valueEur: number; population: number; criticalAssets: number; assets: number }
+  validTo: string
+  forecastId: string
+  recommendation: { teams: number; note: string; prioritySites: number; reason: string }
+  taskingTrigger: boolean
+  status: string
+  computedAt: string
+}
+
+export interface CoverageEntry {
+  scopeId: string
+  name: string
+  kind: string
+  region: string
+  bbox: [number, number, number, number]
+  center: [number, number]
+  areaKm2: number
+  cadence: string
+  status: string
+  lastAcquisition: string | null
+  nextExpected: string | null
+  freshnessHours: number | null
+  readiness: number
+  coverageStatus: string
+  blindSpot: boolean
+  mode: string
+  source: string | null
+}
+
+export interface ProactiveDashboard {
+  tenant: string
+  alerts: number
+  open: number
+  highRisk: number
+  precision: number
+  actionConversion: number
+  slaBreaches: number
+  scopes: number
+  activeScopes: number
+  monitoredKm2: number
+  costPerKm2: number
+  fatigue: { periodHours: number; alerts: number; analysts: number; perAnalyst: number; budgetPerAnalyst: number; overBudget: boolean; advice: string }
+  freshness: { scopes: number; breached: number; breaches: { scopeId: string; freshnessHours: number | null }[]; status: string }
+  blindSpots: { scopeId: string; name: string; region: string; status: string; freshnessHours: number | null; sloBreached: boolean; mode: string; reason: string }[]
+  onCall: { primary: string; secondary: string; window: string }
+  notifications: { id: string; alertId: string; channel: string; status: string; attempts: number }[]
+  models: Record<string, unknown>[]
+  governance: Record<string, unknown>
+}
+
+export interface ProactivePilot {
+  tenant: string
+  dashboard: ProactiveDashboard
+  leadTimeHours: number | null
+  gates: Record<string, boolean>
+  launchReady: boolean
+  criteria: Record<string, number>
+  generatedAt: string
+}
+
+export interface ProactiveDigest {
+  tenant: string
+  periodHours: number
+  generatedAt: string
+  alerts?: number
+  open?: number
+  headline: string
+  sections: { new: ProactiveAlert[]; inProgress: ProactiveAlert[]; resolved: ProactiveAlert[]; noAction: ProactiveAlert[] }
+  fatigue: ProactiveDashboard['fatigue']
+}
+
+export interface ProactivePreferences {
+  channels: string[]
+  quietHours: [number, number] | null
+  digest: string
+  language: string
+  alertBudgetPerDay: number
+  escalationMinutes: number
+  paused: boolean
+  killSwitch: boolean
+  recipients: { name?: string; email?: string; phone?: string; channels?: string[] }[]
+}
+
+export interface ProactiveModel {
+  name: string
+  version: string
+  status: string
+  metrics: Record<string, number>
+  deployed_at: string
+  rollback_to: string | null
+  notes: string
+}
+
+export interface ProactiveData {
+  generatedAt: string
+  tenant: string
+  mode: string
+  disclaimer: string
+  shadowMode: boolean
+  scopes: ProactiveScope[]
+  plans: ProactivePlan[]
+  alerts: ProactiveAlert[]
+  incidents: ProactiveIncident[]
+  forecasts: ProactiveForecast[]
+  acquisitions: ProactiveAcquisition[]
+  baselines: ProactiveBaseline[]
+  preferences: ProactivePreferences
+  models: ProactiveModel[]
+  dashboard: ProactiveDashboard
+  watch: { watchlist: WatchlistEntry[]; heatmap: unknown[]; tasking: Record<string, unknown>; coverage: CoverageEntry[]; blindSpots: ProactiveDashboard['blindSpots']; freshness: ProactiveDashboard['freshness'] }
+  pilot: ProactivePilot
+  digest: ProactiveDigest
+  quality: Record<string, unknown>
+  governance: Record<string, unknown>
+  coverage: CoverageEntry[]
+  calendar: Record<string, { id: string; scheduledFor: string; status: string; source: string; cloudForecast: number; readiness: number; costEur: number; blindSpotReason: string | null }[]>
+  notifications: { id: string; alertId: string; channel: string; recipient: string; status: string; attempts: number; nextAttemptAt: string | null; error: string | null }[]
+  costs: { summary: { totalEur: number; byKind: Record<string, number>; byScope: Record<string, number>; entries: number }; byScope: { scopeId: string; name: string; totalEur: number }[] }
+  blindSpots: ProactiveDashboard['blindSpots']
+  freshness: ProactiveDashboard['freshness']
+  killSwitch: boolean
 }

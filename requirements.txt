@@ -3,6 +3,7 @@ Pillow>=10
 shapely>=2.0
 pyproj>=3.6
 reportlab>=4.0
+cryptography>=42
 fastapi>=0.110
 uvicorn>=0.29
 pytest>=7

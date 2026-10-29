@@ -22,6 +22,7 @@ from .detection import classify_severity
 from .geo import BBox, METRES_PER_DEG_LAT, circle_polygon, feature, feature_collection, make_flood_envelopes, metres_between, metres_per_deg_lon
 from .mapgen import build_map_layers, make_basemap, make_evidence, make_scene_pair
 from .pilot import build_pilot_dashboard, pilot_offer, precision_recall_report
+from .proactive.demo import write_demo
 from .ranking import access_factor, coverage_plan, rank_disclosure, rank_sites
 from .monitoring import build_monitoring_pack
 from .models import model_card
@@ -728,7 +729,13 @@ def build_all(data_dir: str | Path = DATA_DIR) -> dict:
         ),
         encoding="utf-8",
     )
-    return {"scenarios": len(index_entries), "dataDir": str(data_dir), "bytes": sum(p.stat().st_size for p in data_dir.rglob("*") if p.is_file())}
+    proactive = write_demo(data_dir / "proactive.json")
+    return {
+        "scenarios": len(index_entries),
+        "proactive": proactive,
+        "dataDir": str(data_dir),
+        "bytes": sum(p.stat().st_size for p in data_dir.rglob("*") if p.is_file()),
+    }
 
 
 if __name__ == "__main__":

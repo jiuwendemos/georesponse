@@ -34,6 +34,7 @@ from .exports import (
 )
 from .ranking import rank_sites
 from .security import privacy_review
+from .proactive.api import router as proactive_router
 
 app = FastAPI(title="GeoResponse API", version="0.1.0")
 app.add_middleware(
@@ -65,6 +66,9 @@ def _scenario(scenario_id: str) -> dict:
     if not path.exists():
         raise HTTPException(status_code=404, detail=f"unknown scenario {scenario_id}")
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+app.include_router(proactive_router)
 
 
 @app.get("/api/health")

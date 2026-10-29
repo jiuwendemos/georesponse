@@ -165,6 +165,7 @@ export function TopBar() {
   const { mode, setMode, scenario, index, selectScenario } = useApp()
   const tabs = [
     { id: 'stage', label: 'Stage', icon: 'play' },
+    { id: 'watch', label: 'Watch', icon: 'radar' },
     { id: 'analyst', label: 'Analyst', icon: 'map' },
     { id: 'dashboard', label: 'Pilot', icon: 'chart' },
     { id: 'method', label: 'Method', icon: 'book' },

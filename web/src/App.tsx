@@ -2,6 +2,7 @@ import { AppProvider, useApp } from './store'
 import { Icon, Modal, Toast, TopBar } from './components/ui'
 import Stage from './components/Stage'
 import Analyst from './components/Analyst'
+import Watch from './components/Watch'
 import Dashboard from './components/Dashboard'
 import Method from './components/Method'
 import Booth from './components/Booth'
@@ -107,6 +108,7 @@ function Shell() {
       <main className="app-main">
         {app.mode === 'stage' && <Stage />}
         {app.mode === 'analyst' && <Analyst />}
+        {app.mode === 'watch' && <Watch />}
         {app.mode === 'dashboard' && <Dashboard />}
         {app.mode === 'method' && <Method />}
         {app.mode === 'booth' && <Booth />}

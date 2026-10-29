@@ -1,0 +1,5283 @@
+{
+  "generatedAt": "2026-10-29T19:39:20+00:00",
+  "tenant": "demo",
+  "mode": "proactive",
+  "disclaimer": "Demo monitoring data. Algorithms and lifecycle are real; the scopes, alerts and metrics are seeded for the showcase.",
+  "shadowMode": false,
+  "scopes": [
+    {
+      "id": "scope-ahr-corridor",
+      "tenant": "demo",
+      "name": "Ahr corridor watch",
+      "kind": "corridor",
+      "region": "Ahrweiler, Germany",
+      "center": [
+        7.1,
+        50.545
+      ],
+      "bbox": [
+        7.043,
+        50.522,
+        7.157,
+        50.567
+      ],
+      "asset_class": "utility + emergency",
+      "change_types": [
+        "flood",
+        "erosion",
+        "construction"
+      ],
+      "cadence": "daily",
+      "priority": 1,
+      "subscription_tier": "daily",
+      "status": "active",
+      "freshness_slo_hours": 48,
+      "exclusions": [],
+      "recipients": [],
+      "tags": [
+        "proactive",
+        "utility + emergency"
+      ],
+      "created_at": "2026-10-29T19:39:20+00:00",
+      "metadata": {
+        "valueEur": 56200000,
+        "population": 9630,
+        "assets": [
+          {
+            "id": "S02",
+            "name": "Bad Neuenahr care campus",
+            "valueEur": 6200000,
+            "population": 1800,
+            "critical": true,
+            "groundM": 2.1
+          },
+          {
+            "id": "S04",
+            "name": "Heppingen substation",
+            "valueEur": 8400000,
+            "population": 640,
+            "critical": true,
+            "groundM": 2.6
+          },
+          {
+            "id": "S03",
+            "name": "Heimersheim bridge park",
+            "valueEur": 4200000,
+            "population": 900,
+            "critical": false,
+            "groundM": 2.3
+          },
+          {
+            "id": "S01",
+            "name": "Ahrweiler Altstadt",
+            "valueEur": 4800000,
+            "population": 2100,
+            "critical": false,
+            "groundM": 2.0
+          }
+        ]
+      }
+    },
+    {
+      "id": "scope-rur-utility",
+      "tenant": "demo",
+      "name": "Rur valley utility corridor",
+      "kind": "corridor",
+      "region": "Rur valley, Germany",
+      "center": [
+        6.42,
+        50.76
+      ],
+      "bbox": [
+        6.35,
+        50.72,
+        6.49,
+        50.8
+      ],
+      "asset_class": "utility",
+      "change_types": [
+        "vegetation",
+        "flood",
+        "erosion"
+      ],
+      "cadence": "daily",
+      "priority": 2,
+      "subscription_tier": "daily",
+      "status": "active",
+      "freshness_slo_hours": 48,
+      "exclusions": [],
+      "recipients": [],
+      "tags": [
+        "proactive",
+        "utility"
+      ],
+      "created_at": "2026-10-29T19:39:20+00:00",
+      "metadata": {
+        "valueEur": 18400000,
+        "population": 2100,
+        "assets": [
+          {
+            "id": "R01",
+            "name": "Rur pump station",
+            "valueEur": 7100000,
+            "population": 300,
+            "critical": true,
+            "groundM": 1.8
+          }
+        ]
+      }
+    },
+    {
+      "id": "scope-cologne-construction",
+      "tenant": "demo",
+      "name": "Cologne construction watch",
+      "kind": "portfolio",
+      "region": "Cologne, Germany",
+      "center": [
+        6.905,
+        50.935
+      ],
+      "bbox": [
+        6.84,
+        50.89,
+        6.97,
+        50.98
+      ],
+      "asset_class": "construction",
+      "change_types": [
+        "construction",
+        "structure"
+      ],
+      "cadence": "weekly",
+      "priority": 3,
+      "subscription_tier": "weekly",
+      "status": "active",
+      "freshness_slo_hours": 168,
+      "exclusions": [],
+      "recipients": [],
+      "tags": [
+        "proactive",
+        "construction"
+      ],
+      "created_at": "2026-10-29T19:39:20+00:00",
+      "metadata": {
+        "valueEur": 42000000,
+        "population": 5400,
+        "assets": [
+          {
+            "id": "C03",
+            "name": "Ehrenfeld yard",
+            "valueEur": 12000000,
+            "population": 400,
+            "critical": false,
+            "groundM": 9.0
+          }
+        ]
+      }
+    },
+    {
+      "id": "scope-eifel-fire",
+      "tenant": "demo",
+      "name": "Eifel ridge wildfire watch",
+      "kind": "aoi",
+      "region": "Eifel, Germany",
+      "center": [
+        6.42,
+        50.59
+      ],
+      "bbox": [
+        6.35,
+        50.54,
+        6.49,
+        50.65
+      ],
+      "asset_class": "insurance",
+      "change_types": [
+        "wildfire",
+        "vegetation"
+      ],
+      "cadence": "12h",
+      "priority": 2,
+      "subscription_tier": "daily",
+      "status": "active",
+      "freshness_slo_hours": 24,
+      "exclusions": [],
+      "recipients": [],
+      "tags": [
+        "proactive",
+        "insurance"
+      ],
+      "created_at": "2026-10-29T19:39:20+00:00",
+      "metadata": {
+        "valueEur": 11800000,
+        "population": 1250,
+        "assets": [
+          {
+            "id": "E11",
+            "name": "Vogelsang forest block",
+            "valueEur": 4400000,
+            "population": 120,
+            "critical": false,
+            "groundM": 4.0
+          }
+        ]
+      }
+    },
+    {
+      "id": "scope-dernau-vineyard",
+      "tenant": "demo",
+      "name": "Dernau vineyard block",
+      "kind": "asset",
+      "region": "Dernau, Germany",
+      "center": [
+        7.05,
+        50.53
+      ],
+      "bbox": [
+        7.03,
+        50.515,
+        7.07,
+        50.545
+      ],
+      "asset_class": "agriculture",
+      "change_types": [
+        "vegetation",
+        "flood"
+      ],
+      "cadence": "weekly",
+      "priority": 4,
+      "subscription_tier": "weekly",
+      "status": "active",
+      "freshness_slo_hours": 168,
+      "exclusions": [],
+      "recipients": [],
+      "tags": [
+        "proactive",
+        "agriculture"
+      ],
+      "created_at": "2026-10-29T19:39:20+00:00",
+      "metadata": {
+        "valueEur": 2800000,
+        "population": 180,
+        "assets": [
+          {
+            "id": "D08",
+            "name": "Dernau vineyard terraces",
+            "valueEur": 2800000,
+            "population": 180,
+            "critical": false,
+            "groundM": 2.2
+          }
+        ]
+      }
+    },
+    {
+      "id": "scope-tailings-watch",
+      "tenant": "demo",
+      "name": "Rur tailings watch",
+      "kind": "aoi",
+      "region": "Rur valley, Germany",
+      "center": [
+        6.45,
+        50.72
+      ],
+      "bbox": [
+        6.4,
+        50.69,
+        6.5,
+        50.75
+      ],
+      "asset_class": "mining",
+      "change_types": [
+        "erosion",
+        "structure"
+      ],
+      "cadence": "weekly",
+      "priority": 3,
+      "subscription_tier": "weekly",
+      "status": "active",
+      "freshness_slo_hours": 168,
+      "exclusions": [],
+      "recipients": [],
+      "tags": [
+        "proactive",
+        "mining"
+      ],
+      "created_at": "2026-10-29T19:39:20+00:00",
+      "metadata": {
+        "valueEur": 64000000,
+        "population": 80,
+        "assets": [
+          {
+            "id": "T01",
+            "name": "Tailings dam north cell",
+            "valueEur": 64000000,
+            "population": 80,
+            "critical": true,
+            "groundM": 8.0
+          }
+        ]
+      }
+    }
+  ],
+  "plans": [
+    {
+      "scope_id": "scope-ahr-corridor",
+      "cadence": "daily",
+      "sources": [
+        "sentinel-2",
+        "sentinel-1"
+      ],
+      "cloud_policy": "optical-under-30-else-sar",
+      "threshold_sigma": 2.5,
+      "min_change": 0.06,
+      "recipients": [
+        "ops@example.com",
+        "claims@example.com"
+      ],
+      "sla_hours": 4,
+      "quiet_hours": [
+        22,
+        7
+      ],
+      "digest": "instant",
+      "escalation": [
+        {
+          "scopeId": "scope-ahr-corridor",
+          "minSeverity": "red",
+          "team": "incident",
+          "assignee": "A. Weber"
+        },
+        {
+          "scopeId": "scope-ahr-corridor",
+          "team": "watch",
+          "assignee": "M. Keller"
+        }
+      ],
+      "budget_eur_per_month": 2500,
+      "paused": false,
+      "kill_switch": false,
+      "coverage_mode": "best-effort",
+      "retention_days": 365,
+      "first_n_alerts_require_analyst": 3,
+      "language": "en",
+      "channels": [
+        "email",
+        "slack"
+      ],
+      "updated_at": "2026-10-29T19:39:20+00:00"
+    },
+    {
+      "scope_id": "scope-rur-utility",
+      "cadence": "daily",
+      "sources": [
+        "sentinel-2",
+        "sentinel-1"
+      ],
+      "cloud_policy": "optical-under-30-else-sar",
+      "threshold_sigma": 2.5,
+      "min_change": 0.06,
+      "recipients": [
+        "ops@example.com",
+        "claims@example.com"
+      ],
+      "sla_hours": 4,
+      "quiet_hours": [
+        22,
+        7
+      ],
+      "digest": "daily",
+      "escalation": [
+        {
+          "scopeId": "scope-rur-utility",
+          "minSeverity": "red",
+          "team": "incident",
+          "assignee": "A. Weber"
+        },
+        {
+          "scopeId": "scope-rur-utility",
+          "team": "watch",
+          "assignee": "M. Keller"
+        }
+      ],
+      "budget_eur_per_month": 1200,
+      "paused": false,
+      "kill_switch": false,
+      "coverage_mode": "best-effort",
+      "retention_days": 365,
+      "first_n_alerts_require_analyst": 3,
+      "language": "en",
+      "channels": [
+        "email",
+        "slack"
+      ],
+      "updated_at": "2026-10-29T19:39:20+00:00"
+    },
+    {
+      "scope_id": "scope-cologne-construction",
+      "cadence": "weekly",
+      "sources": [
+        "sentinel-2",
+        "sentinel-1"
+      ],
+      "cloud_policy": "optical-under-30-else-sar",
+      "threshold_sigma": 2.5,
+      "min_change": 0.06,
+      "recipients": [
+        "ops@example.com",
+        "claims@example.com"
+      ],
+      "sla_hours": 8,
+      "quiet_hours": [
+        22,
+        7
+      ],
+      "digest": "weekly",
+      "escalation": [
+        {
+          "scopeId": "scope-cologne-construction",
+          "minSeverity": "red",
+          "team": "incident",
+          "assignee": "A. Weber"
+        },
+        {
+          "scopeId": "scope-cologne-construction",
+          "team": "watch",
+          "assignee": "M. Keller"
+        }
+      ],
+      "budget_eur_per_month": 800,
+      "paused": false,
+      "kill_switch": false,
+      "coverage_mode": "best-effort",
+      "retention_days": 365,
+      "first_n_alerts_require_analyst": 3,
+      "language": "en",
+      "channels": [
+        "email",
+        "slack"
+      ],
+      "updated_at": "2026-10-29T19:39:20+00:00"
+    },
+    {
+      "scope_id": "scope-eifel-fire",
+      "cadence": "12h",
+      "sources": [
+        "sentinel-2",
+        "sentinel-1"
+      ],
+      "cloud_policy": "optical-under-30-else-sar",
+      "threshold_sigma": 2.5,
+      "min_change": 0.06,
+      "recipients": [
+        "ops@example.com",
+        "claims@example.com"
+      ],
+      "sla_hours": 4,
+      "quiet_hours": [
+        22,
+        7
+      ],
+      "digest": "instant",
+      "escalation": [
+        {
+          "scopeId": "scope-eifel-fire",
+          "minSeverity": "red",
+          "team": "incident",
+          "assignee": "A. Weber"
+        },
+        {
+          "scopeId": "scope-eifel-fire",
+          "team": "watch",
+          "assignee": "M. Keller"
+        }
+      ],
+      "budget_eur_per_month": 1500,
+      "paused": false,
+      "kill_switch": false,
+      "coverage_mode": "best-effort",
+      "retention_days": 365,
+      "first_n_alerts_require_analyst": 3,
+      "language": "en",
+      "channels": [
+        "email",
+        "slack"
+      ],
+      "updated_at": "2026-10-29T19:39:20+00:00"
+    },
+    {
+      "scope_id": "scope-dernau-vineyard",
+      "cadence": "weekly",
+      "sources": [
+        "sentinel-2",
+        "sentinel-1"
+      ],
+      "cloud_policy": "optical-under-30-else-sar",
+      "threshold_sigma": 2.5,
+      "min_change": 0.06,
+      "recipients": [
+        "ops@example.com",
+        "claims@example.com"
+      ],
+      "sla_hours": 8,
+      "quiet_hours": [
+        22,
+        7
+      ],
+      "digest": "weekly",
+      "escalation": [
+        {
+          "scopeId": "scope-dernau-vineyard",
+          "minSeverity": "red",
+          "team": "incident",
+          "assignee": "A. Weber"
+        },
+        {
+          "scopeId": "scope-dernau-vineyard",
+          "team": "watch",
+          "assignee": "M. Keller"
+        }
+      ],
+      "budget_eur_per_month": 400,
+      "paused": false,
+      "kill_switch": false,
+      "coverage_mode": "best-effort",
+      "retention_days": 365,
+      "first_n_alerts_require_analyst": 3,
+      "language": "en",
+      "channels": [
+        "email",
+        "slack"
+      ],
+      "updated_at": "2026-10-29T19:39:20+00:00"
+    },
+    {
+      "scope_id": "scope-tailings-watch",
+      "cadence": "weekly",
+      "sources": [
+        "sentinel-2",
+        "sentinel-1"
+      ],
+      "cloud_policy": "optical-under-30-else-sar",
+      "threshold_sigma": 2.5,
+      "min_change": 0.06,
+      "recipients": [
+        "ops@example.com",
+        "claims@example.com"
+      ],
+      "sla_hours": 8,
+      "quiet_hours": [
+        22,
+        7
+      ],
+      "digest": "daily",
+      "escalation": [
+        {
+          "scopeId": "scope-tailings-watch",
+          "minSeverity": "red",
+          "team": "incident",
+          "assignee": "A. Weber"
+        },
+        {
+          "scopeId": "scope-tailings-watch",
+          "team": "watch",
+          "assignee": "M. Keller"
+        }
+      ],
+      "budget_eur_per_month": 2000,
+      "paused": false,
+      "kill_switch": false,
+      "coverage_mode": "best-effort",
+      "retention_days": 365,
+      "first_n_alerts_require_analyst": 3,
+      "language": "en",
+      "channels": [
+        "email",
+        "slack"
+      ],
+      "updated_at": "2026-10-29T19:39:20+00:00"
+    }
+  ],
+  "alerts": [
+    {
+      "id": "ALT-1001",
+      "tenant": "demo",
+      "scope_id": "scope-ahr-corridor",
+      "title": "Flood edge reaches the care campus",
+      "summary": "The flood edge crossed the Bad Neuenahr care campus footprint. Access is flooded; 1,800 people within 700 m. Validate and consider Team 1.",
+      "severity": "red",
+      "urgency": 0.897,
+      "confidence": 0.91,
+      "change_type": "flood",
+      "observed": 0.18,
+      "baseline": 0.05,
+      "lon": 7.104,
+      "lat": 50.548,
+      "incident_id": "INC-AHR-01",
+      "status": "new",
+      "assignee": null,
+      "sla_due": "2026-10-29T22:27:20+00:00",
+      "created_at": "2026-10-29T18:27:20+00:00",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "acknowledged_at": null,
+      "resolved_at": null,
+      "dismissed_reason": null,
+      "dismissal_note": null,
+      "asset": "Bad Neuenahr care campus",
+      "value_eur": 6200000,
+      "population": 1800,
+      "access": "flooded",
+      "source": "sentinel-2",
+      "model_version": "gr-changenet-1.4.2",
+      "evidence": {
+        "before": "data/scenes/ahr-2021-flood-before.png",
+        "after": "data/scenes/ahr-2021-flood-after.png"
+      },
+      "why": {
+        "summary": "18.0% change against a 5.0% baseline",
+        "threshold": {
+          "mean": 0.05,
+          "threshold": 0.09,
+          "sigma": 2.5,
+          "minChange": 0.06
+        },
+        "trend": "increasing",
+        "abruptness": 2.7,
+        "confirmation": true,
+        "fusion": {
+          "confidence": 0.91,
+          "agreement": 0.89,
+          "method": "optical+sar"
+        },
+        "suppression": 0.92,
+        "leadTimeHours": 0.91,
+        "scope": {
+          "name": "Ahr corridor watch",
+          "kind": "corridor",
+          "assetClass": "utility + emergency"
+        }
+      },
+      "provenance": {
+        "imagery": "Simulated Sentinel-2 L2A-like composite",
+        "acquired": "2026-10-29T16:27:20+00:00",
+        "model": "gr-changenet-1.4.2",
+        "baseline": {
+          "mean": 0.05,
+          "sigma": 2.5
+        }
+      },
+      "dedupe_key": "scope-ahr-corridor:flood:7.104:50.548",
+      "schema_version": "alert.v1",
+      "validated_by": "A. Weber",
+      "validation_count": 3,
+      "tags": [
+        "demo",
+        "flood"
+      ]
+    },
+    {
+      "id": "ALT-1002",
+      "tenant": "demo",
+      "scope_id": "scope-ahr-corridor",
+      "title": "Substation access road flooded",
+      "summary": "Primary access to the Heppingen substation is under water. Power asset remains dry; response is restricted.",
+      "severity": "orange",
+      "urgency": 0.735,
+      "confidence": 0.86,
+      "change_type": "flood",
+      "observed": 0.12,
+      "baseline": 0.05,
+      "lon": 7.082,
+      "lat": 50.541,
+      "incident_id": "INC-AHR-01",
+      "status": "assigned",
+      "assignee": "M. Keller",
+      "sla_due": "2026-10-29T20:51:20+00:00",
+      "created_at": "2026-10-29T16:51:20+00:00",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "acknowledged_at": null,
+      "resolved_at": null,
+      "dismissed_reason": null,
+      "dismissal_note": null,
+      "asset": "Heppingen substation",
+      "value_eur": 8400000,
+      "population": 640,
+      "access": "restricted",
+      "source": "sentinel-2",
+      "model_version": "gr-changenet-1.4.2",
+      "evidence": {
+        "before": "data/scenes/ahr-2021-flood-before.png",
+        "after": "data/scenes/ahr-2021-flood-after.png"
+      },
+      "why": {
+        "summary": "12.0% change against a 5.0% baseline",
+        "threshold": {
+          "mean": 0.05,
+          "threshold": 0.09,
+          "sigma": 2.5,
+          "minChange": 0.06
+        },
+        "trend": "increasing",
+        "abruptness": 2.7,
+        "confirmation": true,
+        "fusion": {
+          "confidence": 0.86,
+          "agreement": 0.89,
+          "method": "optical+sar"
+        },
+        "suppression": 0.92,
+        "leadTimeHours": 0.86,
+        "scope": {
+          "name": "Ahr corridor watch",
+          "kind": "corridor",
+          "assetClass": "utility + emergency"
+        }
+      },
+      "provenance": {
+        "imagery": "Simulated Sentinel-2 L2A-like composite",
+        "acquired": "2026-10-29T14:51:20+00:00",
+        "model": "gr-changenet-1.4.2",
+        "baseline": {
+          "mean": 0.05,
+          "sigma": 2.5
+        }
+      },
+      "dedupe_key": "scope-ahr-corridor:flood:7.082:50.541",
+      "schema_version": "alert.v1",
+      "validated_by": null,
+      "validation_count": 0,
+      "tags": [
+        "demo",
+        "flood"
+      ]
+    },
+    {
+      "id": "ALT-1003",
+      "tenant": "demo",
+      "scope_id": "scope-ahr-corridor",
+      "title": "Levee erosion near Heimersheim",
+      "summary": "A persistent 0.09 change fraction along the levee toe; two consecutive observations confirm the trend.",
+      "severity": "orange",
+      "urgency": 0.751,
+      "confidence": 0.79,
+      "change_type": "erosion",
+      "observed": 0.09,
+      "baseline": 0.03,
+      "lon": 7.14,
+      "lat": 50.549,
+      "incident_id": "INC-AHR-02",
+      "status": "investigating",
+      "assignee": "M. Keller",
+      "sla_due": "2026-10-29T18:39:20+00:00",
+      "created_at": "2026-10-29T14:39:20+00:00",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "acknowledged_at": null,
+      "resolved_at": null,
+      "dismissed_reason": null,
+      "dismissal_note": null,
+      "asset": "Levee sector 4",
+      "value_eur": 4200000,
+      "population": 900,
+      "access": "blocked",
+      "source": "sentinel-2",
+      "model_version": "gr-changenet-1.4.2",
+      "evidence": {
+        "before": "data/scenes/ahr-2021-flood-before.png",
+        "after": "data/scenes/ahr-2021-flood-after.png"
+      },
+      "why": {
+        "summary": "9.0% change against a 3.0% baseline",
+        "threshold": {
+          "mean": 0.03,
+          "threshold": 0.07,
+          "sigma": 2.5,
+          "minChange": 0.06
+        },
+        "trend": "increasing",
+        "abruptness": 2.7,
+        "confirmation": true,
+        "fusion": {
+          "confidence": 0.79,
+          "agreement": 0.89,
+          "method": "optical+sar"
+        },
+        "suppression": 0.92,
+        "leadTimeHours": 0.79,
+        "scope": {
+          "name": "Ahr corridor watch",
+          "kind": "corridor",
+          "assetClass": "utility + emergency"
+        }
+      },
+      "provenance": {
+        "imagery": "Simulated Sentinel-2 L2A-like composite",
+        "acquired": "2026-10-29T12:39:20+00:00",
+        "model": "gr-changenet-1.4.2",
+        "baseline": {
+          "mean": 0.03,
+          "sigma": 2.5
+        }
+      },
+      "dedupe_key": "scope-ahr-corridor:erosion:7.14:50.549",
+      "schema_version": "alert.v1",
+      "validated_by": "A. Weber",
+      "validation_count": 3,
+      "tags": [
+        "demo",
+        "erosion"
+      ]
+    },
+    {
+      "id": "ALT-1004",
+      "tenant": "demo",
+      "scope_id": "scope-rur-utility",
+      "title": "Vegetation encroachment on feeder 2",
+      "summary": "Canopy change within the Rur utility corridor. No outage reported; inspection advised.",
+      "severity": "orange",
+      "urgency": 0.665,
+      "confidence": 0.74,
+      "change_type": "vegetation",
+      "observed": 0.11,
+      "baseline": 0.04,
+      "lon": 6.421,
+      "lat": 50.761,
+      "incident_id": "INC-RUR-01",
+      "status": "new",
+      "assignee": null,
+      "sla_due": "2026-10-29T21:27:20+00:00",
+      "created_at": "2026-10-29T17:27:20+00:00",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "acknowledged_at": null,
+      "resolved_at": null,
+      "dismissed_reason": null,
+      "dismissal_note": null,
+      "asset": "Rur feeder 2",
+      "value_eur": 1800000,
+      "population": 300,
+      "access": "slow",
+      "source": "sentinel-2",
+      "model_version": "gr-changenet-1.4.2",
+      "evidence": {
+        "before": "data/scenes/ahr-2021-flood-before.png",
+        "after": "data/scenes/ahr-2021-flood-after.png"
+      },
+      "why": {
+        "summary": "11.0% change against a 4.0% baseline",
+        "threshold": {
+          "mean": 0.04,
+          "threshold": 0.08,
+          "sigma": 2.5,
+          "minChange": 0.06
+        },
+        "trend": "increasing",
+        "abruptness": 2.7,
+        "confirmation": true,
+        "fusion": {
+          "confidence": 0.74,
+          "agreement": 0.89,
+          "method": "optical+sar"
+        },
+        "suppression": 0.92,
+        "leadTimeHours": 0.74,
+        "scope": {
+          "name": "Rur valley utility corridor",
+          "kind": "corridor",
+          "assetClass": "utility"
+        }
+      },
+      "provenance": {
+        "imagery": "Simulated Sentinel-2 L2A-like composite",
+        "acquired": "2026-10-29T15:27:20+00:00",
+        "model": "gr-changenet-1.4.2",
+        "baseline": {
+          "mean": 0.04,
+          "sigma": 2.5
+        }
+      },
+      "dedupe_key": "scope-rur-utility:vegetation:6.421:50.761",
+      "schema_version": "alert.v1",
+      "validated_by": null,
+      "validation_count": 0,
+      "tags": [
+        "demo",
+        "vegetation"
+      ]
+    },
+    {
+      "id": "ALT-1005",
+      "tenant": "demo",
+      "scope_id": "scope-rur-utility",
+      "title": "Pump station corridor change",
+      "summary": "A 0.14 change fraction near the Rur pump station; SAR agrees with the optical observation.",
+      "severity": "red",
+      "urgency": 0.849,
+      "confidence": 0.88,
+      "change_type": "structure",
+      "observed": 0.14,
+      "baseline": 0.04,
+      "lon": 6.426,
+      "lat": 50.758,
+      "incident_id": null,
+      "status": "acknowledged",
+      "assignee": "A. Weber",
+      "sla_due": "2026-10-29T19:03:20+00:00",
+      "created_at": "2026-10-29T15:03:20+00:00",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "acknowledged_at": "2026-10-29T15:21:20+00:00",
+      "resolved_at": null,
+      "dismissed_reason": null,
+      "dismissal_note": null,
+      "asset": "Rur pump station",
+      "value_eur": 7100000,
+      "population": 300,
+      "access": "restricted",
+      "source": "sentinel-2",
+      "model_version": "gr-changenet-1.4.2",
+      "evidence": {
+        "before": "data/scenes/ahr-2021-flood-before.png",
+        "after": "data/scenes/ahr-2021-flood-after.png"
+      },
+      "why": {
+        "summary": "14.0% change against a 4.0% baseline",
+        "threshold": {
+          "mean": 0.04,
+          "threshold": 0.08,
+          "sigma": 2.5,
+          "minChange": 0.06
+        },
+        "trend": "increasing",
+        "abruptness": 2.7,
+        "confirmation": true,
+        "fusion": {
+          "confidence": 0.88,
+          "agreement": 0.89,
+          "method": "optical+sar"
+        },
+        "suppression": 0.92,
+        "leadTimeHours": 0.88,
+        "scope": {
+          "name": "Rur valley utility corridor",
+          "kind": "corridor",
+          "assetClass": "utility"
+        }
+      },
+      "provenance": {
+        "imagery": "Simulated Sentinel-2 L2A-like composite",
+        "acquired": "2026-10-29T13:03:20+00:00",
+        "model": "gr-changenet-1.4.2",
+        "baseline": {
+          "mean": 0.04,
+          "sigma": 2.5
+        }
+      },
+      "dedupe_key": "scope-rur-utility:structure:6.426:50.758",
+      "schema_version": "alert.v1",
+      "validated_by": "A. Weber",
+      "validation_count": 3,
+      "tags": [
+        "demo",
+        "structure"
+      ]
+    },
+    {
+      "id": "ALT-1006",
+      "tenant": "demo",
+      "scope_id": "scope-cologne-construction",
+      "title": "New construction footprint in Ehrenfeld",
+      "summary": "A new foundation appears across two observations. This is expected construction; resolved by the project office.",
+      "severity": "yellow",
+      "urgency": 0.526,
+      "confidence": 0.67,
+      "change_type": "construction",
+      "observed": 0.07,
+      "baseline": 0.02,
+      "lon": 6.906,
+      "lat": 50.936,
+      "incident_id": null,
+      "status": "resolved",
+      "assignee": "S. Okafor",
+      "sla_due": "2026-10-28T21:39:20+00:00",
+      "created_at": "2026-10-28T17:39:20+00:00",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "acknowledged_at": null,
+      "resolved_at": "2026-10-28T18:39:20+00:00",
+      "dismissed_reason": null,
+      "dismissal_note": null,
+      "asset": "Ehrenfeld rail yard",
+      "value_eur": 12000000,
+      "population": 400,
+      "access": "clear",
+      "source": "sentinel-2",
+      "model_version": "gr-changenet-1.4.2",
+      "evidence": {
+        "before": "data/scenes/ahr-2021-flood-before.png",
+        "after": "data/scenes/ahr-2021-flood-after.png"
+      },
+      "why": {
+        "summary": "7.0% change against a 2.0% baseline",
+        "threshold": {
+          "mean": 0.02,
+          "threshold": 0.06,
+          "sigma": 2.5,
+          "minChange": 0.06
+        },
+        "trend": "increasing",
+        "abruptness": 2.7,
+        "confirmation": true,
+        "fusion": {
+          "confidence": 0.67,
+          "agreement": 0.89,
+          "method": "optical+sar"
+        },
+        "suppression": 0.92,
+        "leadTimeHours": 0.67,
+        "scope": {
+          "name": "Cologne construction watch",
+          "kind": "portfolio",
+          "assetClass": "construction"
+        }
+      },
+      "provenance": {
+        "imagery": "Simulated Sentinel-2 L2A-like composite",
+        "acquired": "2026-10-28T15:39:20+00:00",
+        "model": "gr-changenet-1.4.2",
+        "baseline": {
+          "mean": 0.02,
+          "sigma": 2.5
+        }
+      },
+      "dedupe_key": "scope-cologne-construction:construction:6.906:50.936",
+      "schema_version": "alert.v1",
+      "validated_by": "S. Okafor",
+      "validation_count": 3,
+      "tags": [
+        "demo",
+        "construction"
+      ]
+    },
+    {
+      "id": "ALT-1007",
+      "tenant": "demo",
+      "scope_id": "scope-cologne-construction",
+      "title": "Stockpile expansion outside the fence",
+      "summary": "Change extends beyond the permitted footprint. Assigned for a site visit.",
+      "severity": "orange",
+      "urgency": 0.617,
+      "confidence": 0.71,
+      "change_type": "construction",
+      "observed": 0.09,
+      "baseline": 0.02,
+      "lon": 6.912,
+      "lat": 50.931,
+      "incident_id": null,
+      "status": "assigned",
+      "assignee": "M. Keller",
+      "sla_due": "2026-10-28T17:39:20+00:00",
+      "created_at": "2026-10-28T13:39:20+00:00",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "acknowledged_at": null,
+      "resolved_at": null,
+      "dismissed_reason": null,
+      "dismissal_note": null,
+      "asset": "Braunsfeld depot",
+      "value_eur": 2500000,
+      "population": 250,
+      "access": "clear",
+      "source": "sentinel-2",
+      "model_version": "gr-changenet-1.4.2",
+      "evidence": {
+        "before": "data/scenes/ahr-2021-flood-before.png",
+        "after": "data/scenes/ahr-2021-flood-after.png"
+      },
+      "why": {
+        "summary": "9.0% change against a 2.0% baseline",
+        "threshold": {
+          "mean": 0.02,
+          "threshold": 0.06,
+          "sigma": 2.5,
+          "minChange": 0.06
+        },
+        "trend": "increasing",
+        "abruptness": 2.7,
+        "confirmation": true,
+        "fusion": {
+          "confidence": 0.71,
+          "agreement": 0.89,
+          "method": "optical+sar"
+        },
+        "suppression": 0.92,
+        "leadTimeHours": 0.71,
+        "scope": {
+          "name": "Cologne construction watch",
+          "kind": "portfolio",
+          "assetClass": "construction"
+        }
+      },
+      "provenance": {
+        "imagery": "Simulated Sentinel-2 L2A-like composite",
+        "acquired": "2026-10-28T11:39:20+00:00",
+        "model": "gr-changenet-1.4.2",
+        "baseline": {
+          "mean": 0.02,
+          "sigma": 2.5
+        }
+      },
+      "dedupe_key": "scope-cologne-construction:construction:6.912:50.931",
+      "schema_version": "alert.v1",
+      "validated_by": null,
+      "validation_count": 0,
+      "tags": [
+        "demo",
+        "construction"
+      ]
+    },
+    {
+      "id": "ALT-1008",
+      "tenant": "demo",
+      "scope_id": "scope-eifel-fire",
+      "title": "Burn scar expands east",
+      "summary": "The burn perimeter advanced 1.2 km east. Two structures are inside the new perimeter; one is a watch item.",
+      "severity": "red",
+      "urgency": 0.837,
+      "confidence": 0.89,
+      "change_type": "wildfire",
+      "observed": 0.21,
+      "baseline": 0.03,
+      "lon": 6.428,
+      "lat": 50.592,
+      "incident_id": "INC-EIF-01",
+      "status": "investigating",
+      "assignee": "S. Okafor",
+      "sla_due": "2026-10-29T20:15:20+00:00",
+      "created_at": "2026-10-29T16:15:20+00:00",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "acknowledged_at": null,
+      "resolved_at": null,
+      "dismissed_reason": null,
+      "dismissal_note": null,
+      "asset": "Vogelsang forest block",
+      "value_eur": 4400000,
+      "population": 120,
+      "access": "restricted",
+      "source": "sentinel-2",
+      "model_version": "gr-changenet-1.4.2",
+      "evidence": {
+        "before": "data/scenes/ahr-2021-flood-before.png",
+        "after": "data/scenes/ahr-2021-flood-after.png"
+      },
+      "why": {
+        "summary": "21.0% change against a 3.0% baseline",
+        "threshold": {
+          "mean": 0.03,
+          "threshold": 0.07,
+          "sigma": 2.5,
+          "minChange": 0.06
+        },
+        "trend": "increasing",
+        "abruptness": 2.7,
+        "confirmation": true,
+        "fusion": {
+          "confidence": 0.89,
+          "agreement": 0.89,
+          "method": "optical+sar"
+        },
+        "suppression": 0.92,
+        "leadTimeHours": 0.89,
+        "scope": {
+          "name": "Eifel ridge wildfire watch",
+          "kind": "aoi",
+          "assetClass": "insurance"
+        }
+      },
+      "provenance": {
+        "imagery": "Simulated Sentinel-2 L2A-like composite",
+        "acquired": "2026-10-29T14:15:20+00:00",
+        "model": "gr-changenet-1.4.2",
+        "baseline": {
+          "mean": 0.03,
+          "sigma": 2.5
+        }
+      },
+      "dedupe_key": "scope-eifel-fire:wildfire:6.428:50.592",
+      "schema_version": "alert.v1",
+      "validated_by": "S. Okafor",
+      "validation_count": 3,
+      "tags": [
+        "demo",
+        "wildfire"
+      ]
+    },
+    {
+      "id": "ALT-1009",
+      "tenant": "demo",
+      "scope_id": "scope-eifel-fire",
+      "title": "Smoke plume read as change",
+      "summary": "The apparent change is a smoke plume; the analyst rejected it. Recorded as a false positive.",
+      "severity": "yellow",
+      "urgency": 0.44,
+      "confidence": 0.61,
+      "change_type": "wildfire",
+      "observed": 0.08,
+      "baseline": 0.03,
+      "lon": 6.415,
+      "lat": 50.586,
+      "incident_id": null,
+      "status": "dismissed",
+      "assignee": "S. Okafor",
+      "sla_due": "2026-10-29T15:27:20+00:00",
+      "created_at": "2026-10-29T11:27:20+00:00",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "acknowledged_at": null,
+      "resolved_at": null,
+      "dismissed_reason": "cloud_shadow",
+      "dismissal_note": "Demo dismissal with a visible reason.",
+      "asset": "Eifel ridge",
+      "value_eur": 200000,
+      "population": 20,
+      "access": "clear",
+      "source": "sentinel-2",
+      "model_version": "gr-changenet-1.4.2",
+      "evidence": {
+        "before": "data/scenes/ahr-2021-flood-before.png",
+        "after": "data/scenes/ahr-2021-flood-after.png"
+      },
+      "why": {
+        "summary": "8.0% change against a 3.0% baseline",
+        "threshold": {
+          "mean": 0.03,
+          "threshold": 0.07,
+          "sigma": 2.5,
+          "minChange": 0.06
+        },
+        "trend": "increasing",
+        "abruptness": 2.7,
+        "confirmation": true,
+        "fusion": {
+          "confidence": 0.61,
+          "agreement": 0.89,
+          "method": "optical+sar"
+        },
+        "suppression": 0.92,
+        "leadTimeHours": 0.61,
+        "scope": {
+          "name": "Eifel ridge wildfire watch",
+          "kind": "aoi",
+          "assetClass": "insurance"
+        }
+      },
+      "provenance": {
+        "imagery": "Simulated Sentinel-2 L2A-like composite",
+        "acquired": "2026-10-29T09:27:20+00:00",
+        "model": "gr-changenet-1.4.2",
+        "baseline": {
+          "mean": 0.03,
+          "sigma": 2.5
+        }
+      },
+      "dedupe_key": "scope-eifel-fire:wildfire:6.415:50.586",
+      "schema_version": "alert.v1",
+      "validated_by": "S. Okafor",
+      "validation_count": 3,
+      "tags": [
+        "demo",
+        "wildfire"
+      ]
+    },
+    {
+      "id": "ALT-1010",
+      "tenant": "demo",
+      "scope_id": "scope-dernau-vineyard",
+      "title": "NDVI drop in the Dernau terraces",
+      "summary": "NDVI fell 0.11 below the seasonal baseline. Could be drought stress or disease; agronomist review required.",
+      "severity": "orange",
+      "urgency": 0.669,
+      "confidence": 0.76,
+      "change_type": "vegetation",
+      "observed": 0.13,
+      "baseline": 0.02,
+      "lon": 7.052,
+      "lat": 50.531,
+      "incident_id": null,
+      "status": "new",
+      "assignee": null,
+      "sla_due": "2026-10-29T21:51:20+00:00",
+      "created_at": "2026-10-29T17:51:20+00:00",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "acknowledged_at": null,
+      "resolved_at": null,
+      "dismissed_reason": null,
+      "dismissal_note": null,
+      "asset": "Dernau vineyard terraces",
+      "value_eur": 2800000,
+      "population": 180,
+      "access": "slow",
+      "source": "sentinel-2",
+      "model_version": "gr-changenet-1.4.2",
+      "evidence": {
+        "before": "data/scenes/ahr-2021-flood-before.png",
+        "after": "data/scenes/ahr-2021-flood-after.png"
+      },
+      "why": {
+        "summary": "13.0% change against a 2.0% baseline",
+        "threshold": {
+          "mean": 0.02,
+          "threshold": 0.06,
+          "sigma": 2.5,
+          "minChange": 0.06
+        },
+        "trend": "increasing",
+        "abruptness": 2.7,
+        "confirmation": true,
+        "fusion": {
+          "confidence": 0.76,
+          "agreement": 0.89,
+          "method": "optical+sar"
+        },
+        "suppression": 0.92,
+        "leadTimeHours": 0.76,
+        "scope": {
+          "name": "Dernau vineyard block",
+          "kind": "asset",
+          "assetClass": "agriculture"
+        }
+      },
+      "provenance": {
+        "imagery": "Simulated Sentinel-2 L2A-like composite",
+        "acquired": "2026-10-29T15:51:20+00:00",
+        "model": "gr-changenet-1.4.2",
+        "baseline": {
+          "mean": 0.02,
+          "sigma": 2.5
+        }
+      },
+      "dedupe_key": "scope-dernau-vineyard:vegetation:7.052:50.531",
+      "schema_version": "alert.v1",
+      "validated_by": null,
+      "validation_count": 0,
+      "tags": [
+        "demo",
+        "vegetation"
+      ]
+    },
+    {
+      "id": "ALT-1011",
+      "tenant": "demo",
+      "scope_id": "scope-dernau-vineyard",
+      "title": "Field boundary change is a harvest",
+      "summary": "The boundary change matches the harvest calendar. Dismissed as no action.",
+      "severity": "yellow",
+      "urgency": 0.429,
+      "confidence": 0.58,
+      "change_type": "vegetation",
+      "observed": 0.06,
+      "baseline": 0.02,
+      "lon": 7.049,
+      "lat": 50.529,
+      "incident_id": null,
+      "status": "dismissed",
+      "assignee": "M. Keller",
+      "sla_due": "2026-10-29T04:39:20+00:00",
+      "created_at": "2026-10-29T00:39:20+00:00",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "acknowledged_at": null,
+      "resolved_at": null,
+      "dismissed_reason": "no_action",
+      "dismissal_note": "Demo dismissal with a visible reason.",
+      "asset": "Dernau field 3",
+      "value_eur": 300000,
+      "population": 10,
+      "access": "clear",
+      "source": "sentinel-2",
+      "model_version": "gr-changenet-1.4.2",
+      "evidence": {
+        "before": "data/scenes/ahr-2021-flood-before.png",
+        "after": "data/scenes/ahr-2021-flood-after.png"
+      },
+      "why": {
+        "summary": "6.0% change against a 2.0% baseline",
+        "threshold": {
+          "mean": 0.02,
+          "threshold": 0.06,
+          "sigma": 2.5,
+          "minChange": 0.06
+        },
+        "trend": "increasing",
+        "abruptness": 2.7,
+        "confirmation": true,
+        "fusion": {
+          "confidence": 0.58,
+          "agreement": 0.89,
+          "method": "optical+sar"
+        },
+        "suppression": 0.92,
+        "leadTimeHours": 0.58,
+        "scope": {
+          "name": "Dernau vineyard block",
+          "kind": "asset",
+          "assetClass": "agriculture"
+        }
+      },
+      "provenance": {
+        "imagery": "Simulated Sentinel-2 L2A-like composite",
+        "acquired": "2026-10-28T22:39:20+00:00",
+        "model": "gr-changenet-1.4.2",
+        "baseline": {
+          "mean": 0.02,
+          "sigma": 2.5
+        }
+      },
+      "dedupe_key": "scope-dernau-vineyard:vegetation:7.049:50.529",
+      "schema_version": "alert.v1",
+      "validated_by": null,
+      "validation_count": 0,
+      "tags": [
+        "demo",
+        "vegetation"
+      ]
+    },
+    {
+      "id": "ALT-1012",
+      "tenant": "demo",
+      "scope_id": "scope-tailings-watch",
+      "title": "Tailings dam surface change",
+      "summary": "A 0.16 surface change appears inside the tailings footprint. Sentinel-1 is the only reliable source; geotechnical review required.",
+      "severity": "red",
+      "urgency": 0.847,
+      "confidence": 0.84,
+      "change_type": "erosion",
+      "observed": 0.16,
+      "baseline": 0.02,
+      "lon": 6.451,
+      "lat": 50.721,
+      "incident_id": "INC-TAI-01",
+      "status": "new",
+      "assignee": null,
+      "sla_due": "2026-10-29T21:03:20+00:00",
+      "created_at": "2026-10-29T17:03:20+00:00",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "acknowledged_at": null,
+      "resolved_at": null,
+      "dismissed_reason": null,
+      "dismissal_note": null,
+      "asset": "Tailings dam north cell",
+      "value_eur": 64000000,
+      "population": 80,
+      "access": "restricted",
+      "source": "sentinel-2",
+      "model_version": "gr-changenet-1.4.2",
+      "evidence": {
+        "before": "data/scenes/ahr-2021-flood-before.png",
+        "after": "data/scenes/ahr-2021-flood-after.png"
+      },
+      "why": {
+        "summary": "16.0% change against a 2.0% baseline",
+        "threshold": {
+          "mean": 0.02,
+          "threshold": 0.06,
+          "sigma": 2.5,
+          "minChange": 0.06
+        },
+        "trend": "increasing",
+        "abruptness": 2.7,
+        "confirmation": true,
+        "fusion": {
+          "confidence": 0.84,
+          "agreement": 0.89,
+          "method": "optical+sar"
+        },
+        "suppression": 0.92,
+        "leadTimeHours": 0.84,
+        "scope": {
+          "name": "Rur tailings watch",
+          "kind": "aoi",
+          "assetClass": "mining"
+        }
+      },
+      "provenance": {
+        "imagery": "Simulated Sentinel-2 L2A-like composite",
+        "acquired": "2026-10-29T15:03:20+00:00",
+        "model": "gr-changenet-1.4.2",
+        "baseline": {
+          "mean": 0.02,
+          "sigma": 2.5
+        }
+      },
+      "dedupe_key": "scope-tailings-watch:erosion:6.451:50.721",
+      "schema_version": "alert.v1",
+      "validated_by": null,
+      "validation_count": 0,
+      "tags": [
+        "demo",
+        "erosion"
+      ]
+    },
+    {
+      "id": "ALT-1013",
+      "tenant": "demo",
+      "scope_id": "scope-tailings-watch",
+      "title": "Haul road change resolved",
+      "summary": "The haul road realignment matches the approved plan. Resolved.",
+      "severity": "orange",
+      "urgency": 0.59,
+      "confidence": 0.72,
+      "change_type": "construction",
+      "observed": 0.1,
+      "baseline": 0.02,
+      "lon": 6.447,
+      "lat": 50.718,
+      "incident_id": null,
+      "status": "resolved",
+      "assignee": "A. Weber",
+      "sla_due": "2026-10-29T01:39:20+00:00",
+      "created_at": "2026-10-28T21:39:20+00:00",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "acknowledged_at": null,
+      "resolved_at": "2026-10-28T22:39:20+00:00",
+      "dismissed_reason": null,
+      "dismissal_note": null,
+      "asset": "Tailings haul road",
+      "value_eur": 900000,
+      "population": 40,
+      "access": "clear",
+      "source": "sentinel-2",
+      "model_version": "gr-changenet-1.4.2",
+      "evidence": {
+        "before": "data/scenes/ahr-2021-flood-before.png",
+        "after": "data/scenes/ahr-2021-flood-after.png"
+      },
+      "why": {
+        "summary": "10.0% change against a 2.0% baseline",
+        "threshold": {
+          "mean": 0.02,
+          "threshold": 0.06,
+          "sigma": 2.5,
+          "minChange": 0.06
+        },
+        "trend": "increasing",
+        "abruptness": 2.7,
+        "confirmation": true,
+        "fusion": {
+          "confidence": 0.72,
+          "agreement": 0.89,
+          "method": "optical+sar"
+        },
+        "suppression": 0.92,
+        "leadTimeHours": 0.72,
+        "scope": {
+          "name": "Rur tailings watch",
+          "kind": "aoi",
+          "assetClass": "mining"
+        }
+      },
+      "provenance": {
+        "imagery": "Simulated Sentinel-2 L2A-like composite",
+        "acquired": "2026-10-28T19:39:20+00:00",
+        "model": "gr-changenet-1.4.2",
+        "baseline": {
+          "mean": 0.02,
+          "sigma": 2.5
+        }
+      },
+      "dedupe_key": "scope-tailings-watch:construction:6.447:50.718",
+      "schema_version": "alert.v1",
+      "validated_by": "A. Weber",
+      "validation_count": 3,
+      "tags": [
+        "demo",
+        "construction"
+      ]
+    },
+    {
+      "id": "ALT-1014",
+      "tenant": "demo",
+      "scope_id": "scope-rur-utility",
+      "title": "Duplicate vegetation alert",
+      "summary": "Same footprint as ALT-1004, one hour later. Dismissed as duplicate.",
+      "severity": "yellow",
+      "urgency": 0.551,
+      "confidence": 0.69,
+      "change_type": "vegetation",
+      "observed": 0.1,
+      "baseline": 0.04,
+      "lon": 6.4215,
+      "lat": 50.7612,
+      "incident_id": null,
+      "status": "dismissed",
+      "assignee": "M. Keller",
+      "sla_due": "2026-10-29T22:15:20+00:00",
+      "created_at": "2026-10-29T18:15:20+00:00",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "acknowledged_at": null,
+      "resolved_at": null,
+      "dismissed_reason": "duplicate",
+      "dismissal_note": "Demo dismissal with a visible reason.",
+      "asset": "Rur feeder 2",
+      "value_eur": 1800000,
+      "population": 300,
+      "access": "slow",
+      "source": "sentinel-2",
+      "model_version": "gr-changenet-1.4.2",
+      "evidence": {
+        "before": "data/scenes/ahr-2021-flood-before.png",
+        "after": "data/scenes/ahr-2021-flood-after.png"
+      },
+      "why": {
+        "summary": "10.0% change against a 4.0% baseline",
+        "threshold": {
+          "mean": 0.04,
+          "threshold": 0.08,
+          "sigma": 2.5,
+          "minChange": 0.06
+        },
+        "trend": "increasing",
+        "abruptness": 2.7,
+        "confirmation": true,
+        "fusion": {
+          "confidence": 0.69,
+          "agreement": 0.89,
+          "method": "optical+sar"
+        },
+        "suppression": 0.92,
+        "leadTimeHours": 0.69,
+        "scope": {
+          "name": "Rur valley utility corridor",
+          "kind": "corridor",
+          "assetClass": "utility"
+        }
+      },
+      "provenance": {
+        "imagery": "Simulated Sentinel-2 L2A-like composite",
+        "acquired": "2026-10-29T16:15:20+00:00",
+        "model": "gr-changenet-1.4.2",
+        "baseline": {
+          "mean": 0.04,
+          "sigma": 2.5
+        }
+      },
+      "dedupe_key": "scope-rur-utility:vegetation:6.421:50.761",
+      "schema_version": "alert.v1",
+      "validated_by": null,
+      "validation_count": 0,
+      "tags": [
+        "demo",
+        "vegetation"
+      ]
+    },
+    {
+      "id": "ALT-2000",
+      "tenant": "demo",
+      "scope_id": "scope-ahr-corridor",
+      "title": "Resolved watch item 1",
+      "summary": "A historical alert closed after analyst review. Kept for precision and audit.",
+      "severity": "red",
+      "urgency": 0.747,
+      "confidence": 0.82,
+      "change_type": "flood",
+      "observed": 0.12,
+      "baseline": 0.03,
+      "lon": 7.1,
+      "lat": 50.545,
+      "incident_id": null,
+      "status": "resolved",
+      "assignee": "A. Weber",
+      "sla_due": "2026-10-28T07:39:20+00:00",
+      "created_at": "2026-10-28T03:39:20+00:00",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "acknowledged_at": null,
+      "resolved_at": null,
+      "dismissed_reason": null,
+      "dismissal_note": null,
+      "asset": "Historical asset",
+      "value_eur": 1200000,
+      "population": 120,
+      "access": "clear",
+      "source": "sentinel-2",
+      "model_version": "gr-changenet-1.4.2",
+      "evidence": {
+        "before": "data/scenes/ahr-2021-flood-before.png",
+        "after": "data/scenes/ahr-2021-flood-after.png"
+      },
+      "why": {
+        "summary": "12.0% change against a 3.0% baseline",
+        "threshold": {
+          "mean": 0.03,
+          "threshold": 0.07,
+          "sigma": 2.5,
+          "minChange": 0.06
+        },
+        "trend": "increasing",
+        "abruptness": 2.7,
+        "confirmation": true,
+        "fusion": {
+          "confidence": 0.82,
+          "agreement": 0.89,
+          "method": "optical+sar"
+        },
+        "suppression": 0.92,
+        "leadTimeHours": 12.0,
+        "scope": {
+          "name": "Ahr corridor watch",
+          "kind": "corridor",
+          "assetClass": "utility + emergency"
+        }
+      },
+      "provenance": {
+        "imagery": "Simulated Sentinel-2 L2A-like composite",
+        "acquired": "2026-10-28T01:39:20+00:00",
+        "model": "gr-changenet-1.4.2",
+        "baseline": {
+          "mean": 0.03,
+          "sigma": 2.5
+        }
+      },
+      "dedupe_key": "scope-ahr-corridor:flood:7.1:50.545",
+      "schema_version": "alert.v1",
+      "validated_by": "A. Weber",
+      "validation_count": 3,
+      "tags": [
+        "demo",
+        "flood"
+      ]
+    },
+    {
+      "id": "ALT-2001",
+      "tenant": "demo",
+      "scope_id": "scope-rur-utility",
+      "title": "Resolved watch item 2",
+      "summary": "A historical alert closed after analyst review. Kept for precision and audit.",
+      "severity": "orange",
+      "urgency": 0.626,
+      "confidence": 0.8099999999999999,
+      "change_type": "construction",
+      "observed": 0.12,
+      "baseline": 0.03,
+      "lon": 6.422,
+      "lat": 50.757999999999996,
+      "incident_id": null,
+      "status": "resolved",
+      "assignee": "A. Weber",
+      "sla_due": "2026-10-27T22:39:20+00:00",
+      "created_at": "2026-10-27T18:39:20+00:00",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "acknowledged_at": null,
+      "resolved_at": null,
+      "dismissed_reason": null,
+      "dismissal_note": null,
+      "asset": "Historical asset",
+      "value_eur": 1200000,
+      "population": 120,
+      "access": "clear",
+      "source": "sentinel-2",
+      "model_version": "gr-changenet-1.4.2",
+      "evidence": {
+        "before": "data/scenes/ahr-2021-flood-before.png",
+        "after": "data/scenes/ahr-2021-flood-after.png"
+      },
+      "why": {
+        "summary": "12.0% change against a 3.0% baseline",
+        "threshold": {
+          "mean": 0.03,
+          "threshold": 0.07,
+          "sigma": 2.5,
+          "minChange": 0.06
+        },
+        "trend": "increasing",
+        "abruptness": 2.7,
+        "confirmation": true,
+        "fusion": {
+          "confidence": 0.8099999999999999,
+          "agreement": 0.89,
+          "method": "optical+sar"
+        },
+        "suppression": 0.92,
+        "leadTimeHours": 13.0,
+        "scope": {
+          "name": "Rur valley utility corridor",
+          "kind": "corridor",
+          "assetClass": "utility"
+        }
+      },
+      "provenance": {
+        "imagery": "Simulated Sentinel-2 L2A-like composite",
+        "acquired": "2026-10-27T16:39:20+00:00",
+        "model": "gr-changenet-1.4.2",
+        "baseline": {
+          "mean": 0.03,
+          "sigma": 2.5
+        }
+      },
+      "dedupe_key": "scope-rur-utility:construction:6.422:50.758",
+      "schema_version": "alert.v1",
+      "validated_by": "A. Weber",
+      "validation_count": 3,
+      "tags": [
+        "demo",
+        "construction"
+      ]
+    },
+    {
+      "id": "ALT-2002",
+      "tenant": "demo",
+      "scope_id": "scope-cologne-construction",
+      "title": "Resolved watch item 3",
+      "summary": "A historical alert closed after analyst review. Kept for precision and audit.",
+      "severity": "orange",
+      "urgency": 0.624,
+      "confidence": 0.7999999999999999,
+      "change_type": "vegetation",
+      "observed": 0.12,
+      "baseline": 0.03,
+      "lon": 6.909,
+      "lat": 50.935,
+      "incident_id": null,
+      "status": "resolved",
+      "assignee": "A. Weber",
+      "sla_due": "2026-10-27T13:39:20+00:00",
+      "created_at": "2026-10-27T09:39:20+00:00",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "acknowledged_at": null,
+      "resolved_at": null,
+      "dismissed_reason": null,
+      "dismissal_note": null,
+      "asset": "Historical asset",
+      "value_eur": 1200000,
+      "population": 120,
+      "access": "clear",
+      "source": "sentinel-2",
+      "model_version": "gr-changenet-1.4.2",
+      "evidence": {
+        "before": "data/scenes/ahr-2021-flood-before.png",
+        "after": "data/scenes/ahr-2021-flood-after.png"
+      },
+      "why": {
+        "summary": "12.0% change against a 3.0% baseline",
+        "threshold": {
+          "mean": 0.03,
+          "threshold": 0.07,
+          "sigma": 2.5,
+          "minChange": 0.06
+        },
+        "trend": "increasing",
+        "abruptness": 2.7,
+        "confirmation": true,
+        "fusion": {
+          "confidence": 0.7999999999999999,
+          "agreement": 0.89,
+          "method": "optical+sar"
+        },
+        "suppression": 0.92,
+        "leadTimeHours": 14.0,
+        "scope": {
+          "name": "Cologne construction watch",
+          "kind": "portfolio",
+          "assetClass": "construction"
+        }
+      },
+      "provenance": {
+        "imagery": "Simulated Sentinel-2 L2A-like composite",
+        "acquired": "2026-10-27T07:39:20+00:00",
+        "model": "gr-changenet-1.4.2",
+        "baseline": {
+          "mean": 0.03,
+          "sigma": 2.5
+        }
+      },
+      "dedupe_key": "scope-cologne-construction:vegetation:6.909:50.935",
+      "schema_version": "alert.v1",
+      "validated_by": "A. Weber",
+      "validation_count": 3,
+      "tags": [
+        "demo",
+        "vegetation"
+      ]
+    },
+    {
+      "id": "ALT-2003",
+      "tenant": "demo",
+      "scope_id": "scope-eifel-fire",
+      "title": "Resolved watch item 4",
+      "summary": "A historical alert closed after analyst review. Kept for precision and audit.",
+      "severity": "red",
+      "urgency": 0.74,
+      "confidence": 0.7899999999999999,
+      "change_type": "erosion",
+      "observed": 0.12,
+      "baseline": 0.03,
+      "lon": 6.42,
+      "lat": 50.588,
+      "incident_id": null,
+      "status": "resolved",
+      "assignee": "A. Weber",
+      "sla_due": "2026-10-27T04:39:20+00:00",
+      "created_at": "2026-10-27T00:39:20+00:00",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "acknowledged_at": null,
+      "resolved_at": null,
+      "dismissed_reason": null,
+      "dismissal_note": null,
+      "asset": "Historical asset",
+      "value_eur": 1200000,
+      "population": 120,
+      "access": "clear",
+      "source": "sentinel-2",
+      "model_version": "gr-changenet-1.4.2",
+      "evidence": {
+        "before": "data/scenes/ahr-2021-flood-before.png",
+        "after": "data/scenes/ahr-2021-flood-after.png"
+      },
+      "why": {
+        "summary": "12.0% change against a 3.0% baseline",
+        "threshold": {
+          "mean": 0.03,
+          "threshold": 0.07,
+          "sigma": 2.5,
+          "minChange": 0.06
+        },
+        "trend": "increasing",
+        "abruptness": 2.7,
+        "confirmation": true,
+        "fusion": {
+          "confidence": 0.7899999999999999,
+          "agreement": 0.89,
+          "method": "optical+sar"
+        },
+        "suppression": 0.92,
+        "leadTimeHours": 15.0,
+        "scope": {
+          "name": "Eifel ridge wildfire watch",
+          "kind": "aoi",
+          "assetClass": "insurance"
+        }
+      },
+      "provenance": {
+        "imagery": "Simulated Sentinel-2 L2A-like composite",
+        "acquired": "2026-10-26T22:39:20+00:00",
+        "model": "gr-changenet-1.4.2",
+        "baseline": {
+          "mean": 0.03,
+          "sigma": 2.5
+        }
+      },
+      "dedupe_key": "scope-eifel-fire:erosion:6.42:50.588",
+      "schema_version": "alert.v1",
+      "validated_by": "A. Weber",
+      "validation_count": 3,
+      "tags": [
+        "demo",
+        "erosion"
+      ]
+    },
+    {
+      "id": "ALT-2004",
+      "tenant": "demo",
+      "scope_id": "scope-dernau-vineyard",
+      "title": "Resolved watch item 5",
+      "summary": "A historical alert closed after analyst review. Kept for precision and audit.",
+      "severity": "orange",
+      "urgency": 0.619,
+      "confidence": 0.7799999999999999,
+      "change_type": "wildfire",
+      "observed": 0.12,
+      "baseline": 0.03,
+      "lon": 7.052,
+      "lat": 50.53,
+      "incident_id": null,
+      "status": "resolved",
+      "assignee": "A. Weber",
+      "sla_due": "2026-10-26T19:39:20+00:00",
+      "created_at": "2026-10-26T15:39:20+00:00",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "acknowledged_at": null,
+      "resolved_at": null,
+      "dismissed_reason": null,
+      "dismissal_note": null,
+      "asset": "Historical asset",
+      "value_eur": 1200000,
+      "population": 120,
+      "access": "clear",
+      "source": "sentinel-2",
+      "model_version": "gr-changenet-1.4.2",
+      "evidence": {
+        "before": "data/scenes/ahr-2021-flood-before.png",
+        "after": "data/scenes/ahr-2021-flood-after.png"
+      },
+      "why": {
+        "summary": "12.0% change against a 3.0% baseline",
+        "threshold": {
+          "mean": 0.03,
+          "threshold": 0.07,
+          "sigma": 2.5,
+          "minChange": 0.06
+        },
+        "trend": "increasing",
+        "abruptness": 2.7,
+        "confirmation": true,
+        "fusion": {
+          "confidence": 0.7799999999999999,
+          "agreement": 0.89,
+          "method": "optical+sar"
+        },
+        "suppression": 0.92,
+        "leadTimeHours": 16.0,
+        "scope": {
+          "name": "Dernau vineyard block",
+          "kind": "asset",
+          "assetClass": "agriculture"
+        }
+      },
+      "provenance": {
+        "imagery": "Simulated Sentinel-2 L2A-like composite",
+        "acquired": "2026-10-26T13:39:20+00:00",
+        "model": "gr-changenet-1.4.2",
+        "baseline": {
+          "mean": 0.03,
+          "sigma": 2.5
+        }
+      },
+      "dedupe_key": "scope-dernau-vineyard:wildfire:7.052:50.53",
+      "schema_version": "alert.v1",
+      "validated_by": "A. Weber",
+      "validation_count": 3,
+      "tags": [
+        "demo",
+        "wildfire"
+      ]
+    },
+    {
+      "id": "ALT-2005",
+      "tenant": "demo",
+      "scope_id": "scope-ahr-corridor",
+      "title": "Resolved watch item 6",
+      "summary": "A historical alert closed after analyst review. Kept for precision and audit.",
+      "severity": "orange",
+      "urgency": 0.616,
+      "confidence": 0.7699999999999999,
+      "change_type": "flood",
+      "observed": 0.12,
+      "baseline": 0.03,
+      "lon": 7.103999999999999,
+      "lat": 50.543,
+      "incident_id": null,
+      "status": "resolved",
+      "assignee": "A. Weber",
+      "sla_due": "2026-10-26T10:39:20+00:00",
+      "created_at": "2026-10-26T06:39:20+00:00",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "acknowledged_at": null,
+      "resolved_at": null,
+      "dismissed_reason": null,
+      "dismissal_note": null,
+      "asset": "Historical asset",
+      "value_eur": 1200000,
+      "population": 120,
+      "access": "clear",
+      "source": "sentinel-2",
+      "model_version": "gr-changenet-1.4.2",
+      "evidence": {
+        "before": "data/scenes/ahr-2021-flood-before.png",
+        "after": "data/scenes/ahr-2021-flood-after.png"
+      },
+      "why": {
+        "summary": "12.0% change against a 3.0% baseline",
+        "threshold": {
+          "mean": 0.03,
+          "threshold": 0.07,
+          "sigma": 2.5,
+          "minChange": 0.06
+        },
+        "trend": "increasing",
+        "abruptness": 2.7,
+        "confirmation": true,
+        "fusion": {
+          "confidence": 0.7699999999999999,
+          "agreement": 0.89,
+          "method": "optical+sar"
+        },
+        "suppression": 0.92,
+        "leadTimeHours": 17.0,
+        "scope": {
+          "name": "Ahr corridor watch",
+          "kind": "corridor",
+          "assetClass": "utility + emergency"
+        }
+      },
+      "provenance": {
+        "imagery": "Simulated Sentinel-2 L2A-like composite",
+        "acquired": "2026-10-26T04:39:20+00:00",
+        "model": "gr-changenet-1.4.2",
+        "baseline": {
+          "mean": 0.03,
+          "sigma": 2.5
+        }
+      },
+      "dedupe_key": "scope-ahr-corridor:flood:7.104:50.543",
+      "schema_version": "alert.v1",
+      "validated_by": "A. Weber",
+      "validation_count": 3,
+      "tags": [
+        "demo",
+        "flood"
+      ]
+    },
+    {
+      "id": "ALT-2006",
+      "tenant": "demo",
+      "scope_id": "scope-rur-utility",
+      "title": "Resolved watch item 7",
+      "summary": "A historical alert closed after analyst review. Kept for precision and audit.",
+      "severity": "red",
+      "urgency": 0.733,
+      "confidence": 0.76,
+      "change_type": "construction",
+      "observed": 0.12,
+      "baseline": 0.03,
+      "lon": 6.42,
+      "lat": 50.76,
+      "incident_id": null,
+      "status": "resolved",
+      "assignee": "A. Weber",
+      "sla_due": "2026-10-26T01:39:20+00:00",
+      "created_at": "2026-10-25T21:39:20+00:00",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "acknowledged_at": null,
+      "resolved_at": null,
+      "dismissed_reason": null,
+      "dismissal_note": null,
+      "asset": "Historical asset",
+      "value_eur": 1200000,
+      "population": 120,
+      "access": "clear",
+      "source": "sentinel-2",
+      "model_version": "gr-changenet-1.4.2",
+      "evidence": {
+        "before": "data/scenes/ahr-2021-flood-before.png",
+        "after": "data/scenes/ahr-2021-flood-after.png"
+      },
+      "why": {
+        "summary": "12.0% change against a 3.0% baseline",
+        "threshold": {
+          "mean": 0.03,
+          "threshold": 0.07,
+          "sigma": 2.5,
+          "minChange": 0.06
+        },
+        "trend": "increasing",
+        "abruptness": 2.7,
+        "confirmation": true,
+        "fusion": {
+          "confidence": 0.76,
+          "agreement": 0.89,
+          "method": "optical+sar"
+        },
+        "suppression": 0.92,
+        "leadTimeHours": 18.0,
+        "scope": {
+          "name": "Rur valley utility corridor",
+          "kind": "corridor",
+          "assetClass": "utility"
+        }
+      },
+      "provenance": {
+        "imagery": "Simulated Sentinel-2 L2A-like composite",
+        "acquired": "2026-10-25T19:39:20+00:00",
+        "model": "gr-changenet-1.4.2",
+        "baseline": {
+          "mean": 0.03,
+          "sigma": 2.5
+        }
+      },
+      "dedupe_key": "scope-rur-utility:construction:6.42:50.76",
+      "schema_version": "alert.v1",
+      "validated_by": "A. Weber",
+      "validation_count": 3,
+      "tags": [
+        "demo",
+        "construction"
+      ]
+    },
+    {
+      "id": "ALT-2007",
+      "tenant": "demo",
+      "scope_id": "scope-cologne-construction",
+      "title": "Resolved watch item 8",
+      "summary": "A historical alert closed after analyst review. Kept for precision and audit.",
+      "severity": "orange",
+      "urgency": 0.612,
+      "confidence": 0.75,
+      "change_type": "vegetation",
+      "observed": 0.12,
+      "baseline": 0.03,
+      "lon": 6.907,
+      "lat": 50.933,
+      "incident_id": null,
+      "status": "resolved",
+      "assignee": "A. Weber",
+      "sla_due": "2026-10-25T16:39:20+00:00",
+      "created_at": "2026-10-25T12:39:20+00:00",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "acknowledged_at": null,
+      "resolved_at": null,
+      "dismissed_reason": null,
+      "dismissal_note": null,
+      "asset": "Historical asset",
+      "value_eur": 1200000,
+      "population": 120,
+      "access": "clear",
+      "source": "sentinel-2",
+      "model_version": "gr-changenet-1.4.2",
+      "evidence": {
+        "before": "data/scenes/ahr-2021-flood-before.png",
+        "after": "data/scenes/ahr-2021-flood-after.png"
+      },
+      "why": {
+        "summary": "12.0% change against a 3.0% baseline",
+        "threshold": {
+          "mean": 0.03,
+          "threshold": 0.07,
+          "sigma": 2.5,
+          "minChange": 0.06
+        },
+        "trend": "increasing",
+        "abruptness": 2.7,
+        "confirmation": true,
+        "fusion": {
+          "confidence": 0.75,
+          "agreement": 0.89,
+          "method": "optical+sar"
+        },
+        "suppression": 0.92,
+        "leadTimeHours": 19.0,
+        "scope": {
+          "name": "Cologne construction watch",
+          "kind": "portfolio",
+          "assetClass": "construction"
+        }
+      },
+      "provenance": {
+        "imagery": "Simulated Sentinel-2 L2A-like composite",
+        "acquired": "2026-10-25T10:39:20+00:00",
+        "model": "gr-changenet-1.4.2",
+        "baseline": {
+          "mean": 0.03,
+          "sigma": 2.5
+        }
+      },
+      "dedupe_key": "scope-cologne-construction:vegetation:6.907:50.933",
+      "schema_version": "alert.v1",
+      "validated_by": "A. Weber",
+      "validation_count": 3,
+      "tags": [
+        "demo",
+        "vegetation"
+      ]
+    },
+    {
+      "id": "ALT-2008",
+      "tenant": "demo",
+      "scope_id": "scope-eifel-fire",
+      "title": "Resolved watch item 9",
+      "summary": "A historical alert closed after analyst review. Kept for precision and audit.",
+      "severity": "orange",
+      "urgency": 0.609,
+      "confidence": 0.74,
+      "change_type": "erosion",
+      "observed": 0.12,
+      "baseline": 0.03,
+      "lon": 6.4239999999999995,
+      "lat": 50.59,
+      "incident_id": null,
+      "status": "resolved",
+      "assignee": "A. Weber",
+      "sla_due": "2026-10-25T07:39:20+00:00",
+      "created_at": "2026-10-25T03:39:20+00:00",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "acknowledged_at": null,
+      "resolved_at": null,
+      "dismissed_reason": null,
+      "dismissal_note": null,
+      "asset": "Historical asset",
+      "value_eur": 1200000,
+      "population": 120,
+      "access": "clear",
+      "source": "sentinel-2",
+      "model_version": "gr-changenet-1.4.2",
+      "evidence": {
+        "before": "data/scenes/ahr-2021-flood-before.png",
+        "after": "data/scenes/ahr-2021-flood-after.png"
+      },
+      "why": {
+        "summary": "12.0% change against a 3.0% baseline",
+        "threshold": {
+          "mean": 0.03,
+          "threshold": 0.07,
+          "sigma": 2.5,
+          "minChange": 0.06
+        },
+        "trend": "increasing",
+        "abruptness": 2.7,
+        "confirmation": true,
+        "fusion": {
+          "confidence": 0.74,
+          "agreement": 0.89,
+          "method": "optical+sar"
+        },
+        "suppression": 0.92,
+        "leadTimeHours": 20.0,
+        "scope": {
+          "name": "Eifel ridge wildfire watch",
+          "kind": "aoi",
+          "assetClass": "insurance"
+        }
+      },
+      "provenance": {
+        "imagery": "Simulated Sentinel-2 L2A-like composite",
+        "acquired": "2026-10-25T01:39:20+00:00",
+        "model": "gr-changenet-1.4.2",
+        "baseline": {
+          "mean": 0.03,
+          "sigma": 2.5
+        }
+      },
+      "dedupe_key": "scope-eifel-fire:erosion:6.424:50.59",
+      "schema_version": "alert.v1",
+      "validated_by": "A. Weber",
+      "validation_count": 3,
+      "tags": [
+        "demo",
+        "erosion"
+      ]
+    },
+    {
+      "id": "ALT-2009",
+      "tenant": "demo",
+      "scope_id": "scope-dernau-vineyard",
+      "title": "Resolved watch item 10",
+      "summary": "A historical alert closed after analyst review. Kept for precision and audit.",
+      "severity": "red",
+      "urgency": 0.726,
+      "confidence": 0.73,
+      "change_type": "wildfire",
+      "observed": 0.12,
+      "baseline": 0.03,
+      "lon": 7.05,
+      "lat": 50.528,
+      "incident_id": null,
+      "status": "resolved",
+      "assignee": "A. Weber",
+      "sla_due": "2026-10-24T22:39:20+00:00",
+      "created_at": "2026-10-24T18:39:20+00:00",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "acknowledged_at": null,
+      "resolved_at": null,
+      "dismissed_reason": null,
+      "dismissal_note": null,
+      "asset": "Historical asset",
+      "value_eur": 1200000,
+      "population": 120,
+      "access": "clear",
+      "source": "sentinel-2",
+      "model_version": "gr-changenet-1.4.2",
+      "evidence": {
+        "before": "data/scenes/ahr-2021-flood-before.png",
+        "after": "data/scenes/ahr-2021-flood-after.png"
+      },
+      "why": {
+        "summary": "12.0% change against a 3.0% baseline",
+        "threshold": {
+          "mean": 0.03,
+          "threshold": 0.07,
+          "sigma": 2.5,
+          "minChange": 0.06
+        },
+        "trend": "increasing",
+        "abruptness": 2.7,
+        "confirmation": true,
+        "fusion": {
+          "confidence": 0.73,
+          "agreement": 0.89,
+          "method": "optical+sar"
+        },
+        "suppression": 0.92,
+        "leadTimeHours": 21.0,
+        "scope": {
+          "name": "Dernau vineyard block",
+          "kind": "asset",
+          "assetClass": "agriculture"
+        }
+      },
+      "provenance": {
+        "imagery": "Simulated Sentinel-2 L2A-like composite",
+        "acquired": "2026-10-24T16:39:20+00:00",
+        "model": "gr-changenet-1.4.2",
+        "baseline": {
+          "mean": 0.03,
+          "sigma": 2.5
+        }
+      },
+      "dedupe_key": "scope-dernau-vineyard:wildfire:7.05:50.528",
+      "schema_version": "alert.v1",
+      "validated_by": "A. Weber",
+      "validation_count": 3,
+      "tags": [
+        "demo",
+        "wildfire"
+      ]
+    }
+  ],
+  "incidents": [
+    {
+      "id": "INC-AHR-01",
+      "tenant": "demo",
+      "scope_id": "scope-ahr-corridor",
+      "title": "Flood impacts along the Ahr corridor",
+      "severity": "red",
+      "status": "investigating",
+      "alert_ids": [
+        "ALT-1001",
+        "ALT-1002"
+      ],
+      "assignee": "A. Weber",
+      "opened_at": "2026-10-29T14:39:20+00:00",
+      "closed_at": null,
+      "summary": "2 related alert(s) in Ahr corridor watch. Human review required.",
+      "timeline": [
+        {
+          "at": "2026-10-29T14:39:20+00:00",
+          "event": "incident.opened",
+          "alertId": "ALT-1001"
+        },
+        {
+          "at": "2026-10-29T15:39:20+00:00",
+          "event": "alert.acknowledged",
+          "alertId": "ALT-1001",
+          "actor": "A. Weber"
+        }
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "INC-AHR-02",
+      "tenant": "demo",
+      "scope_id": "scope-ahr-corridor",
+      "title": "Levee erosion near Heimersheim",
+      "severity": "orange",
+      "status": "open",
+      "alert_ids": [
+        "ALT-1003"
+      ],
+      "assignee": "M. Keller",
+      "opened_at": "2026-10-29T14:39:20+00:00",
+      "closed_at": null,
+      "summary": "1 related alert(s) in Ahr corridor watch. Human review required.",
+      "timeline": [
+        {
+          "at": "2026-10-29T14:39:20+00:00",
+          "event": "incident.opened",
+          "alertId": "ALT-1003"
+        },
+        {
+          "at": "2026-10-29T15:39:20+00:00",
+          "event": "alert.acknowledged",
+          "alertId": "ALT-1003",
+          "actor": "A. Weber"
+        }
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "INC-RUR-01",
+      "tenant": "demo",
+      "scope_id": "scope-rur-utility",
+      "title": "Vegetation and access change on the Rur corridor",
+      "severity": "orange",
+      "status": "open",
+      "alert_ids": [
+        "ALT-1004"
+      ],
+      "assignee": "M. Keller",
+      "opened_at": "2026-10-29T14:39:20+00:00",
+      "closed_at": null,
+      "summary": "1 related alert(s) in Rur valley utility corridor. Human review required.",
+      "timeline": [
+        {
+          "at": "2026-10-29T14:39:20+00:00",
+          "event": "incident.opened",
+          "alertId": "ALT-1004"
+        },
+        {
+          "at": "2026-10-29T15:39:20+00:00",
+          "event": "alert.acknowledged",
+          "alertId": "ALT-1004",
+          "actor": "A. Weber"
+        }
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "INC-EIF-01",
+      "tenant": "demo",
+      "scope_id": "scope-eifel-fire",
+      "title": "Burn scar expansion on the Eifel ridge",
+      "severity": "red",
+      "status": "investigating",
+      "alert_ids": [
+        "ALT-1008"
+      ],
+      "assignee": "S. Okafor",
+      "opened_at": "2026-10-29T14:39:20+00:00",
+      "closed_at": null,
+      "summary": "1 related alert(s) in Eifel ridge wildfire watch. Human review required.",
+      "timeline": [
+        {
+          "at": "2026-10-29T14:39:20+00:00",
+          "event": "incident.opened",
+          "alertId": "ALT-1008"
+        },
+        {
+          "at": "2026-10-29T15:39:20+00:00",
+          "event": "alert.acknowledged",
+          "alertId": "ALT-1008",
+          "actor": "A. Weber"
+        }
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "INC-TAI-01",
+      "tenant": "demo",
+      "scope_id": "scope-tailings-watch",
+      "title": "Tailings dam surface change",
+      "severity": "red",
+      "status": "open",
+      "alert_ids": [
+        "ALT-1012"
+      ],
+      "assignee": "A. Weber",
+      "opened_at": "2026-10-29T14:39:20+00:00",
+      "closed_at": null,
+      "summary": "1 related alert(s) in Rur tailings watch. Human review required.",
+      "timeline": [
+        {
+          "at": "2026-10-29T14:39:20+00:00",
+          "event": "incident.opened",
+          "alertId": "ALT-1012"
+        },
+        {
+          "at": "2026-10-29T15:39:20+00:00",
+          "event": "alert.acknowledged",
+          "alertId": "ALT-1012",
+          "actor": "A. Weber"
+        }
+      ],
+      "metadata": {}
+    }
+  ],
+  "forecasts": [
+    {
+      "id": "fc-ahr-flood",
+      "region": "Ahrweiler, Germany",
+      "issued_at": "2026-10-29T17:39:20+00:00",
+      "valid_from": "2026-10-29T18:39:20+00:00",
+      "valid_to": "2026-10-31T01:39:20+00:00",
+      "hazard": "flood",
+      "probability": 0.78,
+      "rainfall_mm": 62,
+      "wind_kmh": 0.0,
+      "river_level_m": 3.4,
+      "uncertainty": 0.18,
+      "source": "demo-forecast",
+      "confidence": 0.82,
+      "metadata": {
+        "cloudCover": 0.35
+      }
+    },
+    {
+      "id": "fc-rur-flood",
+      "region": "Rur valley, Germany",
+      "issued_at": "2026-10-29T16:39:20+00:00",
+      "valid_from": "2026-10-29T18:39:20+00:00",
+      "valid_to": "2026-10-30T23:39:20+00:00",
+      "hazard": "flood",
+      "probability": 0.62,
+      "rainfall_mm": 44,
+      "wind_kmh": 0.0,
+      "river_level_m": 2.7,
+      "uncertainty": 0.24,
+      "source": "demo-forecast",
+      "confidence": 0.76,
+      "metadata": {
+        "cloudCover": 0.28
+      }
+    },
+    {
+      "id": "fc-cologne-storm",
+      "region": "Cologne, Germany",
+      "issued_at": "2026-10-29T16:39:20+00:00",
+      "valid_from": "2026-10-29T18:39:20+00:00",
+      "valid_to": "2026-10-30T19:39:20+00:00",
+      "hazard": "storm",
+      "probability": 0.36,
+      "rainfall_mm": 0.0,
+      "wind_kmh": 52,
+      "river_level_m": 0.0,
+      "uncertainty": 0.26,
+      "source": "demo-forecast",
+      "confidence": 0.74,
+      "metadata": {
+        "cloudCover": 0.4
+      }
+    },
+    {
+      "id": "fc-eifel-fire",
+      "region": "Eifel, Germany",
+      "issued_at": "2026-10-29T15:39:20+00:00",
+      "valid_from": "2026-10-29T18:39:20+00:00",
+      "valid_to": "2026-10-31T07:39:20+00:00",
+      "hazard": "wildfire",
+      "probability": 0.55,
+      "rainfall_mm": 0.0,
+      "wind_kmh": 38,
+      "river_level_m": 0.0,
+      "uncertainty": 0.3,
+      "source": "demo-forecast",
+      "confidence": 0.7,
+      "metadata": {
+        "cloudCover": 0.1
+      }
+    },
+    {
+      "id": "fc-dernau-frost",
+      "region": "Dernau, Germany",
+      "issued_at": "2026-10-29T14:39:20+00:00",
+      "valid_from": "2026-10-29T18:39:20+00:00",
+      "valid_to": "2026-10-31T11:39:20+00:00",
+      "hazard": "freeze",
+      "probability": 0.31,
+      "rainfall_mm": 0.0,
+      "wind_kmh": 0.0,
+      "river_level_m": 0.0,
+      "uncertainty": 0.3,
+      "source": "demo-forecast",
+      "confidence": 0.7,
+      "metadata": {
+        "cloudCover": 0.2
+      }
+    }
+  ],
+  "acquisitions": [
+    {
+      "id": "acq-scope-ahr-corridor",
+      "scope_id": "scope-ahr-corridor",
+      "source": "sentinel-2",
+      "scheduled_for": "2026-10-29T13:39:20+00:00",
+      "status": "received",
+      "cloud_forecast": 0.12,
+      "cost_eur": 0.0,
+      "priority": 1,
+      "attempts": 0,
+      "next_attempt_at": null,
+      "idempotency_key": "scope-ahr-corridor:seed:received",
+      "bbox": [
+        7.043,
+        50.522,
+        7.157,
+        50.567
+      ],
+      "resolution_m": 10.0,
+      "scene_id": "SCENE-RRIDOR",
+      "received_at": "2026-10-29T13:39:20+00:00",
+      "readiness": 0.91,
+      "blind_spot_reason": null,
+      "provenance": {
+        "imagery": "simulated demo pack",
+        "dryRun": true
+      },
+      "created_at": "2026-10-29T19:39:20+00:00"
+    },
+    {
+      "id": "acq-next-scope-ahr-corridor",
+      "scope_id": "scope-ahr-corridor",
+      "source": "sentinel-2",
+      "scheduled_for": "2026-10-30T19:39:20+00:00",
+      "status": "planned",
+      "cloud_forecast": 0.18,
+      "cost_eur": 0.0,
+      "priority": 1,
+      "attempts": 0,
+      "next_attempt_at": null,
+      "idempotency_key": "scope-ahr-corridor:seed:next",
+      "bbox": [
+        7.043,
+        50.522,
+        7.157,
+        50.567
+      ],
+      "resolution_m": 10.0,
+      "scene_id": null,
+      "received_at": null,
+      "readiness": 0.0,
+      "blind_spot_reason": null,
+      "provenance": {
+        "planned": true
+      },
+      "created_at": "2026-10-29T19:39:20+00:00"
+    },
+    {
+      "id": "acq-scope-rur-utility",
+      "scope_id": "scope-rur-utility",
+      "source": "sentinel-2",
+      "scheduled_for": "2026-10-28T23:39:20+00:00",
+      "status": "received",
+      "cloud_forecast": 0.12,
+      "cost_eur": 0.0,
+      "priority": 2,
+      "attempts": 0,
+      "next_attempt_at": null,
+      "idempotency_key": "scope-rur-utility:seed:received",
+      "bbox": [
+        6.35,
+        50.72,
+        6.49,
+        50.8
+      ],
+      "resolution_m": 10.0,
+      "scene_id": "SCENE-TILITY",
+      "received_at": "2026-10-28T23:39:20+00:00",
+      "readiness": 0.91,
+      "blind_spot_reason": null,
+      "provenance": {
+        "imagery": "simulated demo pack",
+        "dryRun": true
+      },
+      "created_at": "2026-10-29T19:39:20+00:00"
+    },
+    {
+      "id": "acq-next-scope-rur-utility",
+      "scope_id": "scope-rur-utility",
+      "source": "sentinel-2",
+      "scheduled_for": "2026-10-30T19:39:20+00:00",
+      "status": "planned",
+      "cloud_forecast": 0.18,
+      "cost_eur": 0.0,
+      "priority": 2,
+      "attempts": 0,
+      "next_attempt_at": null,
+      "idempotency_key": "scope-rur-utility:seed:next",
+      "bbox": [
+        6.35,
+        50.72,
+        6.49,
+        50.8
+      ],
+      "resolution_m": 10.0,
+      "scene_id": null,
+      "received_at": null,
+      "readiness": 0.0,
+      "blind_spot_reason": null,
+      "provenance": {
+        "planned": true
+      },
+      "created_at": "2026-10-29T19:39:20+00:00"
+    },
+    {
+      "id": "acq-scope-cologne-construction",
+      "scope_id": "scope-cologne-construction",
+      "source": "sentinel-2",
+      "scheduled_for": "2026-10-28T13:39:20+00:00",
+      "status": "received",
+      "cloud_forecast": 0.12,
+      "cost_eur": 0.0,
+      "priority": 3,
+      "attempts": 0,
+      "next_attempt_at": null,
+      "idempotency_key": "scope-cologne-construction:seed:received",
+      "bbox": [
+        6.84,
+        50.89,
+        6.97,
+        50.98
+      ],
+      "resolution_m": 10.0,
+      "scene_id": "SCENE-UCTION",
+      "received_at": "2026-10-28T13:39:20+00:00",
+      "readiness": 0.91,
+      "blind_spot_reason": null,
+      "provenance": {
+        "imagery": "simulated demo pack",
+        "dryRun": true
+      },
+      "created_at": "2026-10-29T19:39:20+00:00"
+    },
+    {
+      "id": "acq-next-scope-cologne-construction",
+      "scope_id": "scope-cologne-construction",
+      "source": "sentinel-2",
+      "scheduled_for": "2026-11-05T19:39:20+00:00",
+      "status": "planned",
+      "cloud_forecast": 0.18,
+      "cost_eur": 0.0,
+      "priority": 3,
+      "attempts": 0,
+      "next_attempt_at": null,
+      "idempotency_key": "scope-cologne-construction:seed:next",
+      "bbox": [
+        6.84,
+        50.89,
+        6.97,
+        50.98
+      ],
+      "resolution_m": 10.0,
+      "scene_id": null,
+      "received_at": null,
+      "readiness": 0.0,
+      "blind_spot_reason": null,
+      "provenance": {
+        "planned": true
+      },
+      "created_at": "2026-10-29T19:39:20+00:00"
+    },
+    {
+      "id": "acq-scope-eifel-fire",
+      "scope_id": "scope-eifel-fire",
+      "source": "sentinel-2",
+      "scheduled_for": "2026-10-29T09:39:20+00:00",
+      "status": "received",
+      "cloud_forecast": 0.12,
+      "cost_eur": 0.0,
+      "priority": 2,
+      "attempts": 0,
+      "next_attempt_at": null,
+      "idempotency_key": "scope-eifel-fire:seed:received",
+      "bbox": [
+        6.35,
+        50.54,
+        6.49,
+        50.65
+      ],
+      "resolution_m": 10.0,
+      "scene_id": "SCENE-L-FIRE",
+      "received_at": "2026-10-29T09:39:20+00:00",
+      "readiness": 0.91,
+      "blind_spot_reason": null,
+      "provenance": {
+        "imagery": "simulated demo pack",
+        "dryRun": true
+      },
+      "created_at": "2026-10-29T19:39:20+00:00"
+    },
+    {
+      "id": "acq-next-scope-eifel-fire",
+      "scope_id": "scope-eifel-fire",
+      "source": "sentinel-2",
+      "scheduled_for": "2026-10-30T07:39:20+00:00",
+      "status": "planned",
+      "cloud_forecast": 0.18,
+      "cost_eur": 0.0,
+      "priority": 2,
+      "attempts": 0,
+      "next_attempt_at": null,
+      "idempotency_key": "scope-eifel-fire:seed:next",
+      "bbox": [
+        6.35,
+        50.54,
+        6.49,
+        50.65
+      ],
+      "resolution_m": 10.0,
+      "scene_id": null,
+      "received_at": null,
+      "readiness": 0.0,
+      "blind_spot_reason": null,
+      "provenance": {
+        "planned": true
+      },
+      "created_at": "2026-10-29T19:39:20+00:00"
+    },
+    {
+      "id": "acq-scope-dernau-vineyard",
+      "scope_id": "scope-dernau-vineyard",
+      "source": "sentinel-2",
+      "scheduled_for": "2026-10-28T05:39:20+00:00",
+      "status": "received",
+      "cloud_forecast": 0.12,
+      "cost_eur": 0.0,
+      "priority": 4,
+      "attempts": 0,
+      "next_attempt_at": null,
+      "idempotency_key": "scope-dernau-vineyard:seed:received",
+      "bbox": [
+        7.03,
+        50.515,
+        7.07,
+        50.545
+      ],
+      "resolution_m": 10.0,
+      "scene_id": "SCENE-NEYARD",
+      "received_at": "2026-10-28T05:39:20+00:00",
+      "readiness": 0.91,
+      "blind_spot_reason": null,
+      "provenance": {
+        "imagery": "simulated demo pack",
+        "dryRun": true
+      },
+      "created_at": "2026-10-29T19:39:20+00:00"
+    },
+    {
+      "id": "acq-next-scope-dernau-vineyard",
+      "scope_id": "scope-dernau-vineyard",
+      "source": "sentinel-2",
+      "scheduled_for": "2026-11-05T19:39:20+00:00",
+      "status": "planned",
+      "cloud_forecast": 0.18,
+      "cost_eur": 0.0,
+      "priority": 4,
+      "attempts": 0,
+      "next_attempt_at": null,
+      "idempotency_key": "scope-dernau-vineyard:seed:next",
+      "bbox": [
+        7.03,
+        50.515,
+        7.07,
+        50.545
+      ],
+      "resolution_m": 10.0,
+      "scene_id": null,
+      "received_at": null,
+      "readiness": 0.0,
+      "blind_spot_reason": null,
+      "provenance": {
+        "planned": true
+      },
+      "created_at": "2026-10-29T19:39:20+00:00"
+    },
+    {
+      "id": "acq-scope-tailings-watch",
+      "scope_id": "scope-tailings-watch",
+      "source": "sentinel-1",
+      "scheduled_for": "2026-10-21T21:39:20+00:00",
+      "status": "failed",
+      "cloud_forecast": 0.42,
+      "cost_eur": 220.0,
+      "priority": 3,
+      "attempts": 0,
+      "next_attempt_at": null,
+      "idempotency_key": "scope-tailings-watch:seed:received",
+      "bbox": [
+        6.4,
+        50.69,
+        6.5,
+        50.75
+      ],
+      "resolution_m": 10.0,
+      "scene_id": "SCENE--WATCH",
+      "received_at": null,
+      "readiness": 0.21,
+      "blind_spot_reason": "cloud cover and failed tasking",
+      "provenance": {
+        "imagery": "simulated demo pack",
+        "dryRun": true
+      },
+      "created_at": "2026-10-29T19:39:20+00:00"
+    },
+    {
+      "id": "acq-next-scope-tailings-watch",
+      "scope_id": "scope-tailings-watch",
+      "source": "sentinel-2",
+      "scheduled_for": "2026-11-05T19:39:20+00:00",
+      "status": "planned",
+      "cloud_forecast": 0.18,
+      "cost_eur": 0.0,
+      "priority": 3,
+      "attempts": 0,
+      "next_attempt_at": null,
+      "idempotency_key": "scope-tailings-watch:seed:next",
+      "bbox": [
+        6.4,
+        50.69,
+        6.5,
+        50.75
+      ],
+      "resolution_m": 10.0,
+      "scene_id": null,
+      "received_at": null,
+      "readiness": 0.0,
+      "blind_spot_reason": null,
+      "provenance": {
+        "planned": true
+      },
+      "created_at": "2026-10-29T19:39:20+00:00"
+    }
+  ],
+  "baselines": [
+    {
+      "scope_id": "scope-ahr-corridor",
+      "metric": "change_fraction",
+      "values": [
+        0.03,
+        0.04,
+        0.03,
+        0.05,
+        0.04,
+        0.06,
+        0.05,
+        0.04
+      ],
+      "season": "summer",
+      "mean": 0.0425,
+      "std": 0.009682,
+      "minimum": 0.03,
+      "maximum": 0.06,
+      "trend": "stable",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "model_version": "gr-changenet-1.4.2",
+      "confirmed_at": null,
+      "metadata": {}
+    },
+    {
+      "scope_id": "scope-rur-utility",
+      "metric": "change_fraction",
+      "values": [
+        0.02,
+        0.03,
+        0.02,
+        0.04,
+        0.03,
+        0.02
+      ],
+      "season": "summer",
+      "mean": 0.026667,
+      "std": 0.007454,
+      "minimum": 0.02,
+      "maximum": 0.04,
+      "trend": "stable",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "model_version": "gr-changenet-1.4.2",
+      "confirmed_at": null,
+      "metadata": {}
+    },
+    {
+      "scope_id": "scope-cologne-construction",
+      "metric": "change_fraction",
+      "values": [
+        0.01,
+        0.02,
+        0.02,
+        0.03,
+        0.02,
+        0.02
+      ],
+      "season": "summer",
+      "mean": 0.02,
+      "std": 0.005774,
+      "minimum": 0.01,
+      "maximum": 0.03,
+      "trend": "stable",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "model_version": "gr-changenet-1.4.2",
+      "confirmed_at": null,
+      "metadata": {}
+    },
+    {
+      "scope_id": "scope-eifel-fire",
+      "metric": "change_fraction",
+      "values": [
+        0.02,
+        0.03,
+        0.03,
+        0.02,
+        0.04
+      ],
+      "season": "summer",
+      "mean": 0.028,
+      "std": 0.007483,
+      "minimum": 0.02,
+      "maximum": 0.04,
+      "trend": "stable",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "model_version": "gr-changenet-1.4.2",
+      "confirmed_at": null,
+      "metadata": {}
+    },
+    {
+      "scope_id": "scope-dernau-vineyard",
+      "metric": "ndvi",
+      "values": [
+        0.74,
+        0.72,
+        0.75,
+        0.73,
+        0.71,
+        0.72,
+        0.7
+      ],
+      "season": "summer",
+      "mean": 0.724286,
+      "std": 0.015908,
+      "minimum": 0.7,
+      "maximum": 0.75,
+      "trend": "stable",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "model_version": "gr-changenet-1.4.2",
+      "confirmed_at": null,
+      "metadata": {}
+    },
+    {
+      "scope_id": "scope-tailings-watch",
+      "metric": "change_fraction",
+      "values": [
+        0.01,
+        0.01,
+        0.02,
+        0.01,
+        0.02
+      ],
+      "season": "summer",
+      "mean": 0.014,
+      "std": 0.004899,
+      "minimum": 0.01,
+      "maximum": 0.02,
+      "trend": "stable",
+      "updated_at": "2026-10-29T19:39:20+00:00",
+      "model_version": "gr-changenet-1.4.2",
+      "confirmed_at": null,
+      "metadata": {}
+    }
+  ],
+  "preferences": {
+    "channels": [
+      "email",
+      "slack",
+      "teams"
+    ],
+    "quietHours": [
+      22,
+      7
+    ],
+    "digest": "instant",
+    "language": "en",
+    "alertBudgetPerDay": 8,
+    "escalationMinutes": 30,
+    "paused": false,
+    "killSwitch": false,
+    "recipients": [
+      {
+        "name": "Ops desk",
+        "email": "ops@example.com",
+        "channels": [
+          "email",
+          "slack",
+          "teams"
+        ]
+      },
+      {
+        "name": "Claims lead",
+        "email": "claims@example.com",
+        "channels": [
+          "email"
+        ]
+      },
+      {
+        "name": "On-call",
+        "phone": "+000000000",
+        "channels": [
+          "sms"
+        ]
+      }
+    ]
+  },
+  "models": [
+    {
+      "name": "gr-changenet",
+      "version": "1.4.2",
+      "status": "deployed",
+      "metrics": {
+        "precision": 0.91,
+        "recall": 0.87
+      },
+      "deployed_at": "2026-10-29T19:39:20+00:00",
+      "rollback_to": "1.3.9",
+      "notes": "Pinned on every alert"
+    },
+    {
+      "name": "gr-changenet-shadow",
+      "version": "1.5.0",
+      "status": "shadow",
+      "metrics": {
+        "precision": 0.93,
+        "recall": 0.88
+      },
+      "deployed_at": "2026-10-29T19:39:20+00:00",
+      "rollback_to": "1.4.2",
+      "notes": "Shadow candidate; not customer-visible"
+    },
+    {
+      "name": "gr-damage-head",
+      "version": "1.0",
+      "status": "deployed",
+      "metrics": {
+        "precision": 0.86,
+        "recall": 0.81
+      },
+      "deployed_at": "2026-10-29T19:39:20+00:00",
+      "rollback_to": null,
+      "notes": "Damage likelihood head"
+    }
+  ],
+  "dashboard": {
+    "tenant": "demo",
+    "alerts": 24,
+    "open": 9,
+    "highRisk": 4,
+    "precision": 0.8,
+    "actionConversion": 0.8,
+    "slaBreaches": 3,
+    "scopes": 6,
+    "activeScopes": 6,
+    "monitoredKm2": 439.2,
+    "costPerKm2": 3.03,
+    "fatigue": {
+      "periodHours": 8,
+      "alerts": 9,
+      "analysts": 4,
+      "perAnalyst": 2.25,
+      "budgetPerAnalyst": 8,
+      "overBudget": false,
+      "advice": "within budget"
+    },
+    "freshness": {
+      "scopes": 6,
+      "breached": 1,
+      "breaches": [
+        {
+          "scopeId": "scope-tailings-watch",
+          "freshnessHours": null
+        }
+      ],
+      "status": "degraded"
+    },
+    "blindSpots": [
+      {
+        "scopeId": "scope-tailings-watch",
+        "name": "Rur tailings watch",
+        "region": "Rur valley, Germany",
+        "status": "blind",
+        "freshnessHours": null,
+        "sloBreached": true,
+        "mode": "best-effort",
+        "reason": "no recent acquisition"
+      }
+    ],
+    "onCall": {
+      "primary": "A. Weber",
+      "secondary": "M. Keller",
+      "window": "8h"
+    },
+    "notifications": [
+      {
+        "id": "NOT-0",
+        "alertId": "ALT-1001",
+        "channel": "email",
+        "status": "sent",
+        "attempts": 1
+      },
+      {
+        "id": "NOT-1",
+        "alertId": "ALT-1002",
+        "channel": "slack",
+        "status": "sent",
+        "attempts": 1
+      },
+      {
+        "id": "NOT-2",
+        "alertId": "ALT-1003",
+        "channel": "teams",
+        "status": "sent",
+        "attempts": 1
+      },
+      {
+        "id": "NOT-3",
+        "alertId": "ALT-1004",
+        "channel": "email",
+        "status": "sent",
+        "attempts": 1
+      },
+      {
+        "id": "NOT-4",
+        "alertId": "ALT-1005",
+        "channel": "sms",
+        "status": "failed",
+        "attempts": 2
+      }
+    ],
+    "models": [
+      {
+        "name": "gr-changenet",
+        "version": "1.4.2",
+        "status": "deployed",
+        "metrics": {
+          "precision": 0.91,
+          "recall": 0.87
+        },
+        "deployed_at": "2026-10-29T19:39:20+00:00",
+        "rollback_to": "1.3.9",
+        "notes": "Pinned on every alert"
+      },
+      {
+        "name": "gr-changenet-shadow",
+        "version": "1.5.0",
+        "status": "shadow",
+        "metrics": {
+          "precision": 0.93,
+          "recall": 0.88
+        },
+        "deployed_at": "2026-10-29T19:39:20+00:00",
+        "rollback_to": "1.4.2",
+        "notes": "Shadow candidate; not customer-visible"
+      },
+      {
+        "name": "gr-damage-head",
+        "version": "1.0",
+        "status": "deployed",
+        "metrics": {
+          "precision": 0.86,
+          "recall": 0.81
+        },
+        "deployed_at": "2026-10-29T19:39:20+00:00",
+        "rollback_to": null,
+        "notes": "Damage likelihood head"
+      }
+    ],
+    "governance": {
+      "models": [
+        {
+          "name": "gr-changenet",
+          "version": "1.4.2",
+          "status": "deployed",
+          "metrics": {
+            "precision": 0.91,
+            "recall": 0.87
+          },
+          "deployed_at": "2026-10-29T19:39:20+00:00",
+          "rollback_to": "1.3.9",
+          "notes": "Pinned on every alert"
+        },
+        {
+          "name": "gr-changenet-shadow",
+          "version": "1.5.0",
+          "status": "shadow",
+          "metrics": {
+            "precision": 0.93,
+            "recall": 0.88
+          },
+          "deployed_at": "2026-10-29T19:39:20+00:00",
+          "rollback_to": "1.4.2",
+          "notes": "Shadow candidate; not customer-visible"
+        },
+        {
+          "name": "gr-damage-head",
+          "version": "1.0",
+          "status": "deployed",
+          "metrics": {
+            "precision": 0.86,
+            "recall": 0.81
+          },
+          "deployed_at": "2026-10-29T19:39:20+00:00",
+          "rollback_to": null,
+          "notes": "Damage likelihood head"
+        }
+      ],
+      "audit": {
+        "ok": true,
+        "message": "0 events, chain intact"
+      },
+      "killSwitch": false,
+      "quality": {
+        "alerts": 24,
+        "closed": 15,
+        "precision": 0.8,
+        "resolvedWithoutAssignee": 0,
+        "rejectedReasons": {
+          "duplicate": 1,
+          "cloud_shadow": 1,
+          "no_action": 1
+        },
+        "falseAlarm": {
+          "alerts": 24,
+          "dismissed": 3,
+          "analystHours": 1.25,
+          "costEur": 97.5,
+          "byReason": {
+            "duplicate": 1,
+            "cloud_shadow": 1,
+            "no_action": 1
+          }
+        }
+      },
+      "overrides": {
+        "resolved": 15,
+        "approved": 12,
+        "rejected": 3,
+        "overrideRate": 0.2,
+        "reasons": {
+          "duplicate": 1,
+          "cloud_shadow": 1,
+          "no_action": 1
+        }
+      },
+      "privacy": {
+        "policy": "Privacy review for persistent aerial monitoring",
+        "items": [
+          {
+            "id": "scope_definition",
+            "requirement": "Every monitored scope has a named customer, purpose and exclusion zones.",
+            "status": "engineered"
+          },
+          {
+            "id": "lawful_basis",
+            "requirement": "Continuous acquisition has a documented lawful basis and DPA.",
+            "status": "pilot-gate"
+          },
+          {
+            "id": "minimisation",
+            "requirement": "Resolution and cadence are the minimum needed for the decision.",
+            "status": "engineered"
+          },
+          {
+            "id": "retention",
+            "requirement": "Retention clock per alert and per scope; raw imagery deleted on schedule.",
+            "status": "pilot-gate"
+          },
+          {
+            "id": "access",
+            "requirement": "Per-tenant roles: analyst, reviewer, auditor, customer viewer.",
+            "status": "pilot-gate"
+          },
+          {
+            "id": "subprocessors",
+            "requirement": "Imagery provider, cloud, NPU vendor listed as subprocessors.",
+            "status": "pilot-gate"
+          },
+          {
+            "id": "sovereignty",
+            "requirement": "On-site or sovereign deployment; no outbound network after delivery.",
+            "status": "engineered"
+          },
+          {
+            "id": "transparency",
+            "requirement": "Customer notice explains AI monitoring and human decisions.",
+            "status": "pilot-gate"
+          },
+          {
+            "id": "human_review",
+            "requirement": "No automatic claim approval or crew dispatch.",
+            "status": "engineered"
+          },
+          {
+            "id": "incident",
+            "requirement": "Breach playbook, 72-hour notification, audit export.",
+            "status": "pilot-gate"
+          },
+          {
+            "id": "surveillance",
+            "requirement": "No monitoring of people, protests, private life or protected groups.",
+            "status": "engineered"
+          },
+          {
+            "id": "scope_creep",
+            "requirement": "Quarterly scope review; a new scope requires a new purpose.",
+            "status": "pilot-gate"
+          }
+        ],
+        "note": "Engineering checklist, not legal advice."
+      },
+      "nonGoals": [
+        "automated-claim-approval",
+        "automatic-dispatch",
+        "person-surveillance",
+        "live-video",
+        "individual-behaviour",
+        "unscoped-monitoring"
+      ],
+      "retention": {
+        "defaultDays": 365,
+        "policy": "raw imagery deleted after claim decision + legal minimum"
+      }
+    }
+  },
+  "watch": {
+    "watchlist": [
+      {
+        "scopeId": "scope-ahr-corridor",
+        "name": "Ahr corridor watch",
+        "region": "Ahrweiler, Germany",
+        "hazard": "flood",
+        "probability": 0.78,
+        "interval": [
+          0.6,
+          0.96
+        ],
+        "uncertainty": 0.18,
+        "leadTimeHours": 22.4,
+        "score": 0.836,
+        "urgency": 0.689,
+        "exposure": {
+          "valueEur": 56200000,
+          "population": 9630,
+          "criticalAssets": 2,
+          "assets": 4
+        },
+        "validTo": "2026-10-31T01:39:20+00:00",
+        "forecastId": "fc-ahr-flood",
+        "recommendation": {
+          "teams": 2,
+          "note": "Recommendation only. A human commits the teams.",
+          "prioritySites": 2,
+          "reason": "flood probability 78% with 18% uncertainty"
+        },
+        "taskingTrigger": true,
+        "status": "watch",
+        "computedAt": "2026-10-29T19:39:20+00:00"
+      },
+      {
+        "scopeId": "scope-rur-utility",
+        "name": "Rur valley utility corridor",
+        "region": "Rur valley, Germany",
+        "hazard": "flood",
+        "probability": 0.62,
+        "interval": [
+          0.38,
+          0.86
+        ],
+        "uncertainty": 0.24,
+        "leadTimeHours": 18.4,
+        "score": 0.696,
+        "urgency": 0.744,
+        "exposure": {
+          "valueEur": 18400000,
+          "population": 2100,
+          "criticalAssets": 1,
+          "assets": 1
+        },
+        "validTo": "2026-10-30T23:39:20+00:00",
+        "forecastId": "fc-rur-flood",
+        "recommendation": {
+          "teams": 2,
+          "note": "Recommendation only. A human commits the teams.",
+          "prioritySites": 1,
+          "reason": "flood probability 62% with 24% uncertainty"
+        },
+        "taskingTrigger": true,
+        "status": "watch",
+        "computedAt": "2026-10-29T19:39:20+00:00"
+      },
+      {
+        "scopeId": "scope-eifel-fire",
+        "name": "Eifel ridge wildfire watch",
+        "region": "Eifel, Germany",
+        "hazard": "wildfire",
+        "probability": 0.55,
+        "interval": [
+          0.25,
+          0.85
+        ],
+        "uncertainty": 0.3,
+        "leadTimeHours": 13.2,
+        "score": 0.6712,
+        "urgency": 0.817,
+        "exposure": {
+          "valueEur": 11800000,
+          "population": 1250,
+          "criticalAssets": 0,
+          "assets": 1
+        },
+        "validTo": "2026-10-31T07:39:20+00:00",
+        "forecastId": "fc-eifel-fire",
+        "recommendation": {
+          "teams": 1,
+          "note": "Recommendation only. A human commits the teams.",
+          "prioritySites": 0,
+          "reason": "wildfire probability 55% with 30% uncertainty"
+        },
+        "taskingTrigger": true,
+        "status": "watch",
+        "computedAt": "2026-10-29T19:39:20+00:00"
+      },
+      {
+        "scopeId": "scope-tailings-watch",
+        "name": "Rur tailings watch",
+        "region": "Rur valley, Germany",
+        "hazard": "flood",
+        "probability": 0.62,
+        "interval": [
+          0.38,
+          0.86
+        ],
+        "uncertainty": 0.24,
+        "leadTimeHours": 18.4,
+        "score": 0.6455,
+        "urgency": 0.744,
+        "exposure": {
+          "valueEur": 64000000,
+          "population": 80,
+          "criticalAssets": 1,
+          "assets": 1
+        },
+        "validTo": "2026-10-30T23:39:20+00:00",
+        "forecastId": "fc-rur-flood",
+        "recommendation": {
+          "teams": 2,
+          "note": "Recommendation only. A human commits the teams.",
+          "prioritySites": 1,
+          "reason": "flood probability 62% with 24% uncertainty"
+        },
+        "taskingTrigger": true,
+        "status": "watch",
+        "computedAt": "2026-10-29T19:39:20+00:00"
+      },
+      {
+        "scopeId": "scope-cologne-construction",
+        "name": "Cologne construction watch",
+        "region": "Cologne, Germany",
+        "hazard": "storm",
+        "probability": 0.36,
+        "interval": [
+          0.1,
+          0.62
+        ],
+        "uncertainty": 0.26,
+        "leadTimeHours": 17.6,
+        "score": 0.6124,
+        "urgency": 0.756,
+        "exposure": {
+          "valueEur": 42000000,
+          "population": 5400,
+          "criticalAssets": 0,
+          "assets": 1
+        },
+        "validTo": "2026-10-30T19:39:20+00:00",
+        "forecastId": "fc-cologne-storm",
+        "recommendation": {
+          "teams": 1,
+          "note": "Recommendation only. A human commits the teams.",
+          "prioritySites": 0,
+          "reason": "storm probability 36% with 26% uncertainty"
+        },
+        "taskingTrigger": false,
+        "status": "watch",
+        "computedAt": "2026-10-29T19:39:20+00:00"
+      },
+      {
+        "scopeId": "scope-dernau-vineyard",
+        "name": "Dernau vineyard block",
+        "region": "Dernau, Germany",
+        "hazard": "freeze",
+        "probability": 0.31,
+        "interval": [
+          0.01,
+          0.61
+        ],
+        "uncertainty": 0.3,
+        "leadTimeHours": 11.3,
+        "score": 0.5198,
+        "urgency": 0.843,
+        "exposure": {
+          "valueEur": 2800000,
+          "population": 180,
+          "criticalAssets": 0,
+          "assets": 1
+        },
+        "validTo": "2026-10-31T11:39:20+00:00",
+        "forecastId": "fc-dernau-frost",
+        "recommendation": {
+          "teams": 1,
+          "note": "Recommendation only. A human commits the teams.",
+          "prioritySites": 0,
+          "reason": "freeze probability 31% with 30% uncertainty"
+        },
+        "taskingTrigger": false,
+        "status": "watch",
+        "computedAt": "2026-10-29T19:39:20+00:00"
+      }
+    ],
+    "heatmap": [
+      {
+        "scopeId": "scope-ahr-corridor",
+        "name": "Ahr corridor watch",
+        "region": "Ahrweiler, Germany",
+        "probability": 0.78,
+        "valueEur": 56200000,
+        "population": 9630,
+        "riskScore": 0.77,
+        "hazard": "flood"
+      },
+      {
+        "scopeId": "scope-tailings-watch",
+        "name": "Rur tailings watch",
+        "region": "Rur valley, Germany",
+        "probability": 0.62,
+        "valueEur": 64000000,
+        "population": 80,
+        "riskScore": 0.614,
+        "hazard": "flood"
+      },
+      {
+        "scopeId": "scope-rur-utility",
+        "name": "Rur valley utility corridor",
+        "region": "Rur valley, Germany",
+        "probability": 0.62,
+        "valueEur": 18400000,
+        "population": 2100,
+        "riskScore": 0.597,
+        "hazard": "flood"
+      },
+      {
+        "scopeId": "scope-eifel-fire",
+        "name": "Eifel ridge wildfire watch",
+        "region": "Eifel, Germany",
+        "probability": 0.55,
+        "valueEur": 11800000,
+        "population": 1250,
+        "riskScore": 0.524,
+        "hazard": "wildfire"
+      },
+      {
+        "scopeId": "scope-cologne-construction",
+        "name": "Cologne construction watch",
+        "region": "Cologne, Germany",
+        "probability": 0.36,
+        "valueEur": 42000000,
+        "population": 5400,
+        "riskScore": 0.353,
+        "hazard": "storm"
+      },
+      {
+        "scopeId": "scope-dernau-vineyard",
+        "name": "Dernau vineyard block",
+        "region": "Dernau, Germany",
+        "probability": 0.31,
+        "valueEur": 2800000,
+        "population": 180,
+        "riskScore": 0.286,
+        "hazard": "freeze"
+      }
+    ],
+    "tasking": {
+      "watchlist": [
+        {
+          "scopeId": "scope-ahr-corridor",
+          "name": "Ahr corridor watch",
+          "region": "Ahrweiler, Germany",
+          "hazard": "flood",
+          "probability": 0.78,
+          "interval": [
+            0.6,
+            0.96
+          ],
+          "uncertainty": 0.18,
+          "leadTimeHours": 22.4,
+          "score": 0.836,
+          "urgency": 0.689,
+          "exposure": {
+            "valueEur": 56200000,
+            "population": 9630,
+            "criticalAssets": 2,
+            "assets": 4
+          },
+          "validTo": "2026-10-31T01:39:20+00:00",
+          "forecastId": "fc-ahr-flood",
+          "recommendation": {
+            "teams": 2,
+            "note": "Recommendation only. A human commits the teams.",
+            "prioritySites": 2,
+            "reason": "flood probability 78% with 18% uncertainty"
+          },
+          "taskingTrigger": true,
+          "status": "watch",
+          "computedAt": "2026-10-29T19:39:20+00:00"
+        },
+        {
+          "scopeId": "scope-rur-utility",
+          "name": "Rur valley utility corridor",
+          "region": "Rur valley, Germany",
+          "hazard": "flood",
+          "probability": 0.62,
+          "interval": [
+            0.38,
+            0.86
+          ],
+          "uncertainty": 0.24,
+          "leadTimeHours": 18.4,
+          "score": 0.696,
+          "urgency": 0.744,
+          "exposure": {
+            "valueEur": 18400000,
+            "population": 2100,
+            "criticalAssets": 1,
+            "assets": 1
+          },
+          "validTo": "2026-10-30T23:39:20+00:00",
+          "forecastId": "fc-rur-flood",
+          "recommendation": {
+            "teams": 2,
+            "note": "Recommendation only. A human commits the teams.",
+            "prioritySites": 1,
+            "reason": "flood probability 62% with 24% uncertainty"
+          },
+          "taskingTrigger": true,
+          "status": "watch",
+          "computedAt": "2026-10-29T19:39:20+00:00"
+        },
+        {
+          "scopeId": "scope-eifel-fire",
+          "name": "Eifel ridge wildfire watch",
+          "region": "Eifel, Germany",
+          "hazard": "wildfire",
+          "probability": 0.55,
+          "interval": [
+            0.25,
+            0.85
+          ],
+          "uncertainty": 0.3,
+          "leadTimeHours": 13.2,
+          "score": 0.6712,
+          "urgency": 0.817,
+          "exposure": {
+            "valueEur": 11800000,
+            "population": 1250,
+            "criticalAssets": 0,
+            "assets": 1
+          },
+          "validTo": "2026-10-31T07:39:20+00:00",
+          "forecastId": "fc-eifel-fire",
+          "recommendation": {
+            "teams": 1,
+            "note": "Recommendation only. A human commits the teams.",
+            "prioritySites": 0,
+            "reason": "wildfire probability 55% with 30% uncertainty"
+          },
+          "taskingTrigger": true,
+          "status": "watch",
+          "computedAt": "2026-10-29T19:39:20+00:00"
+        },
+        {
+          "scopeId": "scope-tailings-watch",
+          "name": "Rur tailings watch",
+          "region": "Rur valley, Germany",
+          "hazard": "flood",
+          "probability": 0.62,
+          "interval": [
+            0.38,
+            0.86
+          ],
+          "uncertainty": 0.24,
+          "leadTimeHours": 18.4,
+          "score": 0.6455,
+          "urgency": 0.744,
+          "exposure": {
+            "valueEur": 64000000,
+            "population": 80,
+            "criticalAssets": 1,
+            "assets": 1
+          },
+          "validTo": "2026-10-30T23:39:20+00:00",
+          "forecastId": "fc-rur-flood",
+          "recommendation": {
+            "teams": 2,
+            "note": "Recommendation only. A human commits the teams.",
+            "prioritySites": 1,
+            "reason": "flood probability 62% with 24% uncertainty"
+          },
+          "taskingTrigger": true,
+          "status": "watch",
+          "computedAt": "2026-10-29T19:39:20+00:00"
+        },
+        {
+          "scopeId": "scope-cologne-construction",
+          "name": "Cologne construction watch",
+          "region": "Cologne, Germany",
+          "hazard": "storm",
+          "probability": 0.36,
+          "interval": [
+            0.1,
+            0.62
+          ],
+          "uncertainty": 0.26,
+          "leadTimeHours": 17.6,
+          "score": 0.6124,
+          "urgency": 0.756,
+          "exposure": {
+            "valueEur": 42000000,
+            "population": 5400,
+            "criticalAssets": 0,
+            "assets": 1
+          },
+          "validTo": "2026-10-30T19:39:20+00:00",
+          "forecastId": "fc-cologne-storm",
+          "recommendation": {
+            "teams": 1,
+            "note": "Recommendation only. A human commits the teams.",
+            "prioritySites": 0,
+            "reason": "storm probability 36% with 26% uncertainty"
+          },
+          "taskingTrigger": false,
+          "status": "watch",
+          "computedAt": "2026-10-29T19:39:20+00:00"
+        },
+        {
+          "scopeId": "scope-dernau-vineyard",
+          "name": "Dernau vineyard block",
+          "region": "Dernau, Germany",
+          "hazard": "freeze",
+          "probability": 0.31,
+          "interval": [
+            0.01,
+            0.61
+          ],
+          "uncertainty": 0.3,
+          "leadTimeHours": 11.3,
+          "score": 0.5198,
+          "urgency": 0.843,
+          "exposure": {
+            "valueEur": 2800000,
+            "population": 180,
+            "criticalAssets": 0,
+            "assets": 1
+          },
+          "validTo": "2026-10-31T11:39:20+00:00",
+          "forecastId": "fc-dernau-frost",
+          "recommendation": {
+            "teams": 1,
+            "note": "Recommendation only. A human commits the teams.",
+            "prioritySites": 0,
+            "reason": "freeze probability 31% with 30% uncertainty"
+          },
+          "taskingTrigger": false,
+          "status": "watch",
+          "computedAt": "2026-10-29T19:39:20+00:00"
+        }
+      ],
+      "tasking": [
+        "scope-ahr-corridor",
+        "scope-rur-utility",
+        "scope-eifel-fire",
+        "scope-tailings-watch"
+      ],
+      "generatedAt": "2026-10-29T19:39:20+00:00",
+      "note": "Tasking is queued for human approval; no automatic dispatch."
+    },
+    "coverage": [
+      {
+        "scopeId": "scope-ahr-corridor",
+        "name": "Ahr corridor watch",
+        "kind": "corridor",
+        "region": "Ahrweiler, Germany",
+        "bbox": [
+          7.043,
+          50.522,
+          7.157,
+          50.567
+        ],
+        "center": [
+          7.1,
+          50.545
+        ],
+        "areaKm2": 44.5,
+        "cadence": "daily",
+        "status": "active",
+        "lastAcquisition": "2026-10-29T13:39:20+00:00",
+        "nextExpected": "2026-10-30T19:39:20+00:00",
+        "freshnessHours": 6.0,
+        "readiness": 0.92,
+        "coverageStatus": "ok",
+        "blindSpot": false,
+        "mode": "best-effort",
+        "source": "sentinel-2"
+      },
+      {
+        "scopeId": "scope-cologne-construction",
+        "name": "Cologne construction watch",
+        "kind": "portfolio",
+        "region": "Cologne, Germany",
+        "bbox": [
+          6.84,
+          50.89,
+          6.97,
+          50.98
+        ],
+        "center": [
+          6.905,
+          50.935
+        ],
+        "areaKm2": 101.5,
+        "cadence": "weekly",
+        "status": "active",
+        "lastAcquisition": "2026-10-28T13:39:20+00:00",
+        "nextExpected": "2026-11-05T19:39:20+00:00",
+        "freshnessHours": 30.0,
+        "readiness": 0.934,
+        "coverageStatus": "ok",
+        "blindSpot": false,
+        "mode": "best-effort",
+        "source": "sentinel-2"
+      },
+      {
+        "scopeId": "scope-dernau-vineyard",
+        "name": "Dernau vineyard block",
+        "kind": "asset",
+        "region": "Dernau, Germany",
+        "bbox": [
+          7.03,
+          50.515,
+          7.07,
+          50.545
+        ],
+        "center": [
+          7.05,
+          50.53
+        ],
+        "areaKm2": 10.4,
+        "cadence": "weekly",
+        "status": "active",
+        "lastAcquisition": "2026-10-28T05:39:20+00:00",
+        "nextExpected": "2026-11-05T19:39:20+00:00",
+        "freshnessHours": 38.0,
+        "readiness": 0.925,
+        "coverageStatus": "ok",
+        "blindSpot": false,
+        "mode": "best-effort",
+        "source": "sentinel-2"
+      },
+      {
+        "scopeId": "scope-eifel-fire",
+        "name": "Eifel ridge wildfire watch",
+        "kind": "aoi",
+        "region": "Eifel, Germany",
+        "bbox": [
+          6.35,
+          50.54,
+          6.49,
+          50.65
+        ],
+        "center": [
+          6.42,
+          50.59
+        ],
+        "areaKm2": 133.6,
+        "cadence": "12h",
+        "status": "active",
+        "lastAcquisition": "2026-10-29T09:39:20+00:00",
+        "nextExpected": "2026-10-30T07:39:20+00:00",
+        "freshnessHours": 10.0,
+        "readiness": 0.803,
+        "coverageStatus": "ok",
+        "blindSpot": false,
+        "mode": "best-effort",
+        "source": "sentinel-2"
+      },
+      {
+        "scopeId": "scope-rur-utility",
+        "name": "Rur valley utility corridor",
+        "kind": "corridor",
+        "region": "Rur valley, Germany",
+        "bbox": [
+          6.35,
+          50.72,
+          6.49,
+          50.8
+        ],
+        "center": [
+          6.42,
+          50.76
+        ],
+        "areaKm2": 97.2,
+        "cadence": "daily",
+        "status": "active",
+        "lastAcquisition": "2026-10-28T23:39:20+00:00",
+        "nextExpected": "2026-10-30T19:39:20+00:00",
+        "freshnessHours": 20.0,
+        "readiness": 0.803,
+        "coverageStatus": "ok",
+        "blindSpot": false,
+        "mode": "best-effort",
+        "source": "sentinel-2"
+      },
+      {
+        "scopeId": "scope-tailings-watch",
+        "name": "Rur tailings watch",
+        "kind": "aoi",
+        "region": "Rur valley, Germany",
+        "bbox": [
+          6.4,
+          50.69,
+          6.5,
+          50.75
+        ],
+        "center": [
+          6.45,
+          50.72
+        ],
+        "areaKm2": 52.0,
+        "cadence": "weekly",
+        "status": "active",
+        "lastAcquisition": null,
+        "nextExpected": "2026-11-05T19:39:20+00:00",
+        "freshnessHours": null,
+        "readiness": 0.002,
+        "coverageStatus": "blind",
+        "blindSpot": true,
+        "mode": "best-effort",
+        "source": null
+      }
+    ],
+    "blindSpots": [
+      {
+        "scopeId": "scope-tailings-watch",
+        "name": "Rur tailings watch",
+        "region": "Rur valley, Germany",
+        "status": "blind",
+        "freshnessHours": null,
+        "sloBreached": true,
+        "mode": "best-effort",
+        "reason": "no recent acquisition"
+      }
+    ],
+    "freshness": {
+      "scopes": 6,
+      "breached": 1,
+      "breaches": [
+        {
+          "scopeId": "scope-tailings-watch",
+          "freshnessHours": null
+        }
+      ],
+      "status": "degraded"
+    }
+  },
+  "pilot": {
+    "tenant": "demo",
+    "dashboard": {
+      "tenant": "demo",
+      "alerts": 24,
+      "open": 9,
+      "highRisk": 4,
+      "precision": 0.8,
+      "actionConversion": 0.8,
+      "slaBreaches": 3,
+      "scopes": 6,
+      "activeScopes": 6,
+      "monitoredKm2": 439.2,
+      "costPerKm2": 3.03,
+      "fatigue": {
+        "periodHours": 8,
+        "alerts": 9,
+        "analysts": 4,
+        "perAnalyst": 2.25,
+        "budgetPerAnalyst": 8,
+        "overBudget": false,
+        "advice": "within budget"
+      },
+      "freshness": {
+        "scopes": 6,
+        "breached": 1,
+        "breaches": [
+          {
+            "scopeId": "scope-tailings-watch",
+            "freshnessHours": null
+          }
+        ],
+        "status": "degraded"
+      },
+      "blindSpots": [
+        {
+          "scopeId": "scope-tailings-watch",
+          "name": "Rur tailings watch",
+          "region": "Rur valley, Germany",
+          "status": "blind",
+          "freshnessHours": null,
+          "sloBreached": true,
+          "mode": "best-effort",
+          "reason": "no recent acquisition"
+        }
+      ],
+      "onCall": {
+        "primary": "A. Weber",
+        "secondary": "M. Keller",
+        "window": "8h"
+      },
+      "notifications": [
+        {
+          "id": "NOT-0",
+          "alertId": "ALT-1001",
+          "channel": "email",
+          "status": "sent",
+          "attempts": 1
+        },
+        {
+          "id": "NOT-1",
+          "alertId": "ALT-1002",
+          "channel": "slack",
+          "status": "sent",
+          "attempts": 1
+        },
+        {
+          "id": "NOT-2",
+          "alertId": "ALT-1003",
+          "channel": "teams",
+          "status": "sent",
+          "attempts": 1
+        },
+        {
+          "id": "NOT-3",
+          "alertId": "ALT-1004",
+          "channel": "email",
+          "status": "sent",
+          "attempts": 1
+        },
+        {
+          "id": "NOT-4",
+          "alertId": "ALT-1005",
+          "channel": "sms",
+          "status": "failed",
+          "attempts": 2
+        }
+      ],
+      "models": [
+        {
+          "name": "gr-changenet",
+          "version": "1.4.2",
+          "status": "deployed",
+          "metrics": {
+            "precision": 0.91,
+            "recall": 0.87
+          },
+          "deployed_at": "2026-10-29T19:39:20+00:00",
+          "rollback_to": "1.3.9",
+          "notes": "Pinned on every alert"
+        },
+        {
+          "name": "gr-changenet-shadow",
+          "version": "1.5.0",
+          "status": "shadow",
+          "metrics": {
+            "precision": 0.93,
+            "recall": 0.88
+          },
+          "deployed_at": "2026-10-29T19:39:20+00:00",
+          "rollback_to": "1.4.2",
+          "notes": "Shadow candidate; not customer-visible"
+        },
+        {
+          "name": "gr-damage-head",
+          "version": "1.0",
+          "status": "deployed",
+          "metrics": {
+            "precision": 0.86,
+            "recall": 0.81
+          },
+          "deployed_at": "2026-10-29T19:39:20+00:00",
+          "rollback_to": null,
+          "notes": "Damage likelihood head"
+        }
+      ],
+      "governance": {
+        "models": [
+          {
+            "name": "gr-changenet",
+            "version": "1.4.2",
+            "status": "deployed",
+            "metrics": {
+              "precision": 0.91,
+              "recall": 0.87
+            },
+            "deployed_at": "2026-10-29T19:39:20+00:00",
+            "rollback_to": "1.3.9",
+            "notes": "Pinned on every alert"
+          },
+          {
+            "name": "gr-changenet-shadow",
+            "version": "1.5.0",
+            "status": "shadow",
+            "metrics": {
+              "precision": 0.93,
+              "recall": 0.88
+            },
+            "deployed_at": "2026-10-29T19:39:20+00:00",
+            "rollback_to": "1.4.2",
+            "notes": "Shadow candidate; not customer-visible"
+          },
+          {
+            "name": "gr-damage-head",
+            "version": "1.0",
+            "status": "deployed",
+            "metrics": {
+              "precision": 0.86,
+              "recall": 0.81
+            },
+            "deployed_at": "2026-10-29T19:39:20+00:00",
+            "rollback_to": null,
+            "notes": "Damage likelihood head"
+          }
+        ],
+        "audit": {
+          "ok": true,
+          "message": "0 events, chain intact"
+        },
+        "killSwitch": false,
+        "quality": {
+          "alerts": 24,
+          "closed": 15,
+          "precision": 0.8,
+          "resolvedWithoutAssignee": 0,
+          "rejectedReasons": {
+            "duplicate": 1,
+            "cloud_shadow": 1,
+            "no_action": 1
+          },
+          "falseAlarm": {
+            "alerts": 24,
+            "dismissed": 3,
+            "analystHours": 1.25,
+            "costEur": 97.5,
+            "byReason": {
+              "duplicate": 1,
+              "cloud_shadow": 1,
+              "no_action": 1
+            }
+          }
+        },
+        "overrides": {
+          "resolved": 15,
+          "approved": 12,
+          "rejected": 3,
+          "overrideRate": 0.2,
+          "reasons": {
+            "duplicate": 1,
+            "cloud_shadow": 1,
+            "no_action": 1
+          }
+        },
+        "privacy": {
+          "policy": "Privacy review for persistent aerial monitoring",
+          "items": [
+            {
+              "id": "scope_definition",
+              "requirement": "Every monitored scope has a named customer, purpose and exclusion zones.",
+              "status": "engineered"
+            },
+            {
+              "id": "lawful_basis",
+              "requirement": "Continuous acquisition has a documented lawful basis and DPA.",
+              "status": "pilot-gate"
+            },
+            {
+              "id": "minimisation",
+              "requirement": "Resolution and cadence are the minimum needed for the decision.",
+              "status": "engineered"
+            },
+            {
+              "id": "retention",
+              "requirement": "Retention clock per alert and per scope; raw imagery deleted on schedule.",
+              "status": "pilot-gate"
+            },
+            {
+              "id": "access",
+              "requirement": "Per-tenant roles: analyst, reviewer, auditor, customer viewer.",
+              "status": "pilot-gate"
+            },
+            {
+              "id": "subprocessors",
+              "requirement": "Imagery provider, cloud, NPU vendor listed as subprocessors.",
+              "status": "pilot-gate"
+            },
+            {
+              "id": "sovereignty",
+              "requirement": "On-site or sovereign deployment; no outbound network after delivery.",
+              "status": "engineered"
+            },
+            {
+              "id": "transparency",
+              "requirement": "Customer notice explains AI monitoring and human decisions.",
+              "status": "pilot-gate"
+            },
+            {
+              "id": "human_review",
+              "requirement": "No automatic claim approval or crew dispatch.",
+              "status": "engineered"
+            },
+            {
+              "id": "incident",
+              "requirement": "Breach playbook, 72-hour notification, audit export.",
+              "status": "pilot-gate"
+            },
+            {
+              "id": "surveillance",
+              "requirement": "No monitoring of people, protests, private life or protected groups.",
+              "status": "engineered"
+            },
+            {
+              "id": "scope_creep",
+              "requirement": "Quarterly scope review; a new scope requires a new purpose.",
+              "status": "pilot-gate"
+            }
+          ],
+          "note": "Engineering checklist, not legal advice."
+        },
+        "nonGoals": [
+          "automated-claim-approval",
+          "automatic-dispatch",
+          "person-surveillance",
+          "live-video",
+          "individual-behaviour",
+          "unscoped-monitoring"
+        ],
+        "retention": {
+          "defaultDays": 365,
+          "policy": "raw imagery deleted after claim decision + legal minimum"
+        }
+      }
+    },
+    "leadTimeHours": 7.3,
+    "gates": {
+      "precision": true,
+      "fatigue": true,
+      "sla": false,
+      "shadowComplete": true
+    },
+    "launchReady": false,
+    "criteria": {
+      "precision": 0.8,
+      "fatiguePerAnalyst": 8,
+      "slaBreaches": 0,
+      "shadowValidations": 3
+    },
+    "generatedAt": "2026-10-29T19:39:20+00:00"
+  },
+  "digest": {
+    "tenant": "demo",
+    "periodHours": 24,
+    "generatedAt": "2026-10-29T19:39:20+00:00",
+    "alerts": 12,
+    "open": 8,
+    "headline": "12 alerts, 8 open, 4 high risk",
+    "sections": {
+      "new": [
+        {
+          "id": "ALT-1001",
+          "title": "Flood edge reaches the care campus",
+          "severity": "red",
+          "confidence": 0.91,
+          "scopeId": "scope-ahr-corridor",
+          "status": "new",
+          "assignee": null,
+          "location": {
+            "lon": 7.104,
+            "lat": 50.548
+          },
+          "slaDue": "2026-10-29T22:27:20+00:00",
+          "incidentId": "INC-AHR-01",
+          "deepLink": "/#watch/alert/ALT-1001"
+        },
+        {
+          "id": "ALT-1010",
+          "title": "NDVI drop in the Dernau terraces",
+          "severity": "orange",
+          "confidence": 0.76,
+          "scopeId": "scope-dernau-vineyard",
+          "status": "new",
+          "assignee": null,
+          "location": {
+            "lon": 7.052,
+            "lat": 50.531
+          },
+          "slaDue": "2026-10-29T21:51:20+00:00",
+          "incidentId": null,
+          "deepLink": "/#watch/alert/ALT-1010"
+        },
+        {
+          "id": "ALT-1004",
+          "title": "Vegetation encroachment on feeder 2",
+          "severity": "orange",
+          "confidence": 0.74,
+          "scopeId": "scope-rur-utility",
+          "status": "new",
+          "assignee": null,
+          "location": {
+            "lon": 6.421,
+            "lat": 50.761
+          },
+          "slaDue": "2026-10-29T21:27:20+00:00",
+          "incidentId": "INC-RUR-01",
+          "deepLink": "/#watch/alert/ALT-1004"
+        },
+        {
+          "id": "ALT-1012",
+          "title": "Tailings dam surface change",
+          "severity": "red",
+          "confidence": 0.84,
+          "scopeId": "scope-tailings-watch",
+          "status": "new",
+          "assignee": null,
+          "location": {
+            "lon": 6.451,
+            "lat": 50.721
+          },
+          "slaDue": "2026-10-29T21:03:20+00:00",
+          "incidentId": "INC-TAI-01",
+          "deepLink": "/#watch/alert/ALT-1012"
+        }
+      ],
+      "inProgress": [
+        {
+          "id": "ALT-1002",
+          "title": "Substation access road flooded",
+          "severity": "orange",
+          "confidence": 0.86,
+          "scopeId": "scope-ahr-corridor",
+          "status": "assigned",
+          "assignee": "M. Keller",
+          "location": {
+            "lon": 7.082,
+            "lat": 50.541
+          },
+          "slaDue": "2026-10-29T20:51:20+00:00",
+          "incidentId": "INC-AHR-01",
+          "deepLink": "/#watch/alert/ALT-1002"
+        },
+        {
+          "id": "ALT-1008",
+          "title": "Burn scar expands east",
+          "severity": "red",
+          "confidence": 0.89,
+          "scopeId": "scope-eifel-fire",
+          "status": "investigating",
+          "assignee": "S. Okafor",
+          "location": {
+            "lon": 6.428,
+            "lat": 50.592
+          },
+          "slaDue": "2026-10-29T20:15:20+00:00",
+          "incidentId": "INC-EIF-01",
+          "deepLink": "/#watch/alert/ALT-1008"
+        },
+        {
+          "id": "ALT-1005",
+          "title": "Pump station corridor change",
+          "severity": "red",
+          "confidence": 0.88,
+          "scopeId": "scope-rur-utility",
+          "status": "acknowledged",
+          "assignee": "A. Weber",
+          "location": {
+            "lon": 6.426,
+            "lat": 50.758
+          },
+          "slaDue": "2026-10-29T19:03:20+00:00",
+          "incidentId": null,
+          "deepLink": "/#watch/alert/ALT-1005"
+        },
+        {
+          "id": "ALT-1003",
+          "title": "Levee erosion near Heimersheim",
+          "severity": "orange",
+          "confidence": 0.79,
+          "scopeId": "scope-ahr-corridor",
+          "status": "investigating",
+          "assignee": "M. Keller",
+          "location": {
+            "lon": 7.14,
+            "lat": 50.549
+          },
+          "slaDue": "2026-10-29T18:39:20+00:00",
+          "incidentId": "INC-AHR-02",
+          "deepLink": "/#watch/alert/ALT-1003"
+        }
+      ],
+      "resolved": [
+        {
+          "id": "ALT-1013",
+          "title": "Haul road change resolved",
+          "severity": "orange",
+          "confidence": 0.72,
+          "scopeId": "scope-tailings-watch",
+          "status": "resolved",
+          "assignee": "A. Weber",
+          "location": {
+            "lon": 6.447,
+            "lat": 50.718
+          },
+          "slaDue": "2026-10-29T01:39:20+00:00",
+          "incidentId": null,
+          "deepLink": "/#watch/alert/ALT-1013"
+        }
+      ],
+      "noAction": [
+        {
+          "id": "ALT-1014",
+          "title": "Duplicate vegetation alert",
+          "severity": "yellow",
+          "confidence": 0.69,
+          "scopeId": "scope-rur-utility",
+          "status": "dismissed",
+          "assignee": "M. Keller",
+          "location": {
+            "lon": 6.4215,
+            "lat": 50.7612
+          },
+          "slaDue": "2026-10-29T22:15:20+00:00",
+          "incidentId": null,
+          "deepLink": "/#watch/alert/ALT-1014"
+        },
+        {
+          "id": "ALT-1009",
+          "title": "Smoke plume read as change",
+          "severity": "yellow",
+          "confidence": 0.61,
+          "scopeId": "scope-eifel-fire",
+          "status": "dismissed",
+          "assignee": "S. Okafor",
+          "location": {
+            "lon": 6.415,
+            "lat": 50.586
+          },
+          "slaDue": "2026-10-29T15:27:20+00:00",
+          "incidentId": null,
+          "deepLink": "/#watch/alert/ALT-1009"
+        },
+        {
+          "id": "ALT-1011",
+          "title": "Field boundary change is a harvest",
+          "severity": "yellow",
+          "confidence": 0.58,
+          "scopeId": "scope-dernau-vineyard",
+          "status": "dismissed",
+          "assignee": "M. Keller",
+          "location": {
+            "lon": 7.049,
+            "lat": 50.529
+          },
+          "slaDue": "2026-10-29T04:39:20+00:00",
+          "incidentId": null,
+          "deepLink": "/#watch/alert/ALT-1011"
+        }
+      ]
+    },
+    "fatigue": {
+      "periodHours": 8,
+      "alerts": 9,
+      "analysts": 4,
+      "perAnalyst": 2.25,
+      "budgetPerAnalyst": 8,
+      "overBudget": false,
+      "advice": "within budget"
+    }
+  },
+  "quality": {
+    "alerts": 24,
+    "closed": 15,
+    "precision": 0.8,
+    "resolvedWithoutAssignee": 0,
+    "rejectedReasons": {
+      "duplicate": 1,
+      "cloud_shadow": 1,
+      "no_action": 1
+    },
+    "falseAlarm": {
+      "alerts": 24,
+      "dismissed": 3,
+      "analystHours": 1.25,
+      "costEur": 97.5,
+      "byReason": {
+        "duplicate": 1,
+        "cloud_shadow": 1,
+        "no_action": 1
+      }
+    }
+  },
+  "governance": {
+    "models": [
+      {
+        "name": "gr-changenet",
+        "version": "1.4.2",
+        "status": "deployed",
+        "metrics": {
+          "precision": 0.91,
+          "recall": 0.87
+        },
+        "deployed_at": "2026-10-29T19:39:20+00:00",
+        "rollback_to": "1.3.9",
+        "notes": "Pinned on every alert"
+      },
+      {
+        "name": "gr-changenet-shadow",
+        "version": "1.5.0",
+        "status": "shadow",
+        "metrics": {
+          "precision": 0.93,
+          "recall": 0.88
+        },
+        "deployed_at": "2026-10-29T19:39:20+00:00",
+        "rollback_to": "1.4.2",
+        "notes": "Shadow candidate; not customer-visible"
+      },
+      {
+        "name": "gr-damage-head",
+        "version": "1.0",
+        "status": "deployed",
+        "metrics": {
+          "precision": 0.86,
+          "recall": 0.81
+        },
+        "deployed_at": "2026-10-29T19:39:20+00:00",
+        "rollback_to": null,
+        "notes": "Damage likelihood head"
+      }
+    ],
+    "audit": {
+      "ok": true,
+      "message": "0 events, chain intact"
+    },
+    "killSwitch": false,
+    "quality": {
+      "alerts": 24,
+      "closed": 15,
+      "precision": 0.8,
+      "resolvedWithoutAssignee": 0,
+      "rejectedReasons": {
+        "duplicate": 1,
+        "cloud_shadow": 1,
+        "no_action": 1
+      },
+      "falseAlarm": {
+        "alerts": 24,
+        "dismissed": 3,
+        "analystHours": 1.25,
+        "costEur": 97.5,
+        "byReason": {
+          "duplicate": 1,
+          "cloud_shadow": 1,
+          "no_action": 1
+        }
+      }
+    },
+    "overrides": {
+      "resolved": 15,
+      "approved": 12,
+      "rejected": 3,
+      "overrideRate": 0.2,
+      "reasons": {
+        "duplicate": 1,
+        "cloud_shadow": 1,
+        "no_action": 1
+      }
+    },
+    "privacy": {
+      "policy": "Privacy review for persistent aerial monitoring",
+      "items": [
+        {
+          "id": "scope_definition",
+          "requirement": "Every monitored scope has a named customer, purpose and exclusion zones.",
+          "status": "engineered"
+        },
+        {
+          "id": "lawful_basis",
+          "requirement": "Continuous acquisition has a documented lawful basis and DPA.",
+          "status": "pilot-gate"
+        },
+        {
+          "id": "minimisation",
+          "requirement": "Resolution and cadence are the minimum needed for the decision.",
+          "status": "engineered"
+        },
+        {
+          "id": "retention",
+          "requirement": "Retention clock per alert and per scope; raw imagery deleted on schedule.",
+          "status": "pilot-gate"
+        },
+        {
+          "id": "access",
+          "requirement": "Per-tenant roles: analyst, reviewer, auditor, customer viewer.",
+          "status": "pilot-gate"
+        },
+        {
+          "id": "subprocessors",
+          "requirement": "Imagery provider, cloud, NPU vendor listed as subprocessors.",
+          "status": "pilot-gate"
+        },
+        {
+          "id": "sovereignty",
+          "requirement": "On-site or sovereign deployment; no outbound network after delivery.",
+          "status": "engineered"
+        },
+        {
+          "id": "transparency",
+          "requirement": "Customer notice explains AI monitoring and human decisions.",
+          "status": "pilot-gate"
+        },
+        {
+          "id": "human_review",
+          "requirement": "No automatic claim approval or crew dispatch.",
+          "status": "engineered"
+        },
+        {
+          "id": "incident",
+          "requirement": "Breach playbook, 72-hour notification, audit export.",
+          "status": "pilot-gate"
+        },
+        {
+          "id": "surveillance",
+          "requirement": "No monitoring of people, protests, private life or protected groups.",
+          "status": "engineered"
+        },
+        {
+          "id": "scope_creep",
+          "requirement": "Quarterly scope review; a new scope requires a new purpose.",
+          "status": "pilot-gate"
+        }
+      ],
+      "note": "Engineering checklist, not legal advice."
+    },
+    "nonGoals": [
+      "automated-claim-approval",
+      "automatic-dispatch",
+      "person-surveillance",
+      "live-video",
+      "individual-behaviour",
+      "unscoped-monitoring"
+    ],
+    "retention": {
+      "defaultDays": 365,
+      "policy": "raw imagery deleted after claim decision + legal minimum"
+    }
+  },
+  "coverage": [
+    {
+      "scopeId": "scope-ahr-corridor",
+      "name": "Ahr corridor watch",
+      "kind": "corridor",
+      "region": "Ahrweiler, Germany",
+      "bbox": [
+        7.043,
+        50.522,
+        7.157,
+        50.567
+      ],
+      "center": [
+        7.1,
+        50.545
+      ],
+      "areaKm2": 44.5,
+      "cadence": "daily",
+      "status": "active",
+      "lastAcquisition": "2026-10-29T13:39:20+00:00",
+      "nextExpected": "2026-10-30T19:39:20+00:00",
+      "freshnessHours": 6.0,
+      "readiness": 0.92,
+      "coverageStatus": "ok",
+      "blindSpot": false,
+      "mode": "best-effort",
+      "source": "sentinel-2"
+    },
+    {
+      "scopeId": "scope-cologne-construction",
+      "name": "Cologne construction watch",
+      "kind": "portfolio",
+      "region": "Cologne, Germany",
+      "bbox": [
+        6.84,
+        50.89,
+        6.97,
+        50.98
+      ],
+      "center": [
+        6.905,
+        50.935
+      ],
+      "areaKm2": 101.5,
+      "cadence": "weekly",
+      "status": "active",
+      "lastAcquisition": "2026-10-28T13:39:20+00:00",
+      "nextExpected": "2026-11-05T19:39:20+00:00",
+      "freshnessHours": 30.0,
+      "readiness": 0.934,
+      "coverageStatus": "ok",
+      "blindSpot": false,
+      "mode": "best-effort",
+      "source": "sentinel-2"
+    },
+    {
+      "scopeId": "scope-dernau-vineyard",
+      "name": "Dernau vineyard block",
+      "kind": "asset",
+      "region": "Dernau, Germany",
+      "bbox": [
+        7.03,
+        50.515,
+        7.07,
+        50.545
+      ],
+      "center": [
+        7.05,
+        50.53
+      ],
+      "areaKm2": 10.4,
+      "cadence": "weekly",
+      "status": "active",
+      "lastAcquisition": "2026-10-28T05:39:20+00:00",
+      "nextExpected": "2026-11-05T19:39:20+00:00",
+      "freshnessHours": 38.0,
+      "readiness": 0.925,
+      "coverageStatus": "ok",
+      "blindSpot": false,
+      "mode": "best-effort",
+      "source": "sentinel-2"
+    },
+    {
+      "scopeId": "scope-eifel-fire",
+      "name": "Eifel ridge wildfire watch",
+      "kind": "aoi",
+      "region": "Eifel, Germany",
+      "bbox": [
+        6.35,
+        50.54,
+        6.49,
+        50.65
+      ],
+      "center": [
+        6.42,
+        50.59
+      ],
+      "areaKm2": 133.6,
+      "cadence": "12h",
+      "status": "active",
+      "lastAcquisition": "2026-10-29T09:39:20+00:00",
+      "nextExpected": "2026-10-30T07:39:20+00:00",
+      "freshnessHours": 10.0,
+      "readiness": 0.803,
+      "coverageStatus": "ok",
+      "blindSpot": false,
+      "mode": "best-effort",
+      "source": "sentinel-2"
+    },
+    {
+      "scopeId": "scope-rur-utility",
+      "name": "Rur valley utility corridor",
+      "kind": "corridor",
+      "region": "Rur valley, Germany",
+      "bbox": [
+        6.35,
+        50.72,
+        6.49,
+        50.8
+      ],
+      "center": [
+        6.42,
+        50.76
+      ],
+      "areaKm2": 97.2,
+      "cadence": "daily",
+      "status": "active",
+      "lastAcquisition": "2026-10-28T23:39:20+00:00",
+      "nextExpected": "2026-10-30T19:39:20+00:00",
+      "freshnessHours": 20.0,
+      "readiness": 0.803,
+      "coverageStatus": "ok",
+      "blindSpot": false,
+      "mode": "best-effort",
+      "source": "sentinel-2"
+    },
+    {
+      "scopeId": "scope-tailings-watch",
+      "name": "Rur tailings watch",
+      "kind": "aoi",
+      "region": "Rur valley, Germany",
+      "bbox": [
+        6.4,
+        50.69,
+        6.5,
+        50.75
+      ],
+      "center": [
+        6.45,
+        50.72
+      ],
+      "areaKm2": 52.0,
+      "cadence": "weekly",
+      "status": "active",
+      "lastAcquisition": null,
+      "nextExpected": "2026-11-05T19:39:20+00:00",
+      "freshnessHours": null,
+      "readiness": 0.002,
+      "coverageStatus": "blind",
+      "blindSpot": true,
+      "mode": "best-effort",
+      "source": null
+    }
+  ],
+  "calendar": {
+    "scope-ahr-corridor": [
+      {
+        "id": "acq-scope-ahr-corridor",
+        "scheduledFor": "2026-10-29T13:39:20+00:00",
+        "status": "received",
+        "source": "sentinel-2",
+        "cloudForecast": 0.12,
+        "readiness": 0.91,
+        "costEur": 0.0,
+        "blindSpotReason": null
+      },
+      {
+        "id": "acq-next-scope-ahr-corridor",
+        "scheduledFor": "2026-10-30T19:39:20+00:00",
+        "status": "planned",
+        "source": "sentinel-2",
+        "cloudForecast": 0.18,
+        "readiness": 0.0,
+        "costEur": 0.0,
+        "blindSpotReason": null
+      }
+    ],
+    "scope-rur-utility": [
+      {
+        "id": "acq-scope-rur-utility",
+        "scheduledFor": "2026-10-28T23:39:20+00:00",
+        "status": "received",
+        "source": "sentinel-2",
+        "cloudForecast": 0.12,
+        "readiness": 0.91,
+        "costEur": 0.0,
+        "blindSpotReason": null
+      },
+      {
+        "id": "acq-next-scope-rur-utility",
+        "scheduledFor": "2026-10-30T19:39:20+00:00",
+        "status": "planned",
+        "source": "sentinel-2",
+        "cloudForecast": 0.18,
+        "readiness": 0.0,
+        "costEur": 0.0,
+        "blindSpotReason": null
+      }
+    ],
+    "scope-cologne-construction": [
+      {
+        "id": "acq-scope-cologne-construction",
+        "scheduledFor": "2026-10-28T13:39:20+00:00",
+        "status": "received",
+        "source": "sentinel-2",
+        "cloudForecast": 0.12,
+        "readiness": 0.91,
+        "costEur": 0.0,
+        "blindSpotReason": null
+      },
+      {
+        "id": "acq-next-scope-cologne-construction",
+        "scheduledFor": "2026-11-05T19:39:20+00:00",
+        "status": "planned",
+        "source": "sentinel-2",
+        "cloudForecast": 0.18,
+        "readiness": 0.0,
+        "costEur": 0.0,
+        "blindSpotReason": null
+      }
+    ],
+    "scope-eifel-fire": [
+      {
+        "id": "acq-scope-eifel-fire",
+        "scheduledFor": "2026-10-29T09:39:20+00:00",
+        "status": "received",
+        "source": "sentinel-2",
+        "cloudForecast": 0.12,
+        "readiness": 0.91,
+        "costEur": 0.0,
+        "blindSpotReason": null
+      },
+      {
+        "id": "acq-next-scope-eifel-fire",
+        "scheduledFor": "2026-10-30T07:39:20+00:00",
+        "status": "planned",
+        "source": "sentinel-2",
+        "cloudForecast": 0.18,
+        "readiness": 0.0,
+        "costEur": 0.0,
+        "blindSpotReason": null
+      }
+    ],
+    "scope-dernau-vineyard": [
+      {
+        "id": "acq-scope-dernau-vineyard",
+        "scheduledFor": "2026-10-28T05:39:20+00:00",
+        "status": "received",
+        "source": "sentinel-2",
+        "cloudForecast": 0.12,
+        "readiness": 0.91,
+        "costEur": 0.0,
+        "blindSpotReason": null
+      },
+      {
+        "id": "acq-next-scope-dernau-vineyard",
+        "scheduledFor": "2026-11-05T19:39:20+00:00",
+        "status": "planned",
+        "source": "sentinel-2",
+        "cloudForecast": 0.18,
+        "readiness": 0.0,
+        "costEur": 0.0,
+        "blindSpotReason": null
+      }
+    ],
+    "scope-tailings-watch": [
+      {
+        "id": "acq-scope-tailings-watch",
+        "scheduledFor": "2026-10-21T21:39:20+00:00",
+        "status": "failed",
+        "source": "sentinel-1",
+        "cloudForecast": 0.42,
+        "readiness": 0.21,
+        "costEur": 220.0,
+        "blindSpotReason": "cloud cover and failed tasking"
+      },
+      {
+        "id": "acq-next-scope-tailings-watch",
+        "scheduledFor": "2026-11-05T19:39:20+00:00",
+        "status": "planned",
+        "source": "sentinel-2",
+        "cloudForecast": 0.18,
+        "readiness": 0.0,
+        "costEur": 0.0,
+        "blindSpotReason": null
+      }
+    ]
+  },
+  "notifications": [
+    {
+      "id": "NOT-0",
+      "alertId": "ALT-1001",
+      "channel": "email",
+      "recipient": "ops@example.com",
+      "status": "sent",
+      "attempts": 1,
+      "nextAttemptAt": null,
+      "error": null
+    },
+    {
+      "id": "NOT-1",
+      "alertId": "ALT-1002",
+      "channel": "slack",
+      "recipient": "ops@example.com",
+      "status": "sent",
+      "attempts": 1,
+      "nextAttemptAt": null,
+      "error": null
+    },
+    {
+      "id": "NOT-2",
+      "alertId": "ALT-1003",
+      "channel": "teams",
+      "recipient": "ops@example.com",
+      "status": "sent",
+      "attempts": 1,
+      "nextAttemptAt": null,
+      "error": null
+    },
+    {
+      "id": "NOT-3",
+      "alertId": "ALT-1004",
+      "channel": "email",
+      "recipient": "claims@example.com",
+      "status": "sent",
+      "attempts": 1,
+      "nextAttemptAt": null,
+      "error": null
+    },
+    {
+      "id": "NOT-4",
+      "alertId": "ALT-1005",
+      "channel": "sms",
+      "recipient": "+000000000",
+      "status": "failed",
+      "attempts": 2,
+      "nextAttemptAt": "2026-10-29T19:51:20+00:00",
+      "error": "demo transport timeout"
+    }
+  ],
+  "costs": {
+    "summary": {
+      "tenant": "demo",
+      "days": 30,
+      "totalEur": 1332.0,
+      "byKind": {
+        "imagery": 900.0,
+        "analyst": 432.0
+      },
+      "byScope": {
+        "scope-ahr-corridor": 210.0,
+        "scope-rur-utility": 270.0,
+        "scope-cologne-construction": 192.0,
+        "scope-eifel-fire": 192.0,
+        "scope-dernau-vineyard": 312.0,
+        "scope-tailings-watch": 156.0
+      },
+      "entries": 48,
+      "daily": {
+        "2026-10-29": 1332.0
+      },
+      "anomaly": false,
+      "budgetGuardrail": "per-scope monthly cap + tenant quota"
+    },
+    "byScope": [
+      {
+        "scopeId": "scope-ahr-corridor",
+        "name": "Ahr corridor watch",
+        "totalEur": 210.0
+      },
+      {
+        "scopeId": "scope-rur-utility",
+        "name": "Rur valley utility corridor",
+        "totalEur": 270.0
+      },
+      {
+        "scopeId": "scope-cologne-construction",
+        "name": "Cologne construction watch",
+        "totalEur": 192.0
+      },
+      {
+        "scopeId": "scope-eifel-fire",
+        "name": "Eifel ridge wildfire watch",
+        "totalEur": 192.0
+      },
+      {
+        "scopeId": "scope-dernau-vineyard",
+        "name": "Dernau vineyard block",
+        "totalEur": 312.0
+      },
+      {
+        "scopeId": "scope-tailings-watch",
+        "name": "Rur tailings watch",
+        "totalEur": 156.0
+      }
+    ]
+  },
+  "blindSpots": [
+    {
+      "scopeId": "scope-tailings-watch",
+      "name": "Rur tailings watch",
+      "region": "Rur valley, Germany",
+      "status": "blind",
+      "freshnessHours": null,
+      "sloBreached": true,
+      "mode": "best-effort",
+      "reason": "no recent acquisition"
+    }
+  ],
+  "freshness": {
+    "scopes": 6,
+    "breached": 1,
+    "breaches": [
+      {
+        "scopeId": "scope-tailings-watch",
+        "freshnessHours": null
+      }
+    ],
+    "status": "degraded"
+  },
+  "killSwitch": false
+}

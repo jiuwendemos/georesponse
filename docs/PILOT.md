@@ -38,6 +38,11 @@ analyst’s manual process. Compare results.
 Fixed pilot fee, credited against the annual subscription if the customer proceeds. Per-area / per-asset /
 per-claim pricing is available for production. Optional on-site NPU server.
 
+## Proactive follow-on
+
+Once the reactive pilot clears its gates, the monitoring subscription is the expansion motion:
+one corridor, one asset class, shadow mode first. See [MONITORING_PILOT.md](MONITORING_PILOT.md).
+
 ## Gate
 
 Do not start the pilot until the stage piece has passed the acceptance tests in

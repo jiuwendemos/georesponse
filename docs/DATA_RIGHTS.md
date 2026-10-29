@@ -49,3 +49,19 @@ everything as GeoJSON, PDF and JSON.
 - Residential imagery is cropped to the insured property footprint for inference.
 - No automated decision about people or property; a human signs.
 - A wrong map can cost money or lives — the app says so, in the report and on stage.
+
+
+## Continuous monitoring
+
+Persistent watch changes the data-rights calculus. The proactive build requires:
+
+- a named purpose and exclusion zones per scope,
+- a retention clock per alert and per scope,
+- least-privilege recipients and per-tenant keys,
+- no monitoring of people, protests, private life or protected groups,
+- no live video, no facial recognition,
+- a quarterly scope review; a new scope needs a new purpose,
+- the customer can pause or kill monitoring at any time.
+
+The in-app Method → Privacy review and Watch → Settings → Governance panel show the same
+requirements. `security.privacy_review_proactive()` returns the machine-readable checklist.

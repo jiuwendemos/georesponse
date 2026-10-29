@@ -97,3 +97,35 @@ engineered into the Method page. PII redaction is available for exports.
 | precomputed findings | fine-tuned vision backbone + NPU/GPU inference |
 | client-side persistence | API + database + SSO |
 | synthetic pilot numbers | adjuster-confirmed outcomes |
+
+
+## Proactive subsystem
+
+The Watch tab is backed by `georesponse/proactive/`:
+
+```
+scope/plan ─► scheduler ─► acquisition ─► baseline ─► alert ─► incident ─► route ─► notify ─► human
+                  │                           │                          │
+              budget/cost                 confirmation                outbox/SLA
+              de-dupe/retry               suppression                 audit/gates
+```
+
+- **State:** SQLite WAL with JSON rows; a PostgreSQL schema is in `deploy/sql/postgres_schema.sql`.
+- **Scheduler:** cadence, idempotency, overlap de-dupe, commercial approval, budget, retries,
+  readiness, calendar, air-gap import, cost anomaly.
+- **Baseline:** seasonal statistics, trend/abruptness, multi-temporal and optical/SAR confirmation,
+  adaptive thresholds, construction/vegetation/erosion detectors, suppression, drift, backtest,
+  calibration and analyst feedback.
+- **Anticipation:** forecast ingest, pre-event watchlist, lead time, uncertainty, tasking trigger,
+  seasonal calendar, heatmap, scenario simulation.
+- **Alerts:** schema, urgency, dedupe, incident grouping, state machine, routing, SLA, bulk actions,
+  why panel, handoff, fatigue budget, digest, mobile card.
+- **Notifications:** email/Slack/Teams/SMS/pager/HMAC webhook, quiet hours, least privilege, outbox
+  retries, dead letters.
+- **Governance:** model registry/rollback, explainability, false-alarm cost, overrides, precision,
+  privacy, tenant keys, kill switch, rate limits, on-call, validation gate, non-goals.
+- **Ops:** quotas, secrets vault, job queue, object store, backup/restore drill, load test,
+  blue/green, Postgres mirror.
+
+The UI (`Watch.tsx`, `WatchMap.tsx`) is local-first and reads `data/proactive.json`. The API exposes
+the same lifecycle at `/api/watch/*`.
