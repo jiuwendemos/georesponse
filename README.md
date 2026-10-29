@@ -4,7 +4,7 @@
 
 ![GeoResponse stage view](docs/assets/stage.jpg)
 
-**Live demo:** https://jiuwendemos.github.io/georesponse/ · **Stage plan:** [docs/ROADMAP.md](docs/ROADMAP.md) · **Method:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
+**Live demo:** https://jiuwendemos.github.io/georesponse/ · **Stage plan:** [docs/ROADMAP.md](docs/ROADMAP.md) · **Method:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) · **Proactive design:** [docs/PROACTIVE.md](docs/PROACTIVE.md)
 
 GeoResponse is an AI analyst for imagery. It is built around one decision, not a dashboard: *where do we send the three teams?* The demo is a 90-second command story. The product is an analyst workspace with an audit trail, exports and a pilot measurement pack. Everything runs offline from a local data pack.
 
@@ -174,7 +174,7 @@ Generated packs are committed so the live app works without a build-time data jo
 
 ## Roadmap status
 
-All technical phases are implemented, with field-validation artefacts where a live audience is required. See **[docs/ROADMAP.md](docs/ROADMAP.md)** for the checkbox-by-checkbox evidence.
+All technical phases are implemented, including the 155 proactive workstreams, with field-validation artefacts where a live audience or customer is required. See **[docs/ROADMAP.md](docs/ROADMAP.md)** for the checkbox-by-checkbox evidence.
 
 - Phase 0A — stage piece ✅
 - Phase 0B — functional demo ✅
