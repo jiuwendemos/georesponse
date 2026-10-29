@@ -31,6 +31,15 @@ schedule ─► acquire ─► baseline ─► confirm ─► alert ─► incid
 | Demo | `demo.py` | Six scopes, 24 alerts, five incidents, forecasts, coverage, costs, models, prefs, pilot metrics |
 | UI | `web/src/components/Watch.tsx` | Inbox, scopes, coverage, digest, settings, pilot gates, governance, scope drawing |
 
+## Monitoring charter
+
+**The service does:** watch the agreed scope, disclose freshness and blind spots, produce evidence-backed
+alerts, route them to named humans, record every decision, and hand off drafts into claims, CMMS and field
+tooling.
+
+**The service does not:** approve claims, dispatch crews, monitor people or private life, use live video,
+run facial recognition, or promise that a model alert is ground truth.
+
 ## The scope contract
 
 Every scope declares **one purpose, one asset class, one cadence, one freshness SLO, one recipient

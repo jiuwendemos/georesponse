@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-29T19:39:20+00:00",
+  "generatedAt": "2026-10-29T19:42:02+00:00",
   "regions": [
     {
       "id": "AHR",
@@ -95,7 +95,7 @@
       "minChange": 0.06,
       "alert": true,
       "severity": "red",
-      "evaluatedAt": "2026-10-29T19:39:20+00:00"
+      "evaluatedAt": "2026-10-29T19:42:02+00:00"
     },
     {
       "regionId": "RUR",
@@ -110,7 +110,7 @@
       "minChange": 0.06,
       "alert": true,
       "severity": "red",
-      "evaluatedAt": "2026-10-29T19:39:20+00:00"
+      "evaluatedAt": "2026-10-29T19:42:02+00:00"
     },
     {
       "regionId": "EIF",
@@ -125,7 +125,7 @@
       "minChange": 0.06,
       "alert": true,
       "severity": "orange",
-      "evaluatedAt": "2026-10-29T19:39:20+00:00"
+      "evaluatedAt": "2026-10-29T19:42:02+00:00"
     },
     {
       "regionId": "KOL",
@@ -140,7 +140,7 @@
       "minChange": 0.06,
       "alert": true,
       "severity": "red",
-      "evaluatedAt": "2026-10-29T19:39:20+00:00"
+      "evaluatedAt": "2026-10-29T19:42:02+00:00"
     },
     {
       "regionId": "KAL",
@@ -155,7 +155,7 @@
       "minChange": 0.06,
       "alert": true,
       "severity": "red",
-      "evaluatedAt": "2026-10-29T19:39:20+00:00"
+      "evaluatedAt": "2026-10-29T19:42:02+00:00"
     },
     {
       "regionId": "BON",
@@ -170,7 +170,7 @@
       "minChange": 0.06,
       "alert": false,
       "severity": "none",
-      "evaluatedAt": "2026-10-29T19:39:20+00:00"
+      "evaluatedAt": "2026-10-29T19:42:02+00:00"
     }
   ],
   "summary": {

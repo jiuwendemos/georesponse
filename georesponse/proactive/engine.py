@@ -110,12 +110,15 @@ class ProactiveEngine:
         scope = self.store.get_scope(alert.scope_id)
         plan = self.store.get_plan(alert.scope_id) or (MonitoringPlan(scope_id=alert.scope_id, cadence=scope.cadence) if scope else None)
         updated = alert_ops.transition(self.store, alert_id, action, actor=actor, note=note, assignee=assignee, reason=reason)
-        if action in {"acknowledge", "assign", "investigate"} and scope and plan:
+        if scope and plan and action in {"acknowledge", "assign", "investigate"}:
             if updated.validation_count < plan.first_n_alerts_require_analyst:
                 self.validation.record(scope.id, updated.id, actor, "validated", note)
                 updated.validation_count += 1
                 updated.validated_by = actor
                 self.store.save_alert(updated)
+        if scope and action in {"dismiss", "resolve"}:
+            self.validation.record(scope.id, updated.id, actor, "rejected" if action == "dismiss" else "confirmed", note)
+            apply_feedback(self.store, scope)
         return updated.to_dict()
 
     def incident_view(self, incident_id: str) -> dict:

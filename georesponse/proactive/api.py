@@ -284,6 +284,14 @@ def get_alert(alert_id: str) -> dict:
     }
 
 
+@router.post("/alerts/{alert_id}/status-update")
+def status_update(alert_id: str, author: str, message: str) -> dict:
+    alert = _alert_or_404(alert_id)
+    update = alert_ops.customer_status_update(alert, author=author, message=message)
+    store.audit(alert.tenant, "alert.customer-status", alert_id=alert.id, actor=author, detail={"message": message})
+    return update
+
+
 @router.post("/alerts/{alert_id}/action")
 def alert_action(alert_id: str, request: ActionRequest) -> dict:
     _alert_or_404(alert_id)

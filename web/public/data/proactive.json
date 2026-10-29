@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-29T19:39:20+00:00",
+  "generatedAt": "2026-10-29T19:42:02+00:00",
   "tenant": "demo",
   "mode": "proactive",
   "disclaimer": "Demo monitoring data. Algorithms and lifecycle are real; the scopes, alerts and metrics are seeded for the showcase.",
@@ -38,7 +38,7 @@
         "proactive",
         "utility + emergency"
       ],
-      "created_at": "2026-10-29T19:39:20+00:00",
+      "created_at": "2026-10-29T19:42:02+00:00",
       "metadata": {
         "valueEur": 56200000,
         "population": 9630,
@@ -111,7 +111,7 @@
         "proactive",
         "utility"
       ],
-      "created_at": "2026-10-29T19:39:20+00:00",
+      "created_at": "2026-10-29T19:42:02+00:00",
       "metadata": {
         "valueEur": 18400000,
         "population": 2100,
@@ -159,7 +159,7 @@
         "proactive",
         "construction"
       ],
-      "created_at": "2026-10-29T19:39:20+00:00",
+      "created_at": "2026-10-29T19:42:02+00:00",
       "metadata": {
         "valueEur": 42000000,
         "population": 5400,
@@ -207,7 +207,7 @@
         "proactive",
         "insurance"
       ],
-      "created_at": "2026-10-29T19:39:20+00:00",
+      "created_at": "2026-10-29T19:42:02+00:00",
       "metadata": {
         "valueEur": 11800000,
         "population": 1250,
@@ -255,7 +255,7 @@
         "proactive",
         "agriculture"
       ],
-      "created_at": "2026-10-29T19:39:20+00:00",
+      "created_at": "2026-10-29T19:42:02+00:00",
       "metadata": {
         "valueEur": 2800000,
         "population": 180,
@@ -303,7 +303,7 @@
         "proactive",
         "mining"
       ],
-      "created_at": "2026-10-29T19:39:20+00:00",
+      "created_at": "2026-10-29T19:42:02+00:00",
       "metadata": {
         "valueEur": 64000000,
         "population": 80,
@@ -365,7 +365,7 @@
         "email",
         "slack"
       ],
-      "updated_at": "2026-10-29T19:39:20+00:00"
+      "updated_at": "2026-10-29T19:42:02+00:00"
     },
     {
       "scope_id": "scope-rur-utility",
@@ -411,7 +411,7 @@
         "email",
         "slack"
       ],
-      "updated_at": "2026-10-29T19:39:20+00:00"
+      "updated_at": "2026-10-29T19:42:02+00:00"
     },
     {
       "scope_id": "scope-cologne-construction",
@@ -457,7 +457,7 @@
         "email",
         "slack"
       ],
-      "updated_at": "2026-10-29T19:39:20+00:00"
+      "updated_at": "2026-10-29T19:42:02+00:00"
     },
     {
       "scope_id": "scope-eifel-fire",
@@ -503,7 +503,7 @@
         "email",
         "slack"
       ],
-      "updated_at": "2026-10-29T19:39:20+00:00"
+      "updated_at": "2026-10-29T19:42:02+00:00"
     },
     {
       "scope_id": "scope-dernau-vineyard",
@@ -549,7 +549,7 @@
         "email",
         "slack"
       ],
-      "updated_at": "2026-10-29T19:39:20+00:00"
+      "updated_at": "2026-10-29T19:42:02+00:00"
     },
     {
       "scope_id": "scope-tailings-watch",
@@ -595,7 +595,7 @@
         "email",
         "slack"
       ],
-      "updated_at": "2026-10-29T19:39:20+00:00"
+      "updated_at": "2026-10-29T19:42:02+00:00"
     }
   ],
   "alerts": [
@@ -616,9 +616,9 @@
       "incident_id": "INC-AHR-01",
       "status": "new",
       "assignee": null,
-      "sla_due": "2026-10-29T22:27:20+00:00",
-      "created_at": "2026-10-29T18:27:20+00:00",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "sla_due": "2026-10-29T22:30:02+00:00",
+      "created_at": "2026-10-29T18:30:02+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "acknowledged_at": null,
       "resolved_at": null,
       "dismissed_reason": null,
@@ -659,7 +659,7 @@
       },
       "provenance": {
         "imagery": "Simulated Sentinel-2 L2A-like composite",
-        "acquired": "2026-10-29T16:27:20+00:00",
+        "acquired": "2026-10-29T16:30:02+00:00",
         "model": "gr-changenet-1.4.2",
         "baseline": {
           "mean": 0.05,
@@ -692,9 +692,9 @@
       "incident_id": "INC-AHR-01",
       "status": "assigned",
       "assignee": "M. Keller",
-      "sla_due": "2026-10-29T20:51:20+00:00",
-      "created_at": "2026-10-29T16:51:20+00:00",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "sla_due": "2026-10-29T20:54:02+00:00",
+      "created_at": "2026-10-29T16:54:02+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "acknowledged_at": null,
       "resolved_at": null,
       "dismissed_reason": null,
@@ -735,7 +735,7 @@
       },
       "provenance": {
         "imagery": "Simulated Sentinel-2 L2A-like composite",
-        "acquired": "2026-10-29T14:51:20+00:00",
+        "acquired": "2026-10-29T14:54:02+00:00",
         "model": "gr-changenet-1.4.2",
         "baseline": {
           "mean": 0.05,
@@ -768,9 +768,9 @@
       "incident_id": "INC-AHR-02",
       "status": "investigating",
       "assignee": "M. Keller",
-      "sla_due": "2026-10-29T18:39:20+00:00",
-      "created_at": "2026-10-29T14:39:20+00:00",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "sla_due": "2026-10-29T18:42:02+00:00",
+      "created_at": "2026-10-29T14:42:02+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "acknowledged_at": null,
       "resolved_at": null,
       "dismissed_reason": null,
@@ -811,7 +811,7 @@
       },
       "provenance": {
         "imagery": "Simulated Sentinel-2 L2A-like composite",
-        "acquired": "2026-10-29T12:39:20+00:00",
+        "acquired": "2026-10-29T12:42:02+00:00",
         "model": "gr-changenet-1.4.2",
         "baseline": {
           "mean": 0.03,
@@ -844,9 +844,9 @@
       "incident_id": "INC-RUR-01",
       "status": "new",
       "assignee": null,
-      "sla_due": "2026-10-29T21:27:20+00:00",
-      "created_at": "2026-10-29T17:27:20+00:00",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "sla_due": "2026-10-29T21:30:02+00:00",
+      "created_at": "2026-10-29T17:30:02+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "acknowledged_at": null,
       "resolved_at": null,
       "dismissed_reason": null,
@@ -887,7 +887,7 @@
       },
       "provenance": {
         "imagery": "Simulated Sentinel-2 L2A-like composite",
-        "acquired": "2026-10-29T15:27:20+00:00",
+        "acquired": "2026-10-29T15:30:02+00:00",
         "model": "gr-changenet-1.4.2",
         "baseline": {
           "mean": 0.04,
@@ -920,10 +920,10 @@
       "incident_id": null,
       "status": "acknowledged",
       "assignee": "A. Weber",
-      "sla_due": "2026-10-29T19:03:20+00:00",
-      "created_at": "2026-10-29T15:03:20+00:00",
-      "updated_at": "2026-10-29T19:39:20+00:00",
-      "acknowledged_at": "2026-10-29T15:21:20+00:00",
+      "sla_due": "2026-10-29T19:06:02+00:00",
+      "created_at": "2026-10-29T15:06:02+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
+      "acknowledged_at": "2026-10-29T15:24:02+00:00",
       "resolved_at": null,
       "dismissed_reason": null,
       "dismissal_note": null,
@@ -963,7 +963,7 @@
       },
       "provenance": {
         "imagery": "Simulated Sentinel-2 L2A-like composite",
-        "acquired": "2026-10-29T13:03:20+00:00",
+        "acquired": "2026-10-29T13:06:02+00:00",
         "model": "gr-changenet-1.4.2",
         "baseline": {
           "mean": 0.04,
@@ -996,11 +996,11 @@
       "incident_id": null,
       "status": "resolved",
       "assignee": "S. Okafor",
-      "sla_due": "2026-10-28T21:39:20+00:00",
-      "created_at": "2026-10-28T17:39:20+00:00",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "sla_due": "2026-10-28T21:42:02+00:00",
+      "created_at": "2026-10-28T17:42:02+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "acknowledged_at": null,
-      "resolved_at": "2026-10-28T18:39:20+00:00",
+      "resolved_at": "2026-10-28T18:42:02+00:00",
       "dismissed_reason": null,
       "dismissal_note": null,
       "asset": "Ehrenfeld rail yard",
@@ -1039,7 +1039,7 @@
       },
       "provenance": {
         "imagery": "Simulated Sentinel-2 L2A-like composite",
-        "acquired": "2026-10-28T15:39:20+00:00",
+        "acquired": "2026-10-28T15:42:02+00:00",
         "model": "gr-changenet-1.4.2",
         "baseline": {
           "mean": 0.02,
@@ -1072,9 +1072,9 @@
       "incident_id": null,
       "status": "assigned",
       "assignee": "M. Keller",
-      "sla_due": "2026-10-28T17:39:20+00:00",
-      "created_at": "2026-10-28T13:39:20+00:00",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "sla_due": "2026-10-28T17:42:02+00:00",
+      "created_at": "2026-10-28T13:42:02+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "acknowledged_at": null,
       "resolved_at": null,
       "dismissed_reason": null,
@@ -1115,7 +1115,7 @@
       },
       "provenance": {
         "imagery": "Simulated Sentinel-2 L2A-like composite",
-        "acquired": "2026-10-28T11:39:20+00:00",
+        "acquired": "2026-10-28T11:42:02+00:00",
         "model": "gr-changenet-1.4.2",
         "baseline": {
           "mean": 0.02,
@@ -1148,9 +1148,9 @@
       "incident_id": "INC-EIF-01",
       "status": "investigating",
       "assignee": "S. Okafor",
-      "sla_due": "2026-10-29T20:15:20+00:00",
-      "created_at": "2026-10-29T16:15:20+00:00",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "sla_due": "2026-10-29T20:18:02+00:00",
+      "created_at": "2026-10-29T16:18:02+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "acknowledged_at": null,
       "resolved_at": null,
       "dismissed_reason": null,
@@ -1191,7 +1191,7 @@
       },
       "provenance": {
         "imagery": "Simulated Sentinel-2 L2A-like composite",
-        "acquired": "2026-10-29T14:15:20+00:00",
+        "acquired": "2026-10-29T14:18:02+00:00",
         "model": "gr-changenet-1.4.2",
         "baseline": {
           "mean": 0.03,
@@ -1224,9 +1224,9 @@
       "incident_id": null,
       "status": "dismissed",
       "assignee": "S. Okafor",
-      "sla_due": "2026-10-29T15:27:20+00:00",
-      "created_at": "2026-10-29T11:27:20+00:00",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "sla_due": "2026-10-29T15:30:02+00:00",
+      "created_at": "2026-10-29T11:30:02+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "acknowledged_at": null,
       "resolved_at": null,
       "dismissed_reason": "cloud_shadow",
@@ -1267,7 +1267,7 @@
       },
       "provenance": {
         "imagery": "Simulated Sentinel-2 L2A-like composite",
-        "acquired": "2026-10-29T09:27:20+00:00",
+        "acquired": "2026-10-29T09:30:02+00:00",
         "model": "gr-changenet-1.4.2",
         "baseline": {
           "mean": 0.03,
@@ -1300,9 +1300,9 @@
       "incident_id": null,
       "status": "new",
       "assignee": null,
-      "sla_due": "2026-10-29T21:51:20+00:00",
-      "created_at": "2026-10-29T17:51:20+00:00",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "sla_due": "2026-10-29T21:54:02+00:00",
+      "created_at": "2026-10-29T17:54:02+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "acknowledged_at": null,
       "resolved_at": null,
       "dismissed_reason": null,
@@ -1343,7 +1343,7 @@
       },
       "provenance": {
         "imagery": "Simulated Sentinel-2 L2A-like composite",
-        "acquired": "2026-10-29T15:51:20+00:00",
+        "acquired": "2026-10-29T15:54:02+00:00",
         "model": "gr-changenet-1.4.2",
         "baseline": {
           "mean": 0.02,
@@ -1376,9 +1376,9 @@
       "incident_id": null,
       "status": "dismissed",
       "assignee": "M. Keller",
-      "sla_due": "2026-10-29T04:39:20+00:00",
-      "created_at": "2026-10-29T00:39:20+00:00",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "sla_due": "2026-10-29T04:42:02+00:00",
+      "created_at": "2026-10-29T00:42:02+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "acknowledged_at": null,
       "resolved_at": null,
       "dismissed_reason": "no_action",
@@ -1419,7 +1419,7 @@
       },
       "provenance": {
         "imagery": "Simulated Sentinel-2 L2A-like composite",
-        "acquired": "2026-10-28T22:39:20+00:00",
+        "acquired": "2026-10-28T22:42:02+00:00",
         "model": "gr-changenet-1.4.2",
         "baseline": {
           "mean": 0.02,
@@ -1452,9 +1452,9 @@
       "incident_id": "INC-TAI-01",
       "status": "new",
       "assignee": null,
-      "sla_due": "2026-10-29T21:03:20+00:00",
-      "created_at": "2026-10-29T17:03:20+00:00",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "sla_due": "2026-10-29T21:06:02+00:00",
+      "created_at": "2026-10-29T17:06:02+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "acknowledged_at": null,
       "resolved_at": null,
       "dismissed_reason": null,
@@ -1495,7 +1495,7 @@
       },
       "provenance": {
         "imagery": "Simulated Sentinel-2 L2A-like composite",
-        "acquired": "2026-10-29T15:03:20+00:00",
+        "acquired": "2026-10-29T15:06:02+00:00",
         "model": "gr-changenet-1.4.2",
         "baseline": {
           "mean": 0.02,
@@ -1528,11 +1528,11 @@
       "incident_id": null,
       "status": "resolved",
       "assignee": "A. Weber",
-      "sla_due": "2026-10-29T01:39:20+00:00",
-      "created_at": "2026-10-28T21:39:20+00:00",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "sla_due": "2026-10-29T01:42:02+00:00",
+      "created_at": "2026-10-28T21:42:02+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "acknowledged_at": null,
-      "resolved_at": "2026-10-28T22:39:20+00:00",
+      "resolved_at": "2026-10-28T22:42:02+00:00",
       "dismissed_reason": null,
       "dismissal_note": null,
       "asset": "Tailings haul road",
@@ -1571,7 +1571,7 @@
       },
       "provenance": {
         "imagery": "Simulated Sentinel-2 L2A-like composite",
-        "acquired": "2026-10-28T19:39:20+00:00",
+        "acquired": "2026-10-28T19:42:02+00:00",
         "model": "gr-changenet-1.4.2",
         "baseline": {
           "mean": 0.02,
@@ -1604,9 +1604,9 @@
       "incident_id": null,
       "status": "dismissed",
       "assignee": "M. Keller",
-      "sla_due": "2026-10-29T22:15:20+00:00",
-      "created_at": "2026-10-29T18:15:20+00:00",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "sla_due": "2026-10-29T22:18:02+00:00",
+      "created_at": "2026-10-29T18:18:02+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "acknowledged_at": null,
       "resolved_at": null,
       "dismissed_reason": "duplicate",
@@ -1647,7 +1647,7 @@
       },
       "provenance": {
         "imagery": "Simulated Sentinel-2 L2A-like composite",
-        "acquired": "2026-10-29T16:15:20+00:00",
+        "acquired": "2026-10-29T16:18:02+00:00",
         "model": "gr-changenet-1.4.2",
         "baseline": {
           "mean": 0.04,
@@ -1680,9 +1680,9 @@
       "incident_id": null,
       "status": "resolved",
       "assignee": "A. Weber",
-      "sla_due": "2026-10-28T07:39:20+00:00",
-      "created_at": "2026-10-28T03:39:20+00:00",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "sla_due": "2026-10-28T07:42:02+00:00",
+      "created_at": "2026-10-28T03:42:02+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "acknowledged_at": null,
       "resolved_at": null,
       "dismissed_reason": null,
@@ -1723,7 +1723,7 @@
       },
       "provenance": {
         "imagery": "Simulated Sentinel-2 L2A-like composite",
-        "acquired": "2026-10-28T01:39:20+00:00",
+        "acquired": "2026-10-28T01:42:02+00:00",
         "model": "gr-changenet-1.4.2",
         "baseline": {
           "mean": 0.03,
@@ -1756,9 +1756,9 @@
       "incident_id": null,
       "status": "resolved",
       "assignee": "A. Weber",
-      "sla_due": "2026-10-27T22:39:20+00:00",
-      "created_at": "2026-10-27T18:39:20+00:00",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "sla_due": "2026-10-27T22:42:02+00:00",
+      "created_at": "2026-10-27T18:42:02+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "acknowledged_at": null,
       "resolved_at": null,
       "dismissed_reason": null,
@@ -1799,7 +1799,7 @@
       },
       "provenance": {
         "imagery": "Simulated Sentinel-2 L2A-like composite",
-        "acquired": "2026-10-27T16:39:20+00:00",
+        "acquired": "2026-10-27T16:42:02+00:00",
         "model": "gr-changenet-1.4.2",
         "baseline": {
           "mean": 0.03,
@@ -1832,9 +1832,9 @@
       "incident_id": null,
       "status": "resolved",
       "assignee": "A. Weber",
-      "sla_due": "2026-10-27T13:39:20+00:00",
-      "created_at": "2026-10-27T09:39:20+00:00",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "sla_due": "2026-10-27T13:42:02+00:00",
+      "created_at": "2026-10-27T09:42:02+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "acknowledged_at": null,
       "resolved_at": null,
       "dismissed_reason": null,
@@ -1875,7 +1875,7 @@
       },
       "provenance": {
         "imagery": "Simulated Sentinel-2 L2A-like composite",
-        "acquired": "2026-10-27T07:39:20+00:00",
+        "acquired": "2026-10-27T07:42:02+00:00",
         "model": "gr-changenet-1.4.2",
         "baseline": {
           "mean": 0.03,
@@ -1908,9 +1908,9 @@
       "incident_id": null,
       "status": "resolved",
       "assignee": "A. Weber",
-      "sla_due": "2026-10-27T04:39:20+00:00",
-      "created_at": "2026-10-27T00:39:20+00:00",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "sla_due": "2026-10-27T04:42:02+00:00",
+      "created_at": "2026-10-27T00:42:02+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "acknowledged_at": null,
       "resolved_at": null,
       "dismissed_reason": null,
@@ -1951,7 +1951,7 @@
       },
       "provenance": {
         "imagery": "Simulated Sentinel-2 L2A-like composite",
-        "acquired": "2026-10-26T22:39:20+00:00",
+        "acquired": "2026-10-26T22:42:02+00:00",
         "model": "gr-changenet-1.4.2",
         "baseline": {
           "mean": 0.03,
@@ -1984,9 +1984,9 @@
       "incident_id": null,
       "status": "resolved",
       "assignee": "A. Weber",
-      "sla_due": "2026-10-26T19:39:20+00:00",
-      "created_at": "2026-10-26T15:39:20+00:00",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "sla_due": "2026-10-26T19:42:02+00:00",
+      "created_at": "2026-10-26T15:42:02+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "acknowledged_at": null,
       "resolved_at": null,
       "dismissed_reason": null,
@@ -2027,7 +2027,7 @@
       },
       "provenance": {
         "imagery": "Simulated Sentinel-2 L2A-like composite",
-        "acquired": "2026-10-26T13:39:20+00:00",
+        "acquired": "2026-10-26T13:42:02+00:00",
         "model": "gr-changenet-1.4.2",
         "baseline": {
           "mean": 0.03,
@@ -2060,9 +2060,9 @@
       "incident_id": null,
       "status": "resolved",
       "assignee": "A. Weber",
-      "sla_due": "2026-10-26T10:39:20+00:00",
-      "created_at": "2026-10-26T06:39:20+00:00",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "sla_due": "2026-10-26T10:42:02+00:00",
+      "created_at": "2026-10-26T06:42:02+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "acknowledged_at": null,
       "resolved_at": null,
       "dismissed_reason": null,
@@ -2103,7 +2103,7 @@
       },
       "provenance": {
         "imagery": "Simulated Sentinel-2 L2A-like composite",
-        "acquired": "2026-10-26T04:39:20+00:00",
+        "acquired": "2026-10-26T04:42:02+00:00",
         "model": "gr-changenet-1.4.2",
         "baseline": {
           "mean": 0.03,
@@ -2136,9 +2136,9 @@
       "incident_id": null,
       "status": "resolved",
       "assignee": "A. Weber",
-      "sla_due": "2026-10-26T01:39:20+00:00",
-      "created_at": "2026-10-25T21:39:20+00:00",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "sla_due": "2026-10-26T01:42:02+00:00",
+      "created_at": "2026-10-25T21:42:02+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "acknowledged_at": null,
       "resolved_at": null,
       "dismissed_reason": null,
@@ -2179,7 +2179,7 @@
       },
       "provenance": {
         "imagery": "Simulated Sentinel-2 L2A-like composite",
-        "acquired": "2026-10-25T19:39:20+00:00",
+        "acquired": "2026-10-25T19:42:02+00:00",
         "model": "gr-changenet-1.4.2",
         "baseline": {
           "mean": 0.03,
@@ -2212,9 +2212,9 @@
       "incident_id": null,
       "status": "resolved",
       "assignee": "A. Weber",
-      "sla_due": "2026-10-25T16:39:20+00:00",
-      "created_at": "2026-10-25T12:39:20+00:00",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "sla_due": "2026-10-25T16:42:02+00:00",
+      "created_at": "2026-10-25T12:42:02+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "acknowledged_at": null,
       "resolved_at": null,
       "dismissed_reason": null,
@@ -2255,7 +2255,7 @@
       },
       "provenance": {
         "imagery": "Simulated Sentinel-2 L2A-like composite",
-        "acquired": "2026-10-25T10:39:20+00:00",
+        "acquired": "2026-10-25T10:42:02+00:00",
         "model": "gr-changenet-1.4.2",
         "baseline": {
           "mean": 0.03,
@@ -2288,9 +2288,9 @@
       "incident_id": null,
       "status": "resolved",
       "assignee": "A. Weber",
-      "sla_due": "2026-10-25T07:39:20+00:00",
-      "created_at": "2026-10-25T03:39:20+00:00",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "sla_due": "2026-10-25T07:42:02+00:00",
+      "created_at": "2026-10-25T03:42:02+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "acknowledged_at": null,
       "resolved_at": null,
       "dismissed_reason": null,
@@ -2331,7 +2331,7 @@
       },
       "provenance": {
         "imagery": "Simulated Sentinel-2 L2A-like composite",
-        "acquired": "2026-10-25T01:39:20+00:00",
+        "acquired": "2026-10-25T01:42:02+00:00",
         "model": "gr-changenet-1.4.2",
         "baseline": {
           "mean": 0.03,
@@ -2364,9 +2364,9 @@
       "incident_id": null,
       "status": "resolved",
       "assignee": "A. Weber",
-      "sla_due": "2026-10-24T22:39:20+00:00",
-      "created_at": "2026-10-24T18:39:20+00:00",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "sla_due": "2026-10-24T22:42:02+00:00",
+      "created_at": "2026-10-24T18:42:02+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "acknowledged_at": null,
       "resolved_at": null,
       "dismissed_reason": null,
@@ -2407,7 +2407,7 @@
       },
       "provenance": {
         "imagery": "Simulated Sentinel-2 L2A-like composite",
-        "acquired": "2026-10-24T16:39:20+00:00",
+        "acquired": "2026-10-24T16:42:02+00:00",
         "model": "gr-changenet-1.4.2",
         "baseline": {
           "mean": 0.03,
@@ -2437,17 +2437,17 @@
         "ALT-1002"
       ],
       "assignee": "A. Weber",
-      "opened_at": "2026-10-29T14:39:20+00:00",
+      "opened_at": "2026-10-29T14:42:02+00:00",
       "closed_at": null,
       "summary": "2 related alert(s) in Ahr corridor watch. Human review required.",
       "timeline": [
         {
-          "at": "2026-10-29T14:39:20+00:00",
+          "at": "2026-10-29T14:42:02+00:00",
           "event": "incident.opened",
           "alertId": "ALT-1001"
         },
         {
-          "at": "2026-10-29T15:39:20+00:00",
+          "at": "2026-10-29T15:42:02+00:00",
           "event": "alert.acknowledged",
           "alertId": "ALT-1001",
           "actor": "A. Weber"
@@ -2466,17 +2466,17 @@
         "ALT-1003"
       ],
       "assignee": "M. Keller",
-      "opened_at": "2026-10-29T14:39:20+00:00",
+      "opened_at": "2026-10-29T14:42:02+00:00",
       "closed_at": null,
       "summary": "1 related alert(s) in Ahr corridor watch. Human review required.",
       "timeline": [
         {
-          "at": "2026-10-29T14:39:20+00:00",
+          "at": "2026-10-29T14:42:02+00:00",
           "event": "incident.opened",
           "alertId": "ALT-1003"
         },
         {
-          "at": "2026-10-29T15:39:20+00:00",
+          "at": "2026-10-29T15:42:02+00:00",
           "event": "alert.acknowledged",
           "alertId": "ALT-1003",
           "actor": "A. Weber"
@@ -2495,17 +2495,17 @@
         "ALT-1004"
       ],
       "assignee": "M. Keller",
-      "opened_at": "2026-10-29T14:39:20+00:00",
+      "opened_at": "2026-10-29T14:42:02+00:00",
       "closed_at": null,
       "summary": "1 related alert(s) in Rur valley utility corridor. Human review required.",
       "timeline": [
         {
-          "at": "2026-10-29T14:39:20+00:00",
+          "at": "2026-10-29T14:42:02+00:00",
           "event": "incident.opened",
           "alertId": "ALT-1004"
         },
         {
-          "at": "2026-10-29T15:39:20+00:00",
+          "at": "2026-10-29T15:42:02+00:00",
           "event": "alert.acknowledged",
           "alertId": "ALT-1004",
           "actor": "A. Weber"
@@ -2524,17 +2524,17 @@
         "ALT-1008"
       ],
       "assignee": "S. Okafor",
-      "opened_at": "2026-10-29T14:39:20+00:00",
+      "opened_at": "2026-10-29T14:42:02+00:00",
       "closed_at": null,
       "summary": "1 related alert(s) in Eifel ridge wildfire watch. Human review required.",
       "timeline": [
         {
-          "at": "2026-10-29T14:39:20+00:00",
+          "at": "2026-10-29T14:42:02+00:00",
           "event": "incident.opened",
           "alertId": "ALT-1008"
         },
         {
-          "at": "2026-10-29T15:39:20+00:00",
+          "at": "2026-10-29T15:42:02+00:00",
           "event": "alert.acknowledged",
           "alertId": "ALT-1008",
           "actor": "A. Weber"
@@ -2553,17 +2553,17 @@
         "ALT-1012"
       ],
       "assignee": "A. Weber",
-      "opened_at": "2026-10-29T14:39:20+00:00",
+      "opened_at": "2026-10-29T14:42:02+00:00",
       "closed_at": null,
       "summary": "1 related alert(s) in Rur tailings watch. Human review required.",
       "timeline": [
         {
-          "at": "2026-10-29T14:39:20+00:00",
+          "at": "2026-10-29T14:42:02+00:00",
           "event": "incident.opened",
           "alertId": "ALT-1012"
         },
         {
-          "at": "2026-10-29T15:39:20+00:00",
+          "at": "2026-10-29T15:42:02+00:00",
           "event": "alert.acknowledged",
           "alertId": "ALT-1012",
           "actor": "A. Weber"
@@ -2576,9 +2576,9 @@
     {
       "id": "fc-ahr-flood",
       "region": "Ahrweiler, Germany",
-      "issued_at": "2026-10-29T17:39:20+00:00",
-      "valid_from": "2026-10-29T18:39:20+00:00",
-      "valid_to": "2026-10-31T01:39:20+00:00",
+      "issued_at": "2026-10-29T17:42:02+00:00",
+      "valid_from": "2026-10-29T18:42:02+00:00",
+      "valid_to": "2026-10-31T01:42:02+00:00",
       "hazard": "flood",
       "probability": 0.78,
       "rainfall_mm": 62,
@@ -2594,9 +2594,9 @@
     {
       "id": "fc-rur-flood",
       "region": "Rur valley, Germany",
-      "issued_at": "2026-10-29T16:39:20+00:00",
-      "valid_from": "2026-10-29T18:39:20+00:00",
-      "valid_to": "2026-10-30T23:39:20+00:00",
+      "issued_at": "2026-10-29T16:42:02+00:00",
+      "valid_from": "2026-10-29T18:42:02+00:00",
+      "valid_to": "2026-10-30T23:42:02+00:00",
       "hazard": "flood",
       "probability": 0.62,
       "rainfall_mm": 44,
@@ -2612,9 +2612,9 @@
     {
       "id": "fc-cologne-storm",
       "region": "Cologne, Germany",
-      "issued_at": "2026-10-29T16:39:20+00:00",
-      "valid_from": "2026-10-29T18:39:20+00:00",
-      "valid_to": "2026-10-30T19:39:20+00:00",
+      "issued_at": "2026-10-29T16:42:02+00:00",
+      "valid_from": "2026-10-29T18:42:02+00:00",
+      "valid_to": "2026-10-30T19:42:02+00:00",
       "hazard": "storm",
       "probability": 0.36,
       "rainfall_mm": 0.0,
@@ -2630,9 +2630,9 @@
     {
       "id": "fc-eifel-fire",
       "region": "Eifel, Germany",
-      "issued_at": "2026-10-29T15:39:20+00:00",
-      "valid_from": "2026-10-29T18:39:20+00:00",
-      "valid_to": "2026-10-31T07:39:20+00:00",
+      "issued_at": "2026-10-29T15:42:02+00:00",
+      "valid_from": "2026-10-29T18:42:02+00:00",
+      "valid_to": "2026-10-31T07:42:02+00:00",
       "hazard": "wildfire",
       "probability": 0.55,
       "rainfall_mm": 0.0,
@@ -2648,9 +2648,9 @@
     {
       "id": "fc-dernau-frost",
       "region": "Dernau, Germany",
-      "issued_at": "2026-10-29T14:39:20+00:00",
-      "valid_from": "2026-10-29T18:39:20+00:00",
-      "valid_to": "2026-10-31T11:39:20+00:00",
+      "issued_at": "2026-10-29T14:42:02+00:00",
+      "valid_from": "2026-10-29T18:42:02+00:00",
+      "valid_to": "2026-10-31T11:42:02+00:00",
       "hazard": "freeze",
       "probability": 0.31,
       "rainfall_mm": 0.0,
@@ -2669,7 +2669,7 @@
       "id": "acq-scope-ahr-corridor",
       "scope_id": "scope-ahr-corridor",
       "source": "sentinel-2",
-      "scheduled_for": "2026-10-29T13:39:20+00:00",
+      "scheduled_for": "2026-10-29T13:42:02+00:00",
       "status": "received",
       "cloud_forecast": 0.12,
       "cost_eur": 0.0,
@@ -2685,20 +2685,20 @@
       ],
       "resolution_m": 10.0,
       "scene_id": "SCENE-RRIDOR",
-      "received_at": "2026-10-29T13:39:20+00:00",
+      "received_at": "2026-10-29T13:42:02+00:00",
       "readiness": 0.91,
       "blind_spot_reason": null,
       "provenance": {
         "imagery": "simulated demo pack",
         "dryRun": true
       },
-      "created_at": "2026-10-29T19:39:20+00:00"
+      "created_at": "2026-10-29T19:42:02+00:00"
     },
     {
       "id": "acq-next-scope-ahr-corridor",
       "scope_id": "scope-ahr-corridor",
       "source": "sentinel-2",
-      "scheduled_for": "2026-10-30T19:39:20+00:00",
+      "scheduled_for": "2026-10-30T19:42:02+00:00",
       "status": "planned",
       "cloud_forecast": 0.18,
       "cost_eur": 0.0,
@@ -2720,13 +2720,13 @@
       "provenance": {
         "planned": true
       },
-      "created_at": "2026-10-29T19:39:20+00:00"
+      "created_at": "2026-10-29T19:42:02+00:00"
     },
     {
       "id": "acq-scope-rur-utility",
       "scope_id": "scope-rur-utility",
       "source": "sentinel-2",
-      "scheduled_for": "2026-10-28T23:39:20+00:00",
+      "scheduled_for": "2026-10-28T23:42:02+00:00",
       "status": "received",
       "cloud_forecast": 0.12,
       "cost_eur": 0.0,
@@ -2742,20 +2742,20 @@
       ],
       "resolution_m": 10.0,
       "scene_id": "SCENE-TILITY",
-      "received_at": "2026-10-28T23:39:20+00:00",
+      "received_at": "2026-10-28T23:42:02+00:00",
       "readiness": 0.91,
       "blind_spot_reason": null,
       "provenance": {
         "imagery": "simulated demo pack",
         "dryRun": true
       },
-      "created_at": "2026-10-29T19:39:20+00:00"
+      "created_at": "2026-10-29T19:42:02+00:00"
     },
     {
       "id": "acq-next-scope-rur-utility",
       "scope_id": "scope-rur-utility",
       "source": "sentinel-2",
-      "scheduled_for": "2026-10-30T19:39:20+00:00",
+      "scheduled_for": "2026-10-30T19:42:02+00:00",
       "status": "planned",
       "cloud_forecast": 0.18,
       "cost_eur": 0.0,
@@ -2777,13 +2777,13 @@
       "provenance": {
         "planned": true
       },
-      "created_at": "2026-10-29T19:39:20+00:00"
+      "created_at": "2026-10-29T19:42:02+00:00"
     },
     {
       "id": "acq-scope-cologne-construction",
       "scope_id": "scope-cologne-construction",
       "source": "sentinel-2",
-      "scheduled_for": "2026-10-28T13:39:20+00:00",
+      "scheduled_for": "2026-10-28T13:42:02+00:00",
       "status": "received",
       "cloud_forecast": 0.12,
       "cost_eur": 0.0,
@@ -2799,20 +2799,20 @@
       ],
       "resolution_m": 10.0,
       "scene_id": "SCENE-UCTION",
-      "received_at": "2026-10-28T13:39:20+00:00",
+      "received_at": "2026-10-28T13:42:02+00:00",
       "readiness": 0.91,
       "blind_spot_reason": null,
       "provenance": {
         "imagery": "simulated demo pack",
         "dryRun": true
       },
-      "created_at": "2026-10-29T19:39:20+00:00"
+      "created_at": "2026-10-29T19:42:02+00:00"
     },
     {
       "id": "acq-next-scope-cologne-construction",
       "scope_id": "scope-cologne-construction",
       "source": "sentinel-2",
-      "scheduled_for": "2026-11-05T19:39:20+00:00",
+      "scheduled_for": "2026-11-05T19:42:02+00:00",
       "status": "planned",
       "cloud_forecast": 0.18,
       "cost_eur": 0.0,
@@ -2834,13 +2834,13 @@
       "provenance": {
         "planned": true
       },
-      "created_at": "2026-10-29T19:39:20+00:00"
+      "created_at": "2026-10-29T19:42:02+00:00"
     },
     {
       "id": "acq-scope-eifel-fire",
       "scope_id": "scope-eifel-fire",
       "source": "sentinel-2",
-      "scheduled_for": "2026-10-29T09:39:20+00:00",
+      "scheduled_for": "2026-10-29T09:42:02+00:00",
       "status": "received",
       "cloud_forecast": 0.12,
       "cost_eur": 0.0,
@@ -2856,20 +2856,20 @@
       ],
       "resolution_m": 10.0,
       "scene_id": "SCENE-L-FIRE",
-      "received_at": "2026-10-29T09:39:20+00:00",
+      "received_at": "2026-10-29T09:42:02+00:00",
       "readiness": 0.91,
       "blind_spot_reason": null,
       "provenance": {
         "imagery": "simulated demo pack",
         "dryRun": true
       },
-      "created_at": "2026-10-29T19:39:20+00:00"
+      "created_at": "2026-10-29T19:42:02+00:00"
     },
     {
       "id": "acq-next-scope-eifel-fire",
       "scope_id": "scope-eifel-fire",
       "source": "sentinel-2",
-      "scheduled_for": "2026-10-30T07:39:20+00:00",
+      "scheduled_for": "2026-10-30T07:42:02+00:00",
       "status": "planned",
       "cloud_forecast": 0.18,
       "cost_eur": 0.0,
@@ -2891,13 +2891,13 @@
       "provenance": {
         "planned": true
       },
-      "created_at": "2026-10-29T19:39:20+00:00"
+      "created_at": "2026-10-29T19:42:02+00:00"
     },
     {
       "id": "acq-scope-dernau-vineyard",
       "scope_id": "scope-dernau-vineyard",
       "source": "sentinel-2",
-      "scheduled_for": "2026-10-28T05:39:20+00:00",
+      "scheduled_for": "2026-10-28T05:42:02+00:00",
       "status": "received",
       "cloud_forecast": 0.12,
       "cost_eur": 0.0,
@@ -2913,20 +2913,20 @@
       ],
       "resolution_m": 10.0,
       "scene_id": "SCENE-NEYARD",
-      "received_at": "2026-10-28T05:39:20+00:00",
+      "received_at": "2026-10-28T05:42:02+00:00",
       "readiness": 0.91,
       "blind_spot_reason": null,
       "provenance": {
         "imagery": "simulated demo pack",
         "dryRun": true
       },
-      "created_at": "2026-10-29T19:39:20+00:00"
+      "created_at": "2026-10-29T19:42:02+00:00"
     },
     {
       "id": "acq-next-scope-dernau-vineyard",
       "scope_id": "scope-dernau-vineyard",
       "source": "sentinel-2",
-      "scheduled_for": "2026-11-05T19:39:20+00:00",
+      "scheduled_for": "2026-11-05T19:42:02+00:00",
       "status": "planned",
       "cloud_forecast": 0.18,
       "cost_eur": 0.0,
@@ -2948,13 +2948,13 @@
       "provenance": {
         "planned": true
       },
-      "created_at": "2026-10-29T19:39:20+00:00"
+      "created_at": "2026-10-29T19:42:02+00:00"
     },
     {
       "id": "acq-scope-tailings-watch",
       "scope_id": "scope-tailings-watch",
       "source": "sentinel-1",
-      "scheduled_for": "2026-10-21T21:39:20+00:00",
+      "scheduled_for": "2026-10-21T21:42:02+00:00",
       "status": "failed",
       "cloud_forecast": 0.42,
       "cost_eur": 220.0,
@@ -2977,13 +2977,13 @@
         "imagery": "simulated demo pack",
         "dryRun": true
       },
-      "created_at": "2026-10-29T19:39:20+00:00"
+      "created_at": "2026-10-29T19:42:02+00:00"
     },
     {
       "id": "acq-next-scope-tailings-watch",
       "scope_id": "scope-tailings-watch",
       "source": "sentinel-2",
-      "scheduled_for": "2026-11-05T19:39:20+00:00",
+      "scheduled_for": "2026-11-05T19:42:02+00:00",
       "status": "planned",
       "cloud_forecast": 0.18,
       "cost_eur": 0.0,
@@ -3005,7 +3005,7 @@
       "provenance": {
         "planned": true
       },
-      "created_at": "2026-10-29T19:39:20+00:00"
+      "created_at": "2026-10-29T19:42:02+00:00"
     }
   ],
   "baselines": [
@@ -3028,7 +3028,7 @@
       "minimum": 0.03,
       "maximum": 0.06,
       "trend": "stable",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "model_version": "gr-changenet-1.4.2",
       "confirmed_at": null,
       "metadata": {}
@@ -3050,7 +3050,7 @@
       "minimum": 0.02,
       "maximum": 0.04,
       "trend": "stable",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "model_version": "gr-changenet-1.4.2",
       "confirmed_at": null,
       "metadata": {}
@@ -3072,7 +3072,7 @@
       "minimum": 0.01,
       "maximum": 0.03,
       "trend": "stable",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "model_version": "gr-changenet-1.4.2",
       "confirmed_at": null,
       "metadata": {}
@@ -3093,7 +3093,7 @@
       "minimum": 0.02,
       "maximum": 0.04,
       "trend": "stable",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "model_version": "gr-changenet-1.4.2",
       "confirmed_at": null,
       "metadata": {}
@@ -3116,7 +3116,7 @@
       "minimum": 0.7,
       "maximum": 0.75,
       "trend": "stable",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "model_version": "gr-changenet-1.4.2",
       "confirmed_at": null,
       "metadata": {}
@@ -3137,7 +3137,7 @@
       "minimum": 0.01,
       "maximum": 0.02,
       "trend": "stable",
-      "updated_at": "2026-10-29T19:39:20+00:00",
+      "updated_at": "2026-10-29T19:42:02+00:00",
       "model_version": "gr-changenet-1.4.2",
       "confirmed_at": null,
       "metadata": {}
@@ -3194,7 +3194,7 @@
         "precision": 0.91,
         "recall": 0.87
       },
-      "deployed_at": "2026-10-29T19:39:20+00:00",
+      "deployed_at": "2026-10-29T19:42:02+00:00",
       "rollback_to": "1.3.9",
       "notes": "Pinned on every alert"
     },
@@ -3206,7 +3206,7 @@
         "precision": 0.93,
         "recall": 0.88
       },
-      "deployed_at": "2026-10-29T19:39:20+00:00",
+      "deployed_at": "2026-10-29T19:42:02+00:00",
       "rollback_to": "1.4.2",
       "notes": "Shadow candidate; not customer-visible"
     },
@@ -3218,7 +3218,7 @@
         "precision": 0.86,
         "recall": 0.81
       },
-      "deployed_at": "2026-10-29T19:39:20+00:00",
+      "deployed_at": "2026-10-29T19:42:02+00:00",
       "rollback_to": null,
       "notes": "Damage likelihood head"
     }
@@ -3318,7 +3318,7 @@
           "precision": 0.91,
           "recall": 0.87
         },
-        "deployed_at": "2026-10-29T19:39:20+00:00",
+        "deployed_at": "2026-10-29T19:42:02+00:00",
         "rollback_to": "1.3.9",
         "notes": "Pinned on every alert"
       },
@@ -3330,7 +3330,7 @@
           "precision": 0.93,
           "recall": 0.88
         },
-        "deployed_at": "2026-10-29T19:39:20+00:00",
+        "deployed_at": "2026-10-29T19:42:02+00:00",
         "rollback_to": "1.4.2",
         "notes": "Shadow candidate; not customer-visible"
       },
@@ -3342,7 +3342,7 @@
           "precision": 0.86,
           "recall": 0.81
         },
-        "deployed_at": "2026-10-29T19:39:20+00:00",
+        "deployed_at": "2026-10-29T19:42:02+00:00",
         "rollback_to": null,
         "notes": "Damage likelihood head"
       }
@@ -3357,7 +3357,7 @@
             "precision": 0.91,
             "recall": 0.87
           },
-          "deployed_at": "2026-10-29T19:39:20+00:00",
+          "deployed_at": "2026-10-29T19:42:02+00:00",
           "rollback_to": "1.3.9",
           "notes": "Pinned on every alert"
         },
@@ -3369,7 +3369,7 @@
             "precision": 0.93,
             "recall": 0.88
           },
-          "deployed_at": "2026-10-29T19:39:20+00:00",
+          "deployed_at": "2026-10-29T19:42:02+00:00",
           "rollback_to": "1.4.2",
           "notes": "Shadow candidate; not customer-visible"
         },
@@ -3381,7 +3381,7 @@
             "precision": 0.86,
             "recall": 0.81
           },
-          "deployed_at": "2026-10-29T19:39:20+00:00",
+          "deployed_at": "2026-10-29T19:42:02+00:00",
           "rollback_to": null,
           "notes": "Damage likelihood head"
         }
@@ -3397,9 +3397,9 @@
         "precision": 0.8,
         "resolvedWithoutAssignee": 0,
         "rejectedReasons": {
+          "no_action": 1,
           "duplicate": 1,
-          "cloud_shadow": 1,
-          "no_action": 1
+          "cloud_shadow": 1
         },
         "falseAlarm": {
           "alerts": 24,
@@ -3407,9 +3407,9 @@
           "analystHours": 1.25,
           "costEur": 97.5,
           "byReason": {
+            "no_action": 1,
             "duplicate": 1,
-            "cloud_shadow": 1,
-            "no_action": 1
+            "cloud_shadow": 1
           }
         }
       },
@@ -3419,9 +3419,9 @@
         "rejected": 3,
         "overrideRate": 0.2,
         "reasons": {
+          "no_action": 1,
           "duplicate": 1,
-          "cloud_shadow": 1,
-          "no_action": 1
+          "cloud_shadow": 1
         }
       },
       "privacy": {
@@ -3526,7 +3526,7 @@
           "criticalAssets": 2,
           "assets": 4
         },
-        "validTo": "2026-10-31T01:39:20+00:00",
+        "validTo": "2026-10-31T01:42:02+00:00",
         "forecastId": "fc-ahr-flood",
         "recommendation": {
           "teams": 2,
@@ -3536,7 +3536,7 @@
         },
         "taskingTrigger": true,
         "status": "watch",
-        "computedAt": "2026-10-29T19:39:20+00:00"
+        "computedAt": "2026-10-29T19:42:02+00:00"
       },
       {
         "scopeId": "scope-rur-utility",
@@ -3558,7 +3558,7 @@
           "criticalAssets": 1,
           "assets": 1
         },
-        "validTo": "2026-10-30T23:39:20+00:00",
+        "validTo": "2026-10-30T23:42:02+00:00",
         "forecastId": "fc-rur-flood",
         "recommendation": {
           "teams": 2,
@@ -3568,7 +3568,7 @@
         },
         "taskingTrigger": true,
         "status": "watch",
-        "computedAt": "2026-10-29T19:39:20+00:00"
+        "computedAt": "2026-10-29T19:42:02+00:00"
       },
       {
         "scopeId": "scope-eifel-fire",
@@ -3590,7 +3590,7 @@
           "criticalAssets": 0,
           "assets": 1
         },
-        "validTo": "2026-10-31T07:39:20+00:00",
+        "validTo": "2026-10-31T07:42:02+00:00",
         "forecastId": "fc-eifel-fire",
         "recommendation": {
           "teams": 1,
@@ -3600,7 +3600,7 @@
         },
         "taskingTrigger": true,
         "status": "watch",
-        "computedAt": "2026-10-29T19:39:20+00:00"
+        "computedAt": "2026-10-29T19:42:02+00:00"
       },
       {
         "scopeId": "scope-tailings-watch",
@@ -3622,7 +3622,7 @@
           "criticalAssets": 1,
           "assets": 1
         },
-        "validTo": "2026-10-30T23:39:20+00:00",
+        "validTo": "2026-10-30T23:42:02+00:00",
         "forecastId": "fc-rur-flood",
         "recommendation": {
           "teams": 2,
@@ -3632,7 +3632,7 @@
         },
         "taskingTrigger": true,
         "status": "watch",
-        "computedAt": "2026-10-29T19:39:20+00:00"
+        "computedAt": "2026-10-29T19:42:02+00:00"
       },
       {
         "scopeId": "scope-cologne-construction",
@@ -3654,7 +3654,7 @@
           "criticalAssets": 0,
           "assets": 1
         },
-        "validTo": "2026-10-30T19:39:20+00:00",
+        "validTo": "2026-10-30T19:42:02+00:00",
         "forecastId": "fc-cologne-storm",
         "recommendation": {
           "teams": 1,
@@ -3664,7 +3664,7 @@
         },
         "taskingTrigger": false,
         "status": "watch",
-        "computedAt": "2026-10-29T19:39:20+00:00"
+        "computedAt": "2026-10-29T19:42:02+00:00"
       },
       {
         "scopeId": "scope-dernau-vineyard",
@@ -3686,7 +3686,7 @@
           "criticalAssets": 0,
           "assets": 1
         },
-        "validTo": "2026-10-31T11:39:20+00:00",
+        "validTo": "2026-10-31T11:42:02+00:00",
         "forecastId": "fc-dernau-frost",
         "recommendation": {
           "teams": 1,
@@ -3696,7 +3696,7 @@
         },
         "taskingTrigger": false,
         "status": "watch",
-        "computedAt": "2026-10-29T19:39:20+00:00"
+        "computedAt": "2026-10-29T19:42:02+00:00"
       }
     ],
     "heatmap": [
@@ -3783,7 +3783,7 @@
             "criticalAssets": 2,
             "assets": 4
           },
-          "validTo": "2026-10-31T01:39:20+00:00",
+          "validTo": "2026-10-31T01:42:02+00:00",
           "forecastId": "fc-ahr-flood",
           "recommendation": {
             "teams": 2,
@@ -3793,7 +3793,7 @@
           },
           "taskingTrigger": true,
           "status": "watch",
-          "computedAt": "2026-10-29T19:39:20+00:00"
+          "computedAt": "2026-10-29T19:42:02+00:00"
         },
         {
           "scopeId": "scope-rur-utility",
@@ -3815,7 +3815,7 @@
             "criticalAssets": 1,
             "assets": 1
           },
-          "validTo": "2026-10-30T23:39:20+00:00",
+          "validTo": "2026-10-30T23:42:02+00:00",
           "forecastId": "fc-rur-flood",
           "recommendation": {
             "teams": 2,
@@ -3825,7 +3825,7 @@
           },
           "taskingTrigger": true,
           "status": "watch",
-          "computedAt": "2026-10-29T19:39:20+00:00"
+          "computedAt": "2026-10-29T19:42:02+00:00"
         },
         {
           "scopeId": "scope-eifel-fire",
@@ -3847,7 +3847,7 @@
             "criticalAssets": 0,
             "assets": 1
           },
-          "validTo": "2026-10-31T07:39:20+00:00",
+          "validTo": "2026-10-31T07:42:02+00:00",
           "forecastId": "fc-eifel-fire",
           "recommendation": {
             "teams": 1,
@@ -3857,7 +3857,7 @@
           },
           "taskingTrigger": true,
           "status": "watch",
-          "computedAt": "2026-10-29T19:39:20+00:00"
+          "computedAt": "2026-10-29T19:42:02+00:00"
         },
         {
           "scopeId": "scope-tailings-watch",
@@ -3879,7 +3879,7 @@
             "criticalAssets": 1,
             "assets": 1
           },
-          "validTo": "2026-10-30T23:39:20+00:00",
+          "validTo": "2026-10-30T23:42:02+00:00",
           "forecastId": "fc-rur-flood",
           "recommendation": {
             "teams": 2,
@@ -3889,7 +3889,7 @@
           },
           "taskingTrigger": true,
           "status": "watch",
-          "computedAt": "2026-10-29T19:39:20+00:00"
+          "computedAt": "2026-10-29T19:42:02+00:00"
         },
         {
           "scopeId": "scope-cologne-construction",
@@ -3911,7 +3911,7 @@
             "criticalAssets": 0,
             "assets": 1
           },
-          "validTo": "2026-10-30T19:39:20+00:00",
+          "validTo": "2026-10-30T19:42:02+00:00",
           "forecastId": "fc-cologne-storm",
           "recommendation": {
             "teams": 1,
@@ -3921,7 +3921,7 @@
           },
           "taskingTrigger": false,
           "status": "watch",
-          "computedAt": "2026-10-29T19:39:20+00:00"
+          "computedAt": "2026-10-29T19:42:02+00:00"
         },
         {
           "scopeId": "scope-dernau-vineyard",
@@ -3943,7 +3943,7 @@
             "criticalAssets": 0,
             "assets": 1
           },
-          "validTo": "2026-10-31T11:39:20+00:00",
+          "validTo": "2026-10-31T11:42:02+00:00",
           "forecastId": "fc-dernau-frost",
           "recommendation": {
             "teams": 1,
@@ -3953,7 +3953,7 @@
           },
           "taskingTrigger": false,
           "status": "watch",
-          "computedAt": "2026-10-29T19:39:20+00:00"
+          "computedAt": "2026-10-29T19:42:02+00:00"
         }
       ],
       "tasking": [
@@ -3962,7 +3962,7 @@
         "scope-eifel-fire",
         "scope-tailings-watch"
       ],
-      "generatedAt": "2026-10-29T19:39:20+00:00",
+      "generatedAt": "2026-10-29T19:42:02+00:00",
       "note": "Tasking is queued for human approval; no automatic dispatch."
     },
     "coverage": [
@@ -3984,8 +3984,8 @@
         "areaKm2": 44.5,
         "cadence": "daily",
         "status": "active",
-        "lastAcquisition": "2026-10-29T13:39:20+00:00",
-        "nextExpected": "2026-10-30T19:39:20+00:00",
+        "lastAcquisition": "2026-10-29T13:42:02+00:00",
+        "nextExpected": "2026-10-30T19:42:02+00:00",
         "freshnessHours": 6.0,
         "readiness": 0.92,
         "coverageStatus": "ok",
@@ -4011,8 +4011,8 @@
         "areaKm2": 101.5,
         "cadence": "weekly",
         "status": "active",
-        "lastAcquisition": "2026-10-28T13:39:20+00:00",
-        "nextExpected": "2026-11-05T19:39:20+00:00",
+        "lastAcquisition": "2026-10-28T13:42:02+00:00",
+        "nextExpected": "2026-11-05T19:42:02+00:00",
         "freshnessHours": 30.0,
         "readiness": 0.934,
         "coverageStatus": "ok",
@@ -4038,8 +4038,8 @@
         "areaKm2": 10.4,
         "cadence": "weekly",
         "status": "active",
-        "lastAcquisition": "2026-10-28T05:39:20+00:00",
-        "nextExpected": "2026-11-05T19:39:20+00:00",
+        "lastAcquisition": "2026-10-28T05:42:02+00:00",
+        "nextExpected": "2026-11-05T19:42:02+00:00",
         "freshnessHours": 38.0,
         "readiness": 0.925,
         "coverageStatus": "ok",
@@ -4065,8 +4065,8 @@
         "areaKm2": 133.6,
         "cadence": "12h",
         "status": "active",
-        "lastAcquisition": "2026-10-29T09:39:20+00:00",
-        "nextExpected": "2026-10-30T07:39:20+00:00",
+        "lastAcquisition": "2026-10-29T09:42:02+00:00",
+        "nextExpected": "2026-10-30T07:42:02+00:00",
         "freshnessHours": 10.0,
         "readiness": 0.803,
         "coverageStatus": "ok",
@@ -4092,8 +4092,8 @@
         "areaKm2": 97.2,
         "cadence": "daily",
         "status": "active",
-        "lastAcquisition": "2026-10-28T23:39:20+00:00",
-        "nextExpected": "2026-10-30T19:39:20+00:00",
+        "lastAcquisition": "2026-10-28T23:42:02+00:00",
+        "nextExpected": "2026-10-30T19:42:02+00:00",
         "freshnessHours": 20.0,
         "readiness": 0.803,
         "coverageStatus": "ok",
@@ -4120,7 +4120,7 @@
         "cadence": "weekly",
         "status": "active",
         "lastAcquisition": null,
-        "nextExpected": "2026-11-05T19:39:20+00:00",
+        "nextExpected": "2026-11-05T19:42:02+00:00",
         "freshnessHours": null,
         "readiness": 0.002,
         "coverageStatus": "blind",
@@ -4250,7 +4250,7 @@
             "precision": 0.91,
             "recall": 0.87
           },
-          "deployed_at": "2026-10-29T19:39:20+00:00",
+          "deployed_at": "2026-10-29T19:42:02+00:00",
           "rollback_to": "1.3.9",
           "notes": "Pinned on every alert"
         },
@@ -4262,7 +4262,7 @@
             "precision": 0.93,
             "recall": 0.88
           },
-          "deployed_at": "2026-10-29T19:39:20+00:00",
+          "deployed_at": "2026-10-29T19:42:02+00:00",
           "rollback_to": "1.4.2",
           "notes": "Shadow candidate; not customer-visible"
         },
@@ -4274,7 +4274,7 @@
             "precision": 0.86,
             "recall": 0.81
           },
-          "deployed_at": "2026-10-29T19:39:20+00:00",
+          "deployed_at": "2026-10-29T19:42:02+00:00",
           "rollback_to": null,
           "notes": "Damage likelihood head"
         }
@@ -4289,7 +4289,7 @@
               "precision": 0.91,
               "recall": 0.87
             },
-            "deployed_at": "2026-10-29T19:39:20+00:00",
+            "deployed_at": "2026-10-29T19:42:02+00:00",
             "rollback_to": "1.3.9",
             "notes": "Pinned on every alert"
           },
@@ -4301,7 +4301,7 @@
               "precision": 0.93,
               "recall": 0.88
             },
-            "deployed_at": "2026-10-29T19:39:20+00:00",
+            "deployed_at": "2026-10-29T19:42:02+00:00",
             "rollback_to": "1.4.2",
             "notes": "Shadow candidate; not customer-visible"
           },
@@ -4313,7 +4313,7 @@
               "precision": 0.86,
               "recall": 0.81
             },
-            "deployed_at": "2026-10-29T19:39:20+00:00",
+            "deployed_at": "2026-10-29T19:42:02+00:00",
             "rollback_to": null,
             "notes": "Damage likelihood head"
           }
@@ -4329,9 +4329,9 @@
           "precision": 0.8,
           "resolvedWithoutAssignee": 0,
           "rejectedReasons": {
+            "no_action": 1,
             "duplicate": 1,
-            "cloud_shadow": 1,
-            "no_action": 1
+            "cloud_shadow": 1
           },
           "falseAlarm": {
             "alerts": 24,
@@ -4339,9 +4339,9 @@
             "analystHours": 1.25,
             "costEur": 97.5,
             "byReason": {
+              "no_action": 1,
               "duplicate": 1,
-              "cloud_shadow": 1,
-              "no_action": 1
+              "cloud_shadow": 1
             }
           }
         },
@@ -4351,9 +4351,9 @@
           "rejected": 3,
           "overrideRate": 0.2,
           "reasons": {
+            "no_action": 1,
             "duplicate": 1,
-            "cloud_shadow": 1,
-            "no_action": 1
+            "cloud_shadow": 1
           }
         },
         "privacy": {
@@ -4450,12 +4450,12 @@
       "slaBreaches": 0,
       "shadowValidations": 3
     },
-    "generatedAt": "2026-10-29T19:39:20+00:00"
+    "generatedAt": "2026-10-29T19:42:02+00:00"
   },
   "digest": {
     "tenant": "demo",
     "periodHours": 24,
-    "generatedAt": "2026-10-29T19:39:20+00:00",
+    "generatedAt": "2026-10-29T19:42:02+00:00",
     "alerts": 12,
     "open": 8,
     "headline": "12 alerts, 8 open, 4 high risk",
@@ -4473,7 +4473,7 @@
             "lon": 7.104,
             "lat": 50.548
           },
-          "slaDue": "2026-10-29T22:27:20+00:00",
+          "slaDue": "2026-10-29T22:30:02+00:00",
           "incidentId": "INC-AHR-01",
           "deepLink": "/#watch/alert/ALT-1001"
         },
@@ -4489,7 +4489,7 @@
             "lon": 7.052,
             "lat": 50.531
           },
-          "slaDue": "2026-10-29T21:51:20+00:00",
+          "slaDue": "2026-10-29T21:54:02+00:00",
           "incidentId": null,
           "deepLink": "/#watch/alert/ALT-1010"
         },
@@ -4505,7 +4505,7 @@
             "lon": 6.421,
             "lat": 50.761
           },
-          "slaDue": "2026-10-29T21:27:20+00:00",
+          "slaDue": "2026-10-29T21:30:02+00:00",
           "incidentId": "INC-RUR-01",
           "deepLink": "/#watch/alert/ALT-1004"
         },
@@ -4521,7 +4521,7 @@
             "lon": 6.451,
             "lat": 50.721
           },
-          "slaDue": "2026-10-29T21:03:20+00:00",
+          "slaDue": "2026-10-29T21:06:02+00:00",
           "incidentId": "INC-TAI-01",
           "deepLink": "/#watch/alert/ALT-1012"
         }
@@ -4539,7 +4539,7 @@
             "lon": 7.082,
             "lat": 50.541
           },
-          "slaDue": "2026-10-29T20:51:20+00:00",
+          "slaDue": "2026-10-29T20:54:02+00:00",
           "incidentId": "INC-AHR-01",
           "deepLink": "/#watch/alert/ALT-1002"
         },
@@ -4555,7 +4555,7 @@
             "lon": 6.428,
             "lat": 50.592
           },
-          "slaDue": "2026-10-29T20:15:20+00:00",
+          "slaDue": "2026-10-29T20:18:02+00:00",
           "incidentId": "INC-EIF-01",
           "deepLink": "/#watch/alert/ALT-1008"
         },
@@ -4571,7 +4571,7 @@
             "lon": 6.426,
             "lat": 50.758
           },
-          "slaDue": "2026-10-29T19:03:20+00:00",
+          "slaDue": "2026-10-29T19:06:02+00:00",
           "incidentId": null,
           "deepLink": "/#watch/alert/ALT-1005"
         },
@@ -4587,7 +4587,7 @@
             "lon": 7.14,
             "lat": 50.549
           },
-          "slaDue": "2026-10-29T18:39:20+00:00",
+          "slaDue": "2026-10-29T18:42:02+00:00",
           "incidentId": "INC-AHR-02",
           "deepLink": "/#watch/alert/ALT-1003"
         }
@@ -4605,7 +4605,7 @@
             "lon": 6.447,
             "lat": 50.718
           },
-          "slaDue": "2026-10-29T01:39:20+00:00",
+          "slaDue": "2026-10-29T01:42:02+00:00",
           "incidentId": null,
           "deepLink": "/#watch/alert/ALT-1013"
         }
@@ -4623,7 +4623,7 @@
             "lon": 6.4215,
             "lat": 50.7612
           },
-          "slaDue": "2026-10-29T22:15:20+00:00",
+          "slaDue": "2026-10-29T22:18:02+00:00",
           "incidentId": null,
           "deepLink": "/#watch/alert/ALT-1014"
         },
@@ -4639,7 +4639,7 @@
             "lon": 6.415,
             "lat": 50.586
           },
-          "slaDue": "2026-10-29T15:27:20+00:00",
+          "slaDue": "2026-10-29T15:30:02+00:00",
           "incidentId": null,
           "deepLink": "/#watch/alert/ALT-1009"
         },
@@ -4655,7 +4655,7 @@
             "lon": 7.049,
             "lat": 50.529
           },
-          "slaDue": "2026-10-29T04:39:20+00:00",
+          "slaDue": "2026-10-29T04:42:02+00:00",
           "incidentId": null,
           "deepLink": "/#watch/alert/ALT-1011"
         }
@@ -4677,9 +4677,9 @@
     "precision": 0.8,
     "resolvedWithoutAssignee": 0,
     "rejectedReasons": {
+      "no_action": 1,
       "duplicate": 1,
-      "cloud_shadow": 1,
-      "no_action": 1
+      "cloud_shadow": 1
     },
     "falseAlarm": {
       "alerts": 24,
@@ -4687,9 +4687,9 @@
       "analystHours": 1.25,
       "costEur": 97.5,
       "byReason": {
+        "no_action": 1,
         "duplicate": 1,
-        "cloud_shadow": 1,
-        "no_action": 1
+        "cloud_shadow": 1
       }
     }
   },
@@ -4703,7 +4703,7 @@
           "precision": 0.91,
           "recall": 0.87
         },
-        "deployed_at": "2026-10-29T19:39:20+00:00",
+        "deployed_at": "2026-10-29T19:42:02+00:00",
         "rollback_to": "1.3.9",
         "notes": "Pinned on every alert"
       },
@@ -4715,7 +4715,7 @@
           "precision": 0.93,
           "recall": 0.88
         },
-        "deployed_at": "2026-10-29T19:39:20+00:00",
+        "deployed_at": "2026-10-29T19:42:02+00:00",
         "rollback_to": "1.4.2",
         "notes": "Shadow candidate; not customer-visible"
       },
@@ -4727,7 +4727,7 @@
           "precision": 0.86,
           "recall": 0.81
         },
-        "deployed_at": "2026-10-29T19:39:20+00:00",
+        "deployed_at": "2026-10-29T19:42:02+00:00",
         "rollback_to": null,
         "notes": "Damage likelihood head"
       }
@@ -4743,9 +4743,9 @@
       "precision": 0.8,
       "resolvedWithoutAssignee": 0,
       "rejectedReasons": {
+        "no_action": 1,
         "duplicate": 1,
-        "cloud_shadow": 1,
-        "no_action": 1
+        "cloud_shadow": 1
       },
       "falseAlarm": {
         "alerts": 24,
@@ -4753,9 +4753,9 @@
         "analystHours": 1.25,
         "costEur": 97.5,
         "byReason": {
+          "no_action": 1,
           "duplicate": 1,
-          "cloud_shadow": 1,
-          "no_action": 1
+          "cloud_shadow": 1
         }
       }
     },
@@ -4765,9 +4765,9 @@
       "rejected": 3,
       "overrideRate": 0.2,
       "reasons": {
+        "no_action": 1,
         "duplicate": 1,
-        "cloud_shadow": 1,
-        "no_action": 1
+        "cloud_shadow": 1
       }
     },
     "privacy": {
@@ -4868,8 +4868,8 @@
       "areaKm2": 44.5,
       "cadence": "daily",
       "status": "active",
-      "lastAcquisition": "2026-10-29T13:39:20+00:00",
-      "nextExpected": "2026-10-30T19:39:20+00:00",
+      "lastAcquisition": "2026-10-29T13:42:02+00:00",
+      "nextExpected": "2026-10-30T19:42:02+00:00",
       "freshnessHours": 6.0,
       "readiness": 0.92,
       "coverageStatus": "ok",
@@ -4895,8 +4895,8 @@
       "areaKm2": 101.5,
       "cadence": "weekly",
       "status": "active",
-      "lastAcquisition": "2026-10-28T13:39:20+00:00",
-      "nextExpected": "2026-11-05T19:39:20+00:00",
+      "lastAcquisition": "2026-10-28T13:42:02+00:00",
+      "nextExpected": "2026-11-05T19:42:02+00:00",
       "freshnessHours": 30.0,
       "readiness": 0.934,
       "coverageStatus": "ok",
@@ -4922,8 +4922,8 @@
       "areaKm2": 10.4,
       "cadence": "weekly",
       "status": "active",
-      "lastAcquisition": "2026-10-28T05:39:20+00:00",
-      "nextExpected": "2026-11-05T19:39:20+00:00",
+      "lastAcquisition": "2026-10-28T05:42:02+00:00",
+      "nextExpected": "2026-11-05T19:42:02+00:00",
       "freshnessHours": 38.0,
       "readiness": 0.925,
       "coverageStatus": "ok",
@@ -4949,8 +4949,8 @@
       "areaKm2": 133.6,
       "cadence": "12h",
       "status": "active",
-      "lastAcquisition": "2026-10-29T09:39:20+00:00",
-      "nextExpected": "2026-10-30T07:39:20+00:00",
+      "lastAcquisition": "2026-10-29T09:42:02+00:00",
+      "nextExpected": "2026-10-30T07:42:02+00:00",
       "freshnessHours": 10.0,
       "readiness": 0.803,
       "coverageStatus": "ok",
@@ -4976,8 +4976,8 @@
       "areaKm2": 97.2,
       "cadence": "daily",
       "status": "active",
-      "lastAcquisition": "2026-10-28T23:39:20+00:00",
-      "nextExpected": "2026-10-30T19:39:20+00:00",
+      "lastAcquisition": "2026-10-28T23:42:02+00:00",
+      "nextExpected": "2026-10-30T19:42:02+00:00",
       "freshnessHours": 20.0,
       "readiness": 0.803,
       "coverageStatus": "ok",
@@ -5004,7 +5004,7 @@
       "cadence": "weekly",
       "status": "active",
       "lastAcquisition": null,
-      "nextExpected": "2026-11-05T19:39:20+00:00",
+      "nextExpected": "2026-11-05T19:42:02+00:00",
       "freshnessHours": null,
       "readiness": 0.002,
       "coverageStatus": "blind",
@@ -5017,7 +5017,7 @@
     "scope-ahr-corridor": [
       {
         "id": "acq-scope-ahr-corridor",
-        "scheduledFor": "2026-10-29T13:39:20+00:00",
+        "scheduledFor": "2026-10-29T13:42:02+00:00",
         "status": "received",
         "source": "sentinel-2",
         "cloudForecast": 0.12,
@@ -5027,7 +5027,7 @@
       },
       {
         "id": "acq-next-scope-ahr-corridor",
-        "scheduledFor": "2026-10-30T19:39:20+00:00",
+        "scheduledFor": "2026-10-30T19:42:02+00:00",
         "status": "planned",
         "source": "sentinel-2",
         "cloudForecast": 0.18,
@@ -5039,7 +5039,7 @@
     "scope-rur-utility": [
       {
         "id": "acq-scope-rur-utility",
-        "scheduledFor": "2026-10-28T23:39:20+00:00",
+        "scheduledFor": "2026-10-28T23:42:02+00:00",
         "status": "received",
         "source": "sentinel-2",
         "cloudForecast": 0.12,
@@ -5049,7 +5049,7 @@
       },
       {
         "id": "acq-next-scope-rur-utility",
-        "scheduledFor": "2026-10-30T19:39:20+00:00",
+        "scheduledFor": "2026-10-30T19:42:02+00:00",
         "status": "planned",
         "source": "sentinel-2",
         "cloudForecast": 0.18,
@@ -5061,7 +5061,7 @@
     "scope-cologne-construction": [
       {
         "id": "acq-scope-cologne-construction",
-        "scheduledFor": "2026-10-28T13:39:20+00:00",
+        "scheduledFor": "2026-10-28T13:42:02+00:00",
         "status": "received",
         "source": "sentinel-2",
         "cloudForecast": 0.12,
@@ -5071,7 +5071,7 @@
       },
       {
         "id": "acq-next-scope-cologne-construction",
-        "scheduledFor": "2026-11-05T19:39:20+00:00",
+        "scheduledFor": "2026-11-05T19:42:02+00:00",
         "status": "planned",
         "source": "sentinel-2",
         "cloudForecast": 0.18,
@@ -5083,7 +5083,7 @@
     "scope-eifel-fire": [
       {
         "id": "acq-scope-eifel-fire",
-        "scheduledFor": "2026-10-29T09:39:20+00:00",
+        "scheduledFor": "2026-10-29T09:42:02+00:00",
         "status": "received",
         "source": "sentinel-2",
         "cloudForecast": 0.12,
@@ -5093,7 +5093,7 @@
       },
       {
         "id": "acq-next-scope-eifel-fire",
-        "scheduledFor": "2026-10-30T07:39:20+00:00",
+        "scheduledFor": "2026-10-30T07:42:02+00:00",
         "status": "planned",
         "source": "sentinel-2",
         "cloudForecast": 0.18,
@@ -5105,7 +5105,7 @@
     "scope-dernau-vineyard": [
       {
         "id": "acq-scope-dernau-vineyard",
-        "scheduledFor": "2026-10-28T05:39:20+00:00",
+        "scheduledFor": "2026-10-28T05:42:02+00:00",
         "status": "received",
         "source": "sentinel-2",
         "cloudForecast": 0.12,
@@ -5115,7 +5115,7 @@
       },
       {
         "id": "acq-next-scope-dernau-vineyard",
-        "scheduledFor": "2026-11-05T19:39:20+00:00",
+        "scheduledFor": "2026-11-05T19:42:02+00:00",
         "status": "planned",
         "source": "sentinel-2",
         "cloudForecast": 0.18,
@@ -5127,7 +5127,7 @@
     "scope-tailings-watch": [
       {
         "id": "acq-scope-tailings-watch",
-        "scheduledFor": "2026-10-21T21:39:20+00:00",
+        "scheduledFor": "2026-10-21T21:42:02+00:00",
         "status": "failed",
         "source": "sentinel-1",
         "cloudForecast": 0.42,
@@ -5137,7 +5137,7 @@
       },
       {
         "id": "acq-next-scope-tailings-watch",
-        "scheduledFor": "2026-11-05T19:39:20+00:00",
+        "scheduledFor": "2026-11-05T19:42:02+00:00",
         "status": "planned",
         "source": "sentinel-2",
         "cloudForecast": 0.18,
@@ -5195,7 +5195,7 @@
       "recipient": "+000000000",
       "status": "failed",
       "attempts": 2,
-      "nextAttemptAt": "2026-10-29T19:51:20+00:00",
+      "nextAttemptAt": "2026-10-29T19:54:02+00:00",
       "error": "demo transport timeout"
     }
   ],
