@@ -455,6 +455,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       new URL('favicon.svg', document.baseURI).toString(),
       ...shellAssets,
       new URL('data/index.json', document.baseURI).toString(),
+      new URL('data/proactive.json', document.baseURI).toString(),
       new URL(`data/scenarios/${scenario.meta.id}.json`, document.baseURI).toString(),
       new URL(scenario.imageryPair.before, document.baseURI).toString(),
       new URL(scenario.imageryPair.after, document.baseURI).toString(),
