@@ -445,9 +445,19 @@ export function AppProvider({ children }: { children: ReactNode }) {
       return
     }
     const cache = await caches.open('georesponse-v1')
+    const shellAssets = Array.from(document.querySelectorAll('script[src], link[rel="stylesheet"][href]')).map((element) =>
+      element instanceof HTMLScriptElement ? element.src : (element as HTMLLinkElement).href,
+    )
     const urls = [
+      document.baseURI,
+      new URL('index.html', document.baseURI).toString(),
+      new URL('manifest.webmanifest', document.baseURI).toString(),
+      new URL('favicon.svg', document.baseURI).toString(),
+      ...shellAssets,
       new URL('data/index.json', document.baseURI).toString(),
       new URL(`data/scenarios/${scenario.meta.id}.json`, document.baseURI).toString(),
+      new URL(scenario.imageryPair.before, document.baseURI).toString(),
+      new URL(scenario.imageryPair.after, document.baseURI).toString(),
       ...scenario.sites.flatMap((site) => [
         new URL(site.evidence.before, document.baseURI).toString(),
         new URL(site.evidence.after, document.baseURI).toString(),
