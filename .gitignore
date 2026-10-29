@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+
+# Node
+node_modules/
+web/node_modules/
+web/dist/
+web/.vite/
+
+# Generated / runtime
+runtime/
+logs/
+*.log
+.env
+.DS_Store
+Thumbs.db
+
+# Keep generated demo packs (needed for the offline app)
+!web/public/data/**

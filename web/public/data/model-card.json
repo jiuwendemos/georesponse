@@ -1,0 +1,40 @@
+{
+  "model": "gr-damage-head-1.0",
+  "task": "Damage likelihood from observable change features",
+  "features": [
+    "extent",
+    "confidence",
+    "cloud",
+    "sar",
+    "value",
+    "population",
+    "access"
+  ],
+  "trainedRows": 600,
+  "metrics": {
+    "rows": 600,
+    "precision": 0.708,
+    "recall": 0.946,
+    "f1": 0.81,
+    "tp": 384,
+    "fp": 158,
+    "fn": 22,
+    "tn": 36,
+    "threshold": 0.5
+  },
+  "weights": [
+    1.72626052,
+    1.27764479,
+    -0.05378029,
+    0.57267246,
+    0.40525469,
+    0.42028672,
+    0.34582491
+  ],
+  "bias": -1.82983691,
+  "limitations": [
+    "Synthetic training labels in the demo pack; pilot uses adjuster-confirmed labels.",
+    "Features are observable, not a replacement for visual evidence.",
+    "Never auto-approves a claim; the analyst signs."
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "title": "GeoResponse pilot in 90 days",
+  "start": "2026-10-29",
+  "end": "2027-01-27",
+  "scope": "One insurer, one storm/flood event, one region. AI assessment runs in parallel with the manual process.",
+  "deliverables": [
+    "Imagery pipeline for the customer's event",
+    "Ranked site list with confidence and value at risk",
+    "Claims first-notice assessment (human-signed)",
+    "Accuracy, false-positive and time-saved report",
+    "On-site or private-cloud deployment option"
+  ],
+  "successMeasures": [
+    "Time to assessment: days \u2192 hours",
+    "Detection precision \u2265 0.85 against adjuster-confirmed damage",
+    "Analyst hours saved \u2265 40%",
+    "Zero automated claim approvals"
+  ],
+  "commercial": "Fixed pilot fee credited against the annual subscription."
+}

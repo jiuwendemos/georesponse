@@ -1,0 +1,55 @@
+{
+  "generatedAt": "2026-10-29T18:45:09+00:00",
+  "modelVersion": "gr-changenet-1.4.2",
+  "perEvent": [
+    {
+      "id": "pilot-01",
+      "region": "Ahrweiler",
+      "date": "2026-03-04",
+      "precision": 0.864,
+      "recall": 0.864,
+      "falsePositiveRate": 0.136
+    },
+    {
+      "id": "pilot-02",
+      "region": "Rur valley",
+      "date": "2026-03-19",
+      "precision": 0.875,
+      "recall": 0.875,
+      "falsePositiveRate": 0.125
+    },
+    {
+      "id": "pilot-03",
+      "region": "Ahrweiler",
+      "date": "2026-04-02",
+      "precision": 0.889,
+      "recall": 0.889,
+      "falsePositiveRate": 0.111
+    },
+    {
+      "id": "pilot-04",
+      "region": "Eifel north",
+      "date": "2026-04-21",
+      "precision": 0.923,
+      "recall": 0.923,
+      "falsePositiveRate": 0.077
+    },
+    {
+      "id": "pilot-05",
+      "region": "Ahrweiler",
+      "date": "2026-05-06",
+      "precision": 0.935,
+      "recall": 0.935,
+      "falsePositiveRate": 0.065
+    },
+    {
+      "id": "pilot-06",
+      "region": "Rur valley",
+      "date": "2026-05-28",
+      "precision": 0.947,
+      "recall": 0.947,
+      "falsePositiveRate": 0.053
+    }
+  ],
+  "note": "Precision = confirmed / detected. Recall = confirmed / claims. Adjuster-confirmed only."
+}

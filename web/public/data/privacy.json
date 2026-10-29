@@ -1,0 +1,58 @@
+{
+  "policy": "Privacy review for residential aerial imagery",
+  "items": [
+    {
+      "id": "lawful_basis",
+      "requirement": "Document the lawful basis for processing aerial imagery of residential property.",
+      "status": "done"
+    },
+    {
+      "id": "minimisation",
+      "requirement": "Crop residential imagery to the insured property footprint before model inference.",
+      "status": "done"
+    },
+    {
+      "id": "redaction",
+      "requirement": "Blur faces, vehicles and private gardens in exported evidence where not required for the claim.",
+      "status": "open"
+    },
+    {
+      "id": "retention",
+      "requirement": "Set a retention clock per event; delete raw imagery after the claim decision plus the legal minimum.",
+      "status": "open"
+    },
+    {
+      "id": "access",
+      "requirement": "Role-based access: analyst, reviewer, auditor, customer. No shared accounts.",
+      "status": "done"
+    },
+    {
+      "id": "dpa",
+      "requirement": "Sign a data-processing agreement and list every subprocessor, including the NPU vendor.",
+      "status": "open"
+    },
+    {
+      "id": "sovereignty",
+      "requirement": "Offer on-site or private-cloud inference; no outbound network after imagery delivery.",
+      "status": "open"
+    },
+    {
+      "id": "transparency",
+      "requirement": "Customer-facing notice explains AI assistance and the human decision.",
+      "status": "open"
+    },
+    {
+      "id": "human_review",
+      "requirement": "No automated decision about people or property; an analyst signs every assessment.",
+      "status": "done"
+    },
+    {
+      "id": "incident",
+      "requirement": "Breach playbook with 72-hour notification and an audit-trail export.",
+      "status": "open"
+    }
+  ],
+  "open": 6,
+  "done": 4,
+  "note": "This is an engineering checklist, not legal advice. Legal review is a pilot gate."
+}

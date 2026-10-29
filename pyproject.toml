@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "georesponse"
+version = "0.1.0"
+description = "GeoResponse - an AI analyst for imagery. Finds change, ranks what matters, writes the assessment."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+dependencies = [
+  "numpy>=1.26",
+  "Pillow>=10",
+  "shapely>=2.0",
+  "pyproj>=3.6",
+  "reportlab>=4.0",
+]
+
+[project.optional-dependencies]
+api = ["fastapi>=0.110", "uvicorn>=0.29"]
+raster = ["rasterio>=1.3"]
+dev = ["pytest>=7", "httpx>=0.27"]
+
+[project.scripts]
+georesponse = "georesponse.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["georesponse*"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q"

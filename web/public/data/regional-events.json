@@ -1,0 +1,80 @@
+{
+  "generatedAt": "2026-10-29T18:45:09+00:00",
+  "center": [
+    6.85,
+    50.72
+  ],
+  "bbox": [
+    6.2,
+    50.3,
+    7.5,
+    51.1
+  ],
+  "events": [
+    {
+      "id": "EV-01",
+      "name": "Ahr valley flood",
+      "lon": 7.1,
+      "lat": 50.545,
+      "severity": "red",
+      "sites": 18,
+      "approved": 16,
+      "date": "2026-05-06"
+    },
+    {
+      "id": "EV-02",
+      "name": "Rur valley flood",
+      "lon": 6.42,
+      "lat": 50.76,
+      "severity": "orange",
+      "sites": 16,
+      "approved": 14,
+      "date": "2026-05-28"
+    },
+    {
+      "id": "EV-03",
+      "name": "Eifel ridge wildfire",
+      "lon": 6.42,
+      "lat": 50.59,
+      "severity": "red",
+      "sites": 14,
+      "approved": 12,
+      "date": "2026-06-11"
+    },
+    {
+      "id": "EV-04",
+      "name": "Cologne construction watch",
+      "lon": 6.905,
+      "lat": 50.935,
+      "severity": "yellow",
+      "sites": 12,
+      "approved": 9,
+      "date": "2026-06-24"
+    },
+    {
+      "id": "EV-05",
+      "name": "Kall storm damage",
+      "lon": 6.56,
+      "lat": 50.54,
+      "severity": "orange",
+      "sites": 9,
+      "approved": 8,
+      "date": "2026-07-02"
+    },
+    {
+      "id": "EV-06",
+      "name": "Ahrweiler roof survey",
+      "lon": 7.08,
+      "lat": 50.535,
+      "severity": "yellow",
+      "sites": 22,
+      "approved": 19,
+      "date": "2026-07-18"
+    }
+  ],
+  "summary": {
+    "events": 6,
+    "sites": 91,
+    "approved": 78
+  }
+}

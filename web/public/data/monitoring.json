@@ -1,0 +1,181 @@
+{
+  "generatedAt": "2026-10-29T18:45:09+00:00",
+  "regions": [
+    {
+      "id": "AHR",
+      "name": "Ahr corridor",
+      "observedChange": 0.31,
+      "history": [
+        0.04,
+        0.05,
+        0.03,
+        0.06,
+        0.04,
+        0.05,
+        0.04
+      ]
+    },
+    {
+      "id": "RUR",
+      "name": "Rur valley",
+      "observedChange": 0.12,
+      "history": [
+        0.05,
+        0.06,
+        0.04,
+        0.05,
+        0.07,
+        0.06
+      ]
+    },
+    {
+      "id": "EIF",
+      "name": "Eifel north",
+      "observedChange": 0.09,
+      "history": [
+        0.06,
+        0.04,
+        0.05,
+        0.07,
+        0.06,
+        0.05
+      ]
+    },
+    {
+      "id": "KOL",
+      "name": "Cologne west",
+      "observedChange": 0.18,
+      "history": [
+        0.02,
+        0.03,
+        0.02,
+        0.04,
+        0.03,
+        0.02
+      ]
+    },
+    {
+      "id": "KAL",
+      "name": "Kall corridor",
+      "observedChange": 0.26,
+      "history": [
+        0.03,
+        0.03,
+        0.04,
+        0.02,
+        0.03,
+        0.02
+      ]
+    },
+    {
+      "id": "BON",
+      "name": "Bonn south",
+      "observedChange": 0.05,
+      "history": [
+        0.04,
+        0.04,
+        0.05,
+        0.05,
+        0.04,
+        0.04
+      ]
+    }
+  ],
+  "alerts": [
+    {
+      "regionId": "AHR",
+      "observedChange": 0.31,
+      "baseline": {
+        "mean": 0.0443,
+        "std": 0.009,
+        "n": 7
+      },
+      "zScore": 26.57,
+      "thresholdSigma": 2.5,
+      "minChange": 0.06,
+      "alert": true,
+      "severity": "red",
+      "evaluatedAt": "2026-10-29T18:45:09+00:00"
+    },
+    {
+      "regionId": "RUR",
+      "observedChange": 0.12,
+      "baseline": {
+        "mean": 0.055,
+        "std": 0.0096,
+        "n": 6
+      },
+      "zScore": 6.5,
+      "thresholdSigma": 2.5,
+      "minChange": 0.06,
+      "alert": true,
+      "severity": "red",
+      "evaluatedAt": "2026-10-29T18:45:09+00:00"
+    },
+    {
+      "regionId": "EIF",
+      "observedChange": 0.09,
+      "baseline": {
+        "mean": 0.055,
+        "std": 0.0096,
+        "n": 6
+      },
+      "zScore": 3.5,
+      "thresholdSigma": 2.5,
+      "minChange": 0.06,
+      "alert": true,
+      "severity": "orange",
+      "evaluatedAt": "2026-10-29T18:45:09+00:00"
+    },
+    {
+      "regionId": "KOL",
+      "observedChange": 0.18,
+      "baseline": {
+        "mean": 0.0267,
+        "std": 0.0075,
+        "n": 6
+      },
+      "zScore": 15.33,
+      "thresholdSigma": 2.5,
+      "minChange": 0.06,
+      "alert": true,
+      "severity": "red",
+      "evaluatedAt": "2026-10-29T18:45:09+00:00"
+    },
+    {
+      "regionId": "KAL",
+      "observedChange": 0.26,
+      "baseline": {
+        "mean": 0.0283,
+        "std": 0.0069,
+        "n": 6
+      },
+      "zScore": 23.17,
+      "thresholdSigma": 2.5,
+      "minChange": 0.06,
+      "alert": true,
+      "severity": "red",
+      "evaluatedAt": "2026-10-29T18:45:09+00:00"
+    },
+    {
+      "regionId": "BON",
+      "observedChange": 0.05,
+      "baseline": {
+        "mean": 0.0433,
+        "std": 0.0047,
+        "n": 6
+      },
+      "zScore": 0.67,
+      "thresholdSigma": 2.5,
+      "minChange": 0.06,
+      "alert": false,
+      "severity": "none",
+      "evaluatedAt": "2026-10-29T18:45:09+00:00"
+    }
+  ],
+  "summary": {
+    "regions": 6,
+    "alerts": 5,
+    "red": 4
+  }
+}

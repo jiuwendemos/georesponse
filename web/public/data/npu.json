@@ -1,0 +1,13 @@
+{
+  "device": "Ascend 310P (demo configuration)",
+  "batchSize": 8,
+  "tilesPerMinute": 2140,
+  "models": [
+    {
+      "name": "gr-changenet",
+      "version": "gr-changenet-1.4.2",
+      "pinned": true
+    }
+  ],
+  "note": "Optional on-site inference. The demo runs without an NPU; this is the deployment profile."
+}

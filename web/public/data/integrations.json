@@ -1,0 +1,31 @@
+{
+  "claims": [
+    "Guidewire ClaimCenter",
+    "Duck Creek Claims"
+  ],
+  "gis": [
+    "Esri ArcGIS Server",
+    "QGIS"
+  ],
+  "field": [
+    "IBM Maximo",
+    "SAP PM",
+    "CSV dispatch"
+  ],
+  "imagery": [
+    "Sentinel-2 (STAC)",
+    "Sentinel-1 SAR",
+    "Planet",
+    "Maxar",
+    "Airbus",
+    "ICEYE",
+    "Capella",
+    "drone orthophoto"
+  ],
+  "note": "Adapters are pure transforms; production adds credentials and queueing.",
+  "policies": {
+    "autoApprove": false,
+    "humanInTheLoop": true,
+    "template": "claims-first-notice"
+  }
+}

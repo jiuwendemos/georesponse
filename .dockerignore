@@ -1,0 +1,14 @@
+.git
+.github
+.venv
+node_modules
+web/node_modules
+web/dist
+web/.vite
+runtime
+logs
+__pycache__
+*.pyc
+.pytest_cache
+.ruff_cache
+docs/assets

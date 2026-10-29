@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-10-29T18:45:09+00:00",
+  "default": "ahr-2021-flood",
+  "scenarios": [
+    {
+      "id": "ahr-2021-flood",
+      "title": "Ahr valley flood",
+      "subtitle": "40 km\u00b2 \u00b7 18 priority sites \u00b7 3 response teams",
+      "hazard": "flood",
+      "region": "Ahrweiler, Germany",
+      "date": "2021-07-14",
+      "center": [
+        7.1,
+        50.545
+      ],
+      "zoom": 12.7,
+      "teams": 3,
+      "sites": 18,
+      "accent": "#22d3ee",
+      "thumb": "data/basemaps/ahr-2021-flood.png",
+      "quote": "We knew where to send the teams before the second coffee."
+    },
+    {
+      "id": "eifel-2022-wildfire",
+      "title": "Eifel ridge wildfire",
+      "subtitle": "34 km\u00b2 \u00b7 14 priority sites \u00b7 3 response teams",
+      "hazard": "wildfire",
+      "region": "Eifel, Germany",
+      "date": "2022-07-25",
+      "center": [
+        6.42,
+        50.59
+      ],
+      "zoom": 12.5,
+      "teams": 3,
+      "sites": 14,
+      "accent": "#fbbf24",
+      "thumb": "data/basemaps/eifel-2022-wildfire.png",
+      "quote": "The fire moved. The plan moved with it."
+    },
+    {
+      "id": "cologne-2024-construction",
+      "title": "Cologne construction watch",
+      "subtitle": "28 km\u00b2 \u00b7 12 monitored sites \u00b7 2 site visits",
+      "hazard": "construction",
+      "region": "Cologne, Germany",
+      "date": "2024-03-12",
+      "center": [
+        6.905,
+        50.935
+      ],
+      "zoom": 12.8,
+      "teams": 2,
+      "sites": 12,
+      "accent": "#a78bfa",
+      "thumb": "data/basemaps/cologne-2024-construction.png",
+      "quote": "Every new structure on one map, not one hundred tabs."
+    }
+  ],
+  "model": "gr-changenet-1.4.2"
+}

@@ -1,0 +1,13 @@
+services:
+  georesponse:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      GEORESPONSE_AUDIT: /srv/georesponse/runtime/audit.jsonl
+    volumes:
+      - georesponse-data:/srv/georesponse/runtime
+    restart: unless-stopped
+
+volumes:
+  georesponse-data:
