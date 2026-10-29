@@ -281,6 +281,7 @@ export interface PilotData {
     precision: number
     recall: number
     analystHoursSaved: number
+    areaCoveredKm2: number
     avgAssessmentMinutes: number
     baselineMinutes: number
     accuracyTrend: { date: string; precision: number; recall: number; falsePositives: number }[]

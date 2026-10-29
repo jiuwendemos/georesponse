@@ -95,3 +95,18 @@ def test_ndvi_delta_sign():
     assert ndvi_delta(before, after) > 0
     assert ndvi_delta(after, before) < 0
     assert load_rgb  # imported symbol is available
+
+
+def test_sar_change_detection():
+    from georesponse.detection import detect_sar_change
+
+    before = np.full((16, 16), -12.0)
+    after = before.copy()
+    after[4:12, 4:12] = -6.0
+    result = detect_sar_change(before, after, threshold_db=3.0)
+    assert result["fraction"] == 0.25
+    assert result["meanDeltaDb"] > 1
+    assert 0.45 < result["confidence"] < 1
+    quiet = detect_sar_change(before, before)
+    assert quiet["fraction"] == 0
+    assert quiet["changeType"] == "none"

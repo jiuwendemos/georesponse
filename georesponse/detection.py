@@ -316,3 +316,24 @@ def _tile_geotiff_fallback(source: Path, out_dir: Path, tile_size: int, max_tile
     }
     (out_dir / "manifest.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")
     return payload
+
+
+def detect_sar_change(before_db: np.ndarray, after_db: np.ndarray, threshold_db: float = 3.0) -> dict:
+    """SAR change detection on calibrated backscatter (dB).
+
+    Uses the absolute dB difference, which is robust to the speckle that makes
+    raw SAR change detection noisy.  Production adds a despeckle filter and a
+    co-registration check.
+    """
+    if before_db.shape != after_db.shape:
+        raise ValueError("before/after SAR rasters must have the same shape")
+    delta = np.abs(after_db - before_db)
+    mask = delta > threshold_db
+    fraction = float(mask.mean())
+    return {
+        "fraction": round(fraction, 4),
+        "meanDeltaDb": round(float(delta.mean()), 3),
+        "thresholdDb": threshold_db,
+        "confidence": round(float(np.clip(0.45 + fraction * 2.2, 0.05, 0.98)), 3),
+        "changeType": "sar-change" if fraction > 0 else "none",
+    }

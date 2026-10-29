@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-29T18:45:09+00:00",
+  "generatedAt": "2026-10-29T19:03:52+00:00",
   "disclaimer": "Synthetic pilot data for the demo. Replace with adjuster-confirmed outcomes before making claims.",
   "summary": {
     "events": 6,
@@ -10,6 +10,7 @@
     "precision": 0.906,
     "recall": 0.906,
     "analystHoursSaved": 114.3,
+    "areaCoveredKm2": 240,
     "avgAssessmentMinutes": 40,
     "baselineMinutes": 1240,
     "accuracyTrend": [

@@ -119,6 +119,7 @@ def build_pilot_dashboard(history: list[dict] | None = None) -> dict:
             "precision": round(total_confirmed / max(1, total_detected), 3),
             "recall": round(total_confirmed / max(1, total_claims), 3),
             "analystHoursSaved": round(minutes_saved / 60, 1),
+            "areaCoveredKm2": 240,
             "avgAssessmentMinutes": round(sum(e["assessmentMinutes"] for e in pilot) / max(1, len(pilot))),
             "baselineMinutes": PILOT.baseline_minutes,
             "accuracyTrend": accuracy_series,

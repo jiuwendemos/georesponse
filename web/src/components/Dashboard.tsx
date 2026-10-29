@@ -236,7 +236,7 @@ export default function Dashboard() {
               <span className="eyebrow">Regional map</span>
               <h2>Events by severity</h2>
             </div>
-            <span className="card-tag">{regional.summary.events} events · {regional.summary.sites} sites</span>
+            <span className="card-tag">{regional.summary.events} events · {regional.summary.sites} sites · {pilot.summary.areaCoveredKm2} km²</span>
           </div>
           <RegionalMap data={regional} />
         </div>
