@@ -147,6 +147,36 @@ test.describe('shell', () => {
     await expect(page.locator('.mobile-location')).toContainText('Stage')
   })
 
+  test('reset returns to the start in under five seconds', async ({ page }) => {
+    const started = Date.now()
+    await page.getByRole('button', { name: /^Reset/ }).click()
+    await expect(page.locator('.topbar')).toBeVisible()
+    expect(Date.now() - started).toBeLessThan(5000)
+  })
+
+  test('returning operators land on Watch', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('georesponse.lastSeen', new Date().toISOString()))
+    await page.goto('/')
+    await expect(page.locator('.watch-page')).toBeVisible()
+  })
+
+  test('runs the manager cut and opens the proof page', async ({ page }) => {
+    await page.getByRole('button', { name: 'Manager demo' }).click()
+    const rail = page.getByRole('region', { name: 'Manager demo' })
+    await expect(rail).toContainText('The event')
+    await rail.getByRole('button', { name: 'Next' }).click()
+    await expect(rail).toContainText('The decision')
+    await rail.getByRole('button', { name: 'Next' }).click()
+    await expect(rail).toContainText('The human correction')
+    for (let step = 0; step < 4; step += 1) {
+      await rail.getByRole('button', { name: 'Next' }).click()
+    }
+    await expect(rail).toContainText('The proof')
+    await expect(page.getByRole('dialog', { name: 'Manager proof' })).toBeVisible()
+    await rail.getByRole('button', { name: 'Finish' }).click()
+    await expect(rail).toBeHidden()
+  })
+
   test('creates and undoes a scope', async ({ page }) => {
     await page.getByRole('button', { name: 'Watch' }).click()
     await expect(page.locator('.watch-page')).toBeVisible()

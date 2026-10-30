@@ -12,6 +12,8 @@ import StyleGuide from './components/StyleGuide'
 import SettingsPanel from './components/SettingsPanel'
 import Onboarding from './components/Onboarding'
 import PageSkeleton from './components/PageSkeleton'
+import ManagerProof from './components/ManagerProof'
+import ManagerCut from './components/ManagerCut'
 import { Spinner } from './components/ds'
 import { ErrorBoundary, OfflineBanner } from './components/Resilience'
 import { pct } from './lib/format'
@@ -157,6 +159,8 @@ function Shell() {
       <StyleGuide />
       <SettingsPanel />
       <Onboarding />
+      <ManagerProof />
+      <ManagerCut />
       <RouteAnnouncer />
       <Toast />
     </div>

@@ -54,6 +54,8 @@ export default function CommandPalette() {
       { id: 'design', label: 'Open design system', group: 'Actions', icon: 'grid', run: close(() => ui.openStyleGuide()) },
       { id: 'settings', label: 'Open settings', group: 'Actions', icon: 'sliders', run: close(() => ui.openSettings()) },
       { id: 'tour', label: 'Show welcome tour', group: 'Actions', icon: 'book', run: close(() => ui.openTour()) },
+      { id: 'cut', label: 'Start manager demo', group: 'Actions', icon: 'play', run: close(() => ui.openCut()) },
+      { id: 'proof', label: 'Open manager proof', group: 'Actions', icon: 'chart', run: close(() => ui.openProof()) },
       { id: 'offline', label: 'Save offline pack', group: 'Actions', icon: 'download', run: close(() => void app.saveOffline()) },
       { id: 'reset', label: 'Reset the stage', group: 'Actions', icon: 'reset', run: close(() => { app.setMode('stage'); app.reset() }) },
       { id: 'field', label: 'Open field order', group: 'Actions', icon: 'print', run: close(() => app.openFieldOrder(true)) },

@@ -268,6 +268,7 @@ export function TopBar() {
             {index?.scenarios.map((entry) => <option key={entry.id} value={entry.id}>{entry.title}</option>)}
           </select>
         </div>
+        <IconButton label="Manager demo" onClick={ui.openCut}><Icon name="play" size={16} /></IconButton>
         <IconButton label={prefs.t('action.agent')} onClick={() => ui.openAgent()}><Icon name="spark" size={16} /></IconButton>
         <IconButton label={`${prefs.t('action.theme')}: ${prefs.theme}`} onClick={prefs.cycleTheme}>
           <Icon name={prefs.resolvedTheme === 'dark' ? 'moon' : prefs.resolvedTheme === 'light' ? 'sun' : 'sliders'} size={16} />

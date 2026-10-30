@@ -125,7 +125,14 @@ const MODES: Mode[] = ['stage', 'watch', 'analyst', 'dashboard', 'method', 'boot
 function hashView(): Mode {
   if (typeof window === 'undefined') return 'stage'
   const value = new URLSearchParams(window.location.hash.slice(1)).get('view')
-  return value && MODES.includes(value as Mode) ? (value as Mode) : 'stage'
+  if (value && MODES.includes(value as Mode)) return value as Mode
+  try {
+    // Returning operators land on the recurring product, not the event stage.
+    if (localStorage.getItem('georesponse.lastSeen')) return 'watch'
+  } catch {
+    // private mode
+  }
+  return 'stage'
 }
 
 export function AppProvider({ children }: { children: ReactNode }) {

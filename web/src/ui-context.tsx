@@ -8,6 +8,12 @@ interface UiContextValue {
   tourOpen: boolean
   openTour: () => void
   closeTour: () => void
+  proofOpen: boolean
+  openProof: () => void
+  closeProof: () => void
+  cutOpen: boolean
+  openCut: () => void
+  closeCut: () => void
   openPalette: () => void
   closePalette: () => void
   openAgent: (seed?: string) => void
@@ -27,6 +33,8 @@ export function UiProvider({ children }: { children: ReactNode }) {
   const [agentSeed, setAgentSeed] = useState('')
   const [styleGuideOpen, setStyleGuideOpen] = useState(false)
   const [settingsOpen, setSettingsOpen] = useState(false)
+  const [proofOpen, setProofOpen] = useState(false)
+  const [cutOpen, setCutOpen] = useState(false)
   const [tourOpen, setTourOpen] = useState(() => {
     try {
       return !localStorage.getItem('georesponse.onboarded.v1')
@@ -52,6 +60,12 @@ export function UiProvider({ children }: { children: ReactNode }) {
         try { localStorage.setItem('georesponse.onboarded.v1', '1') } catch { /* private mode */ }
         setTourOpen(false)
       },
+      proofOpen,
+      openProof: () => setProofOpen(true),
+      closeProof: () => setProofOpen(false),
+      cutOpen,
+      openCut: () => setCutOpen(true),
+      closeCut: () => setCutOpen(false),
       openPalette: () => setPaletteOpen(true),
       closePalette: () => setPaletteOpen(false),
       openAgent,
@@ -62,7 +76,7 @@ export function UiProvider({ children }: { children: ReactNode }) {
       closeSettings: () => setSettingsOpen(false),
       agentSeed,
     }),
-    [paletteOpen, agentOpen, styleGuideOpen, settingsOpen, tourOpen, agentSeed, openAgent],
+    [paletteOpen, agentOpen, styleGuideOpen, settingsOpen, tourOpen, proofOpen, cutOpen, agentSeed, openAgent],
   )
 
   return <UiContext.Provider value={value}>{children}</UiContext.Provider>

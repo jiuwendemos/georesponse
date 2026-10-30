@@ -1319,6 +1319,69 @@ No silent demo fallback is ever allowed.
 
 ---
 
+## Phase 8 — Manager demo & daily workspace
+
+**Verdict this phase responds to:** GeoResponse is a strong event console, not yet a daily
+workspace. The Watch layer exists but is not the product's identity. The 90-second decision story is
+already strong; what is missing is physicality, a visible consequence of the room's choice, and a
+manager proof page. Gap to a ScienceDiscovery-level workspace: about 4/10.
+
+**Definition of done for the demo**
+
+- [ ] Five strangers: four can explain the decision in one sentence **(S)**
+- [ ] First touch within 15 seconds; flood-edge reveal by 30 seconds; full arc in 90 seconds **(S)**
+- [x] Reset under five seconds **(S)**
+- [ ] Runs with the network cable unplugged, with a fallback recording **(S)**
+- [x] The room's vote visibly changes coverage and response time; the field order matches the screen **(M)**
+- [ ] A manager can state the recurring value and the buyer without prompting **(S)**
+
+### 8.A P0 — before the first manager demo
+
+- [x] Build the 90-second stage cut: flood edge, time scrub, top site, false positive, analyst reject, room vote, field order **(M)**
+- [ ] Add a physical map and three team tokens; the room moves a token, the screen updates **(M)**
+- [x] Make the audience choice change coverage and response time visibly in the same scene, then print the field order **(M)**
+- [x] Package one manager proof page: time vs baseline, sites, teams, false-positive correction, analyst hours saved, labelled estimates **(M)**
+- [x] Add a 10-minute manager cut: event → decision → analyst review → field order → Watch/portfolio → pilot proof **(M)**
+- [x] Show Watch as the recurring product: what changed, scopes, coverage, digest, alert lifecycle **(M)**
+- [ ] Venue/room tests, a reset drill, a fallback video and an offline check **(S)**
+- [ ] Instrument which parts create the manager reaction and use it for the next slice **(S)**
+
+### 8.B P1 — next 90 days
+
+- [x] Make Watch/portfolio the home for the recurring user, not a tab **(M)**
+- [ ] Add portfolio tasks: seasonal readiness, post-event reconciliation, coverage review, audit, team assignment, claims/field handoff **(M)**
+- [ ] Integrate one claims or GIS system, or one imagery provider, end to end **(L)**
+- [ ] Run one insurer or utility pilot with a baseline: time-to-assessment, false positives, analyst hours, claim cycle **(L)**
+- [x] Add “what changed since your last look” as the daily/weekly return trigger **(M)**
+- [ ] Prove recurring monitoring revenue: scopes, cadence, SLA, renewal **(M)**
+- [ ] Adopt a weekly demo cadence: one visible capability, one proof, one trust feature, one “next” **(S)**
+
+### 8.C P2 — to become a daily workspace
+
+- [ ] Portfolio risk view across regions and assets, not one event **(L)**
+- [ ] Multi-tenant deployment and per-customer data isolation drill **(L)**
+- [ ] More change types and SAR/optical fusion for reliability **(L)**
+- [ ] Claims and field dispatch integrations that make the assessment the system of record **(L)**
+- [ ] A public benchmark pack for precision, recall and time saved **(M)**
+- [ ] Role-based daily home for presenter, analyst, watch operator, claims lead, field and admin **(M)**
+- [ ] Weekly retention loop: digest, coverage review and renewal evidence **(M)**
+
+### 8.D Demo recommendation
+
+- [x] 90 seconds: the flood decision, so the manager feels the trade-off **(S)**
+- [x] 10 minutes: event → false positive → vote → field order → Watch digest → one recurring customer proof **(M)**
+- [x] Proof the manager remembers: “42 minutes, three teams, one signed assessment — and the analyst caught the false positive” **(S)**
+- [ ] Rehearse with a real room and record the reaction **(M)**
+
+### 8.E Do not do
+
+- Do not add more map layers or GIS controls before the manager demo.
+- Do not present a before/after slider; the time scrub is stronger.
+- Do not position GeoResponse as a horizontal ScienceDiscovery. It is the ScienceDiscovery of geospatial decisions.
+- Do not hide Watch in a tab if the story is a recurring product.
+
+---
+
 ## Not planned (unchanged)
 
 - Own satellite or imagery collection.

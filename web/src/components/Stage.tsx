@@ -285,6 +285,32 @@ export default function Stage() {
 
       {selected && <SiteDetail site={selected} rank={selectedRank} mode="stage" />}
 
+      {app.vote && scenario.audience[app.vote] && (() => {
+        const chosen = scenario.audience[app.vote]!
+        const other = scenario.audience[app.vote === 'a' ? 'b' : 'a']
+        return (
+          <section className="vote-consequence" aria-live="polite" aria-label="Room decision consequence">
+            <div className="vote-consequence-head">
+              <div>
+                <div className="eyebrow"><span className="dot" /> Room decision · Team {scenario.meta.teams}</div>
+                <h2>{chosen.name}</h2>
+              </div>
+              <span className="vote-consequence-badge">{chosen.severity} · {Math.round(chosen.confidence * 100)}%</span>
+            </div>
+            <div className="consequence-metrics">
+              <div><span>Response</span><b>{chosen.responseMinutes} min</b><em>{other ? `${other.responseMinutes} min for the other site` : 'modelled'}</em></div>
+              <div><span>Teams committed</span><b>{Object.keys(app.assignments).length}</b><em>of {scenario.meta.teams}</em></div>
+              <div><span>Coverage</span><b>changed</b><em>new polygon on the map</em></div>
+              <div><span>Trade-off</span><b>{chosen.consequence.split('.')[0]}</b><em>the room owns this</em></div>
+            </div>
+            <div className="vote-consequence-actions">
+              <Button variant="primary" onClick={() => app.openFieldOrder(true)}>Print field order <Icon name="print" size={13} /></Button>
+              <Button variant="ghost" onClick={() => app.setMode('watch')}>Continue in Watch <Icon name="radar" size={13} /></Button>
+            </div>
+          </section>
+        )
+      })()}
+
       {app.phase >= 4 && !app.vote && scenario.audience.a && scenario.audience.b && (
         <section className="vote-panel" aria-label="Audience choice">
           <div className="vote-head">
