@@ -7292,4 +7292,48 @@
   .state-pill.state-empty {
     border-style: dotted;
   }
+
+  .chart-figure {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .chart-figure svg {
+    width: 100%;
+    height: auto;
+  }
+  .chart-table summary {
+    cursor: pointer;
+    color: var(--soft);
+    font-size: 10px;
+    font-family: var(--mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .chart-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 6px;
+    font-size: 10px;
+  }
+  .chart-table caption {
+    text-align: left;
+    color: var(--soft);
+    font-size: 9px;
+    padding-bottom: 4px;
+  }
+  .chart-table th,
+  .chart-table td {
+    text-align: left;
+    padding: 3px 4px;
+    border-bottom: 1px solid var(--line);
+    color: var(--muted);
+  }
+  .chart-table th {
+    color: var(--soft);
+    font-size: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
 }

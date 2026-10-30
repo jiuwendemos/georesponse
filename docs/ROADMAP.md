@@ -637,7 +637,7 @@ craft, accessibility and speed.
 - [ ] Uncertainty and confidence shown as intervals, not just decimals **(M)**
 - [ ] Tabular numerals everywhere for scanability **(S)**
 - [ ] Linked brushing between map, list, timeline and chart **(M)**
-- [ ] Accessible data tables for every chart **(M)**
+- [x] Accessible data tables for every chart **(M)**
 - [ ] Annotations for events, thresholds and reviews **(S)**
 - [ ] No misleading truncated axes; label “zoomed” explicitly **(S)**
 - [ ] Colour-blind-safe series and patterns **(S)**
@@ -663,7 +663,7 @@ craft, accessibility and speed.
 - [ ] Voice and tone guide for operators, analysts and executives **(S)**
 - [ ] Plain-language rewrite of alerts, errors, empty states and disclaimers **(M)**
 - [ ] Terminology glossary: scope, alert, incident, finding, assessment, handoff **(S)**
-- [ ] Date, time, unit and currency formatting per locale **(S)**
+- [x] Date, time, unit and currency formatting per locale **(S)**
 - [ ] AI disclaimer and confidence language that is honest and short **(S)**
 - [ ] Error copy that says what happened, what to do and what not to do **(S)**
 - [ ] Empty states with one clear next action **(S)**

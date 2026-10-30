@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
+import { setFormatLocale } from './lib/format'
 
 export type ThemePref = 'system' | 'light' | 'dark' | 'contrast'
 export type Density = 'comfortable' | 'compact'
@@ -190,6 +191,7 @@ export function PrefsProvider({ children }: { children: ReactNode }) {
     root.dataset.motion = prefs.motion ? 'on' : 'off'
     root.dataset.language = prefs.language
     root.lang = prefs.language
+    setFormatLocale(prefs.language)
     root.style.colorScheme = resolvedTheme === 'light' ? 'light' : 'dark'
     try {
       localStorage.setItem(KEY, JSON.stringify(prefs))

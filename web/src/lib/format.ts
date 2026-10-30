@@ -1,5 +1,12 @@
+let locale = 'en-IE'
+
+/** Switch number, currency and list formatting with the app language. */
+export function setFormatLocale(language: string): void {
+  locale = language === 'de' ? 'de-DE' : 'en-IE'
+}
+
 export const euro = (value: number): string =>
-  new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(value)
+  new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(value)
 
 export const compactEuro = (value: number): string => {
   if (value >= 1_000_000) return `€${(value / 1_000_000).toFixed(value >= 10_000_000 ? 0 : 1)}m`
@@ -9,7 +16,7 @@ export const compactEuro = (value: number): string => {
 
 export const pct = (value: number): string => `${Math.round(value * 100)}%`
 
-export const number = (value: number): string => new Intl.NumberFormat('en-US').format(value)
+export const number = (value: number): string => new Intl.NumberFormat(locale === 'de-DE' ? 'de-DE' : 'en-US').format(value)
 
 export const minutes = (value: number): string => {
   if (value < 60) return `${Math.round(value)} min`

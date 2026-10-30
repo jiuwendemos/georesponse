@@ -14,6 +14,7 @@ function LineChart({ data }: { data: { date: string; precision: number; recall: 
   const path = (key: 'precision' | 'recall') =>
     data.map((item, i) => `${i === 0 ? 'M' : 'L'}${xs[i].toFixed(1)},${y(item[key]).toFixed(1)}`).join(' ')
   return (
+    <figure className="chart-figure">
     <svg viewBox={`0 0 ${width} ${height}`} className="line-chart" role="img" aria-label="Precision and recall trend">
       {[0.6, 0.8, 1].map((tick) => (
         <g key={tick}>
@@ -41,6 +42,19 @@ function LineChart({ data }: { data: { date: string; precision: number; recall: 
         <text x={80} y={6} fill="#9fb4bd" fontSize={8}>Recall</text>
       </g>
     </svg>
+    <details className="chart-table">
+      <summary>Data table</summary>
+      <table>
+        <caption>Precision and recall by date</caption>
+        <thead><tr><th scope="col">Date</th><th scope="col">Precision</th><th scope="col">Recall</th></tr></thead>
+        <tbody>
+          {data.map((item) => (
+            <tr key={item.date}><td>{item.date}</td><td>{Math.round(item.precision * 100)}%</td><td>{Math.round(item.recall * 100)}%</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </details>
+    </figure>
   )
 }
 
@@ -52,7 +66,9 @@ function RegionalMap({ data }: { data: RegionalEvents }) {
   })
   const colors = { red: '#fb7185', orange: '#fbbf24', yellow: '#facc15' }
   return (
+    <figure className="chart-figure">
     <svg viewBox="0 0 600 340" className="regional-map" role="img" aria-label="Regional events by severity">
+      <desc>{data.events.map((event) => `${event.name}: ${event.severity}, ${event.sites} sites on ${event.date}`).join('. ')}</desc>
       <defs>
         <linearGradient id="region-bg" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0" stopColor="#071821" />
@@ -100,6 +116,19 @@ function RegionalMap({ data }: { data: RegionalEvents }) {
         <text fill="#5f7782" fontSize={7}>REGIONAL MAP · EVENTS BY SEVERITY · 2026</text>
       </g>
     </svg>
+    <details className="chart-table">
+      <summary>Data table</summary>
+      <table>
+        <caption>Regional events by severity</caption>
+        <thead><tr><th scope="col">Event</th><th scope="col">Severity</th><th scope="col">Sites</th><th scope="col">Date</th></tr></thead>
+        <tbody>
+          {data.events.map((event) => (
+            <tr key={event.id}><td>{event.name}</td><td>{event.severity}</td><td>{event.sites}</td><td>{event.date}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </details>
+    </figure>
   )
 }
 
