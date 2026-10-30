@@ -80,6 +80,53 @@ def cmd_connectors(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_doctor(args: argparse.Namespace) -> int:
+    from .production.config import doctor
+
+    print(json.dumps(doctor(), indent=2))
+    return 0
+
+
+def cmd_fetch_imagery(args: argparse.Namespace) -> int:
+    from .production.imagery import SCENARIOS, fetch_scenario
+
+    ids = list(SCENARIOS) if args.scenario == "all" else [args.scenario]
+    results = {}
+    for scenario_id in ids:
+        try:
+            results[scenario_id] = fetch_scenario(scenario_id, ROOT / "runtime" / "imagery")
+        except Exception as exc:  # noqa: BLE001
+            results[scenario_id] = {"error": str(exc)}
+    print(json.dumps(results, indent=2, default=str))
+    return 0
+
+
+def cmd_infer(args: argparse.Namespace) -> int:
+    from .production.inference import infer_tile_pair
+
+    print(json.dumps(infer_tile_pair(args.before, args.after), indent=2))
+    return 0
+
+
+def cmd_agent(args: argparse.Namespace) -> int:
+    import asyncio
+
+    from .proactive.api import engine
+    from .production.agent import LiveAgent, AgentUnavailable
+    from .production.config import get_settings
+    from .production.openjiuwen_runtime import OpenJiuwenAgent
+
+    settings = get_settings()
+    backend = OpenJiuwenAgent(engine, settings) if settings.llm.backend == "openjiuwen" else LiveAgent(engine, settings)
+    try:
+        result = asyncio.run(backend.chat(args.message, tenant=args.tenant))
+    except AgentUnavailable as exc:
+        print(json.dumps({"error": str(exc)}))
+        return 1
+    print(json.dumps(result, indent=2, default=str))
+    return 0
+
+
 def cmd_load_test(args: argparse.Namespace) -> int:
     from .proactive.ops import load_test
 
@@ -174,6 +221,23 @@ def main(argv: list[str] | None = None) -> int:
     connectors = sub.add_parser("connectors", help="list imagery connectors")
     connectors.add_argument("--manifest", action="store_true")
     connectors.set_defaults(func=cmd_connectors)
+
+    doctor = sub.add_parser("doctor", help="check production wiring without revealing secrets")
+    doctor.set_defaults(func=cmd_doctor)
+
+    fetch = sub.add_parser("fetch-imagery", help="fetch real Sentinel-2 before/after pairs")
+    fetch.add_argument("--scenario", default="all")
+    fetch.set_defaults(func=cmd_fetch_imagery)
+
+    infer = sub.add_parser("infer", help="run real ONNX inference on a before/after pair")
+    infer.add_argument("--before", required=True)
+    infer.add_argument("--after", required=True)
+    infer.set_defaults(func=cmd_infer)
+
+    agent = sub.add_parser("agent", help="ask the configured live agent")
+    agent.add_argument("--message", required=True)
+    agent.add_argument("--tenant", default="demo")
+    agent.set_defaults(func=cmd_agent)
 
     load = sub.add_parser("load-test", help="run the proactive load test")
     load.add_argument("--scopes", type=int, default=1000)

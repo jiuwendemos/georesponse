@@ -1,0 +1,52 @@
+{
+  "name": "cologne-2024-construction",
+  "fetchedAt": "2026-10-29T23:41:52+00:00",
+  "bbox": [
+    6.84,
+    50.89,
+    6.97,
+    50.98
+  ],
+  "before": {
+    "id": "S2B_31UGS_20240109_0_L2A",
+    "datetime": "2024-01-09T10:36:52.340000Z",
+    "cloud": 1.182325,
+    "platform": "sentinel-2b",
+    "crs": "EPSG:32631",
+    "source": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/31/U/GS/2024/1/S2B_31UGS_20240109_0_L2A/TCI.tif",
+    "stac": "https://earth-search.aws.element84.com/v1/collections/sentinel-2-l2a/items/S2B_31UGS_20240109_0_L2A",
+    "license": "Copernicus Sentinel data \u2014 free and open, attribution required",
+    "bbox": [
+      6.84,
+      50.89,
+      6.97,
+      50.98
+    ],
+    "file": "data/real/cologne-2024-construction/cologne-2024-construction-before.png",
+    "width": 1600,
+    "height": 1000
+  },
+  "after": {
+    "id": "S2A_32ULB_20240625_0_L2A",
+    "datetime": "2024-06-25T10:46:53.474000Z",
+    "cloud": 0.727552,
+    "platform": "sentinel-2a",
+    "crs": "EPSG:32632",
+    "source": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/32/U/LB/2024/6/S2A_32ULB_20240625_0_L2A/TCI.tif",
+    "stac": "https://earth-search.aws.element84.com/v1/collections/sentinel-2-l2a/items/S2A_32ULB_20240625_0_L2A",
+    "license": "Copernicus Sentinel data \u2014 free and open, attribution required",
+    "bbox": [
+      6.84,
+      50.89,
+      6.97,
+      50.98
+    ],
+    "file": "data/real/cologne-2024-construction/cologne-2024-construction-after.png",
+    "width": 1600,
+    "height": 1000
+  },
+  "candidates": 12,
+  "attribution": "\u00a9 Copernicus Sentinel data \u2014 free and open, attribution required",
+  "simulated": false,
+  "cachedAt": "2026-10-29T23:41:52+00:00"
+}

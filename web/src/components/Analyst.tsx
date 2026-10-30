@@ -89,7 +89,7 @@ export default function Analyst() {
             className="btn btn-primary"
             onClick={async () => {
               const assessment = scenario.assessmentAfterReview
-              exportAssessmentPdf(scenario, assessment, app.ranked, app.reviews, app.notes, await app.captureMap())
+              await exportAssessmentPdf(scenario, assessment, app.ranked, app.reviews, app.notes, await app.captureMap())
               app.notify('Assessment PDF generated.', 'success')
             }}
           >

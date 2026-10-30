@@ -29,10 +29,10 @@ from .store import ProactiveStore
 
 
 class ProactiveEngine:
-    def __init__(self, store: ProactiveStore, *, secret: str = "demo-webhook-secret", base_url: str = "https://georesponse.example/") -> None:
+    def __init__(self, store: ProactiveStore, *, secret: str = "demo-webhook-secret", base_url: str = "https://georesponse.example/", live_channels: bool = False) -> None:
         self.store = store
         self.baselines = BaselineEngine(store)
-        self.notifications = NotificationService(store, secret=secret, base_url=base_url)
+        self.notifications = NotificationService(store, secret=secret, base_url=base_url, live=live_channels)
         self.registry = ModelRegistry(store)
         self.validation = ValidationGate(store)
         self.limiter = RateLimiter(limit=120, window_seconds=60)

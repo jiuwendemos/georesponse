@@ -1,14 +1,14 @@
-import { jsPDF } from 'jspdf'
+import type { jsPDF as JsPdf } from 'jspdf'
 import type { Assessment, ReviewStatus, Scenario } from '../types'
 import type { RankedSite } from './ranking'
 import { downloadBlob, downloadText, euro, pct } from './format'
 
-function savePdf(doc: jsPDF, filename: string): void {
+function savePdf(doc: JsPdf, filename: string): void {
   const blob = doc.output('blob')
   downloadBlob(blob, filename)
 }
 
-function header(doc: jsPDF, scenario: Scenario, title: string): number {
+function header(doc: JsPdf, scenario: Scenario, title: string): number {
   const width = doc.internal.pageSize.getWidth()
   doc.setFillColor(8, 26, 36)
   doc.rect(0, 0, width, 34, 'F')
@@ -30,7 +30,7 @@ function header(doc: jsPDF, scenario: Scenario, title: string): number {
   return 42
 }
 
-export function addMapImage(doc: jsPDF, dataUrl: string | null): void {
+export function addMapImage(doc: JsPdf, dataUrl: string | null): void {
   if (!dataUrl) return
   const width = doc.internal.pageSize.getWidth()
   try {
@@ -40,14 +40,15 @@ export function addMapImage(doc: jsPDF, dataUrl: string | null): void {
   }
 }
 
-export function exportAssessmentPdf(
+export async function exportAssessmentPdf(
   scenario: Scenario,
   assessment: Assessment,
   ranked: RankedSite[],
   reviews: Record<string, ReviewStatus>,
   notes: Record<string, string>,
   mapImage: string | null,
-): void {
+): Promise<void> {
+  const { jsPDF } = await import('jspdf')
   const doc = new jsPDF({ unit: 'mm', format: 'a4' })
   let y = header(doc, scenario, 'Assessment')
   doc.setFont('helvetica', 'bold')
@@ -94,12 +95,13 @@ export function exportAssessmentPdf(
   savePdf(doc, `georesponse-assessment-${scenario.meta.id}.pdf`)
 }
 
-export function exportFieldOrderPdf(
+export async function exportFieldOrderPdf(
   scenario: Scenario,
   assessment: Assessment,
   assignments: Record<string, string>,
   mapImage: string | null,
-): void {
+): Promise<void> {
+  const { jsPDF } = await import('jspdf')
   const doc = new jsPDF({ unit: 'mm', format: 'a4' })
   let y = header(doc, scenario, 'Field order')
   doc.setFont('helvetica', 'bold')

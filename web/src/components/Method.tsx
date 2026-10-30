@@ -129,7 +129,7 @@ export default function Method() {
             <span className="eyebrow">Imagery pair</span>
             <h2>Before / after, cached locally</h2>
           </div>
-          <span className="card-tag">simulated · attribution on screen</span>
+          <span className="card-tag">{scenario.meta.imagery.simulated ? 'simulated · attribution on screen' : 'Sentinel-2 · attribution on screen'}</span>
         </div>
         <div className="imagery-pair">
           <figure>
@@ -197,8 +197,8 @@ export default function Method() {
           </ul>
           <div className="provenance-box">
             <span className="eyebrow">Bundled pack</span>
-            <b>{scenario.meta.imagery.simulated ? 'Simulated imagery — clearly labelled' : 'Customer imagery — licensed'}</b>
-            <p>{scenario.provenance.imagery.notes}</p>
+            <b>{scenario.meta.imagery.simulated ? 'Simulated imagery — clearly labelled' : scenario.meta.imagery.source.includes('Sentinel') ? 'Sentinel-2 live imagery — Copernicus' : 'Customer imagery — licensed'}</b>
+            <p>{scenario.provenance.imagery.notes ?? scenario.meta.imagery.attribution}</p>
             <p>{scenario.meta.imagery.attribution}</p>
           </div>
         </div>
@@ -333,14 +333,13 @@ export default function Method() {
           </div>
         </div>
         <pre>
-          <code>{`py -m georesponse.datapack          # build the offline demo packs
+          <code>{`py -m georesponse.datapack          # build the offline data packs
 py -m pytest                        # ranking, detection, exports, audit
 cd web && npm run build             # static app, no CDN
 py -m georesponse.cli serve         # optional pilot API`}</code>
         </pre>
         <p className="card-note">
-          The demo pack is deterministic. The same seed builds the same flood, the same false positive and the same 42 minutes.
-          Replace the pack with licensed imagery and adjuster-confirmed labels for a pilot.
+          The pack is deterministic. Sentinel-2 pixels are real; the timeline reconstruction, asset values and labels are sample data until replaced with the customer's own imagery and adjuster-confirmed labels.
         </p>
       </section>
 

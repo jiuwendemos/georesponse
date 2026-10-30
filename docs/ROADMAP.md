@@ -7,7 +7,7 @@ result — see [SCORECARD.md](SCORECARD.md).
 
 **Status.** Stage piece, functional demo, pilot pipeline, product UI and scale packs are built. The
 app runs offline from a generated data pack and deploys to GitHub Pages. **Phase 4 — proactive
-monitoring is built and surfaced in the Watch tab; the pilot gate stays open until a real corridor pilot clears it. Phase 5 — the 2026 product experience — is planned and every Phase 5 checkbox is intentionally open.**
+monitoring is built and surfaced in the Watch tab; the pilot gate stays open until a real corridor pilot clears it. Phase 5 — the 2026 product experience — is planned and every Phase 5 checkbox is intentionally open. Phase 6 — production wiring — is implemented in code; live cutover still needs operator credentials, hardware and customer data.**
 
 ---
 
@@ -776,6 +776,126 @@ craft, accessibility and speed.
 8. **Performance and data viz** (5.9, 5.10) — speed and clarity.
 9. **Motion, copy, trust** (5.11–5.13) — the last 10% that feels 2026.
 10. **Research, beta and launch gate** (5.16–5.18).
+
+---
+
+## Phase 6 — Production wiring (built, cutover pending)
+
+**Status: the wiring is implemented and the safe parts are verified.** Live external services still
+require operator credentials, a target database/bucket/queue and NPU hardware. This phase is where
+“demo” stops being an architecture: every adapter fails loudly when unconfigured, and `doctor` reports
+exactly what is live. See [PRODUCTION_WIRING.md](PRODUCTION_WIRING.md).
+
+### 6.0 Truthful mode & configuration
+
+- [x] `auto | production | demo` mode with explicit semantics **(S)**
+- [x] `georesponse doctor` reports every required/optional check without printing secrets **(M)**
+- [x] `.env.example` with all agent, inference, imagery, channel, integration and platform variables **(S)**
+- [x] Frontend shows live model vs local tools; never silently fakes a backend **(S)**
+- [x] Production mode disables seeded proactive data instead of pretending it is live **(S)**
+- [x] API returns 503 when a live backend is not configured **(S)**
+- [ ] Customer cutover: required checks green with the customer's own credentials **(M)**
+
+### 6.1 Real agentic runtime
+
+- [x] OpenAI-compatible tool-calling loop with five turns and grounded tools **(M)**
+- [x] openjiuwen `create_deep_agent` backend with `ModelClientConfig`, `Runner` and `@tool` **(M)**
+- [x] Read tools: briefing, alerts, alert detail, coverage, forecasts **(M)**
+- [x] Write tools return proposals only: assign, dismiss, handoff **(M)**
+- [x] Refusal rules for auto-approval, auto-dispatch, surveillance and face recognition **(S)**
+- [x] Agent API: `/api/watch/production/agent/chat` and health **(S)**
+- [x] Frontend live-agent path, action preview, approve/undo and local fallback **(M)**
+- [x] Mock-LLM tool-loop test **(S)**
+- [x] Live OpenAI-compatible smoke test (tool calls + proposal, no mutation) **(S)**
+- [x] Live openjiuwen smoke test (2.5k-char grounded briefing) **(S)**
+- [ ] Agent evaluation set with golden questions, tool traces and refusal cases **(M)**
+- [ ] Customer-approved model/provider and data-residency review **(S)**
+
+### 6.2 Real inference & NPU
+
+- [x] Export the damage head to `models/damage-head.onnx` **(S)**
+- [x] ONNX Runtime loader with provider precedence CANN → OpenVINO → QNN → VitisAI → CoreML → CUDA → CPU **(M)**
+- [x] Real tile-pair preprocessing and inference path **(M)**
+- [x] Health/API/CLI surfaces expose providers, device and NPU flag **(S)**
+- [x] CPU inference smoke test **(S)**
+- [ ] NPU hardware acceptance run on Ascend/OpenVINO/QNN hardware **(L)**
+- [ ] Production vision model trained on customer imagery replaces the damage head **(L)**
+- [ ] Model latency and throughput benchmark on the target device **(M)**
+
+### 6.3 Real imagery ingestion
+
+- [x] Sentinel-2 STAC search with cloud filter and footprint coverage check **(M)**
+- [x] Windowed COG read for the exact bbox with rasterio **(M)**
+- [x] Real Ahr, Eifel and Cologne before/after pairs cached and committed **(M)**
+- [x] STAC item ID, datetime, cloud, CRS, source and attribution stored with every image **(S)**
+- [x] CLI `fetch-imagery` and API search/fetch/status **(S)**
+- [x] Generated packs use the real Sentinel image when the cache exists **(M)**
+- [ ] Live Planet/Maxar/Airbus/ICEYE/Capella connectors with credentials and per-scene licence checks **(L)**
+- [ ] Customer drone/SFTP pipeline with LAS/GeoTIFF ingestion **(M)**
+- [ ] Full-resolution streaming tile service for large AOIs **(L)**
+
+### 6.4 Real notifications
+
+- [x] SMTP email transport **(S)**
+- [x] Slack webhook transport **(S)**
+- [x] Teams adaptive-card webhook **(S)**
+- [x] Twilio SMS transport **(S)**
+- [x] PagerDuty Events API **(S)**
+- [x] HMAC-signed generic webhook **(S)**
+- [x] Outbox, retry, dead-letter and quiet hours **(M)**
+- [x] Mock HTTP transport tests **(S)**
+- [ ] Live delivery test to a real recipient/channel **(S)**
+- [ ] Per-tenant recipient least-privilege assignment in the live IdP **(M)**
+
+### 6.5 Real enterprise integrations
+
+- [x] Jira REST create-issue adapter **(S)**
+- [x] ServiceNow incident adapter **(S)**
+- [x] Guidewire and Duck Creek claim-draft adapters **(M)**
+- [x] Maximo and SAP inspection/work-order adapters **(M)**
+- [x] ArcGIS feature push and QGIS export **(S)**
+- [x] SIEM HEC event adapter **(S)**
+- [x] Draft-only semantics; human approval required **(S)**
+- [x] Mock HTTP tests for Jira/ServiceNow and failure paths **(S)**
+- [ ] Sandbox tenant tests for each customer system **(L)**
+- [ ] Field dispatch live transport and acknowledgement loop **(M)**
+
+### 6.6 Real platform services
+
+- [x] PostgreSQL-backed proactive store **(M)**
+- [x] Production PostgreSQL schema with indexes and audit table **(M)**
+- [x] Redis job queue **(M)**
+- [x] S3/MinIO object store with presigned URLs and lifecycle **(M)**
+- [x] API-key and OIDC/JWKS authentication **(M)**
+- [x] Rate-limit middleware **(S)**
+- [x] Worker process for scheduler/notification ticks **(M)**
+- [x] Docker Compose with Postgres, Redis, MinIO, API and worker **(M)**
+- [ ] Live Postgres/Redis/MinIO smoke and failover drill **(M)**
+- [ ] pg_dump/pg_restore + object-store restore drill **(M)**
+
+### 6.7 Deployment, security & observability
+
+- [x] Dockerfile includes the ONNX model and production package **(S)**
+- [x] No-secret `/api/health` and doctor endpoints **(S)**
+- [x] Metrics registry and structured worker logs **(S)**
+- [x] Hash-chained audit for agent, review, notification and scope events **(M)**
+- [x] API auth middleware and tenant principal **(M)**
+- [x] Secret vault for credentials **(S)**
+- [ ] TLS/reverse-proxy configuration and HSTS at the deployment edge **(S)**
+- [ ] Independent penetration test and threat model review **(M)**
+- [ ] OTLP export to the customer's observability stack **(S)**
+
+### 6.8 Cutover gate
+
+- [ ] `doctor` required checks green on the target host **(S)**
+- [ ] Real customer imagery and assets loaded; sample pack removed **(M)**
+- [ ] Agent approved for the customer data boundary **(S)**
+- [ ] One real notification delivered and acknowledged **(S)**
+- [ ] Each enterprise integration tested against a sandbox tenant **(L)**
+- [ ] NPU acceptance run with the target model **(L)**
+- [ ] Postgres/Redis/MinIO backup/restore drill passed **(M)**
+- [ ] Legal, DPA and privacy sign-off **(M)**
+- [ ] Live pilot acceptance against [MONITORING_PILOT.md](MONITORING_PILOT.md) **(M)**
 
 ---
 

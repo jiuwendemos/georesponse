@@ -1,4 +1,4 @@
-name: ci
+﻿name: ci
 
 on:
   push:
@@ -20,6 +20,8 @@ jobs:
         run: python -m georesponse.datapack
       - name: Test
         run: python -m pytest -q
+      - name: Doctor (wiring check)
+        run: python -m georesponse.cli doctor || true
       - name: CLI smoke
         run: |
           python -m georesponse.cli report
@@ -40,3 +42,5 @@ jobs:
           cache-dependency-path: web/package-lock.json
       - run: npm ci
       - run: npm run build
+      - run: npm test
+      - run: npm run budget

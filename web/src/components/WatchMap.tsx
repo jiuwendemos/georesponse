@@ -26,6 +26,7 @@ export default function WatchMap({
 }) {
   const [start, setStart] = useState<[number, number] | null>(null)
   const [preview, setPreview] = useState<[number, number] | null>(null)
+  const [tableOpen, setTableOpen] = useState(false)
 
   const bounds = useMemo(() => {
     if (!scopes.length) return [6.2, 50.3, 7.4, 51.0]
@@ -84,7 +85,7 @@ export default function WatchMap({
       <svg
         viewBox={`0 0 ${W} ${H}`}
         role="img"
-        aria-label="Monitoring coverage map"
+        aria-label="Monitoring coverage map. Use Enter on a scope or alert."
         onClick={click}
         onMouseMove={(event) => {
           if (drawing && start) setPreview(toSvg(event.clientX, event.clientY, event.currentTarget))
@@ -131,6 +132,7 @@ export default function WatchMap({
               }}
               role="button"
               tabIndex={0}
+              onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') onSelectScope?.(scope.id) }}
             >
               <rect x={box.x} y={box.y} width={box.width} height={box.height} rx={4} />
               <text x={box.x + 6} y={box.y + 14} className="scope-label">
@@ -162,6 +164,7 @@ export default function WatchMap({
               }}
               role="button"
               tabIndex={0}
+              onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') onSelectAlert?.(alert.id) }}
             >
               <circle r={13} fill={colors[alert.severity]} opacity={0.14} />
               <circle r={5.4} fill={colors[alert.severity]} stroke="#061018" strokeWidth={1.2} />
@@ -189,6 +192,23 @@ export default function WatchMap({
           <text x={146} y={3}>scope</text>
         </g>
       </svg>
+      <button className="watch-map-table-btn" onClick={() => setTableOpen((value) => !value)} aria-label="Accessible coverage table">Table</button>
+      {tableOpen && (
+        <div className="watch-map-table" role="dialog" aria-label="Coverage table">
+          <div className="map-table-head"><b>Coverage table</b><button className="icon-btn" onClick={() => setTableOpen(false)} aria-label="Close table">×</button></div>
+          <table>
+            <caption>Scopes and open alerts</caption>
+            <thead><tr><th>Scope</th><th>Cadence</th><th>Readiness</th><th>Freshness</th><th>Open alerts</th></tr></thead>
+            <tbody>
+              {scopes.map((scope) => {
+                const row = coverageById.get(scope.id)
+                const open = alerts.filter((a) => a.scope_id === scope.id && ['new', 'acknowledged', 'assigned', 'investigating'].includes(a.status)).length
+                return <tr key={scope.id}><td>{scope.name}</td><td>{scope.cadence}</td><td>{row ? `${Math.round(row.readiness * 100)}%` : '—'}</td><td>{row?.freshnessHours != null ? `${Math.round(row.freshnessHours)}h` : 'never'}</td><td>{open}</td></tr>
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
       {drawing && <div className="draw-hint">Click two corners to draw a scope · {start ? 'second corner' : 'first corner'}</div>}
     </div>
   )

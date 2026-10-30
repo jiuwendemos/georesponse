@@ -34,3 +34,23 @@ Run with `--network none`; the stage pack is fully local.
 Mount a volume at `/srv/georesponse/runtime` and keep one directory per tenant. The `TenantStore` rejects
 path escapes. Back up the audit JSONL and the assessments; raw imagery follows the customer's retention
 clock.
+
+
+## Production wiring
+
+Copy `.env.example` to `.env`, fill the credentials you have, then:
+
+```bash
+docker compose up --build
+```
+
+This starts Postgres, Redis, MinIO, the API and the proactive worker. `GET /api/watch/production/doctor`
+reports what is live without printing secrets. The full checklist is in
+[docs/PRODUCTION_WIRING.md](../docs/PRODUCTION_WIRING.md).
+
+For a single-box local run without Postgres/Redis/MinIO, keep the default SQLite store and run:
+
+```bash
+py -m georesponse.cli serve
+py -m georesponse.production.worker
+```

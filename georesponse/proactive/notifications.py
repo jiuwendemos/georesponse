@@ -150,13 +150,19 @@ class DryRunProvider:
 
 
 class NotificationService:
-    def __init__(self, store: ProactiveStore, *, secret: str = "demo-webhook-secret", base_url: str = "https://georesponse.example/") -> None:
+    def __init__(self, store: ProactiveStore, *, secret: str = "demo-webhook-secret", base_url: str = "https://georesponse.example/", live: bool = False) -> None:
         self.store = store
         self.secret = secret
         self.base_url = base_url
-        self.providers: dict[str, Callable[[Notification], dict]] = {
-            channel: DryRunProvider(channel).send for channel in ("email", "slack", "teams", "sms", "pager", "webhook")
-        }
+        self.live = live
+        if live:
+            from ..production.transports import build_transport_map
+
+            self.providers = build_transport_map()
+        else:
+            self.providers: dict[str, Callable[[Notification], dict]] = {
+                channel: DryRunProvider(channel).send for channel in ("email", "slack", "teams", "sms", "pager", "webhook")
+            }
 
     def enqueue(self, alert: Alert, prefs: TenantPreferences | None = None, *, moment: datetime | None = None) -> list[Notification]:
         prefs = prefs or self.store.get_preferences(alert.tenant)

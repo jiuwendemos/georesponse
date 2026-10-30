@@ -49,7 +49,7 @@ async function buildKitImage(scenario: Scenario): Promise<string | null> {
     context.fillStyle = '#8ca3ad'
     context.font = '12px ui-monospace, monospace'
     context.textAlign = 'left'
-    context.fillText('GeoResponse · simulated pack · human review required · © OpenStreetMap contributors · © Copernicus Sentinel data', 12, canvas.height - 10)
+    context.fillText(`GeoResponse · ${scenario.meta.imagery.simulated ? 'simulated pack' : 'Sentinel-2 live imagery'} · human review required · © OpenStreetMap contributors · © Copernicus Sentinel data`, 12, canvas.height - 10)
     return canvas.toDataURL('image/png')
   } catch {
     return null
@@ -259,7 +259,7 @@ export default function Booth() {
               <span>Green = assigned</span>
             </div>
           </div>
-          <p className="kit-foot">© OpenStreetMap contributors (ODbL) · © Copernicus Sentinel data (simulated demo pack) · Human review required.</p>
+          <p className="kit-foot">© OpenStreetMap contributors (ODbL) · © Copernicus Sentinel data {app.scenario?.meta.imagery.simulated ? '(simulated demo pack)' : '(live Sentinel-2)'} · Human review required.</p>
         </div>
         <div className="field-actions">
           <button className="btn btn-primary" onClick={() => window.print()}>

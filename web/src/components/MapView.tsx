@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { Geometry, Position } from 'geojson'
 import { useApp } from '../store'
 import { asset } from '../lib/data'
+import { Icon } from './ui'
 import { clamp } from '../lib/math'
 
 const W = 1000
@@ -58,6 +59,7 @@ export default function MapView({ variant = 'stage' }: { variant?: 'stage' | 'an
   const containerRef = useRef<HTMLDivElement | null>(null)
   const svgRef = useRef<SVGSVGElement | null>(null)
   const [view, setView] = useState<View>({ cx: W / 2, cy: H / 2, zoom: 1 })
+  const [tableOpen, setTableOpen] = useState(false)
   const drag = useRef<{ x: number; y: number; cx: number; cy: number; moved: boolean } | null>(null)
 
   const project = useCallback(
@@ -212,6 +214,18 @@ export default function MapView({ variant = 'stage' }: { variant?: 'stage' | 'an
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
+        onKeyDown={(event) => {
+          const step = 40 / view.zoom
+          if (event.key === 'ArrowLeft') setView((c) => ({ ...c, cx: Math.max(100, c.cx - step) }))
+          else if (event.key === 'ArrowRight') setView((c) => ({ ...c, cx: Math.min(W - 100, c.cx + step) }))
+          else if (event.key === 'ArrowUp') setView((c) => ({ ...c, cy: Math.max(100, c.cy - step) }))
+          else if (event.key === 'ArrowDown') setView((c) => ({ ...c, cy: Math.min(H - 100, c.cy + step) }))
+          else if (event.key === '+' || event.key === '=') zoomBy(1.2)
+          else if (event.key === '-') zoomBy(0.83)
+          else return
+          event.preventDefault()
+        }}
+        tabIndex={0}
         role="application"
         aria-label="Operational map. Drag to pan, scroll to zoom."
       >
@@ -405,16 +419,34 @@ export default function MapView({ variant = 'stage' }: { variant?: 'stage' | 'an
         <button className="map-ctrl" onClick={() => zoomBy(0.74)} aria-label="Zoom out">
           −
         </button>
-        <button
-          className="map-ctrl"
-          onClick={() => setView({ cx: W / 2, cy: H / 2, zoom: 1 })}
-          aria-label="Fit the whole area"
-        >
-          ⤢
-        </button>
+        <button className="map-ctrl" onClick={() => setView({ cx: W / 2, cy: H / 2, zoom: 1 })} aria-label="Fit the whole area">⤢</button>
+        <button className="map-ctrl" onClick={() => setTableOpen((value) => !value)} aria-label="Accessible map table"><Icon name="table" size={12} /></button>
       </div>
+      {tableOpen && (
+        <div className="map-table-panel" role="dialog" aria-label="Map data table">
+          <div className="map-table-head"><b>Map data table</b><button className="icon-btn" onClick={() => setTableOpen(false)} aria-label="Close table"><Icon name="close" size={13} /></button></div>
+          <div className="map-table-scroll">
+            <table>
+              <caption>Priority sites in {scenario.meta.title}</caption>
+              <thead><tr><th>Rank</th><th>Site</th><th>Severity</th><th>Confidence</th><th>Access</th><th>Value</th></tr></thead>
+              <tbody>
+                {scenario.sites.map((site) => (
+                  <tr key={site.id}>
+                    <td>{rankById.get(site.id) ?? '—'}</td>
+                    <td>{site.id} · {site.name}</td>
+                    <td>{site.severity}</td>
+                    <td>{Math.round(site.confidence * 100)}%</td>
+                    <td>{site.accessStatus}</td>
+                    <td>{site.valueEur.toLocaleString()} EUR</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
       <div className="map-attrib">
-        © OpenStreetMap contributors · © Copernicus Sentinel data · {scenario.meta.imagery.simulated ? 'simulated pack' : 'licensed'}
+        © OpenStreetMap contributors · © Copernicus Sentinel data · {scenario.meta.imagery.simulated ? 'simulated pack' : 'live'}
       </div>
     </div>
   )

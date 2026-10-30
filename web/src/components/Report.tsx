@@ -59,7 +59,7 @@ export default function Report() {
 
   const downloadPdf = async () => {
     const image = await app.captureMap()
-    exportAssessmentPdf(scenario, assessment, app.ranked, app.reviews, app.notes, image)
+    await exportAssessmentPdf(scenario, assessment, app.ranked, app.reviews, app.notes, image)
     app.notify('Assessment PDF generated.', 'success')
   }
 

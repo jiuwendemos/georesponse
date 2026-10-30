@@ -24,7 +24,7 @@ export default function FieldOrder() {
 
   const print = async () => {
     const image = await app.captureMap()
-    exportFieldOrderPdf(scenario, scenario.assessmentAfterReview, app.assignments, image)
+    await exportFieldOrderPdf(scenario, scenario.assessmentAfterReview, app.assignments, image)
     app.notify('Field order PDF generated.', 'success')
   }
 
@@ -93,7 +93,7 @@ export default function FieldOrder() {
         <div className="field-foot">
           <span>{scenario.meta.imagery.attribution}</span>
           <span>© OpenStreetMap contributors (ODbL)</span>
-          <span>Simulated demo pack</span>
+          <span>{scenario.meta.imagery.simulated ? 'Simulated demo pack' : 'Sentinel-2 live imagery'}</span>
         </div>
       </div>
 

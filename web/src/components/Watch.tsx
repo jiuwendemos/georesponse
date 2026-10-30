@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useApp } from '../store'
 import { asset, dataPath, loadJson } from '../lib/data'
 import { compactEuro, cx, number, pct } from '../lib/format'
 import { ConfidenceBar, Icon, Modal, SeverityChip } from './ui'
@@ -67,6 +68,7 @@ function Sparkline({ values, color = '#22d3ee' }: { values: number[]; color?: st
 }
 
 export default function Watch() {
+  const app = useApp()
   const [data, setData] = useState<ProactiveData | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [tab, setTab] = useState<Tab>('inbox')
@@ -89,7 +91,16 @@ export default function Watch() {
 
   useEffect(() => {
     let alive = true
-    loadJson<ProactiveData>(dataPath('proactive.json'))
+    const load = async (): Promise<ProactiveData> => {
+      try {
+        const response = await fetch('/api/watch/overview', { headers: { Accept: 'application/json' } })
+        if (response.ok) return (await response.json()) as ProactiveData
+      } catch {
+        // static/offline deployment: use the committed pack
+      }
+      return loadJson<ProactiveData>(dataPath('proactive.json'))
+    }
+    load()
       .then((payload) => {
         if (!alive) return
         setData(payload)
@@ -102,6 +113,21 @@ export default function Watch() {
       alive = false
     }
   }, [])
+
+  useEffect(() => {
+    if (!data || !app.watchTarget) return
+    if (app.watchTarget.alertId) {
+      const target = data.alerts.find((a) => a.id === app.watchTarget?.alertId)
+      if (target) {
+        setSelectedAlert(target.id)
+        setSelectedScope(target.scope_id)
+      }
+    } else if (app.watchTarget.scopeId) {
+      setSelectedScope(app.watchTarget.scopeId)
+    }
+    app.clearWatchTarget()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [app.watchTarget, data])
 
   useEffect(() => {
     if (!toast) return
@@ -276,7 +302,7 @@ export default function Watch() {
       <header className="watch-head">
         <div>
           <div className="eyebrow">
-            <span className="dot" /> Proactive watch · {data.tenant}
+            <span className="dot" /> Proactive watch · {data.tenant} · {data.mode === 'live' ? 'live store' : 'sample pack'}
           </div>
           <h1>The portfolio is already moving.<br />Here is what changed.</h1>
           <p>{data.disclaimer} Human review is mandatory. No automatic dispatch.</p>

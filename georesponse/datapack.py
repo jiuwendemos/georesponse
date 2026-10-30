@@ -20,7 +20,7 @@ from .config import DATA_DIR, DEFAULT_TEAMS, DEFAULT_WEIGHTS, DEMO_IMAGERY, PILO
 from .context import ContextPack, Asset, context_summary
 from .detection import classify_severity
 from .geo import BBox, METRES_PER_DEG_LAT, circle_polygon, feature, feature_collection, make_flood_envelopes, metres_between, metres_per_deg_lon
-from .mapgen import build_map_layers, make_basemap, make_evidence, make_scene_pair
+from .mapgen import build_map_layers, make_basemap, make_evidence, make_real_evidence, make_scene_pair
 from .pilot import build_pilot_dashboard, pilot_offer, precision_recall_report
 from .proactive.demo import write_demo
 from .ranking import access_factor, coverage_plan, rank_disclosure, rank_sites
@@ -427,46 +427,85 @@ def build_scenario(config: dict, data_dir: Path = DATA_DIR) -> dict:
         item.site["rankScore"] = round(item.score, 4)
         item.site["rankContributions"] = {k: round(v, 4) for k, v in item.contributions.items()}
 
-    # evidence images
-    basemap_dir = data_dir / "basemaps"
-    basemap_dir.mkdir(parents=True, exist_ok=True)
-    basemap_path = basemap_dir / f"{config['id']}.png"
-    basemap_info = make_basemap(
-        bbox,
-        basemap_path,
-        width=config["basemapWidth"],
-        height=config["basemapHeight"],
-        route=config["route"],
-        buildings=[],
-        roads=[],
-        seed=config["seed"],
-    )
+    # imagery: real Sentinel-2 if the live cache exists, otherwise the synthetic pack
+    real_dir = data_dir / "real" / config["id"]
+    real_manifest_path = real_dir / f"{config['id']}.json"
+    real = json.loads(real_manifest_path.read_text(encoding="utf-8")) if real_manifest_path.exists() else None
     evidence_dir = data_dir / "evidence" / config["id"]
-    for site in sites:
-        site["evidence"] = make_evidence(
-            basemap_path,
+    if real:
+        before_path = real_dir / f"{config['id']}-before.png"
+        after_path = real_dir / f"{config['id']}-after.png"
+        basemap_info = {
+            "file": f"data/real/{config['id']}/{config['id']}-after.png",
+            "width": real["after"].get("width", 1600),
+            "height": real["after"].get("height", 1000),
+            "bounds": bbox.as_list(),
+            "source": "sentinel-2",
+            "manifest": real,
+        }
+        for site in sites:
+            site["evidence"] = make_real_evidence(before_path, after_path, bbox, site, evidence_dir, seed=config["seed"])
+        scene_pair = {
+            "before": f"data/real/{config['id']}/{config['id']}-before.png",
+            "after": f"data/real/{config['id']}/{config['id']}-after.png",
+            "caption": f"Sentinel-2 L2A before/after · {real['before']['datetime'][:10]} → {real['after']['datetime'][:10]} · © Copernicus Sentinel data",
+            "simulated": False,
+            "attribution": real["attribution"],
+        }
+        imagery_meta = {
+            "source": "Sentinel-2 L2A (Copernicus)",
+            "attribution": real["attribution"],
+            "resolution": "10 m",
+            "simulated": False,
+            "acquired": real["after"]["datetime"],
+            "before": real["before"]["datetime"],
+            "stac": real["after"].get("stac"),
+            "changeOverlay": "reconstructed stage timeline",
+            "notes": "Real Sentinel-2 L2A COG window from Earth Search; the flood timeline overlay and asset values are reconstructed sample data.",
+            "provenance": real,
+        }
+    else:
+        basemap_dir = data_dir / "basemaps"
+        basemap_dir.mkdir(parents=True, exist_ok=True)
+        basemap_path = basemap_dir / f"{config['id']}.png"
+        basemap_info = make_basemap(
             bbox,
-            site,
-            evidence_dir,
-            change_type=config["hazard"],
+            basemap_path,
+            width=config["basemapWidth"],
+            height=config["basemapHeight"],
+            route=config["route"],
+            buildings=[],
+            roads=[],
             seed=config["seed"],
         )
-    scene_pair = make_scene_pair(
-        basemap_path,
-        bbox,
-        frames[-1]["geometry"] if frames else None,
-        data_dir / "scenes",
-        hazard=config["hazard"],
-        name=config["id"],
-    )
+        basemap_info["file"] = f"data/basemaps/{config['id']}.png"
+        for site in sites:
+            site["evidence"] = make_evidence(
+                basemap_path,
+                bbox,
+                site,
+                evidence_dir,
+                change_type=config["hazard"],
+                seed=config["seed"],
+            )
+        scene_pair = make_scene_pair(
+            basemap_path,
+            bbox,
+            frames[-1]["geometry"] if frames else None,
+            data_dir / "scenes",
+            hazard=config["hazard"],
+            name=config["id"],
+        )
+        imagery_meta = dict(DEMO_IMAGERY)
+        imagery_meta.update({"acquired": f"{config['eventDate']}T10:30:00Z", "changeOverlay": "simulated stage timeline"})
 
     # assessment before and after the trust beat
-    assessment = write_assessment({"meta": _meta(config, bbox, sites, timeline, basemap_info), "sites": sites}, ranked, teams=config["teams"])
+    assessment = write_assessment({"meta": _meta(config, bbox, sites, timeline, basemap_info, imagery_meta), "sites": sites}, ranked, teams=config["teams"])
     false_id = config.get("falsePositive")
     reviews_after = {false_id: "rejected"} if false_id else {}
     ranked_after, _ = rank_sites(sites, exclude={false_id} if false_id else set())
     assessment_after = write_assessment(
-        {"meta": _meta(config, bbox, sites, timeline, basemap_info), "sites": sites},
+        {"meta": _meta(config, bbox, sites, timeline, basemap_info, imagery_meta), "sites": sites},
         ranked_after,
         reviews=reviews_after,
         teams=config["teams"],
@@ -477,12 +516,12 @@ def build_scenario(config: dict, data_dir: Path = DATA_DIR) -> dict:
     site_b = next((s for s in sites if s["id"] == audience_b), None)
 
     scenario = {
-        "meta": _meta(config, bbox, sites, timeline, basemap_info),
+        "meta": _meta(config, bbox, sites, timeline, basemap_info, imagery_meta),
         "sites": sites,
         "timeline": timeline,
         "imageryPair": scene_pair,
         "map": {
-            "basemap": {**basemap_info, "file": f"data/basemaps/{config['id']}.png"},
+            "basemap": basemap_info,
             "roads": feature_collection(layers["roads"] and [feature({"type": "LineString", "coordinates": r["coords"]}, {"name": r["name"], "class": r["class"]}) for r in layers["roads"]]),
             "buildings": layers["buildings"],
             "landuse": layers["landuse"],
@@ -523,11 +562,11 @@ def build_scenario(config: dict, data_dir: Path = DATA_DIR) -> dict:
             "humanInTheLoop": True,
         },
         "provenance": {
-            "imagery": DEMO_IMAGERY,
+            "imagery": imagery_meta,
             "model": MODEL_VERSION,
             "weights": DEFAULT_WEIGHTS,
             "generatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-            "disclaimer": "Simulated demo data pack. Not for operational decisions. Human review is mandatory. Production uses licensed imagery and adjuster-confirmed labels.",
+            "disclaimer": ("Sentinel-2 live pack. Timeline reconstruction and seeded assets are illustrative; replace with customer assets and labels before operational use. Human review is mandatory." if real else "Simulated demo data pack. Not for operational decisions. Human review is mandatory. Production uses licensed imagery and adjuster-confirmed labels."),
             "dataRights": [
                 "Sentinel data: free and open, attribution required.",
                 "OpenStreetMap: ODbL, display © OpenStreetMap contributors.",
@@ -548,7 +587,7 @@ def build_scenario(config: dict, data_dir: Path = DATA_DIR) -> dict:
     return scenario
 
 
-def _meta(config: dict, bbox: BBox, sites: list[dict], timeline: dict, basemap: dict) -> dict:
+def _meta(config: dict, bbox: BBox, sites: list[dict], timeline: dict, basemap: dict, imagery: dict | None = None) -> dict:
     return {
         "id": config["id"],
         "title": config["title"],
@@ -566,15 +605,15 @@ def _meta(config: dict, bbox: BBox, sites: list[dict], timeline: dict, basemap: 
         "baselineMinutes": PILOT.baseline_minutes,
         "assessmentMinutes": PILOT.assessment_minutes,
         "imagery": {
-            "source": DEMO_IMAGERY["source"],
-            "attribution": DEMO_IMAGERY["attribution"],
-            "resolution": DEMO_IMAGERY["resolution"],
-            "simulated": True,
-            "acquired": f"{config['eventDate']}T10:30:00Z",
+            "source": (imagery or DEMO_IMAGERY)["source"],
+            "attribution": (imagery or DEMO_IMAGERY)["attribution"],
+            "resolution": (imagery or DEMO_IMAGERY)["resolution"],
+            "simulated": bool((imagery or DEMO_IMAGERY).get("simulated", True)),
+            "acquired": (imagery or DEMO_IMAGERY).get("acquired", config["eventDate"] + "T10:30:00Z"),
         },
         "model": MODEL_VERSION,
         "weights": DEFAULT_WEIGHTS,
-        "disclaimer": "Simulated demo pack for the stage and booth. Human review is mandatory.",
+        "disclaimer": ("Sentinel-2 pack. Timeline reconstruction is illustrative; assets and labels remain demo data until replaced. Human review is mandatory." if (imagery or {}).get("simulated") is False else "Simulated demo pack for the stage and booth. Human review is mandatory."),
         "teams": config["teams"],
         "sites": len(sites),
         "timeline": {"mode": timeline["mode"], "start": timeline["start"], "end": timeline["end"], "step": timeline["step"]},

@@ -438,11 +438,37 @@ class PostgresMirror:
             return payload
         try:
             import psycopg  # type: ignore
+            from psycopg.types.json import Json
 
             with psycopg.connect(self.dsn) as conn:
                 with conn.cursor() as cur:
+                    for scope in scopes:
+                        cur.execute(
+                            "INSERT INTO scopes(id,tenant,status,payload) VALUES(%s,%s,%s,%s) "
+                            "ON CONFLICT(id) DO UPDATE SET tenant=excluded.tenant,status=excluded.status,payload=excluded.payload",
+                            (scope.id, scope.tenant, scope.status, Json(scope.to_dict())),
+                        )
+                        for baseline in store.list_baselines(scope.id):
+                            cur.execute(
+                                "INSERT INTO baselines(scope_id,metric,payload) VALUES(%s,%s,%s) "
+                                "ON CONFLICT(scope_id,metric) DO UPDATE SET payload=excluded.payload",
+                                (scope.id, baseline.metric, Json(baseline.to_dict())),
+                            )
+                    for incident in incidents:
+                        cur.execute(
+                            "INSERT INTO incidents(id,tenant,scope_id,status,opened_at,payload) VALUES(%s,%s,%s,%s,%s,%s) "
+                            "ON CONFLICT(id) DO UPDATE SET status=excluded.status,payload=excluded.payload",
+                            (incident.id, incident.tenant, incident.scope_id, incident.status, incident.opened_at, Json(incident.to_dict())),
+                        )
+                    for alert in alerts:
+                        cur.execute(
+                            "INSERT INTO alerts(id,tenant,scope_id,incident_id,status,severity,created_at,sla_due,payload) "
+                            "VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT(id) DO UPDATE SET status=excluded.status,payload=excluded.payload",
+                            (alert.id, alert.tenant, alert.scope_id, alert.incident_id, alert.status, alert.severity, alert.created_at, alert.sla_due, Json(alert.to_dict())),
+                        )
                     cur.execute("SELECT count(*) FROM scopes WHERE tenant=%s", (tenant,))
                     payload["remoteScopes"] = cur.fetchone()[0]
+                conn.commit()
             payload["ok"] = True
         except Exception as exc:  # noqa: BLE001
             payload["ok"] = False

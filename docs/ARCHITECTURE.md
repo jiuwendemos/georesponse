@@ -92,9 +92,9 @@ engineered into the Method page. PII redaction is available for exports.
 
 | Demo | Production |
 |---|---|
-| simulated raster | licensed Sentinel-2 / commercial / drone GeoTIFF |
+| real Sentinel-2 windows in the demo pack | licensed Sentinel-2 / commercial / drone GeoTIFF |
 | procedural context | OSM / PostGIS / ArcGIS / claims extract |
-| precomputed findings | fine-tuned vision backbone + NPU/GPU inference |
+| real Sentinel imagery + reconstructed timeline | fine-tuned vision backbone + NPU/GPU inference |
 | client-side persistence | API + database + SSO |
 | synthetic pilot numbers | adjuster-confirmed outcomes |
 

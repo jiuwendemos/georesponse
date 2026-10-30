@@ -28,11 +28,14 @@ from .notifications import preferences_payload
 from .observability import metrics_snapshot
 from .ops import BlueGreen, JobQueue, LocalObjectStore, PostgresMirror, QuotaManager
 from .store import ProactiveStore
+from ..production.config import get_settings
+from ..production.store_pg import build_store
 
-store = ProactiveStore(ROOT / "runtime" / "proactive.db")
-if not store.list_scopes(TENANT):
+settings = get_settings()
+store = build_store(settings.platform.postgres_dsn, str(ROOT / "runtime" / "proactive.db"))
+if not store.list_scopes(TENANT) and settings.mode != "production":
     seed_demo(store)
-engine = ProactiveEngine(store)
+engine = ProactiveEngine(store, live_channels=settings.mode == 'production')
 router = APIRouter(prefix="/api/watch", tags=["proactive"])
 
 
@@ -147,22 +150,38 @@ def overview(tenant: str = TENANT) -> dict:
     forecasts = store.list_forecasts()
     scopes = store.list_scopes(tenant)
     plans = [store.get_plan(scope.id) or MonitoringPlan(scope_id=scope.id, cadence=scope.cadence) for scope in scopes]
+    watch = engine.watch(tenant, forecasts)
+    dashboard = engine.dashboard(tenant)
+    from .governance import KillSwitch, alert_quality, governance_snapshot
+
     return {
         "generatedAt": now_iso(),
         "tenant": tenant,
+        "mode": "live",
+        "shadowMode": settings.mode != "production",
+        "disclaimer": "Live tenant data from the configured store. Human review is mandatory.",
         "scopes": [scope.to_dict() for scope in scopes],
         "plans": [plan.to_dict() for plan in plans],
         "alerts": [alert.to_dict() for alert in store.list_alerts(tenant)],
         "incidents": [incident.to_dict() for incident in store.list_incidents(tenant)],
         "forecasts": [forecast.to_dict() for forecast in forecasts],
-        "watch": engine.watch(tenant, forecasts),
-        "dashboard": engine.dashboard(tenant),
+        "acquisitions": [acquisition.to_dict() for acquisition in store.list_acquisitions(limit=200)],
+        "baselines": [baseline.to_dict() for scope in scopes for baseline in store.list_baselines(scope.id)],
+        "watch": watch,
+        "coverage": watch["coverage"],
+        "blindSpots": watch["blindSpots"],
+        "freshness": watch["freshness"],
+        "calendar": {scope.id: scheduler.calendar(store, scope.id) for scope in scopes},
+        "dashboard": dashboard,
         "pilot": engine.pilot_report(tenant),
         "digest": alert_ops.digest(store, tenant),
+        "quality": alert_quality(store, tenant),
+        "governance": governance_snapshot(store, tenant),
         "models": [model.to_dict() for model in store.list_models()],
         "preferences": preferences_payload(store.get_preferences(tenant)),
         "notifications": engine.notifications.outbox(tenant),
-        "governance": engine.dashboard(tenant)["governance"],
+        "costs": {"summary": scheduler.cost_report(store, tenant, days=30), "byScope": [{"scopeId": scope.id, "name": scope.name, "totalEur": store.total_cost(tenant, scope_id=scope.id)} for scope in scopes]},
+        "killSwitch": KillSwitch(store).active(tenant),
         "audit": {"events": store.audit_events(tenant, 100), "verified": store.verify_audit(tenant)},
     }
 
@@ -508,6 +527,13 @@ def approve_acquisition(acquisition_id: str, actor: str = "ops") -> dict:
 
 @router.get("/jobs")
 def jobs(queue: str | None = None) -> dict:
+    from ..production.queue import RedisJobQueue, QueueUnavailable
+
+    try:
+        if get_settings().platform.redis_url:
+            return RedisJobQueue().stats(queue)
+    except QueueUnavailable:
+        pass
     return JobQueue(store).stats(queue)
 
 
@@ -551,3 +577,114 @@ def quality(tenant: str = TENANT) -> dict:
     from .governance import alert_quality
 
     return alert_quality(store, tenant)
+
+
+
+# ---------------------------------------------------------------- production
+class LiveAgentRequest(BaseModel):
+    message: str
+    history: list[dict] = Field(default_factory=list)
+    tenant: str = TENANT
+
+
+@router.get("/production/doctor")
+def production_doctor() -> dict:
+    from ..production.config import doctor
+
+    return doctor()
+
+
+@router.get("/production/agent/health")
+def agent_health() -> dict:
+    from ..production.config import get_settings
+
+    settings = get_settings()
+    return {"configured": settings.llm.configured, "backend": settings.llm.backend, "model": settings.llm.model or None, "settings": settings.llm.safe()}
+
+
+@router.post("/production/agent/chat")
+async def agent_chat(request: LiveAgentRequest) -> dict:
+    from ..production.agent import AgentUnavailable, LiveAgent
+    from ..production.config import get_settings
+    from ..production.openjiuwen_runtime import OpenJiuwenAgent, OpenJiuwenUnavailable
+
+    settings = get_settings()
+    backend = OpenJiuwenAgent(engine, settings) if settings.llm.backend == "openjiuwen" else LiveAgent(engine, settings)
+    try:
+        return await backend.chat(request.message, tenant=request.tenant, history=request.history)
+    except (AgentUnavailable, OpenJiuwenUnavailable) as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+    except Exception as exc:  # noqa: BLE001
+        raise HTTPException(status_code=502, detail=f"agent backend error: {exc}") from exc
+
+
+@router.get("/production/inference/health")
+def inference_health() -> dict:
+    from ..production.inference import service_health
+
+    return service_health()
+
+
+@router.post("/production/inference/score")
+def inference_score(payload: dict) -> dict:
+    from ..production.inference import OnnxDamageModel
+
+    try:
+        model = OnnxDamageModel()
+        rows = payload.get("rows") or []
+        return {"ok": True, "probabilities": model.predict(rows), **model.health()}
+    except Exception as exc:  # noqa: BLE001
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+
+
+@router.get("/production/notifications/channels")
+def notification_channels() -> dict:
+    from ..production.transports import channel_status
+
+    return channel_status()
+
+
+@router.get("/production/integrations/status")
+def integration_status() -> dict:
+    from ..production.integrations import status
+
+    return status()
+
+
+@router.post("/production/integrations/{target}/{alert_id}")
+def integration_send(target: str, alert_id: str) -> dict:
+    from ..production.integrations import IntegrationUnavailable, dispatch as live_dispatch
+
+    alert = _alert_or_404(alert_id)
+    try:
+        return live_dispatch(target, alert)
+    except IntegrationUnavailable as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+
+
+@router.get("/production/imagery/status")
+def imagery_status(scenario: str = "ahr-2021-flood") -> dict:
+    from ..production.imagery import cache_status
+
+    return cache_status(scenario, ROOT / "runtime" / "imagery")
+
+
+@router.get("/production/imagery/search")
+def imagery_search(bbox: str, start: str, end: str, max_cloud: float = 30) -> dict:
+    from ..production.imagery import search_sentinel
+
+    try:
+        values = [float(value) for value in bbox.split(",")]
+        return {"items": search_sentinel(values, start, end, max_cloud=max_cloud)}
+    except Exception as exc:  # noqa: BLE001
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
+
+
+@router.post("/production/imagery/fetch/{scenario_id}")
+def imagery_fetch(scenario_id: str) -> dict:
+    from ..production.imagery import fetch_scenario
+
+    try:
+        return fetch_scenario(scenario_id, ROOT / "runtime" / "imagery")
+    except Exception as exc:  # noqa: BLE001
+        raise HTTPException(status_code=502, detail=str(exc)) from exc

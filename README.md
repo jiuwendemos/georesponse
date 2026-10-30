@@ -4,7 +4,7 @@
 
 ![GeoResponse stage view](docs/assets/stage.jpg)
 
-**Live demo:** https://jiuwendemos.github.io/georesponse/ · **Stage plan:** [docs/ROADMAP.md](docs/ROADMAP.md) · **Method:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) · **Proactive design:** [docs/PROACTIVE.md](docs/PROACTIVE.md) · **2026 experience:** [docs/EXPERIENCE_2026.md](docs/EXPERIENCE_2026.md)
+**Live demo:** https://jiuwendemos.github.io/georesponse/ · **Stage plan:** [docs/ROADMAP.md](docs/ROADMAP.md) · **Method:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) · **Proactive design:** [docs/PROACTIVE.md](docs/PROACTIVE.md) · **2026 experience:** [docs/EXPERIENCE_2026.md](docs/EXPERIENCE_2026.md) · **Production wiring:** [docs/PRODUCTION_WIRING.md](docs/PRODUCTION_WIRING.md)
 
 GeoResponse is an AI analyst for imagery. It is built around one decision, not a dashboard: *where do we send the three teams?* The demo is a 90-second command story. The product is an analyst workspace with an audit trail, exports and a pilot measurement pack. Everything runs offline from a local data pack.
 
@@ -85,8 +85,19 @@ GeoResponse is an AI analyst for imagery. It is built around one decision, not a
 
 ### Offline & live
 - Static app, no CDN, no third-party runtime.
-- Service worker caches the shell and the demo pack; “Save offline pack” pre-caches scenario JSON, basemaps and evidence.
+- Service worker caches the shell and the data pack; “Save offline pack” pre-caches scenario JSON, basemaps and evidence.
 - Deployable to GitHub Pages (workflow included) or a private host / Docker.
+
+### Production wiring
+- **Agent:** OpenAI-compatible tool loop and an openjiuwen `create_deep_agent` backend, both with preview/approve/undo and refusal rules. Run `py -m georesponse.cli agent --message "brief me"`.
+- **Inference:** exported ONNX damage head running on ONNX Runtime; provider selection prefers CANN/OpenVINO/QNN/CoreML/CUDA and falls back to CPU. `py -m georesponse.cli infer --before ... --after ...`.
+- **Imagery:** live Sentinel-2 STAC search + windowed COG fetch from Earth Search; real Ahr/Eifel/Cologne packs are committed. `py -m georesponse.cli fetch-imagery --scenario all`.
+- **Notifications:** SMTP, Slack, Teams, Twilio SMS, PagerDuty and HMAC webhook transports; they fail loudly when unconfigured.
+- **Integrations:** live Jira, ServiceNow, Guidewire, Duck Creek, Maximo, SAP, ArcGIS and SIEM HTTP adapters.
+- **Platform:** PostgreSQL store, Redis queue, S3/MinIO object store, API-key/OIDC auth, hash-chained audit, worker, Docker Compose with Postgres/Redis/MinIO.
+- **Truth:** `py -m georesponse.cli doctor` shows exactly which wiring is live. No secret is printed and no silent demo fallback is claimed.
+
+See [docs/PRODUCTION_WIRING.md](docs/PRODUCTION_WIRING.md).
 
 | Analyst | Pilot |
 |---|---|
@@ -140,10 +151,10 @@ docker compose up --build
 
 ## Provenance — read this before using the demo
 
-The bundled raster and evidence images are a **deterministic simulation**, clearly labelled in the app. The event, place names and structure follow the July 2021 Ahr valley flood, but the pixels are synthetic. This is intentional: the stage and booth must run with the network cable unplugged, and commercial imagery cannot be used on a public stage without a licence.
+The Ahr, Eifel and Cologne scenario basemaps are **real Sentinel-2 L2A windows fetched from the public Earth Search STAC catalogue** (Copernicus, free and open, attribution required). The images, capture dates and STAC item IDs are stored in `data/real/*/*.json`. Site coordinates, asset values and the flood/burn timeline are sample data until replaced with a customer's own assets and labels. The app labels the distinction in the provenance panel, Method page and field order.
 
 Production sources:
-- **Sentinel-2 / Sentinel-1** — free and open, attribution required. Connector included (dry-run offline).
+- **Sentinel-2 / Sentinel-1** — free and open, attribution required. Live STAC/COG download implemented; the bundled Ahr/Eifel/Cologne pairs are real Sentinel-2 captures.
 - **OpenStreetMap** — ODbL, displayed as “© OpenStreetMap contributors”.
 - **Commercial imagery** (Planet, Maxar, Airbus, ICEYE, Capella) — requires a licence, even for a demo.
 - **Customer drone orthophoto** — ingested through the local connector.
@@ -160,15 +171,15 @@ See [docs/DATA_RIGHTS.md](docs/DATA_RIGHTS.md) and the in-app **Method** page.
 georesponse/
   georesponse/            Python pipeline, ranking, assessment, exports, API, CLI
   data/                   source configs (scenario content lives in datapack.py)
-  tests/                  102 pytest checks: geometry, detection, ranking, exports, audit, API
+  tests/                  109 pytest checks: geometry, detection, ranking, exports, audit, API
   web/                    React + TypeScript SPA (custom SVG map renderer)
-    public/data/          generated offline demo packs, basemaps, evidence, scenes
+    public/data/          real Sentinel packs, evidence, scenes, proactive demo portfolio
   docs/                   architecture, roadmap, stage runbook, pilot, privacy, data rights
   deploy/                 Dockerfile, compose, deployment notes
   .github/workflows/      CI + GitHub Pages
 ```
 
-Generated packs are committed so the live app works without a build-time data job. Rebuild them with `py -m georesponse.datapack`.
+Generated packs are committed so the live app works without a build-time data job. Rebuild them with `py -m georesponse.datapack`; fetch fresh Sentinel imagery with `py -m georesponse.cli fetch-imagery --scenario all`.
 
 ---
 
@@ -184,6 +195,7 @@ All technical phases are implemented, including the 155 proactive workstreams, w
 - Product UI — analyst workspace and dashboards ✅
 - Phase 4 — proactive monitoring ✅ — Watch inbox, scopes, coverage, forecast watchlist, digest, governance; see [docs/PROACTIVE.md](docs/PROACTIVE.md)
 - Phase 5 — 2026 product experience · **planned** — 241 checkboxes covering design system, command/agent UX, map craft, mobile, accessibility, performance and rollout; see [docs/EXPERIENCE_2026.md](docs/EXPERIENCE_2026.md)
+- Phase 6 — production wiring · **built, cutover pending** — real LLM/openjiuwen agent, ONNX/NPU providers, live Sentinel STAC, live notifications/integrations, Postgres/Redis/S3, auth, worker and doctor; see [docs/PRODUCTION_WIRING.md](docs/PRODUCTION_WIRING.md)
 
 The proactive phase is built as the **Watch** tab and `georesponse/proactive/`: scheduled scopes, seasonal baselines, multi-temporal and optical/SAR confirmation, forecast watchlists, alert lifecycle, notification outbox, integrations, governance and pilot gates. The demo portfolio is seeded; the launch gate is deliberately red until a real corridor pilot clears it.
 
@@ -203,4 +215,4 @@ The first market is property insurance — storm and flood damage assessment. Th
 
 Apache-2.0. See [LICENSE](LICENSE).
 
-Data attribution: © OpenStreetMap contributors (ODbL) · © Copernicus Sentinel data (simulated demo pack).
+Data attribution: © OpenStreetMap contributors (ODbL) · © Copernicus Sentinel data (live pack; attribution on screen).

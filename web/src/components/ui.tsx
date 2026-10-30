@@ -1,5 +1,8 @@
-import type { ReactNode } from 'react'
+import { useEffect, useRef, type ReactNode } from 'react'
 import { useApp } from '../store'
+import { usePrefs } from '../prefs'
+import { useUi } from '../ui-context'
+import { IconButton, Kbd } from './ds'
 import { cx } from '../lib/format'
 
 export function Icon({ name, size = 16 }: { name: string; size?: number }) {
@@ -150,6 +153,60 @@ export function Icon({ name, size = 16 }: { name: string; size?: number }) {
           <path d="M12 4v10" />
         </svg>
       )
+    case 'search':
+      return (
+        <svg {...common}>
+          <circle cx="11" cy="11" r="7" />
+          <path d="m20 20-3.5-3.5" />
+        </svg>
+      )
+    case 'sun':
+      return (
+        <svg {...common}>
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+        </svg>
+      )
+    case 'moon':
+      return (
+        <svg {...common}>
+          <path d="M20 15.5A8.5 8.5 0 0 1 8.5 4 8.5 8.5 0 1 0 20 15.5Z" />
+        </svg>
+      )
+    case 'sliders':
+      return (
+        <svg {...common}>
+          <path d="M4 6h8M16 6h4M4 12h3M11 12h9M4 18h10M18 18h2" />
+          <circle cx="14" cy="6" r="2" /><circle cx="9" cy="12" r="2" /><circle cx="16" cy="18" r="2" />
+        </svg>
+      )
+    case 'spark':
+      return (
+        <svg {...common}>
+          <path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8" />
+          <circle cx="12" cy="12" r="2.5" />
+        </svg>
+      )
+    case 'command':
+      return (
+        <svg {...common}>
+          <path d="M9 6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3Z" />
+        </svg>
+      )
+    case 'table':
+      return (
+        <svg {...common}>
+          <rect x="3" y="4" width="18" height="16" rx="2" />
+          <path d="M3 10h18M9 10v10" />
+        </svg>
+      )
+    case 'grid':
+      return (
+        <svg {...common}>
+          <rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" />
+          <rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" />
+        </svg>
+      )
     case 'github':
       return (
         <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
@@ -163,58 +220,82 @@ export function Icon({ name, size = 16 }: { name: string; size?: number }) {
 
 export function TopBar() {
   const { mode, setMode, scenario, index, selectScenario } = useApp()
+  const prefs = usePrefs()
+  const ui = useUi()
   const tabs = [
-    { id: 'stage', label: 'Stage', icon: 'play' },
-    { id: 'watch', label: 'Watch', icon: 'radar' },
-    { id: 'analyst', label: 'Analyst', icon: 'map' },
-    { id: 'dashboard', label: 'Pilot', icon: 'chart' },
-    { id: 'method', label: 'Method', icon: 'book' },
+    { id: 'stage', label: 'nav.stage', icon: 'play' },
+    { id: 'watch', label: 'nav.watch', icon: 'radar' },
+    { id: 'analyst', label: 'nav.analyst', icon: 'map' },
+    { id: 'dashboard', label: 'nav.pilot', icon: 'chart' },
+    { id: 'method', label: 'nav.method', icon: 'book' },
   ] as const
   return (
     <header className="topbar">
       <button className="brand" onClick={() => setMode('stage')} title="GeoResponse">
-        <span className="brand-mark">
-          <Icon name="radar" size={18} />
-        </span>
-        <span className="brand-text">
-          <strong>GeoResponse</strong>
-          <small>imagery → decision</small>
-        </span>
+        <span className="brand-mark"><Icon name="radar" size={18} /></span>
+        <span className="brand-text"><strong>GeoResponse</strong><small>imagery → decision</small></span>
       </button>
 
       <nav className="nav" aria-label="Primary">
         {tabs.map((tab) => (
           <button key={tab.id} className={cx('nav-tab', mode === tab.id && 'active')} onClick={() => setMode(tab.id)}>
             <Icon name={tab.icon} size={14} />
-            <span>{tab.label}</span>
+            <span>{prefs.t(tab.label)}</span>
           </button>
         ))}
         <button className={cx('nav-tab', mode === 'booth' && 'active')} onClick={() => setMode('booth')}>
           <Icon name="vote" size={14} />
-          <span>Booth</span>
+          <span>{prefs.t('nav.booth')}</span>
         </button>
       </nav>
+
+      <button className="command-trigger" onClick={ui.openPalette} aria-label={prefs.t('action.search')}>
+        <Icon name="search" size={14} />
+        <span>{prefs.t('action.search')}</span>
+        <Kbd>⌘K</Kbd>
+      </button>
 
       <div className="topbar-right">
         <div className="scenario-select">
           <span className="live-dot" />
-          <select
-            value={scenario?.meta.id ?? ''}
-            onChange={(event) => selectScenario(event.target.value)}
-            aria-label="Scenario"
-          >
-            {index?.scenarios.map((entry) => (
-              <option key={entry.id} value={entry.id}>
-                {entry.title}
-              </option>
-            ))}
+          <select value={scenario?.meta.id ?? ''} onChange={(event) => selectScenario(event.target.value)} aria-label="Scenario">
+            {index?.scenarios.map((entry) => <option key={entry.id} value={entry.id}>{entry.title}</option>)}
           </select>
         </div>
-        <a className="icon-btn" href="https://github.com/jiuwendemos/georesponse" target="_blank" rel="noreferrer" title="GitHub">
-          <Icon name="github" size={16} />
-        </a>
+        <IconButton label={prefs.t('action.agent')} onClick={() => ui.openAgent()}><Icon name="spark" size={16} /></IconButton>
+        <IconButton label={`${prefs.t('action.theme')}: ${prefs.theme}`} onClick={prefs.cycleTheme}>
+          <Icon name={prefs.resolvedTheme === 'dark' ? 'moon' : prefs.resolvedTheme === 'light' ? 'sun' : 'sliders'} size={16} />
+        </IconButton>
+        <IconButton label="Settings" onClick={ui.openSettings}><Icon name="sliders" size={16} /></IconButton>
+        <a className="icon-btn" href="https://github.com/jiuwendemos/georesponse" target="_blank" rel="noreferrer" title="GitHub"><Icon name="github" size={16} /></a>
       </div>
     </header>
+  )
+}
+
+export function MobileNav() {
+  const { mode, setMode } = useApp()
+  const prefs = usePrefs()
+  const ui = useUi()
+  const items = [
+    { id: 'stage', label: 'nav.stage', icon: 'play' },
+    { id: 'watch', label: 'nav.watch', icon: 'radar' },
+    { id: 'analyst', label: 'nav.analyst', icon: 'map' },
+    { id: 'dashboard', label: 'nav.pilot', icon: 'chart' },
+  ] as const
+  return (
+    <nav className="mobile-nav" aria-label="Mobile primary">
+      {items.map((item) => (
+        <button key={item.id} className={cx('mobile-nav-item', mode === item.id && 'active')} onClick={() => setMode(item.id)}>
+          <Icon name={item.icon} size={18} />
+          <span>{prefs.t(item.label)}</span>
+        </button>
+      ))}
+      <button className="mobile-nav-item" onClick={ui.openPalette}>
+        <Icon name="command" size={18} />
+        <span>More</span>
+      </button>
+    </nav>
   )
 }
 
@@ -242,10 +323,45 @@ export function Modal({
   className?: string
   label?: string
 }) {
+  const card = useRef<HTMLDivElement | null>(null)
+  const previous = useRef<HTMLElement | null>(null)
+
+  useEffect(() => {
+    if (!open) return
+    previous.current = document.activeElement as HTMLElement | null
+    const element = card.current
+    const focusable = element?.querySelector<HTMLElement>('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')
+    window.setTimeout(() => focusable?.focus(), 20)
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        onClose()
+        return
+      }
+      if (event.key !== 'Tab' || !element) return
+      const items = Array.from(element.querySelectorAll<HTMLElement>('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')).filter((item) => !item.hasAttribute('disabled'))
+      if (!items.length) return
+      const first = items[0]
+      const last = items[items.length - 1]
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      previous.current?.focus?.()
+    }
+  }, [open, onClose])
+
   if (!open) return null
   return (
     <div className="modal" role="dialog" aria-modal="true" aria-label={label ?? 'Dialog'} onClick={onClose}>
-      <div className={cx('modal-card', className)} onClick={(event) => event.stopPropagation()}>
+      <div ref={card} tabIndex={-1} className={cx('modal-card', className)} onClick={(event) => event.stopPropagation()}>
         <button className="modal-close" onClick={onClose} aria-label="Close">
           <Icon name="close" size={16} />
         </button>

@@ -1,7 +1,7 @@
 {
   "title": "GeoResponse pilot in 90 days",
-  "start": "2026-10-29",
-  "end": "2027-01-27",
+  "start": "2026-10-30",
+  "end": "2027-01-28",
   "scope": "One insurer, one storm/flood event, one region. AI assessment runs in parallel with the manual process.",
   "deliverables": [
     "Imagery pipeline for the customer's event",

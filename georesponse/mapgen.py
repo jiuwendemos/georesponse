@@ -417,3 +417,42 @@ def make_scene_pair(
         "after": f"data/scenes/{after_path.name}",
         "caption": f"{name} · before / after · simulated Sentinel-2-like composite",
     }
+
+
+def make_real_evidence(
+    before_path: str | Path,
+    after_path: str | Path,
+    bbox: BBox,
+    site: dict,
+    out_dir: str | Path,
+    *,
+    seed: int = 11,
+) -> dict:
+    """Crop a real Sentinel-2 before/after pair around a site."""
+    out_dir = Path(out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    before_img = Image.open(before_path).convert("RGB")
+    after_img = Image.open(after_path).convert("RGB")
+    full_w, full_h = after_img.size
+    cx = (site["lon"] - bbox.west) / (bbox.east - bbox.west) * full_w
+    cy = (bbox.north - site["lat"]) / (bbox.north - bbox.south) * full_h
+    half_w = full_w * 0.032
+    half_h = full_h * 0.045
+    box = (int(max(0, cx - half_w)), int(max(0, cy - half_h)), int(min(full_w, cx + half_w)), int(min(full_h, cy + half_h)))
+    before = before_img.crop(box).resize((420, 280), Image.Resampling.LANCZOS)
+    after = after_img.crop(box).resize((420, 280), Image.Resampling.LANCZOS)
+    draw = ImageDraw.Draw(after, "RGBA")
+    rng = random.Random(seed + int(site["id"][1:]))
+    x = 110 + rng.randint(0, 40)
+    y = 84 + rng.randint(0, 24)
+    draw.rectangle([x, y, x + 190, y + 118], outline=(251, 113, 133, 240), width=2)
+    draw.text((x + 4, y - 12), f"{site['id']} · {site.get('severity', 'red')} · {int(site.get('confidence', 0.8) * 100)}%", fill=(255, 230, 230, 255))
+    before_name = f"{site['id'].lower()}-before.png"
+    after_name = f"{site['id'].lower()}-after.png"
+    before.save(out_dir / before_name, optimize=True)
+    after.save(out_dir / after_name, optimize=True)
+    return {
+        "before": f"data/evidence/{out_dir.name}/{before_name}",
+        "after": f"data/evidence/{out_dir.name}/{after_name}",
+        "caption": f"{site['id']} · Sentinel-2 L2A before/after · 10 m · change overlay",
+    }

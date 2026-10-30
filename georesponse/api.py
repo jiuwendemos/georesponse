@@ -9,9 +9,9 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import Response
+from fastapi.responses import JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
@@ -69,6 +69,33 @@ def _scenario(scenario_id: str) -> dict:
 
 
 app.include_router(proactive_router)
+
+_rate_limiter = None
+
+
+def _limiter():
+    global _rate_limiter
+    if _rate_limiter is None:
+        from .proactive.governance import RateLimiter
+
+        _rate_limiter = RateLimiter(limit=240, window_seconds=60)
+    return _rate_limiter
+
+
+@app.middleware("http")
+async def api_auth_middleware(request: Request, call_next):
+    from .production.auth import AuthError, authenticate, configured
+
+    if request.url.path.startswith("/api") and request.url.path not in {"/api/health"}:
+        client = request.client.host if request.client else "unknown"
+        if not _limiter().allow(client):
+            return JSONResponse({"detail": "rate limit exceeded"}, status_code=429)
+        if configured():
+            try:
+                request.state.principal = authenticate(dict(request.headers))
+            except AuthError as exc:
+                return JSONResponse({"detail": str(exc)}, status_code=401)
+    return await call_next(request)
 
 
 @app.get("/api/health")

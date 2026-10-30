@@ -81,6 +81,10 @@ interface AppContextValue {
   autoAssign: () => void
   voteAudience: (choice: 'a' | 'b') => void
   reset: () => void
+  watchTarget: { alertId?: string; scopeId?: string } | null
+  openWatchAlert: (alertId: string) => void
+  openWatchScope: (scopeId: string) => void
+  clearWatchTarget: () => void
   mapRef: React.MutableRefObject<any>
   registerMap: (map: any) => void
   captureMap: () => Promise<string | null>
@@ -128,6 +132,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [fieldOrderOpen, setFieldOrderOpen] = useState(false)
   const [provenanceOpen, setProvenanceOpen] = useState(false)
   const [fitSignal, setFitSignal] = useState(0)
+  const [watchTarget, setWatchTarget] = useState<{ alertId?: string; scopeId?: string } | null>(null)
   const toastTimer = useRef<number | null>(null)
   const hydratedFor = useRef<string | null>(null)
   const mapRef = useRef<any>(null)
@@ -505,6 +510,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
     openFieldOrder: setFieldOrderOpen,
     openProvenance: setProvenanceOpen,
     fitSignal,
+    watchTarget,
+    openWatchAlert: (alertId: string) => {
+      setWatchTarget({ alertId })
+      setModeState('watch')
+    },
+    openWatchScope: (scopeId: string) => {
+      setWatchTarget({ scopeId })
+      setModeState('watch')
+    },
+    clearWatchTarget: () => setWatchTarget(null),
     reveal,
     selectScenario,
     review,

@@ -4,13 +4,12 @@
 
 | Layer | Status | Attribution |
 |---|---|---|
-| Basemap / scenes / evidence | **Simulated**, generated deterministically | “© Copernicus Sentinel data (simulated demo pack)” |
-| OSM-shaped context | Simulated shapes in the demo; production uses OSM | “© OpenStreetMap contributors” (ODbL) |
-| Event structure | Based on the July 2021 Ahr valley flood | Public event; no copyrighted imagery copied |
+| Sentinel-2 basemaps / scenes | **Real Copernicus Sentinel-2 L2A**, fetched from Earth Search STAC | © Copernicus Sentinel data 2021–2024, attribution required |
+| OSM-shaped context | Sample shapes; production uses OSM / PostGIS | “© OpenStreetMap contributors” (ODbL) |
+| Event structure | Based on the July 2021 Ahr valley flood; Eifel and Cologne are sample events | public event / sample labels |
 | Commercial imagery | Not included | Licence required even for a demo |
 
-The app labels the pack **simulated** in the provenance panel, the Method page, the booth, the field
-order and every PDF. It is never presented as an operational capture.
+The app labels real Sentinel-2 pixels as live and labels the reconstructed flood/burn timeline and sample asset values separately. It never presents sample asset data as operational truth.
 
 ## Production sources
 
@@ -28,8 +27,8 @@ order and every PDF. It is never presented as an operational capture.
 
 Every assessment stores and displays:
 
-- imagery source and acquisition time,
-- whether the pack is simulated,
+- Sentinel-2 STAC item ID, source URL, acquisition time and cloud cover,
+- whether each layer is real, reconstructed or sample data,
 - model name and version (pinned),
 - cloud screen and confidence,
 - analyst, review decision and corrections,

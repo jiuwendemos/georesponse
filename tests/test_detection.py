@@ -78,7 +78,10 @@ def test_raster_tiling(tmp_path):
     assert all("severity" in row for row in results)
 
 
-def test_geotiff_fallback_tiles_png_with_sidecar(tmp_path):
+def test_geotiff_fallback_tiles_png_with_sidecar(tmp_path, monkeypatch):
+    import georesponse.detection as detection
+
+    monkeypatch.setattr(detection, "HAVE_RASTERIO", False)
     raster = tmp_path / "scene.png"
     save_rgb(np.random.default_rng(3).random((64, 64, 3)).astype(np.float32), raster)
     (tmp_path / "scene.json").write_text('{"bbox": [7.0, 50.5, 7.1, 50.6]}', encoding="utf-8")
