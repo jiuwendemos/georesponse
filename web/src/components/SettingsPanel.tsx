@@ -6,41 +6,76 @@ import { Button, Field, Segmented, TextInput } from './ds'
 export default function SettingsPanel() {
   const ui = useUi()
   const prefs = usePrefs()
+  const t = prefs.t
 
   return (
-    <Modal open={ui.settingsOpen} onClose={ui.closeSettings} className="settings-modal" label="Settings">
-      <div className="eyebrow"><span className="dot" /> Preferences</div>
-      <h2>Make the product yours.</h2>
-      <p className="audit-sub">Stored locally. Density changes space, never the minimum legible type size.</p>
+    <Modal open={ui.settingsOpen} onClose={ui.closeSettings} className="settings-modal" label={t('settings.title')}>
+      <div className="eyebrow"><span className="dot" /> {t('settings.eyebrow')}</div>
+      <h2>{t('settings.heading')}</h2>
+      <p className="audit-sub">{t('settings.sub')}</p>
 
       <div className="settings-modal-grid">
-        <Field label="Theme" hint="System follows your OS. Contrast is for bright rooms and low vision.">
-          <Segmented value={prefs.theme} label="Theme" onChange={prefs.setTheme} options={[{ value: 'system', label: 'System' }, { value: 'light', label: 'Light' }, { value: 'dark', label: 'Dark' }, { value: 'contrast', label: 'Contrast' }]} />
+        <Field label={t('settings.theme')} hint={t('settings.themeHint')}>
+          <Segmented
+            value={prefs.theme}
+            label={t('settings.theme')}
+            onChange={prefs.setTheme}
+            options={[
+              { value: 'system', label: t('theme.system') },
+              { value: 'light', label: t('theme.light') },
+              { value: 'dark', label: t('theme.dark') },
+              { value: 'contrast', label: t('theme.contrast') },
+            ]}
+          />
         </Field>
-        <Field label="Density">
-          <Segmented value={prefs.density} label="Density" onChange={prefs.setDensity} options={[{ value: 'comfortable', label: 'Comfortable' }, { value: 'compact', label: 'Compact' }]} />
+        <Field label={t('settings.density')}>
+          <Segmented
+            value={prefs.density}
+            label={t('settings.density')}
+            onChange={prefs.setDensity}
+            options={[
+              { value: 'comfortable', label: t('density.comfortable') },
+              { value: 'compact', label: t('density.compact') },
+            ]}
+          />
         </Field>
-        <Field label="Motion">
-          <Segmented value={prefs.motion ? 'on' : 'off'} label="Motion" onChange={(value) => prefs.setMotion(value === 'on')} options={[{ value: 'on', label: 'On' }, { value: 'off', label: 'Reduced' }]} />
+        <Field label={t('settings.motion')}>
+          <Segmented
+            value={prefs.motion ? 'on' : 'off'}
+            label={t('settings.motion')}
+            onChange={(value) => prefs.setMotion(value === 'on')}
+            options={[
+              { value: 'on', label: t('settings.motion.on') },
+              { value: 'off', label: t('settings.motion.off') },
+            ]}
+          />
         </Field>
-        <Field label="Language">
-          <Segmented value={prefs.language} label="Language" onChange={prefs.setLanguage} options={[{ value: 'en', label: 'English' }, { value: 'de', label: 'Deutsch' }]} />
+        <Field label={t('settings.language')}>
+          <Segmented
+            value={prefs.language}
+            label={t('settings.language')}
+            onChange={prefs.setLanguage}
+            options={[
+              { value: 'en', label: 'English' },
+              { value: 'de', label: 'Deutsch' },
+            ]}
+          />
         </Field>
-        <Field label="Profile name" hint="Demo only; no account is created.">
+        <Field label={t('settings.profile')} hint={t('settings.profileHint')}>
           <TextInput defaultValue="A. Weber" />
         </Field>
-        <Field label="Email digest" hint="Instant for red alerts; digest for the rest.">
+        <Field label={t('settings.email')} hint={t('settings.emailHint')}>
           <TextInput defaultValue="ops@example.com" />
         </Field>
       </div>
 
       <div className="settings-modal-actions">
         <Button variant="primary" onClick={() => { ui.openStyleGuide(); ui.closeSettings() }}>
-          <Icon name="grid" size={14} /> Open design system
+          <Icon name="grid" size={14} /> {t('settings.openDesign')}
         </Button>
-        <Button variant="ghost" onClick={ui.closeSettings}>Close</Button>
+        <Button variant="ghost" onClick={ui.closeSettings}>{t('settings.close')}</Button>
       </div>
-      <p className="card-note">Keyboard: <b>⌘K</b> palette · <b>Tab</b> through every control · <b>Esc</b> closes. No preference leaves this browser.</p>
+      <p className="card-note">{t('settings.note')}</p>
     </Modal>
   )
 }

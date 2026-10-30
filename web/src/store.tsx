@@ -111,8 +111,16 @@ function readWork(id: string): WorkState {
   }
 }
 
+const MODES: Mode[] = ['stage', 'watch', 'analyst', 'dashboard', 'method', 'booth']
+
+function hashView(): Mode {
+  if (typeof window === 'undefined') return 'stage'
+  const value = new URLSearchParams(window.location.hash.slice(1)).get('view')
+  return value && MODES.includes(value as Mode) ? (value as Mode) : 'stage'
+}
+
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [mode, setModeState] = useState<Mode>('stage')
+  const [mode, setModeState] = useState<Mode>(hashView)
   const [index, setIndex] = useState<ScenarioIndex | null>(null)
   const [scenario, setScenario] = useState<Scenario | null>(null)
   const [loading, setLoading] = useState(true)
@@ -171,7 +179,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
         const data = await loadJson<ScenarioIndex>(dataPath('index.json'))
         if (cancelled) return
         setIndex(data)
-        await loadScenario(data.default)
+        const wanted = new URLSearchParams(window.location.hash.slice(1)).get('scenario')
+        const known = data.scenarios.some((entry) => entry.id === wanted)
+        await loadScenario(known && wanted ? wanted : data.default)
       } catch (err) {
         if (!cancelled) {
           setError(err instanceof Error ? err.message : 'Could not load the demo pack')
@@ -215,6 +225,33 @@ export function AppProvider({ children }: { children: ReactNode }) {
     () => Object.values(reviews).filter((status) => status !== 'pending').length,
     [reviews],
   )
+
+  // Deep links: the URL carries the view and the scenario. Selection and
+  // back/forward are handled as additive query parameters on the same hash.
+  useEffect(() => {
+    if (!scenario) return
+    const params = new URLSearchParams(window.location.hash.slice(1))
+    params.set('view', mode)
+    params.set('scenario', scenario.meta.id)
+    const next = `#${params.toString()}`
+    if (window.location.hash !== next) window.history.pushState(null, '', next)
+  }, [mode, scenario])
+
+  useEffect(() => {
+    const onPop = () => {
+      const params = new URLSearchParams(window.location.hash.slice(1))
+      const view = params.get('view')
+      if (view && MODES.includes(view as Mode) && view !== mode) setModeState(view as Mode)
+      const nextScenario = params.get('scenario')
+      if (nextScenario && scenario && nextScenario !== scenario.meta.id) void loadScenario(nextScenario)
+    }
+    window.addEventListener('popstate', onPop)
+    window.addEventListener('hashchange', onPop)
+    return () => {
+      window.removeEventListener('popstate', onPop)
+      window.removeEventListener('hashchange', onPop)
+    }
+  }, [mode, scenario, loadScenario])
 
   const setMode = useCallback((next: Mode) => {
     setModeState(next)

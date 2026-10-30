@@ -4,7 +4,7 @@ import { usePrefs } from '../prefs'
 import { Modal, Icon } from './ui'
 import { Badge, Button, Card, EmptyState, Field, Segmented, TextInput, Kbd } from './ds'
 
-const TABS = ['Foundations', 'Components', 'Patterns'] as const
+const TABS = ['Foundations', 'Components', 'Patterns', 'Anatomy'] as const
 
 const SWATCHES = [
   ['Canvas', '--bg'],
@@ -113,6 +113,44 @@ export default function StyleGuide() {
               <span><Kbd>Space</Kbd> play timeline</span>
               <span><Kbd>Esc</Kbd> close a surface</span>
             </div>
+          </Card>
+        </div>
+      )}
+
+      {tab === 'Anatomy' && (
+        <div className="styleguide-grid">
+          <Card eyebrow="Contract" title="Component anatomy">
+            <table className="anatomy-table">
+              <thead><tr><th>Component</th><th>States</th><th>Keyboard</th><th>Screen reader</th></tr></thead>
+              <tbody>
+                <tr><td>Button</td><td>default, hover, active, focus, disabled, loading</td><td>Enter / Space</td><td>aria-busy while loading</td></tr>
+                <tr><td>Segmented</td><td>selected, focus, disabled</td><td>Tab + Enter</td><td>radiogroup with aria-checked</td></tr>
+                <tr><td>Field</td><td>default, focus, error</td><td>Tab</td><td>label association and role=alert on error</td></tr>
+                <tr><td>Dialog</td><td>open, closing</td><td>Esc, Tab trap</td><td>aria-modal and labelled title</td></tr>
+                <tr><td>Command palette</td><td>empty, filtered, active</td><td>Ctrl/⌘K, arrows, Enter</td><td>listbox and option</td></tr>
+                <tr><td>Map</td><td>pins, clusters, table</td><td>arrows, +/-, Enter</td><td>button pins plus a full data table</td></tr>
+              </tbody>
+            </table>
+          </Card>
+          <Card eyebrow="States" title="Every state is designed">
+            <div className="state-matrix">
+              {['default', 'hover', 'active', 'focus', 'disabled', 'loading', 'error', 'empty'].map((state) => (
+                <span key={state} className={`state-pill state-${state}`}>{state}</span>
+              ))}
+            </div>
+            <p className="card-note">A component is not done until all eight states are visible in this page and in the product.</p>
+          </Card>
+          <Card eyebrow="Accessibility" title="Automated and manual">
+            <ul className="pattern-list">
+              <li><b>Automated</b><span>axe runs on the stage, Watch and this page in Playwright on every push.</span></li>
+              <li><b>Keyboard</b><span>Every action has a visible focus ring and no pointer-only path.</span></li>
+              <li><b>Contrast</b><span>Text and controls meet WCAG AA in light, dark and high-contrast themes.</span></li>
+              <li><b>Motion</b><span>Reduced motion is a setting and a media query.</span></li>
+            </ul>
+          </Card>
+          <Card eyebrow="Map primitives" title="Clusters, camera and table">
+            <p>The map is a first-class component: clustered pins at low zoom, animated camera moves, keyboard pan/zoom, and a table alternative that carries the same data.</p>
+            <div className="component-row"><Badge tone="info">camera 460ms</Badge><Badge tone="success">cluster ≥ 2</Badge><Badge tone="warn">touch 44px</Badge></div>
           </Card>
         </div>
       )}

@@ -84,7 +84,7 @@ export default function WatchMap({
     <div className={`watch-map ${drawing ? 'drawing' : ''}`}>
       <svg
         viewBox={`0 0 ${W} ${H}`}
-        role="img"
+        role="group"
         aria-label="Monitoring coverage map. Use Enter on a scope or alert."
         onClick={click}
         onMouseMove={(event) => {

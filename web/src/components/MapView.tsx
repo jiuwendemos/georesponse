@@ -198,8 +198,22 @@ export default function MapView({ variant = 'stage' }: { variant?: 'stage' | 'an
   const colors = hazardColors[scenario.meta.hazard] ?? hazardColors.flood
   const transform = `translate(${W / 2} ${H / 2}) scale(${view.zoom}) translate(${-view.cx} ${-view.cy})`
   const pinScale = 1 / view.zoom
+  // Cluster pins once the camera is far enough out that labels would collide.
+  const clusterThreshold = 46
+  const clusters = useMemo(() => {
+    if (!scenario || view.zoom >= 1.6) return null
+    const buckets: { x: number; y: number; sites: typeof scenario.sites }[] = []
+    for (const site of scenario.sites) {
+      const [x, y] = project(site.lon, site.lat)
+      const hit = buckets.find((bucket) => Math.hypot(bucket.x - x, bucket.y - y) < clusterThreshold)
+      if (hit) hit.sites.push(site)
+      else buckets.push({ x, y, sites: [site] })
+    }
+    return buckets.filter((bucket) => bucket.sites.length > 1)
+  }, [scenario, view.zoom, project])
   const coverageFeatures = scenario.sites.filter((site) => assignments[site.id] || previewId === site.id)
   const showLabels = view.zoom >= 1.5
+  const clusteredIds = new Set((clusters ?? []).flatMap((cluster) => cluster.sites.map((site) => site.id)))
   const path = (geometry: Geometry | undefined) => geometryPath(geometry, project)
 
   return (
@@ -240,7 +254,7 @@ export default function MapView({ variant = 'stage' }: { variant?: 'stage' | 'an
         </defs>
 
         <rect width={W} height={H} fill="#04101a" />
-        <g transform={transform}>
+        <g className="camera" transform={transform}>
           <rect width={W} height={H} fill="url(#map-grid)" opacity={0.5} />
           <image
             href={asset(scenario.map.basemap.file)}
@@ -352,6 +366,7 @@ export default function MapView({ variant = 'stage' }: { variant?: 'stage' | 'an
 
           <g className="layer-pins">
             {scenario.sites.map((site) => {
+              if (clusteredIds.has(site.id)) return null
               const [x, y] = project(site.lon, site.lat)
               const review = reviews[site.id] ?? 'pending'
               const inRisk = time + 0.001 >= site.riskAt
@@ -372,43 +387,80 @@ export default function MapView({ variant = 'stage' }: { variant?: 'stage' | 'an
                 .filter(Boolean)
                 .join(' ')
               return (
-                <g
-                  key={site.id}
-                  transform={`translate(${x} ${y}) scale(${pinScale})`}
-                  className={classes}
-                  tabIndex={0}
-                  role="button"
-                  aria-label={`${rank ?? 'excluded'} ${site.name}`}
-                  data-risk={site.riskAt}
-                  data-inrisk={inRisk ? 'true' : 'false'}
-                  data-time={time}
-                  onClick={(event) => {
-                    event.stopPropagation()
-                    if (drag.current?.moved) return
-                    app.selectSite(site.id)
-                  }}
-                  onKeyDown={(event) => {
-                    if (event.key === 'Enter' || event.key === ' ') app.selectSite(site.id)
-                  }}
-                  onMouseEnter={() => app.previewSite(site.id)}
-                  onMouseLeave={() => app.previewSite(null)}
-                >
-                  <circle className="pin-hit" r={18} />
-                  <circle className="pin-ring-svg" r={14} />
-                  <circle className="pin-core-svg" r={8.5} />
-                  <text className="pin-rank-svg" y={0.5}>
-                    {rank ?? '–'}
-                  </text>
-                  <g className={`pin-label-group ${showLabels || rank === 1 ? 'visible' : ''}`}>
-                    <rect className="pin-label-bg" x={13} y={-9} width={Math.max(34, site.name.length * 3.4)} height={13} rx={3} />
-                    <text className="pin-label-svg" x={17} y={0.8}>
-                      {site.name}
+                <g key={site.id} transform={`translate(${x} ${y}) scale(${pinScale})`}>
+                  <g
+                    className={classes}
+                    tabIndex={0}
+                    role="button"
+                    aria-label={`${rank ?? 'excluded'} ${site.name}`}
+                    data-risk={site.riskAt}
+                    data-inrisk={inRisk ? 'true' : 'false'}
+                    data-time={time}
+                    onClick={(event) => {
+                      event.stopPropagation()
+                      if (drag.current?.moved) return
+                      app.selectSite(site.id)
+                    }}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter' || event.key === ' ') app.selectSite(site.id)
+                    }}
+                    onMouseEnter={() => app.previewSite(site.id)}
+                    onMouseLeave={() => app.previewSite(null)}
+                  >
+                    <circle className="pin-hit" r={18} />
+                    <circle className="pin-ring-svg" r={14} />
+                    <circle className="pin-core-svg" r={8.5} />
+                  </g>
+                  <g aria-hidden="true" className={`pin-visual ${classes}`} style={{ pointerEvents: 'none' }}>
+                    <text className="pin-rank-svg" y={0.5}>
+                      {rank ?? '–'}
                     </text>
+                    <g className={`pin-label-group ${showLabels || rank === 1 ? 'visible' : ''}`}>
+                      <rect className="pin-label-bg" x={13} y={-9} width={Math.max(34, site.name.length * 3.4)} height={13} rx={3} />
+                      <text className="pin-label-svg" x={17} y={0.8}>
+                        {site.name}
+                      </text>
+                    </g>
                   </g>
                 </g>
               )
             })}
           </g>
+
+          {clusters && clusters.length > 0 && (
+            <g className="layer-clusters">
+              {clusters.map((cluster, index) => {
+                const worst = cluster.sites.some((site) => site.severity === 'red') ? 'red' : cluster.sites.some((site) => site.severity === 'orange') ? 'orange' : 'yellow'
+                return (
+                  <g
+                    key={`cluster-${index}`}
+                    transform={`translate(${cluster.x} ${cluster.y}) scale(${pinScale})`}
+                    className={`map-cluster sev-${worst}`}
+                    tabIndex={0}
+                    role="button"
+                    aria-label={`${cluster.sites.length} sites. Zoom in.`}
+                    onClick={(event) => {
+                      event.stopPropagation()
+                      setView((current) => ({
+                        cx: cluster.x,
+                        cy: cluster.y,
+                        zoom: Math.min(MAX_ZOOM, Math.max(current.zoom * 1.9, 2.1)),
+                      }))
+                    }}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter' || event.key === ' ') {
+                        setView((current) => ({ cx: cluster.x, cy: cluster.y, zoom: Math.min(MAX_ZOOM, Math.max(current.zoom * 1.9, 2.1)) }))
+                      }
+                    }}
+                  >
+                    <circle className="cluster-ring" r={17} />
+                    <circle className="cluster-core" r={13} />
+                    <text className="cluster-count" y={1}>{cluster.sites.length}</text>
+                  </g>
+                )
+              })}
+            </g>
+          )}
         </g>
       </svg>
 

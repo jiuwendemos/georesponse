@@ -1,0 +1,18 @@
+{
+  "src/components/AgentPanel.tsx|bespoke-button": 7,
+  "src/components/Analyst.tsx|bespoke-button": 7,
+  "src/components/Booth.tsx|bespoke-button": 10,
+  "src/components/CommandPalette.tsx|bespoke-button": 1,
+  "src/components/Dashboard.tsx|bespoke-button": 2,
+  "src/components/FieldOrder.tsx|bespoke-button": 3,
+  "src/components/MapView.tsx|bespoke-button": 5,
+  "src/components/Method.tsx|bespoke-button": 2,
+  "src/components/Report.tsx|bespoke-button": 4,
+  "src/components/SiteDetail.tsx|bespoke-button": 6,
+  "src/components/Stage.tsx|bespoke-button": 11,
+  "src/components/Stage.tsx|raw-colour": 5,
+  "src/components/StyleGuide.tsx|bespoke-button": 1,
+  "src/components/Watch.tsx|raw-colour": 2,
+  "src/components/Watch.tsx|bespoke-button": 33,
+  "src/components/WatchMap.tsx|bespoke-button": 2
+}

@@ -41,6 +41,18 @@ jobs:
           cache: npm
           cache-dependency-path: web/package-lock.json
       - run: npm ci
+      - run: npm run test
+      - run: npm run lint:design
       - run: npm run build
-      - run: npm test
       - run: npm run budget
+      - name: Install Playwright browser dependencies
+        run: npx playwright install --with-deps chromium
+      - name: End-to-end and axe
+        run: npm run e2e -- --project=chromium
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: web/playwright-report
+          retention-days: 7

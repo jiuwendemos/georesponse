@@ -1,0 +1,110 @@
+/*
+ * GeoResponse design tokens — the single source of truth.
+ *
+ * Every colour, type, space, radius, shadow and motion value lives here.
+ * Components consume custom properties; they never hard-code a raw value.
+ * Layer order is declared in index.css: tokens, base, components, utilities.
+ */
+
+@layer tokens {
+  :root {
+    /* colour — dark is the default surface */
+    --bg: #04101a;
+    --bg-2: #071821;
+    --panel: rgba(6, 20, 28, 0.9);
+    --panel-2: rgba(8, 27, 37, 0.94);
+    --panel-solid: #071821;
+    --ink: #e7f3f7;
+    --muted: #8ca3ad;
+    --soft: #5f7782;
+    --line: rgba(157, 201, 216, 0.14);
+    --line-strong: rgba(157, 201, 216, 0.26);
+
+    /* one accent; red/amber/green are semantic */
+    --cyan: #22d3ee;
+    --cyan-soft: #67e8f9;
+    --amber: #fbbf24;
+    --red: #fb7185;
+    --green: #4ade80;
+    --violet: #a78bfa;
+    --focus: #67e8f9;
+
+    /* type */
+    --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, "Cascadia Mono", "Roboto Mono", Menlo, Consolas, monospace;
+    --font-size-base: 14px;
+    --type-display: clamp(30px, 3.4vw, 44px);
+    --type-heading: clamp(20px, 2vw, 28px);
+    --type-title: 16px;
+    --type-body: 14px;
+    --type-label: 11px;
+    --type-min: 11px;
+
+    /* space — 4-point grid */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --space-7: 48px;
+
+    /* shape */
+    --radius-sm: 6px;
+    --radius: 12px;
+    --radius-lg: 18px;
+    --shadow: 0 22px 60px rgba(0, 0, 0, 0.45);
+
+    /* motion */
+    --motion-fast: 120ms;
+    --motion-normal: 220ms;
+    --motion-slow: 360ms;
+    --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+    /* layout */
+    --touch-target: 44px;
+    --content-max: 1480px;
+  }
+
+  :root[data-theme="light"] {
+    --bg: #eef2f4;
+    --bg-2: #f7fafb;
+    --panel: rgba(255, 255, 255, 0.9);
+    --panel-2: rgba(255, 255, 255, 0.97);
+    --panel-solid: #ffffff;
+    --ink: #0b1f2a;
+    --muted: #3f5965;
+    --soft: #667d88;
+    --line: rgba(11, 31, 42, 0.12);
+    --line-strong: rgba(11, 31, 42, 0.24);
+    --cyan: #0e7490;
+    --cyan-soft: #0e7490;
+    --amber: #b45309;
+    --red: #be123c;
+    --green: #15803d;
+    --violet: #6d28d9;
+    --shadow: 0 18px 48px rgba(15, 40, 50, 0.12);
+    --focus: #0e7490;
+  }
+
+  :root[data-theme="contrast"] {
+    --bg: #000000;
+    --bg-2: #000000;
+    --panel: #000000;
+    --panel-2: #000000;
+    --panel-solid: #000000;
+    --ink: #ffffff;
+    --muted: #ffffff;
+    --soft: #f5f5f5;
+    --line: #ffffff;
+    --line-strong: #ffffff;
+    --cyan: #ffe600;
+    --cyan-soft: #ffe600;
+    --amber: #ffb000;
+    --red: #ff4d4d;
+    --green: #00ff88;
+    --violet: #d8b4fe;
+    --shadow: none;
+    --focus: #ffe600;
+  }
+}

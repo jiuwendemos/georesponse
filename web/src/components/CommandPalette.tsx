@@ -118,7 +118,7 @@ export default function CommandPalette() {
 
   return (
     <div className="palette-backdrop" onMouseDown={ui.closePalette}>
-      <div className="palette" role="dialog" aria-modal="true" aria-label="Command palette" onMouseDown={(event) => event.stopPropagation()}>
+      <div className="palette" role="dialog" aria-modal="true" aria-label={prefs.t('palette.title')} onMouseDown={(event) => event.stopPropagation()}>
         <div className="palette-input-row">
           <Icon name="search" size={18} />
           <input
@@ -140,11 +140,11 @@ export default function CommandPalette() {
               }
             }}
             placeholder="Search actions, scopes, sites and alerts…"
-            aria-label="Search commands"
+            aria-label={prefs.t('palette.search')}
           />
           <Kbd>Esc</Kbd>
         </div>
-        <div className="palette-list" role="listbox" aria-label="Commands">
+        <div className="palette-list" role="listbox" aria-label={prefs.t('palette.commands')}>
           {grouped.map(([group, items]) => (
             <div className="palette-group" key={group}>
               <span className="palette-group-label">{group}</span>
@@ -168,7 +168,7 @@ export default function CommandPalette() {
               })}
             </div>
           ))}
-          {!filtered.length && <div className="palette-empty">No command matches “{query}”. Try “light mode”, “Watch” or “design system”.</div>}
+          {!filtered.length && <div className="palette-empty">{prefs.t('palette.empty')} “{query}”. Try “light mode”, “Watch” or “design system”.</div>}
         </div>
         <footer className="palette-foot">
           <span><Kbd>↑</Kbd><Kbd>↓</Kbd> navigate</span>

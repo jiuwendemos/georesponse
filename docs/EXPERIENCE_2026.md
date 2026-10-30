@@ -128,3 +128,26 @@ The checklist lives in **[ROADMAP.md Phase 5](ROADMAP.md#phase-5--2026-product-e
 
 Still open: the remaining visual migration, Storybook/visual regression, full German localization,
 user research and the rollout gates. The Phase 5 checkboxes remain the source of truth.
+
+
+## Second 2026 pass — verified
+
+| Check | Result |
+|---|---|
+| Tokens | Single source in `web/src/tokens.css`; `@layer tokens → base → components → utilities` |
+| Themes | System, light, dark, contrast; all token overrides |
+| Design system | In-product gallery with Foundations, Components, Patterns and Anatomy (states, keyboard, screen reader) |
+| Design lint | Ratchet with a 100-item baseline; new raw colour or bespoke button fails |
+| Map clustering | Pins cluster below 1.6× zoom; clicking a cluster flies to it |
+| Camera choreography | 460 ms interruptible transform; disabled by reduced motion |
+| Deep links | `#view=…&scenario=…`; browser back/forward restores the view |
+| Localisation | English and German shell, settings, palette, agent and app `lang` |
+| E2E | 8 Playwright checks: stage, palette, themes, density, German, deep link, map table, axe |
+| Accessibility | axe clean on stage and Watch, desktop and mobile |
+| Visual regression | Stage dark/light and command palette baselines |
+| Mobile | 390 px bottom navigation; map controls no longer collide with the layer panel |
+| Bundle | ~116 KB gzip initial; budget 250 KB |
+
+Still open and deliberately unchecked: the remaining screen-by-screen visual
+migration, every-component visual snapshots, full long-form German copy, user
+interviews, SUS/task-success baselines, benchmark studies and the launch gate.

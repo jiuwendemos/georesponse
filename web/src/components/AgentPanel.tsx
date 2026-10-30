@@ -328,18 +328,18 @@ export default function AgentPanel() {
 
   return (
     <div className="agent-scrim" onMouseDown={ui.closeAgent}>
-      <aside className="agent-panel" role="dialog" aria-modal="true" aria-label="GeoResponse agent" onMouseDown={(event) => event.stopPropagation()}>
+      <aside className="agent-panel" role="dialog" aria-modal="true" aria-label={prefs.t('agent.title')} onMouseDown={(event) => event.stopPropagation()}>
         <header className="agent-head">
           <div className="agent-title">
             <span className="agent-orb"><Icon name="spark" size={16} /></span>
-            <div><b>GeoResponse agent</b><small>{live ? `live model · ${liveModel || 'configured'}` : 'local tools · approval required'}</small></div>
+            <div><b>{prefs.t('agent.title')}</b><small>{live ? `live model · ${liveModel || 'configured'}` : 'local tools · approval required'}</small></div>
           </div>
           <button className="icon-btn" onClick={ui.closeAgent} aria-label="Close agent"><Icon name="close" size={16} /></button>
         </header>
         <div className="agent-grounding">
           <Badge tone="info">grounded</Badge>
           <span>Current scenario · Watch pack · audit</span>
-          <Badge tone={live ? 'success' : 'warn'}>{live ? 'live model' : 'local tools'}</Badge>
+          <Badge tone={live ? 'success' : 'warn'}>{live ? prefs.t('agent.live') : prefs.t('agent.local')}</Badge>
         </div>
         <div className="agent-log" ref={log} aria-live="polite">
           {messages.map((message) => (
@@ -395,7 +395,7 @@ export default function AgentPanel() {
           }}
         >
           <input value={input} onChange={(event) => setInput(event.target.value)} placeholder="Ask for a decision, filter or action…" aria-label="Ask GeoResponse" />
-          <button className="btn btn-primary" type="submit" disabled={!input.trim() || thinking}>Send</button>
+          <button className="btn btn-primary" type="submit" disabled={!input.trim() || thinking}>{prefs.t('agent.send')}</button>
         </form>
         <div className="agent-foot"><span><Kbd>⌘K</Kbd> command palette</span><span>No auto-approval · no auto-dispatch</span></div>
       </aside>

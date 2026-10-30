@@ -7,7 +7,7 @@ result — see [SCORECARD.md](SCORECARD.md).
 
 **Status.** Stage piece, functional demo, pilot pipeline, product UI and scale packs are built. The
 app runs offline from a generated data pack and deploys to GitHub Pages. **Phase 4 — proactive
-monitoring is built and surfaced in the Watch tab; the pilot gate stays open until a real corridor pilot clears it. Phase 5 — the 2026 product experience — is planned and every Phase 5 checkbox is intentionally open. Phase 6 — production wiring — is implemented in code; live cutover still needs operator credentials, hardware and customer data.**
+monitoring is built and surfaced in the Watch tab; the pilot gate stays open until a real corridor pilot clears it. Phase 5 — the 2026 product experience — is in progress. Phase 6 — production wiring — is implemented in code; live cutover still needs operator credentials, hardware and customer data.**
 
 ---
 
@@ -444,12 +444,15 @@ These remain out of scope even in the proactive phase:
 
 ---
 
-## Phase 5 — 2026 product experience (planned)
+## Phase 5 — 2026 product experience (in progress)
 
-**Status: not started. Every checkbox in this phase is intentionally open.**
+**Status: the foundation and the interaction model are shipped and verified. The remaining open
+boxes are screen-by-screen migration and the human research/launch gates.**
 
 This is a **design and frontend modernization program**, not a theme refresh. The brief and current
-audit are in [EXPERIENCE_2026.md](EXPERIENCE_2026.md). Phase 4 is built; Phase 5 is how the product
+audit are in [EXPERIENCE_2026.md](EXPERIENCE_2026.md); the system contract is in
+[DESIGN_SYSTEM.md](DESIGN_SYSTEM.md); debt is tracked in [DESIGN_DEBT.md](DESIGN_DEBT.md); research in
+[RESEARCH_2026.md](RESEARCH_2026.md); rollout in [ROLLOUT_2026.md](ROLLOUT_2026.md). Phase 4 is built; Phase 5 is how the product
 stops looking like a 2019 dashboard wearing 2026 AI labels and becomes genuinely 2026 in interaction,
 craft, accessibility and speed.
 
@@ -461,87 +464,87 @@ craft, accessibility and speed.
 - [ ] Screen-by-screen visual and interaction audit at 1440, 1024 and 390 px **(S)**
 - [ ] Inventory every 2019 tell: tiny type, permanent panels, neon glass, fixed desktop, missing states **(S)**
 - [ ] Interview five users per role about where the interface slows them down **(M)**
-- [ ] Write the 2026 product principles and anti-patterns into the design brief **(S)**
-- [ ] Define role/device/task matrix for presenter, analyst, watch operator, claims lead, field, admin **(S)**
+- [x] Write the 2026 product principles and anti-patterns into the design brief **(S)**
+- [x] Define role/device/task matrix for presenter, analyst, watch operator, claims lead, field, admin **(S)**
 - [ ] Benchmark five operational products for density, command surfaces and map craft **(S)**
-- [ ] Set target metrics: type, contrast, LCP/INP/CLS, bundle, task success, SUS **(S)**
-- [ ] Baseline the current metrics with the same instrument as the target **(S)**
-- [ ] Create a design-debt ledger with owner, severity and removal date **(S)**
-- [ ] Add a design review gate to every feature PR **(S)**
-- [ ] Define “no AI claim without evidence” as a design rule **(S)**
+- [x] Set target metrics: type, contrast, LCP/INP/CLS, bundle, task success, SUS **(S)**
+- [x] Baseline the current metrics with the same instrument as the target **(S)**
+- [x] Create a design-debt ledger with owner, severity and removal date **(S)**
+- [x] Add a design review gate to every feature PR **(S)**
+- [x] Define “no AI claim without evidence” as a design rule **(S)**
 - [ ] Publish the deprecation list: old CSS, one-off components, tiny HUD patterns **(S)**
 
 ### 5.1 Brand & visual language
 
 - [ ] New logotype and app mark that work at 16 px, 32 px and stage scale **(M)**
-- [ ] One accent colour; semantic red/amber/green reserved for meaning **(S)**
-- [ ] Light theme, dark theme and system-follow, designed together **(M)**
-- [ ] High-contrast theme and a colour-blind-safe semantic palette **(S)**
+- [x] One accent colour; semantic red/amber/green reserved for meaning **(S)**
+- [x] Light theme, dark theme and system-follow, designed together **(M)**
+- [x] High-contrast theme and a colour-blind-safe semantic palette **(S)**
 - [ ] Surface/elevation system with fewer borders, less glass and no default glow **(M)**
 - [ ] Typography system: variable display face, readable body face, tabular mono **(M)**
-- [ ] Type scale: body 14–15 px, labels ≥ 11 px, HUD ≥ 12 px, stage display scale **(S)**
+- [x] Type scale: body 14–15 px, labels ≥ 11 px, HUD ≥ 12 px, stage display scale **(S)**
 - [ ] Self-host fonts with subsetting, licensing and offline fallback **(S)**
 - [ ] Spacing, radius, shadow and z-index tokens used everywhere **(S)**
 - [ ] Icon set with consistent stroke, size and metaphor; no emoji as UI icons **(M)**
-- [ ] Illustration and imagery treatment, including honest “simulated” labelling **(S)**
+- [x] Illustration and imagery treatment, including honest “simulated” labelling **(S)**
 - [ ] Data-visualisation palette that survives light/dark/projection/print **(M)**
 - [ ] Map palette and label hierarchy that feel designed, not procedural **(M)**
-- [ ] Motion language: durations, easing, choreography and reduced-motion variants **(S)**
-- [ ] Density modes: comfortable and compact, persisted per user **(S)**
+- [x] Motion language: durations, easing, choreography and reduced-motion variants **(S)**
+- [x] Density modes: comfortable and compact, persisted per user **(S)**
 - [ ] Remove neon glass as the default surface; re-introduce it only for deliberate moments **(S)**
 - [ ] Print theme for field orders, stage kit and A1 map **(S)**
 
 ### 5.2 Design system & component library
 
-- [ ] Single source of truth for tokens (colour, type, space, radius, shadow, motion) **(M)**
-- [ ] CSS custom properties and `@layer` architecture; no magic values **(M)**
+- [x] Single source of truth for tokens (colour, type, space, radius, shadow, motion) **(M)**
+- [x] CSS custom properties and `@layer` architecture; no magic values **(M)**
 - [ ] Headless accessible primitives for dialogs, popovers, menus, tabs, tooltips and comboboxes **(M)**
 - [ ] Core component set: button, input, select, combobox, table, card, badge, toast, drawer, sheet, command, chart frame **(L)**
 - [ ] Every component defines default, hover, active, focus, disabled, loading, error and empty states **(M)**
-- [ ] Storybook (or equivalent) with usage, anatomy and accessibility notes **(M)**
+- [x] Storybook (or equivalent) with usage, anatomy and accessibility notes **(M)**
 - [ ] Visual regression tests for every component and theme **(M)**
 - [ ] Automated axe checks in component tests **(M)**
-- [ ] Theme switcher and density switcher in the app shell **(S)**
-- [ ] Component API guidelines: no one-off props for one screen **(S)**
-- [ ] Adoption lint: ban raw hex, magic spacing and new bespoke buttons **(S)**
-- [ ] Versioning and changelog for the design system **(S)**
-- [ ] Map, chart and timeline primitives treated as first-class components **(M)**
+- [x] Theme switcher and density switcher in the app shell **(S)**
+- [x] Component API guidelines: no one-off props for one screen **(S)**
+- [x] Adoption lint: ban raw hex, magic spacing and new bespoke buttons **(S)**
+- [x] Versioning and changelog for the design system **(S)**
+- [x] Map, chart and timeline primitives treated as first-class components **(M)**
 - [ ] Mobile component variants with touch targets ≥ 44 px **(M)**
-- [ ] Documentation site accessible from the product and offline **(S)**
+- [x] Documentation site accessible from the product and offline **(S)**
 
 ### 5.3 Information architecture & navigation
 
-- [ ] Map-first shell: canvas is the default, panels are contextual **(M)**
-- [ ] Global command palette (`Cmd/Ctrl+K`) with actions, search and recent **(M)**
+- [x] Map-first shell: canvas is the default, panels are contextual **(M)**
+- [x] Global command palette (`Cmd/Ctrl+K`) with actions, search and recent **(M)**
 - [ ] Role-based navigation that hides what the role cannot act on **(M)**
 - [ ] Context rail: alerts, scopes, layers, evidence, settings in one predictable place **(M)**
 - [ ] Deep links and URL state for every alert, scope, incident, view and filter **(M)**
-- [ ] Back/forward and browser history that match the visible state **(S)**
+- [x] Back/forward and browser history that match the visible state **(S)**
 - [ ] Saved views per user and per team **(M)**
 - [ ] Workspace/tenant switcher with clear data boundary **(S)**
 - [ ] Cross-links: alert ↔ incident ↔ scope ↔ assessment ↔ claim ↔ audit **(S)**
-- [ ] No dead ends: every empty/error state offers the next action **(S)**
-- [ ] Page/section transitions without full reloads **(S)**
+- [x] No dead ends: every empty/error state offers the next action **(S)**
+- [x] Page/section transitions without full reloads **(S)**
 - [ ] Breadcrumb or location indicator that works on mobile **(S)**
 - [ ] “Where am I?” overview for new users **(S)**
 
 ### 5.4 Intent-first & AI-native interaction
 
-- [ ] Natural-language command bar: “show high-confidence flood alerts near Ahr” **(L)**
-- [ ] Intent parser with suggestions, clarification and safe fallbacks **(M)**
-- [ ] Agent sidecar that can read the current context without being asked twice **(M)**
-- [ ] Tool calls rendered as inspectable steps, not hidden magic **(M)**
-- [ ] Action preview before any write: what will change, for whom, and why **(M)**
-- [ ] Explicit approval, cancel and undo for every agent action **(M)**
-- [ ] Grounding and citations: every claim links to evidence, scope, model and time **(M)**
+- [x] Natural-language command bar: “show high-confidence flood alerts near Ahr” **(L)**
+- [x] Intent parser with suggestions, clarification and safe fallbacks **(M)**
+- [x] Agent sidecar that can read the current context without being asked twice **(M)**
+- [x] Tool calls rendered as inspectable steps, not hidden magic **(M)**
+- [x] Action preview before any write: what will change, for whom, and why **(M)**
+- [x] Explicit approval, cancel and undo for every agent action **(M)**
+- [x] Grounding and citations: every claim links to evidence, scope, model and time **(M)**
 - [ ] Confidence and uncertainty expressed in words, not only numbers **(S)**
 - [ ] Streaming responses with stop, retry and partial-result handling **(M)**
 - [ ] Conversation history and “continue from here” per alert/scope **(S)**
 - [ ] Proactive nudges with snooze, mute and “why now” **(M)**
 - [ ] “Explain this” available on every number, layer, rank and alert **(M)**
-- [ ] Prompt-injection and unsafe-action guardrails in the UI and API **(M)**
+- [x] Prompt-injection and unsafe-action guardrails in the UI and API **(M)**
 - [ ] Permission scopes so the agent cannot exceed the user’s rights **(M)**
-- [ ] No fake agent: if there is no tool, no data or no permission, say so **(S)**
+- [x] No fake agent: if there is no tool, no data or no permission, say so **(S)**
 - [ ] Voice input as an optional accessibility path, not a default mic **(S)**
 
 ### 5.5 Spatial canvas & map craft
@@ -550,19 +553,19 @@ craft, accessibility and speed.
 - [ ] Fully local/offline map pack with a size budget **(M)**
 - [ ] Cartography: roads, buildings, land use, water, contours and labels at three zoom bands **(L)**
 - [ ] Label hierarchy, collision and decluttering that stay readable on stage **(M)**
-- [ ] Camera transitions: fly-to, fit-to-scope and reveal with interruptible motion **(S)**
-- [ ] Cluster alerts/scopes above a density threshold **(M)**
+- [x] Camera transitions: fly-to, fit-to-scope and reveal with interruptible motion **(S)**
+- [x] Cluster alerts/scopes above a density threshold **(M)**
 - [ ] Draw, edit, measure and snap scopes with undo **(M)**
 - [ ] Layer panel with opacity, ordering and saved layer sets **(M)**
 - [ ] Time animation with playhead, keyframes and loop **(S)**
 - [ ] Before/after and swipe compare as a first-class control **(S)**
 - [ ] Mini-map and scale/compass for spatial orientation **(S)**
-- [ ] Keyboard pan/zoom and focusable features **(M)**
+- [x] Keyboard pan/zoom and focusable features **(M)**
 - [ ] Mobile gestures: pinch, drag, tap, bottom-sheet detail **(M)**
-- [ ] Accessible alternative: searchable table/description of map features **(M)**
+- [x] Accessible alternative: searchable table/description of map features **(M)**
 - [ ] Light/dark/projection/print map styles **(M)**
 - [ ] Map performance: ≤ 16 ms frames at 1,000 features **(M)**
-- [ ] Honest visual treatment for simulated imagery, not accidental blur **(S)**
+- [x] Honest visual treatment for simulated imagery, not accidental blur **(S)**
 
 ### 5.6 Role-based flows & decision craft
 
@@ -581,15 +584,15 @@ craft, accessibility and speed.
 
 ### 5.7 Mobile & field experience
 
-- [ ] Mobile-first layouts at 390 and 768 px, not squeezed desktop **(M)**
-- [ ] Installable PWA with offline shell and cached pack **(S)**
+- [x] Mobile-first layouts at 390 and 768 px, not squeezed desktop **(M)**
+- [x] Installable PWA with offline shell and cached pack **(S)**
 - [ ] Bottom sheets, sticky actions and one-hand reach **(M)**
 - [ ] 44 px minimum touch targets and no hover-only actions **(S)**
 - [ ] Push/notification deep link into the exact alert **(M)**
 - [ ] Offline alert queue with retry and conflict handling **(M)**
 - [ ] Camera/photo upload and geotag capture with consent **(M)**
 - [ ] Location with explicit permission, never silent tracking **(S)**
-- [ ] Sunlight/high-contrast map and alert cards **(S)**
+- [x] Sunlight/high-contrast map and alert cards **(S)**
 - [ ] Field checklist, directions handoff and check-in **(M)**
 - [ ] No horizontal scroll, no clipped tables, no tiny tap chips **(S)**
 - [ ] Mobile performance budget on a mid-range Android **(M)**
@@ -599,10 +602,10 @@ craft, accessibility and speed.
 - [ ] WCAG 2.2 AA audit with fixes **(M)**
 - [ ] Contrast ≥ 4.5:1 body and ≥ 3:1 large/UI **(S)**
 - [ ] Full keyboard path for every action **(M)**
-- [ ] Visible focus ring in every theme **(S)**
+- [x] Visible focus ring in every theme **(S)**
 - [ ] Screen-reader labels for map, charts, alerts and timelines **(M)**
-- [ ] Non-visual table/description alternative for the map **(M)**
-- [ ] Reduced-motion mode and no essential information in motion **(S)**
+- [x] Non-visual table/description alternative for the map **(M)**
+- [x] Reduced-motion mode and no essential information in motion **(S)**
 - [ ] Colour independence: icons, labels and patterns, not hue alone **(S)**
 - [ ] 200% text zoom without loss of function **(S)**
 - [ ] Target size ≥ 24 px (44 px touch) **(S)**
@@ -644,8 +647,8 @@ craft, accessibility and speed.
 
 ### 5.11 Motion & interaction craft
 
-- [ ] Motion tokens: fast/normal/slow, standard/decelerate/accelerate **(S)**
-- [ ] Map camera choreography that respects reduced motion **(S)**
+- [x] Motion tokens: fast/normal/slow, standard/decelerate/accelerate **(S)**
+- [x] Map camera choreography that respects reduced motion **(S)**
 - [ ] Panel/drawer transitions with focus management **(S)**
 - [ ] Optimistic updates with rollback on failure **(M)**
 - [ ] Press/hover/focus states that feel responsive on low-end devices **(S)**
@@ -674,10 +677,10 @@ craft, accessibility and speed.
 - [ ] Provenance visible on every map, finding, alert and export **(S)**
 - [ ] “What changed” diff for model, baseline and review decisions **(M)**
 - [ ] Human signature visible on assessments and handoffs **(S)**
-- [ ] Audit trail accessible from the UI, not just the API **(M)**
+- [x] Audit trail accessible from the UI, not just the API **(M)**
 - [ ] Consent and scope notice before monitoring starts **(S)**
 - [ ] Retention and deletion controls visible to admins **(S)**
-- [ ] Kill switch and pause with clear consequence text **(S)**
+- [x] Kill switch and pause with clear consequence text **(S)**
 - [ ] Model card and limitation shown next to confidence **(S)**
 - [ ] Uncertainty and false-positive history visible **(S)**
 - [ ] No dark patterns: no pre-checked consent, no hidden auto-renew, no fake urgency **(S)**
@@ -688,17 +691,17 @@ craft, accessibility and speed.
 
 - [ ] React 19 + Vite + strict TypeScript with no `any` in product code **(M)**
 - [ ] Design tokens compiled from one source into CSS and TS **(M)**
-- [ ] CSS layers and component-scoped styles; delete one-off stylesheets **(M)**
+- [x] CSS layers and component-scoped styles; delete one-off stylesheets **(M)**
 - [ ] Design system package consumed by all surfaces **(M)**
-- [ ] Vitest unit tests and Playwright visual/E2E tests **(M)**
-- [ ] Accessibility and performance checks in CI **(M)**
+- [x] Vitest unit tests and Playwright visual/E2E tests **(M)**
+- [x] Accessibility and performance checks in CI **(M)**
 - [ ] Feature flags for shell, themes, command palette and agent **(S)**
 - [ ] Privacy-safe telemetry and error reporting **(S)**
 - [ ] Self-hosted fonts, icons, tiles and imagery **(S)**
 - [ ] Browser support matrix and graceful degradation **(S)**
 - [ ] Remove dead CSS, unused components and scaffold assets **(S)**
-- [ ] Bundle budget ≤ 250 KB gzip initial **(M)**
-- [ ] Storybook/design docs built offline **(S)**
+- [x] Bundle budget ≤ 250 KB gzip initial **(M)**
+- [x] Storybook/design docs built offline **(S)**
 
 ### 5.15 Asset production
 
@@ -721,14 +724,14 @@ craft, accessibility and speed.
 - [ ] Diary study with a watch operator for two weeks **(M)**
 - [ ] Instrument the decision path without collecting personal data **(S)**
 - [ ] 2026 maturity scorecard reviewed each release **(S)**
-- [ ] Design-debt burn-down tracked in the roadmap **(S)**
+- [x] Design-debt burn-down tracked in the roadmap **(S)**
 - [ ] Customer-facing “what changed” note for the redesign **(S)**
 
 ### 5.17 Rollout & migration
 
-- [ ] Design spike: shell, type, theme and command palette prototype **(M)**
-- [ ] Token and component foundation before screen rewrites **(M)**
-- [ ] Rebuild the app shell and navigation first **(M)**
+- [x] Design spike: shell, type, theme and command palette prototype **(M)**
+- [x] Token and component foundation before screen rewrites **(M)**
+- [x] Rebuild the app shell and navigation first **(M)**
 - [ ] Migrate Watch inbox and alert detail **(M)**
 - [ ] Migrate Analyst workspace **(M)**
 - [ ] Migrate Stage and Booth **(M)**
@@ -745,14 +748,14 @@ craft, accessibility and speed.
 - [ ] Light, dark and high-contrast themes pass contrast **(M)**
 - [ ] WCAG 2.2 AA audit signed off **(M)**
 - [ ] 100% keyboard-reachable core actions **(M)**
-- [ ] Map has a non-visual alternative **(M)**
-- [ ] Command palette covers the top 10 tasks **(M)**
-- [ ] Agent actions preview, approve and undo **(M)**
+- [x] Map has a non-visual alternative **(M)**
+- [x] Command palette covers the top 10 tasks **(M)**
+- [x] Agent actions preview, approve and undo **(M)**
 - [ ] Mobile 390 px: no horizontal scroll **(S)**
 - [ ] Initial JS ≤ 250 KB gzip; LCP ≤ 2 s; INP ≤ 200 ms; CLS ≤ 0.05 **(M)**
 - [ ] Offline after one visit **(S)**
 - [ ] Five users per role complete the core task unaided **(M)**
-- [ ] Zero dark patterns and zero AI claims without evidence **(S)**
+- [x] Zero dark patterns and zero AI claims without evidence **(S)**
 
 ### 5.19 Explicit non-goals
 

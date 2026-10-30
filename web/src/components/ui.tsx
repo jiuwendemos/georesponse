@@ -249,7 +249,7 @@ export function TopBar() {
         </button>
       </nav>
 
-      <button className="command-trigger" onClick={ui.openPalette} aria-label={prefs.t('action.search')}>
+      <button className="command-trigger" onClick={ui.openPalette}>
         <Icon name="search" size={14} />
         <span>{prefs.t('action.search')}</span>
         <Kbd>⌘K</Kbd>
@@ -266,7 +266,7 @@ export function TopBar() {
         <IconButton label={`${prefs.t('action.theme')}: ${prefs.theme}`} onClick={prefs.cycleTheme}>
           <Icon name={prefs.resolvedTheme === 'dark' ? 'moon' : prefs.resolvedTheme === 'light' ? 'sun' : 'sliders'} size={16} />
         </IconButton>
-        <IconButton label="Settings" onClick={ui.openSettings}><Icon name="sliders" size={16} /></IconButton>
+        <IconButton label={prefs.t('action.settings')} onClick={ui.openSettings}><Icon name="sliders" size={16} /></IconButton>
         <a className="icon-btn" href="https://github.com/jiuwendemos/georesponse" target="_blank" rel="noreferrer" title="GitHub"><Icon name="github" size={16} /></a>
       </div>
     </header>
@@ -293,7 +293,7 @@ export function MobileNav() {
       ))}
       <button className="mobile-nav-item" onClick={ui.openPalette}>
         <Icon name="command" size={18} />
-        <span>More</span>
+        <span>{prefs.t('mobile.more')}</span>
       </button>
     </nav>
   )
