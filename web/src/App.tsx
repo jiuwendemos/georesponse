@@ -11,6 +11,7 @@ import AgentPanel from './components/AgentPanel'
 import StyleGuide from './components/StyleGuide'
 import SettingsPanel from './components/SettingsPanel'
 import { Spinner } from './components/ds'
+import { ErrorBoundary, OfflineBanner } from './components/Resilience'
 import { pct } from './lib/format'
 
 const Analyst = lazy(() => import('./components/Analyst'))
@@ -128,15 +129,18 @@ function Shell() {
     <div className={`app app-${app.mode}`} lang={prefs.language}>
       <a className="skip-link" href="#main-content">Skip to main content</a>
       <TopBar />
+      <OfflineBanner />
       <main id="main-content" className="app-main" tabIndex={-1} role="main">
-        <Suspense fallback={<div className="page-state"><Spinner label="Loading workspace" /> Loading workspace…</div>}>
-          {app.mode === 'stage' && <Stage />}
-          {app.mode === 'watch' && <Watch />}
-          {app.mode === 'analyst' && <Analyst />}
-          {app.mode === 'dashboard' && <Dashboard />}
-          {app.mode === 'method' && <Method />}
-          {app.mode === 'booth' && <Booth />}
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense fallback={<div className="page-state"><Spinner label="Loading workspace" /> Loading workspace…</div>}>
+            {app.mode === 'stage' && <Stage />}
+            {app.mode === 'watch' && <Watch />}
+            {app.mode === 'analyst' && <Analyst />}
+            {app.mode === 'dashboard' && <Dashboard />}
+            {app.mode === 'method' && <Method />}
+            {app.mode === 'booth' && <Booth />}
+          </Suspense>
+        </ErrorBoundary>
       </main>
       <MobileNav />
       <Report />

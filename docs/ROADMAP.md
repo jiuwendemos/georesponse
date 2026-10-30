@@ -609,8 +609,8 @@ craft, accessibility and speed.
 - [ ] Colour independence: icons, labels and patterns, not hue alone **(S)**
 - [ ] 200% text zoom without loss of function **(S)**
 - [ ] Target size ≥ 24 px (44 px touch) **(S)**
-- [ ] Form errors: inline, programmatic and recoverable **(S)**
-- [ ] Live regions for alerts, async results and agent streaming **(S)**
+- [x] Form errors: inline, programmatic and recoverable **(S)**
+- [x] Live regions for alerts, async results and agent streaming **(S)**
 - [ ] Localization: English + German, RTL-ready layout **(M)**
 - [ ] Plain-language review of critical copy **(S)**
 - [ ] Accessibility statement and feedback channel **(S)**
@@ -623,9 +623,9 @@ craft, accessibility and speed.
 - [ ] Virtualized alert/scope lists at 10k items **(M)**
 - [ ] Memoization and render profiling for the map and inbox **(M)**
 - [ ] Skeletons that match final layout; no layout shift **(S)**
-- [ ] Error boundaries with retry and a diagnostic ID **(S)**
+- [x] Error boundaries with retry and a diagnostic ID **(S)**
 - [ ] Partial-failure UI: map works when data is stale **(S)**
-- [ ] Offline detection with a clear, recoverable banner **(S)**
+- [x] Offline detection with a clear, recoverable banner **(S)**
 - [ ] Privacy-safe telemetry for slow paths and errors **(S)**
 - [ ] Low-end device and battery test **(M)**
 - [ ] Load test the UI at 1,000 scopes / 10,000 alerts **(M)**
@@ -635,7 +635,7 @@ craft, accessibility and speed.
 
 - [ ] One chart system with shared scales, axes, legends and tooltips **(M)**
 - [ ] Uncertainty and confidence shown as intervals, not just decimals **(M)**
-- [ ] Tabular numerals everywhere for scanability **(S)**
+- [x] Tabular numerals everywhere for scanability **(S)**
 - [ ] Linked brushing between map, list, timeline and chart **(M)**
 - [x] Accessible data tables for every chart **(M)**
 - [ ] Annotations for events, thresholds and reviews **(S)**
@@ -751,7 +751,7 @@ craft, accessibility and speed.
 - [x] Map has a non-visual alternative **(M)**
 - [x] Command palette covers the top 10 tasks **(M)**
 - [x] Agent actions preview, approve and undo **(M)**
-- [ ] Mobile 390 px: no horizontal scroll **(S)**
+- [x] Mobile 390 px: no horizontal scroll **(S)**
 - [ ] Initial JS ≤ 250 KB gzip; LCP ≤ 2 s; INP ≤ 200 ms; CLS ≤ 0.05 **(M)**
 - [ ] Offline after one visit **(S)**
 - [ ] Five users per role complete the core task unaided **(M)**

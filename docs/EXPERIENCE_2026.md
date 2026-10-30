@@ -142,7 +142,7 @@ user research and the rollout gates. The Phase 5 checkboxes remain the source of
 | Camera choreography | 460 ms interruptible transform; disabled by reduced motion |
 | Deep links | `#view=…&scenario=…`; browser back/forward restores the view |
 | Localisation | English and German shell, settings, palette, agent and app `lang` |
-| E2E | 8 Playwright checks: stage, palette, themes, density, German, deep link, map table, axe |
+| E2E | 10 Playwright checks: stage, palette, themes, density, German, deep link, map table, Pilot, axe, no horizontal scroll |
 | Accessibility | axe clean on stage and Watch, desktop and mobile |
 | Visual regression | Stage dark/light and command palette baselines |
 | Mobile | 390 px bottom navigation; map controls no longer collide with the layer panel |

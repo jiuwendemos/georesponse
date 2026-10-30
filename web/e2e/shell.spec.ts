@@ -78,4 +78,17 @@ test.describe('shell', () => {
     await expect(page.locator('.watch-page')).toBeVisible()
     await expectNoSeriousViolations(page)
   })
+
+  test('has no serious accessibility violations in Pilot', async ({ page }) => {
+    await page.getByRole('button', { name: 'Pilot' }).click()
+    await expect(page.getByRole('main')).toBeVisible()
+    await expectNoSeriousViolations(page)
+  })
+
+  test('never scrolls horizontally', async ({ page }) => {
+    await page.getByRole('button', { name: 'Watch' }).click()
+    await expect(page.locator('.watch-page')).toBeVisible()
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)
+    expect(overflow).toBeLessThanOrEqual(1)
+  })
 })
