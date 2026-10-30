@@ -90,6 +90,15 @@ test.describe('shell', () => {
     await expectNoSeriousViolations(page)
   })
 
+  test('role selection hides surfaces it cannot act on', async ({ page }) => {
+    await page.getByRole('button', { name: 'Settings' }).click()
+    const dialog = page.getByRole('dialog', { name: 'Settings' })
+    await dialog.getByRole('radio', { name: 'Presenter' }).click()
+    await dialog.getByRole('button', { name: 'Close' }).last().click()
+    await expect(page.locator('nav.nav')).not.toContainText('Watch')
+    await expect(page.locator('nav.nav')).toContainText('Booth')
+  })
+
   test('never scrolls horizontally', async ({ page }) => {
     await page.getByRole('button', { name: 'Watch' }).click()
     await expect(page.locator('.watch-page')).toBeVisible()

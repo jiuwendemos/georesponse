@@ -516,7 +516,7 @@ craft, accessibility and speed.
 
 - [x] Map-first shell: canvas is the default, panels are contextual **(M)**
 - [x] Global command palette (`Cmd/Ctrl+K`) with actions, search and recent **(M)**
-- [ ] Role-based navigation that hides what the role cannot act on **(M)**
+- [x] Role-based navigation that hides what the role cannot act on **(M)**
 - [ ] Context rail: alerts, scopes, layers, evidence, settings in one predictable place **(M)**
 - [ ] Deep links and URL state for every alert, scope, incident, view and filter **(M)**
 - [x] Back/forward and browser history that match the visible state **(S)**

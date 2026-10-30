@@ -61,6 +61,22 @@ export default function SettingsPanel() {
             ]}
           />
         </Field>
+        <Field label={t('settings.role')} hint={t('settings.roleHint')}>
+          <Segmented
+            value={prefs.role}
+            label={t('settings.role')}
+            onChange={prefs.setRole}
+            options={[
+              { value: 'all', label: t('role.all') },
+              { value: 'presenter', label: t('role.presenter') },
+              { value: 'analyst', label: t('role.analyst') },
+              { value: 'watch', label: t('role.watch') },
+              { value: 'claims', label: t('role.claims') },
+              { value: 'field', label: t('role.field') },
+              { value: 'admin', label: t('role.admin') },
+            ]}
+          />
+        </Field>
         <Field label={t('settings.profile')} hint={t('settings.profileHint')}>
           <TextInput defaultValue="A. Weber" />
         </Field>

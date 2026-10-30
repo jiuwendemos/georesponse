@@ -1,6 +1,6 @@
 import { useEffect, useRef, type ReactNode } from 'react'
 import { useApp } from '../store'
-import { usePrefs } from '../prefs'
+import { allowedViews, usePrefs } from '../prefs'
 import { useUi } from '../ui-context'
 import { IconButton, Kbd } from './ds'
 import { cx } from '../lib/format'
@@ -229,6 +229,7 @@ export function TopBar() {
     { id: 'dashboard', label: 'nav.pilot', icon: 'chart' },
     { id: 'method', label: 'nav.method', icon: 'book' },
   ] as const
+  const allowed = allowedViews(prefs.role)
   return (
     <header className="topbar">
       <button className="brand" onClick={() => setMode('stage')} title="GeoResponse">
@@ -237,16 +238,18 @@ export function TopBar() {
       </button>
 
       <nav className="nav" aria-label="Primary">
-        {tabs.map((tab) => (
+        {tabs.filter((tab) => allowed.has(tab.id)).map((tab) => (
           <button key={tab.id} className={cx('nav-tab', mode === tab.id && 'active')} onClick={() => setMode(tab.id)} aria-label={prefs.t(tab.label)}>
             <Icon name={tab.icon} size={14} />
             <span>{prefs.t(tab.label)}</span>
           </button>
         ))}
-        <button className={cx('nav-tab', mode === 'booth' && 'active')} onClick={() => setMode('booth')} aria-label={prefs.t('nav.booth')}>
-          <Icon name="vote" size={14} />
-          <span>{prefs.t('nav.booth')}</span>
-        </button>
+        {allowed.has('booth') && (
+          <button className={cx('nav-tab', mode === 'booth' && 'active')} onClick={() => setMode('booth')} aria-label={prefs.t('nav.booth')}>
+            <Icon name="vote" size={14} />
+            <span>{prefs.t('nav.booth')}</span>
+          </button>
+        )}
       </nav>
 
       <button className="command-trigger" onClick={ui.openPalette}>
@@ -285,7 +288,7 @@ export function MobileNav() {
   ] as const
   return (
     <nav className="mobile-nav" aria-label="Mobile primary">
-      {items.map((item) => (
+      {items.filter((item) => allowedViews(prefs.role).has(item.id)).map((item) => (
         <button key={item.id} className={cx('mobile-nav-item', mode === item.id && 'active')} onClick={() => setMode(item.id)} aria-label={prefs.t(item.label)}>
           <Icon name={item.icon} size={18} />
           <span>{prefs.t(item.label)}</span>

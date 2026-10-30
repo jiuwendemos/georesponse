@@ -4,12 +4,14 @@ import { setFormatLocale } from './lib/format'
 export type ThemePref = 'system' | 'light' | 'dark' | 'contrast'
 export type Density = 'comfortable' | 'compact'
 export type Language = 'en' | 'de'
+export type Role = 'all' | 'presenter' | 'analyst' | 'watch' | 'claims' | 'field' | 'admin'
 
 interface PrefsState {
   theme: ThemePref
   density: Density
   motion: boolean
   language: Language
+  role: Role
 }
 
 interface PrefsContextValue extends PrefsState {
@@ -19,16 +21,34 @@ interface PrefsContextValue extends PrefsState {
   setDensity: (density: Density) => void
   setMotion: (motion: boolean) => void
   setLanguage: (language: Language) => void
+  setRole: (role: Role) => void
   t: (key: string) => string
 }
 
 const KEY = 'georesponse.prefs.v2'
+
+export function allowedViews(role: Role): Set<string> {
+  switch (role) {
+    case 'presenter':
+      return new Set(['stage', 'booth'])
+    case 'analyst':
+      return new Set(['stage', 'analyst', 'dashboard', 'method'])
+    case 'watch':
+    case 'claims':
+      return new Set(['stage', 'watch', 'dashboard', 'method'])
+    case 'field':
+      return new Set(['stage', 'analyst', 'method'])
+    default:
+      return new Set(['stage', 'watch', 'analyst', 'dashboard', 'method', 'booth'])
+  }
+}
 
 const DEFAULTS: PrefsState = {
   theme: 'system',
   density: 'comfortable',
   motion: true,
   language: 'en',
+  role: 'all',
 }
 
 const DICT: Record<Language, Record<string, string>> = {
@@ -89,6 +109,15 @@ const DICT: Record<Language, Record<string, string>> = {
     'agent.send': 'Send',
     'common.close': 'Close',
     'common.retry': 'Retry',
+    'settings.role': 'Role',
+    'settings.roleHint': 'Hides surfaces this role cannot act on. Data access is enforced by the API, not the UI.',
+    'role.all': 'All surfaces',
+    'role.presenter': 'Presenter',
+    'role.analyst': 'Analyst',
+    'role.watch': 'Watch operator',
+    'role.claims': 'Claims lead',
+    'role.field': 'Field responder',
+    'role.admin': 'Admin',
   },
   de: {
     'nav.stage': 'Bühne',
@@ -147,6 +176,15 @@ const DICT: Record<Language, Record<string, string>> = {
     'agent.send': 'Senden',
     'common.close': 'Schließen',
     'common.retry': 'Erneut versuchen',
+    'settings.role': 'Rolle',
+    'settings.roleHint': 'Blendet Oberflächen aus, auf denen diese Rolle nicht handeln kann. Der Datenzugriff wird in der API erzwungen, nicht in der Oberfläche.',
+    'role.all': 'Alle Oberflächen',
+    'role.presenter': 'Präsentation',
+    'role.analyst': 'Analyse',
+    'role.watch': 'Überwachung',
+    'role.claims': 'Schadenleitung',
+    'role.field': 'Feld',
+    'role.admin': 'Administration',
   },
 }
 
@@ -158,6 +196,7 @@ function loadPrefs(): PrefsState {
       density: parsed.density === 'compact' ? 'compact' : 'comfortable',
       motion: parsed.motion !== false,
       language: parsed.language === 'de' ? 'de' : 'en',
+      role: (['all', 'presenter', 'analyst', 'watch', 'claims', 'field', 'admin'] as const).includes(parsed.role as never) ? (parsed.role as Role) : 'all',
     }
   } catch {
     return DEFAULTS
@@ -191,6 +230,7 @@ export function PrefsProvider({ children }: { children: ReactNode }) {
     root.dataset.motion = prefs.motion ? 'on' : 'off'
     root.dataset.language = prefs.language
     root.lang = prefs.language
+    root.dataset.role = prefs.role
     setFormatLocale(prefs.language)
     root.style.colorScheme = resolvedTheme === 'light' ? 'light' : 'dark'
     try {
@@ -213,6 +253,7 @@ export function PrefsProvider({ children }: { children: ReactNode }) {
       setDensity: (density) => setPrefs((current) => ({ ...current, density })),
       setMotion: (motion) => setPrefs((current) => ({ ...current, motion })),
       setLanguage: (language) => setPrefs((current) => ({ ...current, language })),
+      setRole: (role) => setPrefs((current) => ({ ...current, role })),
       t: (key) => DICT[prefs.language][key] ?? DICT.en[key] ?? key,
     }),
     [prefs, resolvedTheme],

@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useRef } from 'react'
 import { AppProvider, useApp } from './store'
-import { PrefsProvider, usePrefs } from './prefs'
+import { allowedViews, PrefsProvider, usePrefs } from './prefs'
 import { UiProvider, useUi } from './ui-context'
 import { Icon, Modal, MobileNav, Toast, TopBar } from './components/ui'
 import Stage from './components/Stage'
@@ -66,6 +66,10 @@ function Shell() {
   const ui = useUi()
   const prefs = usePrefs()
   const go = useRef<string | null>(null)
+
+  useEffect(() => {
+    if (!allowedViews(prefs.role).has(app.mode)) app.setMode('stage')
+  }, [prefs.role, app])
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
