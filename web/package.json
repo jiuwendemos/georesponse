@@ -10,12 +10,13 @@
     "preview": "vite preview",
     "budget": "node scripts/check-budget.mjs",
     "test": "vitest run",
-    "e2e": "playwright test e2e/shell.spec.ts",
+    "e2e": "playwright test e2e/shell.spec.ts --project=chromium",
     "e2e:visual": "playwright test e2e/visual.spec.ts",
     "e2e:update": "playwright test e2e/visual.spec.ts --update-snapshots",
     "verify": "npm run test && npm run lint:design && npm run build && npm run budget && npm run e2e -- --project=chromium",
     "lint:design": "node scripts/lint-design.mjs",
-    "lint:design:update": "node scripts/lint-design.mjs --update"
+    "lint:design:update": "node scripts/lint-design.mjs --update",
+    "e2e:all": "playwright test e2e/shell.spec.ts"
   },
   "dependencies": {
     "jspdf": "^4.2.1",

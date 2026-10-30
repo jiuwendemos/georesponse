@@ -32,6 +32,7 @@ jobs:
 
   web:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     defaults:
       run:
         working-directory: web
@@ -50,7 +51,7 @@ jobs:
       - name: Install Playwright browser dependencies
         run: npx playwright install --with-deps chromium
       - name: End-to-end and axe
-        run: npm run e2e -- --project=chromium
+        run: npm run e2e
       - name: Upload Playwright report
         if: failure()
         uses: actions/upload-artifact@v4
