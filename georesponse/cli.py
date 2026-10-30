@@ -112,16 +112,17 @@ def cmd_agent(args: argparse.Namespace) -> int:
     import asyncio
 
     from .proactive.api import engine
-    from .production.agent import LiveAgent, AgentUnavailable
+    from .production.agent import AgentUnavailable
+    from .production.agent_backend import select
     from .production.config import get_settings
-    from .production.openjiuwen_runtime import OpenJiuwenAgent
+    from .production.openjiuwen_runtime import OpenJiuwenUnavailable
 
-    settings = get_settings()
-    backend = OpenJiuwenAgent(engine, settings) if settings.llm.backend == "openjiuwen" else LiveAgent(engine, settings)
+    backend, resolved = select(engine, get_settings())
     try:
         result = asyncio.run(backend.chat(args.message, tenant=args.tenant))
-    except AgentUnavailable as exc:
-        print(json.dumps({"error": str(exc)}))
+        result["resolvedBackend"] = resolved
+    except (AgentUnavailable, OpenJiuwenUnavailable) as exc:
+        print(json.dumps({"error": str(exc), "resolvedBackend": resolved}))
         return 1
     print(json.dumps(result, indent=2, default=str))
     return 0

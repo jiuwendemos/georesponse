@@ -1170,13 +1170,13 @@ No silent demo fallback is ever allowed.
 - [ ] Make openjiuwen the default deployed backend **(M)**
 - [ ] Pin and vendor the openjiuwen version in the image **(M)**
 - [ ] CI job that exercises openjiuwen in the jiuwenswarm venv **(M)**
-- [ ] Startup health check that fails loudly when openjiuwen is missing **(S)**
-- [ ] Map every GeoResponse tool to an openjiuwen `@tool` with schema **(M)**
-- [ ] Render openjiuwen streaming callbacks in the UI **(M)**
-- [ ] Agent memory/state across turns per alert and scope **(M)**
+- [x] Startup health check that fails loudly when openjiuwen is missing **(S)**
+- [x] Map every GeoResponse tool to an openjiuwen `@tool` with schema **(M)**
+- [x] Render openjiuwen streaming callbacks in the UI **(M)**
+- [x] Agent memory/state across turns per alert and scope **(M)**
 - [ ] openjiuwen trace and telemetry export **(S)**
 - [x] Guardrail tests for injection and unsafe actions **(M)**
-- [ ] Documented fallback with an explicit UI badge **(S)**
+- [x] Documented fallback with an explicit UI badge **(S)**
 - [ ] openjiuwen version upgrade policy **(S)**
 - [ ] Parity test: openjiuwen and OpenAI-compatible produce equivalent tool traces **(M)**
 

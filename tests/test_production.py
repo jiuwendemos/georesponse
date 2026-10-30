@@ -289,3 +289,43 @@ def test_agent_receives_ui_context():
     assert "ALT-1001" in system
     assert "watch" in system
     store.close()
+
+
+def test_backend_selection_openai():
+    from georesponse.proactive.store import ProactiveStore
+    from georesponse.proactive.demo import seed_demo
+    from georesponse.proactive.engine import ProactiveEngine
+    from georesponse.production.agent_backend import select
+    from georesponse.production.config import LLMSettings
+
+    store = ProactiveStore(":memory:")
+    seed_demo(store)
+    backend, resolved = select(ProactiveEngine(store), Settings(llm=LLMSettings(backend="openai", api_key="x", model="m")))
+    assert resolved == "openai"
+    assert backend.__class__.__name__ == "LiveAgent"
+    store.close()
+
+
+def test_direct_stream_yields_start_and_done():
+    import asyncio
+    from georesponse.proactive.store import ProactiveStore
+    from georesponse.proactive.demo import seed_demo
+    from georesponse.proactive.engine import ProactiveEngine
+    from georesponse.production.config import LLMSettings
+
+    def handler(_request: httpx.Request) -> httpx.Response:
+        return httpx.Response(200, json={"choices": [{"message": {"role": "assistant", "content": "hello"}}]})
+
+    store = ProactiveStore(":memory:")
+    seed_demo(store)
+    settings = Settings(llm=LLMSettings(api_key="x", model="m", base_url="https://llm.test/v1"))
+    agent = LiveAgent(ProactiveEngine(store), settings, transport=httpx.MockTransport(handler))
+
+    async def collect():
+        return [event async for event in agent.stream("hi", tenant="demo")]
+
+    events = asyncio.run(collect())
+    assert events[0]["type"] == "start"
+    assert events[-1]["type"] == "done"
+    assert events[-1]["answer"] == "hello"
+    store.close()

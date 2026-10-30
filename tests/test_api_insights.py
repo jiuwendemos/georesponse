@@ -117,3 +117,16 @@ def test_agent_origin_action_requires_approved_proposal():
     undone = client.post(f"/api/watch/proposals/{proposal.id}/undo", json={"actor": "analyst"})
     assert undone.status_code == 200
     assert undone.json()["status"] == "undone"
+
+
+def test_new_proposal_is_pending():
+    from georesponse.proactive.demo import seed_demo
+    from georesponse.proactive.proposals import ProposalStore
+
+    local = ProactiveStore(":memory:")
+    seed_demo(local)
+    alert = local.list_alerts("demo", limit=1)[0]
+    store = ProposalStore(local)
+    proposal = store.create(tenant="demo", alert_id=alert.id, action="handoff", payload={"target": "assessment"})
+    assert [item.id for item in store.pending("demo")] == [proposal.id]
+    local.close()

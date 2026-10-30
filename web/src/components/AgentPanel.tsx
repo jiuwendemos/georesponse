@@ -50,6 +50,7 @@ export default function AgentPanel() {
   const [proactive, setProactive] = useState<ProactiveData | null>(null)
   const [live, setLive] = useState<boolean | null>(null)
   const [liveModel, setLiveModel] = useState<string>('')
+  const [liveBackend, setLiveBackend] = useState<string>('')
   const timer = useRef<number | null>(null)
   const liveRef = useRef(false)
   const lastSeed = useRef('')
@@ -67,6 +68,7 @@ export default function AgentPanel() {
       .then((health) => {
         setLive(Boolean(health?.configured))
         setLiveModel(String(health?.model ?? ''))
+        setLiveBackend(String(health?.backend ?? ''))
       })
       .catch(() => setLive(false))
   }, [ui.agentOpen])
@@ -88,7 +90,127 @@ export default function AgentPanel() {
     ui.closeAgent()
   }
 
-  const push = (message: Omit<Message, 'id'>) => setMessages((items) => [...items, { ...message, id: ++messageId }])
+  const push = (message: Omit<Message, 'id'>) => {
+    const id = ++messageId
+    setMessages((items) => [...items, { ...message, id }])
+    return id
+  }
+
+  const proposalActions = (result: { proposals?: { id?: string; action: string; alertId: string; reason?: string; target?: string; team?: string }[] }) =>
+    (result.proposals ?? []).map((proposal) => ({
+      meta: proposal.alertId,
+      label: proposal.action === 'assign'
+        ? `Open ${proposal.alertId} to assign ${proposal.team ?? 'a team'}`
+        : proposal.action === 'dismiss'
+          ? `Dismiss ${proposal.alertId} as ${proposal.reason}`
+          : `Prepare ${proposal.target} draft for ${proposal.alertId}`,
+      run: async () => {
+        if (proposal.id) {
+          const response = await fetch(`/api/watch/proposals/${proposal.id}/approve`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ actor: 'analyst', reason: 'Approved from agent panel' }),
+          })
+          if (!response.ok) throw new Error((await response.json().catch(() => ({}))).detail || 'proposal approval failed')
+        }
+        app.openWatchAlert(proposal.alertId)
+      },
+    }))
+
+  const livePayload = (query: string, history: { role: string; content: string }[]) => ({
+    message: query,
+    history,
+    tenant: 'demo',
+    context: {
+      mode: app.mode,
+      scenarioId: app.scenario?.meta.id,
+      alertId: new URLSearchParams(window.location.hash.slice(1)).get('alert') ?? undefined,
+      scopeId: new URLSearchParams(window.location.hash.slice(1)).get('scope') ?? undefined,
+    },
+  })
+
+  const runLive = async (query: string, history: { role: string; content: string }[]) => {
+    const id = push({ role: 'agent', text: 'Thinking…', steps: ['live.stream'] })
+    let text = ''
+    const setText = (value: string) => setMessages((items) => items.map((item) => (item.id === id ? { ...item, text: value } : item)))
+    try {
+      const response = await fetch('/api/watch/production/agent/stream', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(livePayload(query, history)),
+      })
+      if (!response.ok || !response.body) throw new Error(`stream HTTP ${response.status}`)
+      const reader = response.body.getReader()
+      const decoder = new TextDecoder()
+      let buffer = ''
+      let final: any = null
+      for (;;) {
+        const { value, done } = await reader.read()
+        if (done) break
+        buffer += decoder.decode(value, { stream: true })
+        let split = buffer.indexOf('\n\n')
+        while (split >= 0) {
+          const raw = buffer.slice(0, split)
+          buffer = buffer.slice(split + 2)
+          const line = raw.split('\n').find((entry) => entry.startsWith('data: '))
+          if (line) {
+            let event: any
+            try {
+              event = JSON.parse(line.slice(6))
+            } catch {
+              event = {}
+            }
+            if (event.type === 'error') throw new Error(event.detail || 'agent stream error')
+            if (event.type === 'event') {
+              const chunk = event.payload?.payload?.content
+              if (typeof chunk === 'string' && (event.payload?.type === 'llm_reasoning' || event.payload?.type === 'llm_output')) {
+                text += chunk
+                setText(text)
+              }
+            }
+            if (event.type === 'done') final = event
+          }
+          split = buffer.indexOf('\n\n')
+        }
+      }
+      if (!final) throw new Error('stream ended without a result')
+      const steps = (final.trace ?? []).map((step: { tool: string; arguments: Record<string, unknown> }) => `${step.tool}(${Object.keys(step.arguments ?? {}).join(', ')})`)
+      setMessages((items) => items.map((item) => item.id === id ? {
+        ...item,
+        text: final?.answer || text || 'The live agent returned no text.',
+        steps: [`live stream · ${final?.model ?? liveModel}`, ...steps],
+        results: proposalActions(final ?? {}),
+      } : item))
+      setThinking(false)
+      return
+    } catch {
+      // Fall back to the one-shot endpoint, keeping the same message.
+      try {
+        const response = await fetch('/api/watch/production/agent/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(livePayload(query, history)),
+        })
+        if (!response.ok) throw new Error(`agent HTTP ${response.status}`)
+        const result = await response.json()
+        const steps = (result.trace ?? []).map((step: { tool: string; arguments: Record<string, unknown> }) => `${step.tool}(${Object.keys(step.arguments ?? {}).join(', ')})`)
+        setMessages((items) => items.map((item) => item.id === id ? {
+          ...item,
+          text: result.answer || 'The live agent returned no text.',
+          steps: [`live model · ${result.model ?? liveModel}`, ...steps],
+          results: proposalActions(result),
+        } : item))
+        setThinking(false)
+        return
+      } catch (error) {
+        setLive(false)
+        liveRef.current = false
+        setMessages((items) => items.map((item) => item.id === id ? { ...item, text: `Live agent unavailable (${String((error as Error).message ?? error)}). Falling back to deterministic local tools.`, steps: ['live.fallback'] } : item))
+        setThinking(false)
+        window.setTimeout(() => submit(query), 0)
+      }
+    }
+  }
 
   const submit = (raw: string) => {
     const query = raw.trim()
@@ -98,60 +220,7 @@ export default function AgentPanel() {
     setThinking(true)
     if (liveRef.current) {
       const history = messages.filter((message) => message.role === 'user' || message.role === 'agent').slice(-6).map((message) => ({ role: message.role === 'user' ? 'user' : 'assistant', content: message.text }))
-      fetch('/api/watch/production/agent/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: query,
-          history,
-          tenant: 'demo',
-          context: {
-            mode: app.mode,
-            scenarioId: app.scenario?.meta.id,
-            alertId: new URLSearchParams(window.location.hash.slice(1)).get('alert') ?? undefined,
-            scopeId: new URLSearchParams(window.location.hash.slice(1)).get('scope') ?? undefined,
-          },
-        }),
-      })
-        .then(async (response) => {
-          if (!response.ok) throw new Error((await response.json().catch(() => ({}))).detail || `agent HTTP ${response.status}`)
-          return response.json()
-        })
-        .then((result) => {
-          const steps = (result.trace ?? []).map((step: { tool: string; arguments: Record<string, unknown> }) => `${step.tool}(${Object.keys(step.arguments ?? {}).join(', ')})`)
-          const proposals = (result.proposals ?? []).map((proposal: { id?: string; action: string; alertId: string; reason?: string; target?: string; team?: string }) => ({
-            label: proposal.action === 'assign'
-              ? `Open ${proposal.alertId} to assign ${proposal.team ?? 'a team'}`
-              : proposal.action === 'dismiss'
-                ? `Dismiss ${proposal.alertId} as ${proposal.reason}`
-                : `Prepare ${proposal.target} draft for ${proposal.alertId}`,
-            run: async () => {
-              if (proposal.id) {
-                const response = await fetch(`/api/watch/proposals/${proposal.id}/approve`, {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ actor: 'analyst', reason: 'Approved from agent panel' }),
-                })
-                if (!response.ok) throw new Error((await response.json().catch(() => ({}))).detail || 'proposal approval failed')
-              }
-              app.openWatchAlert(proposal.alertId)
-            },
-          }))
-          push({
-            role: 'agent',
-            text: result.answer || 'The live agent returned no text.',
-            steps: [`live model · ${result.model ?? liveModel}`, ...steps],
-            results: proposals,
-          })
-          setThinking(false)
-        })
-        .catch((error) => {
-          setLive(false)
-          liveRef.current = false
-          push({ role: 'agent', text: `Live agent unavailable (${String(error.message ?? error)}). Falling back to deterministic local tools.`, steps: ['live.fallback'] })
-          setThinking(false)
-          window.setTimeout(() => submit(query), 0)
-        })
+      void runLive(query, history)
       return
     }
     if (timer.current) window.clearTimeout(timer.current)
@@ -341,7 +410,7 @@ export default function AgentPanel() {
         <header className="agent-head">
           <div className="agent-title">
             <span className="agent-orb"><Icon name="spark" size={16} /></span>
-            <div><b>{prefs.t('agent.title')}</b><small>{live ? `live model · ${liveModel || 'configured'}` : 'local tools · approval required'}</small></div>
+            <div><b>{prefs.t('agent.title')}</b><small>{live ? `${prefs.t('agent.live')} · ${liveBackend || 'configured'} · ${liveModel || 'model'}` : 'local tools · approval required'}</small></div>
           </div>
           <button className="icon-btn" onClick={ui.closeAgent} aria-label="Close agent"><Icon name="close" size={16} /></button>
         </header>

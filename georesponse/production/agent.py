@@ -285,6 +285,13 @@ class LiveAgent:
         self._opened_at = time.time()
         raise AgentUnavailable(f"agent upstream failed after retries: {last}")
 
+    async def stream(self, message: str, *, tenant: str, history: list[dict] | None = None, context: dict | None = None):
+        """SSE-compatible stream for the direct backend: start, one result, done."""
+        yield {"type": "start", "promptVersion": PROMPT_VERSION, "backend": "openai"}
+        result = await self.chat(message, tenant=tenant, history=history, context=context)
+        yield {"type": "event", "payload": {"text": result.get("answer", "")}}
+        yield {"type": "done", **result}
+
     async def chat(self, message: str, *, tenant: str, history: list[dict] | None = None, context: dict | None = None) -> dict:
         if not self.configured:
             raise AgentUnavailable("LLM agent is not configured. Run `georesponse doctor`.")

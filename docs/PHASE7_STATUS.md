@@ -4,7 +4,7 @@ Last updated: 2026-10-30. Source of truth: [ROADMAP.md](ROADMAP.md) Phase 7
 (306 checkboxes). A box is checked only with a reproducible command, a test, or a
 live artefact.
 
-Current: **20 done / 286 open.**
+Current: **27 done / 279 open.**
 
 ## Done (verified)
 
@@ -28,6 +28,7 @@ Current: **20 done / 286 open.**
 - Imagery retention/pruning
 - Skeletons that match the layout
 - 11 px minimum type, enforced in Playwright
+- openjiuwen sessions, planning, four subagents, policy rail, SSE streaming and backend auto-selection (live proof)
 
 ## Ready to build next (no external input)
 

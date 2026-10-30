@@ -66,6 +66,7 @@ class ProposalStore:
             created_by=created_by,
         )
         self.store.meta_set(self._key(proposal.id), json.dumps(proposal.to_dict(), ensure_ascii=False))
+        self._index(proposal)
         self.store.audit(tenant, "proposal.created", alert_id=alert_id, actor=created_by, detail={"proposal": proposal.id, "action": action})
         return proposal
 

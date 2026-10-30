@@ -190,3 +190,56 @@ action directly.
 
 Tests: `tests/test_api_insights.py::test_proposal_approval_and_undo` and
 `test_agent_origin_action_requires_approved_proposal`.
+
+## openjiuwen runtime (verified live)
+
+The API now resolves the backend automatically:
+
+- `GEORESPONSE_AGENT_BACKEND=auto` prefers openjiuwen when its runtime imports,
+  otherwise it uses the direct OpenAI-compatible path and says so.
+- `openjiuwen` forces the framework and fails loudly if it cannot load.
+- `openai` forces the direct path.
+
+`GET /api/watch/production/agent/health` returns `backend`, `configuredBackend`,
+`openjiuwenAvailable`, `openjiuwenDetail` and the active `promptVersion`.
+
+### What is wired
+
+| Capability | Implementation |
+|---|---|
+| Agent identity | `AgentCard` for the main agent and each subagent |
+| Planning | `enable_task_planning=True` (TaskPlanningRail ran in the live proof) |
+| Subagents | Evidence, Coverage, Claims drafter and Verifier with restricted tools |
+| Tool policy | `GeoResponsePolicyRail` rejects any tool outside the seven allowed tools |
+| Session memory | Session id `tenant:alert|scope`, plus durable turns in the store |
+| Streaming | `Runner.run_agent_streaming` over SSE at `/production/agent/stream` |
+| Proposals | Write tools create `Proposal` records; approval and undo stay server-side |
+| Trace | Rail records tool calls; the API returns them in `trace` |
+
+### Live proof
+
+Run in `C:\Workspace\openjiuwen\jiuwenswarm\.venv`:
+
+```powershell
+python -m uvicorn georesponse.api:app --port 8010
+```
+
+- Three turns in the same session returned `ORCHID` on the second turn, proving
+  session memory.
+- `propose_assignment` returned a real proposal id, no mutation.
+- The SSE stream emitted incremental `llm_reasoning` chunks and a final `done`
+  event with `sessionId`, `trace` and `proposals`.
+
+### Runtime requirement
+
+The default Python 3.14 environment cannot import `openjiuwen.core.runner`
+(`LogConfig not available`). The API must run in the jiuwenswarm venv (or an
+image that installs openjiuwen and its logging config). The doctor reports
+`openjiuwen runtime` as `true` only in that environment.
+
+### Still opt-in
+
+- Public GitHub Pages is static; it cannot host the API or SSE stream.
+- Enterprise MCP servers need credentials.
+- Session checkpoints inside openjiuwen are in-memory; durable continuity comes
+  from the stored turn log until a persistent session store is configured.

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from datetime import datetime
 from typing import Any, Literal
 
@@ -715,34 +716,66 @@ def production_doctor() -> dict:
 
 @router.get("/production/agent/health")
 def agent_health() -> dict:
+    from ..production.agent import PROMPT_VERSION
+    from ..production.agent_backend import status
     from ..production.config import get_settings
 
-    from ..production.agent import PROMPT_VERSION
-
     settings = get_settings()
+    runtime = status(settings)
+    prompt = PROMPT_VERSION
+    if runtime["resolved"] == "openjiuwen":
+        from ..production.openjiuwen_runtime import PROMPT_VERSION as OPENJIUWEN_PROMPT
+
+        prompt = OPENJIUWEN_PROMPT
     return {
         "configured": settings.llm.configured,
-        "backend": settings.llm.backend,
+        "backend": runtime["resolved"],
+        "configuredBackend": runtime["configured"],
+        "openjiuwenAvailable": runtime["openjiuwenAvailable"],
+        "openjiuwenDetail": runtime["openjiuwenDetail"],
         "model": settings.llm.model or None,
-        "promptVersion": PROMPT_VERSION,
+        "promptVersion": prompt,
         "settings": settings.llm.safe(),
     }
 
 
 @router.post("/production/agent/chat")
 async def agent_chat(request: LiveAgentRequest) -> dict:
-    from ..production.agent import AgentUnavailable, LiveAgent
+    from ..production.agent import AgentUnavailable
+    from ..production.agent_backend import select
     from ..production.config import get_settings
-    from ..production.openjiuwen_runtime import OpenJiuwenAgent, OpenJiuwenUnavailable
+    from ..production.openjiuwen_runtime import OpenJiuwenUnavailable
 
-    settings = get_settings()
-    backend = OpenJiuwenAgent(engine, settings) if settings.llm.backend == "openjiuwen" else LiveAgent(engine, settings)
+    backend, _resolved = select(engine, get_settings())
     try:
         return await backend.chat(request.message, tenant=request.tenant, history=request.history, context=request.context)
     except (AgentUnavailable, OpenJiuwenUnavailable) as exc:
         raise HTTPException(status_code=503, detail=str(exc)) from exc
     except Exception as exc:  # noqa: BLE001
         raise HTTPException(status_code=502, detail=f"agent backend error: {exc}") from exc
+
+
+@router.post("/production/agent/stream")
+async def agent_stream(request: LiveAgentRequest):
+    from fastapi.responses import StreamingResponse
+
+    from ..production.agent import AgentUnavailable
+    from ..production.agent_backend import select
+    from ..production.config import get_settings
+    from ..production.openjiuwen_runtime import OpenJiuwenUnavailable
+
+    backend, _resolved = select(engine, get_settings())
+
+    async def events():
+        try:
+            async for event in backend.stream(request.message, tenant=request.tenant, history=request.history, context=request.context):
+                yield f"data: {json.dumps(event, default=str, ensure_ascii=False)}\n\n"
+        except (AgentUnavailable, OpenJiuwenUnavailable) as exc:
+            yield f"data: {json.dumps({'type': 'error', 'detail': str(exc)})}\n\n"
+        except Exception as exc:  # noqa: BLE001
+            yield f"data: {json.dumps({'type': 'error', 'detail': f'agent stream error: {exc}'})}\n\n"
+
+    return StreamingResponse(events(), media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
 
 
 @router.get("/production/inference/health")

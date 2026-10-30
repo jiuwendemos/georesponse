@@ -43,7 +43,7 @@ def env_bool(name: str, default: bool = False) -> bool:
 
 @dataclass
 class LLMSettings:
-    backend: str = "openai"
+    backend: str = "auto"
     api_key: str = ""
     base_url: str = "https://api.openai.com/v1"
     model: str = ""
@@ -203,7 +203,7 @@ class Settings:
         return cls(
             mode=env("GEORESPONSE_MODE", "auto"),
             llm=LLMSettings(
-                backend=env("GEORESPONSE_AGENT_BACKEND", "openai"),
+                backend=env("GEORESPONSE_AGENT_BACKEND", "auto"),
                 api_key=env("GEORESPONSE_LLM_API_KEY", env("API_KEY")),
                 base_url=env("GEORESPONSE_LLM_BASE_URL", env("API_BASE", "https://api.openai.com/v1")),
                 model=env("GEORESPONSE_LLM_MODEL", env("MODEL_NAME")),
@@ -333,6 +333,13 @@ def doctor(settings: Settings | None = None) -> dict:
     add("PostgreSQL", settings.platform.safe()["postgres"], "GEORESPONSE_POSTGRES_DSN", False)
     add("Object storage", settings.platform.safe()["s3"], "S3 endpoint + bucket", False)
     add("Authentication", settings.platform.safe()["authConfigured"], "API key or OIDC", False)
+    try:
+        from .agent_backend import openjiuwen_status
+
+        available, detail = openjiuwen_status()
+        add("openjiuwen runtime", available, detail, False)
+    except Exception as exc:  # noqa: BLE001
+        add("openjiuwen runtime", False, str(exc), False)
     try:
         from .queue import health as redis_health
 
