@@ -108,3 +108,23 @@ A release is “2026-ready” only when:
 - [ ] zero dark patterns and zero AI claims without evidence.
 
 The checklist lives in **[ROADMAP.md Phase 5](ROADMAP.md#phase-5--2026-product-experience-planned)**.
+
+
+## Measured after the first 2026 shell pass
+
+| Check | Result |
+|---|---|
+| Lighthouse accessibility | **100** (best practices 100, SEO 100) |
+| Initial JS/CSS | **113 KB gzip** (budget 250 KB) |
+| Lazy routes | Watch, Analyst, Pilot, Booth, Method split; jsPDF on demand |
+| Themes | System, light, dark, high contrast |
+| Density | Comfortable and compact |
+| Motion | Reduced-motion toggle + `prefers-reduced-motion` |
+| Command palette | `Cmd/Ctrl+K`, grouped actions, sites, scenarios, Watch alerts |
+| Agent | Live model path + local fallback, preview/apply/undo, refusal rules |
+| Map alternative | Keyboard pan/zoom and accessible data table |
+| Imagery | Real Sentinel-2 Ahr/Eifel/Cologne windows |
+| Mobile | 390 px layout with bottom navigation |
+
+Still open: the remaining visual migration, Storybook/visual regression, full German localization,
+user research and the rollout gates. The Phase 5 checkboxes remain the source of truth.
