@@ -613,7 +613,7 @@ craft, accessibility and speed.
 - [x] Live regions for alerts, async results and agent streaming **(S)**
 - [ ] Localization: English + German, RTL-ready layout **(M)**
 - [ ] Plain-language review of critical copy **(S)**
-- [ ] Accessibility statement and feedback channel **(S)**
+- [x] Accessibility statement and feedback channel **(S)**
 
 ### 5.9 Performance, reliability & resilience
 

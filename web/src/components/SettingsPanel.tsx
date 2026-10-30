@@ -91,7 +91,13 @@ export default function SettingsPanel() {
         </Button>
         <Button variant="ghost" onClick={ui.closeSettings}>{t('settings.close')}</Button>
       </div>
-      <p className="card-note">{t('settings.note')}</p>
+      <p className="card-note">
+        {t('settings.note')}{' '}
+        <a href="https://github.com/jiuwendemos/georesponse/blob/main/docs/ACCESSIBILITY.md" target="_blank" rel="noreferrer">
+          Accessibility statement &amp; feedback
+        </a>
+        .
+      </p>
     </Modal>
   )
 }
