@@ -244,6 +244,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
       if (view && MODES.includes(view as Mode) && view !== mode) setModeState(view as Mode)
       const nextScenario = params.get('scenario')
       if (nextScenario && scenario && nextScenario !== scenario.meta.id) void loadScenario(nextScenario)
+      const alert = params.get('alert')
+      const scope = params.get('scope')
+      if (alert) {
+        setWatchTarget({ alertId: alert })
+        setModeState('watch')
+      } else if (scope) {
+        setWatchTarget({ scopeId: scope })
+        setModeState('watch')
+      }
     }
     window.addEventListener('popstate', onPop)
     window.addEventListener('hashchange', onPop)
@@ -551,10 +560,20 @@ export function AppProvider({ children }: { children: ReactNode }) {
     openWatchAlert: (alertId: string) => {
       setWatchTarget({ alertId })
       setModeState('watch')
+      const params = new URLSearchParams(window.location.hash.slice(1))
+      params.set('view', 'watch')
+      params.set('alert', alertId)
+      params.delete('scope')
+      window.history.pushState(null, '', `#${params.toString()}`)
     },
     openWatchScope: (scopeId: string) => {
       setWatchTarget({ scopeId })
       setModeState('watch')
+      const params = new URLSearchParams(window.location.hash.slice(1))
+      params.set('view', 'watch')
+      params.set('scope', scopeId)
+      params.delete('alert')
+      window.history.pushState(null, '', `#${params.toString()}`)
     },
     clearWatchTarget: () => setWatchTarget(null),
     reveal,

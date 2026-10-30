@@ -52,6 +52,11 @@ test.describe('shell', () => {
     await expect(page.locator('.watch-page')).toBeVisible()
   })
 
+  test('deep links open the exact alert', async ({ page }) => {
+    await page.goto('/#view=watch&scenario=ahr-2021-flood&alert=ALT-1001')
+    await expect(page.locator('.watch-detail')).toContainText('ALT-1001')
+  })
+
   test('German locale applies to the shell', async ({ page }) => {
     await page.getByRole('button', { name: 'Settings' }).click()
     await page.getByRole('dialog', { name: 'Settings' }).getByRole('radio', { name: 'Deutsch' }).click()

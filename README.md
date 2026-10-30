@@ -120,6 +120,10 @@ py -m georesponse.datapack
 cd web
 npm install
 npm run build      # or: npm run dev
+npm test           # Vitest unit tests
+npm run lint:design
+npm run budget     # initial JS/CSS ≤ 250 KB gzip
+npm run e2e -- --project=chromium   # Playwright + axe
 cd ..
 
 # 4. Serve the built app locally
@@ -194,7 +198,7 @@ All technical phases are implemented, including the 155 proactive workstreams, w
 - Phase 3 — multi-tenant, government/agriculture/mining packs, partner motion ✅
 - Product UI — analyst workspace and dashboards ✅
 - Phase 4 — proactive monitoring ✅ — Watch inbox, scopes, coverage, forecast watchlist, digest, governance; see [docs/PROACTIVE.md](docs/PROACTIVE.md)
-- Phase 5 — 2026 product experience · **planned** — 241 checkboxes covering design system, command/agent UX, map craft, mobile, accessibility, performance and rollout; see [docs/EXPERIENCE_2026.md](docs/EXPERIENCE_2026.md)
+- Phase 5 — 2026 product experience · **in progress** — tokens and layered CSS, themes and density, command palette, agent sidecar, map clustering and camera, deep links, German shell, Playwright/axe/visual regression, design lint; see [docs/EXPERIENCE_2026.md](docs/EXPERIENCE_2026.md), [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md), [docs/DESIGN_DEBT.md](docs/DESIGN_DEBT.md), [docs/RESEARCH_2026.md](docs/RESEARCH_2026.md), [docs/ROLLOUT_2026.md](docs/ROLLOUT_2026.md)
 - Phase 6 — production wiring · **built, cutover pending** — real LLM/openjiuwen agent, ONNX/NPU providers, live Sentinel STAC, live notifications/integrations, Postgres/Redis/S3, auth, worker and doctor; see [docs/PRODUCTION_WIRING.md](docs/PRODUCTION_WIRING.md)
 
 The proactive phase is built as the **Watch** tab and `georesponse/proactive/`: scheduled scopes, seasonal baselines, multi-temporal and optical/SAR confirmation, forecast watchlists, alert lifecycle, notification outbox, integrations, governance and pilot gates. The demo portfolio is seeded; the launch gate is deliberately red until a real corridor pilot clears it.
