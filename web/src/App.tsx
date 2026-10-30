@@ -11,6 +11,7 @@ import AgentPanel from './components/AgentPanel'
 import StyleGuide from './components/StyleGuide'
 import SettingsPanel from './components/SettingsPanel'
 import Onboarding from './components/Onboarding'
+import PageSkeleton from './components/PageSkeleton'
 import { Spinner } from './components/ds'
 import { ErrorBoundary, OfflineBanner } from './components/Resilience'
 import { pct } from './lib/format'
@@ -137,7 +138,7 @@ function Shell() {
       <OfflineBanner />
       <main id="main-content" className="app-main" tabIndex={-1} role="main">
         <ErrorBoundary>
-          <Suspense fallback={<div className="page-state"><Spinner label="Loading workspace" /> Loading workspace…</div>}>
+          <Suspense fallback={<PageSkeleton />}>
             {app.mode === 'stage' && <Stage />}
             {app.mode === 'watch' && <Watch />}
             {app.mode === 'analyst' && <Analyst />}

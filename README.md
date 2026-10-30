@@ -175,7 +175,7 @@ See [docs/DATA_RIGHTS.md](docs/DATA_RIGHTS.md) and the in-app **Method** page.
 georesponse/
   georesponse/            Python pipeline, ranking, assessment, exports, API, CLI
   data/                   source configs (scenario content lives in datapack.py)
-  tests/                  125 pytest checks: geometry, detection, ranking, exports, audit, API
+  tests/                  126 pytest checks: geometry, detection, ranking, exports, audit, API
   web/                    React + TypeScript SPA (custom SVG map renderer)
     public/data/          real Sentinel packs, evidence, scenes, proactive demo portfolio
   docs/                   architecture, roadmap, stage runbook, pilot, privacy, data rights
@@ -200,7 +200,7 @@ All technical phases are implemented, including the 155 proactive workstreams, w
 - Phase 4 — proactive monitoring ✅ — Watch inbox, scopes, coverage, forecast watchlist, digest, governance; see [docs/PROACTIVE.md](docs/PROACTIVE.md)
 - Phase 5 — 2026 product experience · **in progress** — tokens and layered CSS, themes and density, command palette, agent sidecar, map clustering and camera, deep links, German shell, Playwright/axe/visual regression, design lint; see [docs/EXPERIENCE_2026.md](docs/EXPERIENCE_2026.md), [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md), [docs/DESIGN_DEBT.md](docs/DESIGN_DEBT.md), [docs/RESEARCH_2026.md](docs/RESEARCH_2026.md), [docs/ROLLOUT_2026.md](docs/ROLLOUT_2026.md)
 - Phase 6 — production wiring · **built, cutover pending** — real LLM/openjiuwen agent, ONNX/NPU providers, live Sentinel STAC, live notifications/integrations, Postgres/Redis/S3, auth, worker and doctor; see [docs/PRODUCTION_WIRING.md](docs/PRODUCTION_WIRING.md)
-- Phase 7 — **make it proactive, 2026 and connected** · **planned, 306 open checkboxes** — continuous sensing and escalation; screen-by-screen 2026 migration and research gates; live openjiuwen default, NPU, commercial imagery, notifications, enterprise systems, platform, identity, observability and cutover; see [docs/ROADMAP.md](docs/ROADMAP.md) Phase 7
+- Phase 7 — **make it proactive, 2026 and connected** · **planned, 306 open checkboxes** — continuous sensing and escalation; screen-by-screen 2026 migration and research gates; live openjiuwen default, NPU, commercial imagery, notifications, enterprise systems, platform, identity, observability and cutover; see [docs/ROADMAP.md](docs/ROADMAP.md) Phase 7 and [docs/PHASE7_STATUS.md](docs/PHASE7_STATUS.md)
 
 The proactive phase is built as the **Watch** tab and `georesponse/proactive/`: scheduled scopes, seasonal baselines, multi-temporal and optical/SAR confirmation, forecast watchlists, alert lifecycle, notification outbox, integrations, governance and pilot gates. The demo portfolio is seeded; the launch gate is deliberately red until a real corridor pilot clears it.
 

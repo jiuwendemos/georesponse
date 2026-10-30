@@ -147,6 +147,15 @@ test.describe('shell', () => {
     await expect(page.locator('.mobile-location')).toContainText('Stage')
   })
 
+  test('layer panel exposes opacity, order and saved sets', async ({ page }) => {
+    const layers = page.locator('.layers')
+    await expect(layers.getByLabel('Change opacity')).toBeVisible()
+    await expect(layers.getByLabel('Roads opacity')).toBeVisible()
+    await layers.getByRole('button', { name: 'Move Change up' }).click()
+    await layers.getByRole('button', { name: 'Save set' }).click()
+    await expect(layers.getByLabel('Saved layer sets')).toContainText('Set 1')
+  })
+
   test('keeps product chrome at or above the 11 px floor', async ({ page }) => {
     const measure = () =>
       page.evaluate(() => {

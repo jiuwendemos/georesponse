@@ -3,6 +3,7 @@ import { useApp } from '../store'
 import MapView from './MapView'
 import SiteDetail from './SiteDetail'
 import { Icon, SeverityChip } from './ui'
+import { Button, IconButton } from './ds'
 import { clamp } from '../lib/math'
 import { compactEuro, cx, missionClock, number, pct, timeLabel } from '../lib/format'
 
@@ -231,13 +232,44 @@ export default function Stage() {
             ['buildings', 'Buildings', '#7b8b93'],
             ['landuse', 'Land use', '#2a361a'],
           ] as const
-        ).map(([key, label, color]) => (
-          <label className="layer" key={key}>
-            <input type="checkbox" checked={app.layers[key]} onChange={() => app.toggleLayer(key)} />
-            <span className="swatch" style={{ background: color }} />
-            {label}
-          </label>
-        ))}
+        )
+          .slice()
+          .sort(([a], [b]) => app.layerOrder.indexOf(a) - app.layerOrder.indexOf(b))
+          .map(([key, label, color]) => (
+            <div className="layer-row" key={key}>
+              <label className="layer">
+                <input type="checkbox" checked={app.layers[key]} onChange={() => app.toggleLayer(key)} />
+                <span className="swatch" style={{ background: color }} />
+                {label}
+              </label>
+              <input
+                className="layer-opacity"
+                type="range"
+                min={20}
+                max={100}
+                value={Math.round(app.layerOpacity[key] * 100)}
+                onChange={(event) => app.setLayerOpacity(key, Number(event.target.value) / 100)}
+                aria-label={`${label} opacity`}
+              />
+              <IconButton label={`Move ${label} up`} onClick={() => app.moveLayer(key, -1)}>
+                <span aria-hidden>↑</span>
+              </IconButton>
+              <IconButton label={`Move ${label} down`} onClick={() => app.moveLayer(key, 1)}>
+                <span aria-hidden>↓</span>
+              </IconButton>
+            </div>
+          ))}
+        <div className="layer-sets">
+          <select
+            aria-label="Saved layer sets"
+            defaultValue=""
+            onChange={(event) => { if (event.target.value) { app.applyLayerSet(event.target.value); event.target.value = '' } }}
+          >
+            <option value="">Saved layer sets</option>
+            {app.layerSets.map((set) => <option key={set.name} value={set.name}>{set.name}</option>)}
+          </select>
+          <Button size="sm" variant="ghost" onClick={() => app.saveLayerSet(`Set ${app.layerSets.length + 1}`)}>Save set</Button>
+        </div>
         <div className="layers-foot">
           <span className="live-dot" /> offline pack
         </div>

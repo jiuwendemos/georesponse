@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useApp } from '../store'
 import { asset, dataPath, loadJson } from '../lib/data'
-import { compactEuro, cx, number, pct } from '../lib/format'
+import { compactEuro, confidenceWords, cx, number, pct } from '../lib/format'
 import { ConfidenceBar, Icon, Modal, SeverityChip } from './ui'
 import { Button } from './ds'
 import WatchMap from './WatchMap'
@@ -492,7 +492,7 @@ export default function Watch() {
                   <div className="why-track"><span style={{ width: `${Math.min(100, current.observed * 500)}%` }} /></div>
                   <div className="why-factor"><span>model confidence</span><b>{pct(current.confidence)}</b></div>
                   <ConfidenceBar value={current.confidence} />
-                  <small>{String((current.why as Record<string, unknown>).summary ?? '')}</small>
+                  <small>{confidenceWords(current.confidence).word} · {confidenceWords(current.confidence).interval} · {String((current.why as Record<string, unknown>).summary ?? '')}</small>
                 </div>
                 <div className="watch-incident">
                   <span>Incident</span>

@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useApp } from '../store'
 import { asset } from '../lib/data'
-import { accessLabel, compactEuro, cx, euro, number, pct, reviewLabel, severityLabel, timeLabel } from '../lib/format'
+import { accessLabel, compactEuro, confidenceWords, cx, euro, number, pct, reviewLabel, severityLabel, timeLabel } from '../lib/format'
 import { ConfidenceBar, Icon, SeverityChip } from './ui'
 import type { Site } from '../types'
 
@@ -63,7 +63,7 @@ export default function SiteDetail({ site, rank, mode }: { site: Site; rank: num
             <span className="pulse-dot" /> Agent’s top finding — check before dispatch
           </div>
           <p>
-            {scenario.falsePositive?.title}. The model is {pct(site.confidence)} confident. Zoom the evidence: the roof edge is
+            {scenario.falsePositive?.title}. The model reads this as {confidenceWords(site.confidence).word} ({confidenceWords(site.confidence).interval}). Zoom the evidence: the roof edge is
             intact; the dark shape is water reflection.
           </p>
           <button className="btn btn-danger btn-block" onClick={() => app.review(site.id, 'rejected')}>

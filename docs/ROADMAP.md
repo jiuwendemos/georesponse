@@ -556,7 +556,7 @@ craft, accessibility and speed.
 - [x] Camera transitions: fly-to, fit-to-scope and reveal with interruptible motion **(S)**
 - [x] Cluster alerts/scopes above a density threshold **(M)**
 - [ ] Draw, edit, measure and snap scopes with undo **(M)**
-- [ ] Layer panel with opacity, ordering and saved layer sets **(M)**
+- [x] Layer panel with opacity, ordering and saved layer sets **(M)**
 - [ ] Time animation with playhead, keyframes and loop **(S)**
 - [ ] Before/after and swipe compare as a first-class control **(S)**
 - [ ] Mini-map and scale/compass for spatial orientation **(S)**
@@ -1064,7 +1064,7 @@ No silent demo fallback is ever allowed.
 - [ ] Label hierarchy, collision and decluttering on stage **(M)**
 - [ ] Interruptible fly-to, fit-to-scope and reveal **(S)**
 - [ ] Draw, edit, measure and snap scopes with undo **(M)**
-- [ ] Layer panel with opacity, ordering and saved layer sets **(M)**
+- [x] Layer panel with opacity, ordering and saved layer sets **(M)**
 - [x] Swipe/before-after compare as a first-class control **(S)**
 - [x] Mini-map, scale bar and compass **(S)**
 - [ ] Pinch/drag/tap gestures and bottom-sheet detail on mobile **(M)**
@@ -1077,7 +1077,7 @@ No silent demo fallback is ever allowed.
 - [ ] Ambient/inline agent on every screen, not only a sidecar **(M)**
 - [x] Context awareness of the current alert/scope/filter without re-asking **(M)**
 - [ ] “Explain this” on every number, layer, rank and alert **(M)**
-- [ ] Confidence in words and intervals, not only decimals **(S)**
+- [x] Confidence in words and intervals, not only decimals **(S)**
 - [ ] Per-alert and per-scope conversation history **(S)**
 - [ ] Agent permission scopes that cannot exceed the user’s rights **(M)**
 - [ ] Prompt-injection corpus and unsafe-action refusal tests **(M)**
@@ -1121,7 +1121,7 @@ No silent demo fallback is ever allowed.
 - [ ] LCP ≤2 s, INP ≤200 ms, CLS ≤0.05 on mid-range Android **(M)**
 - [ ] Route-level splitting including map and worker **(M)**
 - [ ] Virtualised 10k alert/scope lists **(M)**
-- [ ] Skeletons that match the final layout **(S)**
+- [x] Skeletons that match the final layout **(S)**
 - [ ] Memory budget and leak check **(M)**
 - [ ] Offline detection with a recoverable banner **(S)**
 - [ ] Cache strategy for packs, fonts, tiles and API **(M)**
@@ -1222,7 +1222,7 @@ No silent demo fallback is ever allowed.
 - [ ] Full-resolution streaming tile service **(L)**
 - [ ] Mosaic and cloud-masking pipeline **(L)**
 - [ ] SAR ingestion and processing **(L)**
-- [ ] Imagery retention and deletion **(M)**
+- [x] Imagery retention and deletion **(M)**
 - [ ] Cost caps per provider **(M)**
 - [ ] Source failover with provenance **(M)**
 - [ ] Offline pack generated from live imagery **(M)**

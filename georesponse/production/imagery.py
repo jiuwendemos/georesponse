@@ -203,3 +203,40 @@ def cache_status(scenario_id: str, cache_dir: str | Path = "runtime/imagery") ->
     if not path.exists():
         return {"scenario": scenario_id, "cached": False, "path": str(path)}
     return {"scenario": scenario_id, "cached": True, "path": str(path), "manifest": json.loads(path.read_text(encoding="utf-8"))}
+
+
+def prune_cache(root: str | Path, *, older_than_days: int = 90, dry_run: bool = True, now: float | None = None) -> dict:
+    """Delete cached imagery and sidecars older than the retention window.
+
+    Only the local cache is touched. Committed demo packs under web/public are
+    never pruned by this function.
+    """
+    import os
+    import time
+
+    base = Path(root)
+    cutoff = (now if now is not None else time.time()) - older_than_days * 86400
+    removed: list[str] = []
+    kept = 0
+    freed = 0
+    if not base.exists():
+        return {"root": str(base), "removed": [], "kept": 0, "freedBytes": 0, "dryRun": dry_run}
+    for path in sorted(base.rglob("*")):
+        if not path.is_file() or path.suffix.lower() not in {".png", ".json", ".tif", ".tiff"}:
+            continue
+        stat = path.stat()
+        if stat.st_mtime >= cutoff:
+            kept += 1
+            continue
+        removed.append(str(path.relative_to(base)))
+        freed += stat.st_size
+        if not dry_run:
+            os.remove(path)
+    return {
+        "root": str(base),
+        "retentionDays": older_than_days,
+        "removed": removed,
+        "kept": kept,
+        "freedBytes": freed,
+        "dryRun": dry_run,
+    }

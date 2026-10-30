@@ -23,6 +23,8 @@ interface LayerState {
   landuse: boolean
 }
 
+type OpacityState = Record<keyof LayerState, number>
+
 interface Toast {
   id: number
   message: string
@@ -56,7 +58,14 @@ interface AppContextValue {
   phase: number
   setPhase: (phase: number) => void
   layers: LayerState
+  layerOpacity: OpacityState
+  layerOrder: (keyof LayerState)[]
+  layerSets: { name: string; order: (keyof LayerState)[]; opacity: OpacityState; visible: LayerState }[]
   toggleLayer: (key: keyof LayerState) => void
+  setLayerOpacity: (key: keyof LayerState, value: number) => void
+  moveLayer: (key: keyof LayerState, direction: -1 | 1) => void
+  saveLayerSet: (name: string) => void
+  applyLayerSet: (name: string) => void
   audit: AuditEvent[]
   toast: Toast | null
   notify: (message: string, tone?: Toast['tone']) => void
@@ -134,6 +143,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [vote, setVote] = useState<'a' | 'b' | null>(null)
   const [phase, setPhase] = useState(0)
   const [layers, setLayers] = useState<LayerState>({ flood: true, roads: true, power: true, buildings: true, landuse: true })
+  const [layerOpacity, setLayerOpacityState] = useState<OpacityState>({ flood: 0.85, roads: 1, power: 1, buildings: 1, landuse: 1 })
+  const [layerOrder, setLayerOrder] = useState<(keyof LayerState)[]>(['landuse', 'buildings', 'power', 'flood', 'roads'])
+  const [layerSets, setLayerSets] = useState<{ name: string; order: (keyof LayerState)[]; opacity: OpacityState; visible: LayerState }[]>([])
   const [audit, setAudit] = useState<AuditEvent[]>([])
   const [toast, setToast] = useState<Toast | null>(null)
   const [reportOpen, setReportOpen] = useState(false)
@@ -276,6 +288,64 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const previewSite = useCallback((id: string | null) => setPreviewId(id), [])
+
+  // Restore the layer panel once, then persist every change.
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem('georesponse.layers.v1')
+      if (!raw) return
+      const saved = JSON.parse(raw) as { visible?: LayerState; opacity?: OpacityState; order?: (keyof LayerState)[]; sets?: typeof layerSets }
+      if (saved.visible) setLayers((current) => ({ ...current, ...saved.visible }))
+      if (saved.opacity) setLayerOpacityState((current) => ({ ...current, ...saved.opacity }))
+      if (Array.isArray(saved.order) && saved.order.length === 5) setLayerOrder(saved.order)
+      if (Array.isArray(saved.sets)) setLayerSets(saved.sets)
+    } catch {
+      // ignore corrupt preferences
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('georesponse.layers.v1', JSON.stringify({ visible: layers, opacity: layerOpacity, order: layerOrder, sets: layerSets }))
+    } catch {
+      // private mode
+    }
+  }, [layers, layerOpacity, layerOrder, layerSets])
+
+  const setLayerOpacity = useCallback((key: keyof LayerState, value: number) => {
+    setLayerOpacityState((current) => ({ ...current, [key]: Math.min(1, Math.max(0.2, value)) }))
+  }, [])
+
+  const moveLayer = useCallback((key: keyof LayerState, direction: -1 | 1) => {
+    setLayerOrder((current) => {
+      const index = current.indexOf(key)
+      const next = index + direction
+      if (index < 0 || next < 0 || next >= current.length) return current
+      const copy = [...current]
+      ;[copy[index], copy[next]] = [copy[next], copy[index]]
+      return copy
+    })
+  }, [])
+
+  const saveLayerSet = useCallback((name: string) => {
+    setLayerSets((current) => [
+      ...current.filter((set) => set.name !== name),
+      { name, order: layerOrder, opacity: layerOpacity, visible: layers },
+    ].slice(-6))
+  }, [layerOrder, layerOpacity, layers])
+
+  const applyLayerSet = useCallback((name: string) => {
+    setLayerSets((current) => {
+      const set = current.find((entry) => entry.name === name)
+      if (set) {
+        setLayerOrder(set.order)
+        setLayerOpacityState(set.opacity)
+        setLayers(set.visible)
+      }
+      return current
+    })
+  }, [])
 
   const toggleLayer = useCallback((key: keyof LayerState) => {
     setLayers((current) => ({ ...current, [key]: !current[key] }))
@@ -541,7 +611,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
     phase,
     setPhase,
     layers,
+    layerOpacity,
+    layerOrder,
+    layerSets,
     toggleLayer,
+    setLayerOpacity,
+    moveLayer,
+    saveLayerSet,
+    applyLayerSet,
     audit,
     toast,
     notify,

@@ -160,3 +160,14 @@ produce a write proposal. The offline run is part of CI.
 
 Rate limiting is now keyed by the authenticated principal (API key or OIDC
 subject) and falls back to the client address only when authentication is off.
+
+## Imagery retention
+
+```powershell
+py -m georesponse.cli prune-imagery --days 90            # dry run
+py -m georesponse.cli prune-imagery --days 90 --apply    # delete cached files
+```
+
+Only `runtime/imagery` is pruned. Committed demo packs and customer source
+imagery are never touched by this command. S3 lifecycle rules are available in
+`production/storage.py` for object stores.

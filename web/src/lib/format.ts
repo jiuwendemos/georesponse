@@ -69,3 +69,12 @@ export function downloadJson(payload: unknown, filename: string): void {
 export function downloadText(text: string, filename: string, mime = 'text/plain'): void {
   downloadBlob(new Blob([text], { type: mime }), filename)
 }
+
+
+/** Words and an interval, because a bare decimal overstates certainty. */
+export function confidenceWords(value: number): { word: string; interval: string } {
+  if (value >= 0.9) return { word: 'very likely', interval: '90–95%' }
+  if (value >= 0.75) return { word: 'likely', interval: '75–90%' }
+  if (value >= 0.55) return { word: 'possible', interval: '55–75%' }
+  return { word: 'uncertain', interval: 'below 55%' }
+}

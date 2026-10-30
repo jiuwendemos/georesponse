@@ -275,65 +275,76 @@ export default function MapView({ variant = 'stage' }: { variant?: 'stage' | 'an
           />
           <rect width={W} height={H} fill="url(#map-glow)" opacity={0.5} />
 
-          {layers.landuse && (
-            <g className="layer-landuse">
-              {scenario.map.landuse.features.map((feature, index) => (
-                <path
-                  key={feature.id ?? index}
-                  d={path(feature.geometry)}
-                  className={`landuse-${String(feature.properties?.kind ?? 'meadow')}`}
-                />
-              ))}
-            </g>
-          )}
-
-          {layers.buildings && (
-            <g className="layer-buildings">
-              {scenario.map.buildings.features.map((feature, index) => (
-                <path key={feature.id ?? index} d={path(feature.geometry)} />
-              ))}
-            </g>
-          )}
-
-          {layers.power && (
-            <g className="layer-power">
-              {scenario.map.power.features.map((feature, index) => {
-                if (feature.geometry.type === 'LineString') {
-                  return <path key={feature.id ?? index} d={path(feature.geometry)} className="power-line" />
-                }
-                const [lon, lat] = (feature.geometry as { type: 'Point'; coordinates: [number, number] }).coordinates
-                const [x, y] = project(lon, lat)
-                return (
-                  <g key={feature.id ?? index} transform={`translate(${x} ${y}) scale(${pinScale})`}>
-                    <circle r={4.5} className="power-dot" />
-                    <path d="M-2.2 -3 L2 -0.8 L-0.6 0.4 L2.2 3" className="power-bolt" />
-                  </g>
-                )
-              })}
-            </g>
-          )}
-
-          {layers.flood && latest && (
-            <g className="layer-flood">
-              <path d={path(latest.geometry)} className="flood-glow" style={{ stroke: colors.line }} />
-              <path d={path(latest.geometry)} className="flood-fill" style={{ fill: colors.fill }} />
-              <path d={path(latest.geometry)} className="flood-line" style={{ stroke: colors.line }} />
-            </g>
-          )}
-
-          {layers.roads && (
-            <g className="layer-roads">
-              {scenario.map.roads.features.map((feature, index) => {
-                const cls = String(feature.properties?.class ?? 'local')
-                return (
-                  <g key={feature.id ?? index}>
-                    <path d={path(feature.geometry)} className={`road-casing road-${cls}-case`} />
-                    <path d={path(feature.geometry)} className={`road road-${cls}`} />
-                  </g>
-                )
-              })}
-            </g>
-          )}
+          {app.layerOrder.map((key) => {
+            if (!layers[key]) return null
+            const opacity = app.layerOpacity[key]
+            if (key === 'landuse') {
+              return (
+                <g key="landuse" className="layer-landuse" opacity={opacity}>
+                  {scenario.map.landuse.features.map((feature, index) => (
+                    <path
+                      key={feature.id ?? index}
+                      d={path(feature.geometry)}
+                      className={`landuse-${String(feature.properties?.kind ?? 'meadow')}`}
+                    />
+                  ))}
+                </g>
+              )
+            }
+            if (key === 'buildings') {
+              return (
+                <g key="buildings" className="layer-buildings" opacity={opacity}>
+                  {scenario.map.buildings.features.map((feature, index) => (
+                    <path key={feature.id ?? index} d={path(feature.geometry)} />
+                  ))}
+                </g>
+              )
+            }
+            if (key === 'power') {
+              return (
+                <g key="power" className="layer-power" opacity={opacity}>
+                  {scenario.map.power.features.map((feature, index) => {
+                    if (feature.geometry.type === 'LineString') {
+                      return <path key={feature.id ?? index} d={path(feature.geometry)} className="power-line" />
+                    }
+                    const [lon, lat] = (feature.geometry as { type: 'Point'; coordinates: [number, number] }).coordinates
+                    const [x, y] = project(lon, lat)
+                    return (
+                      <g key={feature.id ?? index} transform={`translate(${x} ${y}) scale(${pinScale})`}>
+                        <circle r={4.5} className="power-dot" />
+                        <path d="M-2.2 -3 L2 -0.8 L-0.6 0.4 L2.2 3" className="power-bolt" />
+                      </g>
+                    )
+                  })}
+                </g>
+              )
+            }
+            if (key === 'flood' && latest) {
+              return (
+                <g key="flood" className="layer-flood" opacity={opacity}>
+                  <path d={path(latest.geometry)} className="flood-glow" style={{ stroke: colors.line }} />
+                  <path d={path(latest.geometry)} className="flood-fill" style={{ fill: colors.fill }} />
+                  <path d={path(latest.geometry)} className="flood-line" style={{ stroke: colors.line }} />
+                </g>
+              )
+            }
+            if (key === 'roads') {
+              return (
+                <g key="roads" className="layer-roads" opacity={opacity}>
+                  {scenario.map.roads.features.map((feature, index) => {
+                    const cls = String(feature.properties?.class ?? 'local')
+                    return (
+                      <g key={feature.id ?? index}>
+                        <path d={path(feature.geometry)} className={`road-casing road-${cls}-case`} />
+                        <path d={path(feature.geometry)} className={`road road-${cls}`} />
+                      </g>
+                    )
+                  })}
+                </g>
+              )
+            }
+            return null
+          })}
 
           <g className="layer-water">
             {scenario.map.water.features

@@ -127,6 +127,14 @@ def cmd_agent(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_prune_imagery(args: argparse.Namespace) -> int:
+    from .production.imagery import prune_cache
+
+    result = prune_cache(args.root, older_than_days=args.days, dry_run=not args.apply)
+    print(json.dumps(result, indent=2))
+    return 0
+
+
 def cmd_evaluate_agent(args: argparse.Namespace) -> int:
     from .production.evaluation import evaluate_live_sync, evaluate_offline
 
@@ -253,6 +261,12 @@ def main(argv: list[str] | None = None) -> int:
     agent.add_argument("--message", required=True)
     agent.add_argument("--tenant", default="demo")
     agent.set_defaults(func=cmd_agent)
+
+    prune = sub.add_parser("prune-imagery", help="delete cached imagery older than the retention window")
+    prune.add_argument("--days", type=int, default=90)
+    prune.add_argument("--apply", action="store_true", help="actually delete; default is a dry run")
+    prune.add_argument("--root", default=str(ROOT / "runtime" / "imagery"))
+    prune.set_defaults(func=cmd_prune_imagery)
 
     evaluate = sub.add_parser("evaluate-agent", help="run the golden agent evaluation")
     evaluate.add_argument("--live", action="store_true", help="call the configured model")

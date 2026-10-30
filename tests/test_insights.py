@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 from datetime import datetime, timedelta, timezone
 
 from georesponse.proactive.demo import seed_demo
@@ -108,3 +109,26 @@ def test_worker_health_reads_heartbeat(tmp_path):
     old = (datetime.now(timezone.utc) - timedelta(hours=2)).isoformat()
     path.write_text(json.dumps({"at": old, "status": "ok"}), encoding="utf-8")
     assert worker_health(str(path), stale_after_seconds=60)["ok"] is False
+
+
+def test_prune_cache_respects_retention_and_dry_run(tmp_path):
+    import os
+    import time
+    from georesponse.production.imagery import prune_cache
+
+    old = tmp_path / "old" / "scene.png"
+    old.parent.mkdir(parents=True)
+    old.write_bytes(b"x" * 10)
+    new = tmp_path / "new.png"
+    new.write_bytes(b"y" * 5)
+    long_ago = time.time() - 120 * 86400
+    os.utime(old, (long_ago, long_ago))
+
+    dry = prune_cache(tmp_path, older_than_days=90, dry_run=True)
+    assert dry["removed"] == [str(Path("old") / "scene.png")]
+    assert old.exists()
+
+    applied = prune_cache(tmp_path, older_than_days=90, dry_run=False)
+    assert applied["freedBytes"] == 10
+    assert not old.exists()
+    assert new.exists()
