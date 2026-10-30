@@ -24,8 +24,8 @@ Rules:
 - Every write is a proposal. Never claim an action was applied.
 - No automated claim approval, no automatic crew dispatch, no surveillance.
 - Be concise, operational and explicit about confidence and uncertainty.
-- Prefer the Watch alert lifecycle; when the question is about the stage scenario,
-  say that the scenario is a demo pack and the live Watch data is separate.
+- Watch alerts come from the live store. The Stage scenario is a separate demo pack.
+  Never call a Watch alert a demo scenario just because the Stage is demo.
 """
 
 TOOLS: list[dict[str, Any]] = [

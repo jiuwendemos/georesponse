@@ -99,21 +99,25 @@ def test_agent_origin_action_requires_approved_proposal():
     from georesponse.proactive.proposals import ProposalStore
 
     alerts = client.get("/api/watch/alerts").json()
-    alert_id = next(item["id"] for item in alerts if item["status"] in {"new", "acknowledged"})
+    assert alerts
+    alert = alerts[0]
+    alert_id = alert["id"]
     blocked = client.post(f"/api/watch/alerts/{alert_id}/action", json={"action": "assign", "actor": "agent-approved", "assignee": "Team 1"})
     assert blocked.status_code == 400
     assert "proposal" in blocked.json()["detail"]
 
-    proposal = ProposalStore(api_store).create(tenant="demo", alert_id=alert_id, action="assign", payload={"team": "Team 1"})
+    proposal = ProposalStore(api_store).create(tenant="demo", alert_id=alert_id, action="handoff", payload={"target": "assessment"})
     approved = client.post(f"/api/watch/proposals/{proposal.id}/approve", json={"actor": "analyst"})
     assert approved.status_code == 200
     assert approved.json()["status"] == "approved"
 
-    allowed = client.post(
-        f"/api/watch/alerts/{alert_id}/action",
-        json={"action": "acknowledge", "actor": "agent-approved", "proposal_id": proposal.id},
-    )
-    assert allowed.status_code == 200
+    action = {"new": "acknowledge", "acknowledged": "investigate", "assigned": "acknowledge", "investigating": "resolve"}.get(alert["status"])
+    if action:
+        allowed = client.post(
+            f"/api/watch/alerts/{alert_id}/action",
+            json={"action": action, "actor": "agent-approved", "proposal_id": proposal.id},
+        )
+        assert allowed.status_code == 200, allowed.text
     undone = client.post(f"/api/watch/proposals/{proposal.id}/undo", json={"actor": "analyst"})
     assert undone.status_code == 200
     assert undone.json()["status"] == "undone"
@@ -130,3 +134,51 @@ def test_new_proposal_is_pending():
     proposal = store.create(tenant="demo", alert_id=alert.id, action="handoff", payload={"target": "assessment"})
     assert [item.id for item in store.pending("demo")] == [proposal.id]
     local.close()
+
+
+def test_baseline_then_observations_create_alert():
+    from georesponse.proactive.engine import ProactiveEngine
+    from georesponse.proactive.models import Baseline, Scope, new_id
+
+    store = ProactiveStore(":memory:")
+    scope = Scope(
+        id=new_id("SC"),
+        tenant="demo",
+        name="Example corridor",
+        kind="corridor",
+        region="Ahr",
+        center=(7.1, 50.545),
+        bbox=(7.03, 50.51, 7.18, 50.57),
+        asset_class="utility",
+        change_types=["flood"],
+        cadence="daily",
+    )
+    store.save_scope(scope)
+    store.save_baseline(Baseline(scope_id=scope.id, metric="change_fraction", values=[0.019, 0.021, 0.018, 0.02, 0.017] * 2).recompute())
+    engine = ProactiveEngine(store)
+
+    def observation(value: float) -> dict:
+        return {
+            "metric": "change_fraction",
+            "changeFraction": value,
+            "confidence": 0.92,
+            "optical": True,
+            "sar": True,
+            "sarConfidence": 0.86,
+            "cloud": 0.03,
+            "season": "summer",
+            "changeType": "flood",
+            "lon": 7.1,
+            "lat": 50.545,
+            "summary": "Flood edge reached the site.",
+            "asset": "Corridor",
+            "valueEur": 12000000,
+            "population": 1800,
+            "access": "flooded",
+        }
+
+    assert engine.ingest(scope.id, observation(0.34))["status"] == "no-alert"
+    result = engine.ingest(scope.id, observation(0.40))
+    assert result["status"] == "alert", result
+    assert result["alert"]["severity"] == "red"
+    store.close()

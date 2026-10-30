@@ -120,7 +120,7 @@ function readWork(id: string): WorkState {
   }
 }
 
-const MODES: Mode[] = ['stage', 'watch', 'analyst', 'dashboard', 'method', 'booth']
+const MODES: Mode[] = ['stage', 'watch', 'analyst', 'dashboard', 'method', 'booth', 'workspace']
 
 function hashView(): Mode {
   if (typeof window === 'undefined') return 'stage'

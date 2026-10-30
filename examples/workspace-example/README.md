@@ -19,7 +19,8 @@ and already committed under `web/public/data/real/ahr-2021-flood/`.
 | `sites.csv` | Import into **Workspace → Import CSV / GeoJSON** |
 | `sites.geojson` | Same sites as a GeoJSON `FeatureCollection` of Points |
 | `scope.json` | Body for `POST /api/watch/scopes` |
-| `observations.json` | Two observations for `POST /api/watch/observations` |
+| `baseline.json` | Historical low-change baseline for `POST /api/watch/scopes/{id}/baseline` |
+| `observations.json` | Three observations for `POST /api/watch/observations` |
 | `run_api_example.py` | Creates the scope, ingests both observations, prints alerts |
 
 ## Option A — Workspace only (no backend)
@@ -51,9 +52,12 @@ py examples/workspace-example/run_api_example.py --base http://127.0.0.1:8010
 What happens:
 
 1. `POST /api/watch/scopes` creates the corridor scope.
-2. Observation 1 (`changeFraction=0.02`) establishes the baseline, no alert.
-3. Observation 2 (`changeFraction=0.16`, optical + SAR) triggers temporal
-   confirmation and creates an alert with the evidence paths.
+2. `POST /api/watch/scopes/{id}/baseline` imports twelve quiet historical values so the detector has a stable reference.
+3. Observation 1 (`changeFraction=0.02`) establishes the baseline, no alert.
+4. Observation 2 (`changeFraction=0.34`) is a single above-threshold point; temporal
+   confirmation still holds the alert.
+5. Observation 3 (`changeFraction=0.40`) confirms the trend and creates the alert
+   with the evidence paths.
 4. Open the app with the API running; Watch reads `/api/watch/overview` and shows
    the live scope and alert instead of the committed demo pack.
 5. Approve or dismiss through the proposal/alert lifecycle; nothing is applied

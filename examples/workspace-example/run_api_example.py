@@ -34,6 +34,11 @@ def main() -> int:
         scope_id = scope.json()["id"]
         print("scope", scope_id, scope.json()["name"])
 
+        baseline = json.loads((ROOT / "baseline.json").read_text(encoding="utf-8"))
+        seeded = client.post(f"/api/watch/scopes/{scope_id}/baseline", json=baseline)
+        seeded.raise_for_status()
+        print("baseline", seeded.json()["mean"], "from", len(seeded.json()["values"]), "values")
+
         for index, entry in enumerate(observations, 1):
             body = {
                 "scopeId": scope_id,

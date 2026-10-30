@@ -1,0 +1,13 @@
+﻿raw/
+segments/
+audio/
+voice.wav
+voice_final.wav
+recording.webm
+out/retimed.mp4
+out/concat.txt
+out/*-softsubs.mp4
+out/frame_*.png
+out/check_*.png
+out/fresh_*.png
+out/last_*.png

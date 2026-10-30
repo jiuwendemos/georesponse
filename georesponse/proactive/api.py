@@ -94,6 +94,12 @@ class BulkRequest(BaseModel):
     reason: str | None = None
 
 
+class BaselineRequest(BaseModel):
+    metric: str = "change_fraction"
+    values: list[float]
+    modelVersion: str = "baseline-import"
+
+
 class ObservationRequest(BaseModel):
     scopeId: str
     observation: dict[str, Any]
@@ -268,6 +274,24 @@ def resume_scope(scope_id: str, reason: str = "", actor: str = "api") -> dict:
         store.save_plan(plan)
     store.audit(scope.tenant, "scope.resumed", actor=actor, detail={"scope": scope_id, "reason": reason})
     return {"scope": scope_id, "status": "active", "reason": reason}
+
+
+@router.post("/scopes/{scope_id}/baseline")
+def import_baseline(scope_id: str, request: BaselineRequest) -> dict:
+    from .models import Baseline
+
+    scope = _scope_or_404(scope_id)
+    if not request.values:
+        raise HTTPException(status_code=422, detail="baseline needs at least one value")
+    baseline = Baseline(
+        scope_id=scope.id,
+        metric=request.metric,
+        values=[float(value) for value in request.values],
+        model_version=request.modelVersion,
+    ).recompute()
+    store.save_baseline(baseline)
+    store.audit(scope.tenant, "baseline.imported", actor="api", detail={"scope": scope.id, "metric": request.metric, "values": len(request.values)})
+    return baseline.to_dict()
 
 
 @router.post("/scopes/{scope_id}/watch-now")

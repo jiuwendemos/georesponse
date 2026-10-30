@@ -4,7 +4,7 @@
 
 ![GeoResponse stage view](docs/assets/stage.jpg)
 
-**Live demo:** https://jiuwendemos.github.io/georesponse/ · **Stage plan:** [docs/ROADMAP.md](docs/ROADMAP.md) · **Method:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) · **Proactive design:** [docs/PROACTIVE.md](docs/PROACTIVE.md) · **2026 experience:** [docs/EXPERIENCE_2026.md](docs/EXPERIENCE_2026.md) · **Production wiring:** [docs/PRODUCTION_WIRING.md](docs/PRODUCTION_WIRING.md) · **Accessibility:** [docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md) · **Workspace data:** [docs/WORKSPACE.md](docs/WORKSPACE.md) · **Example case:** [examples/workspace-example](examples/workspace-example)
+**Live demo:** https://jiuwendemos.github.io/georesponse/ · **Stage plan:** [docs/ROADMAP.md](docs/ROADMAP.md) · **Method:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) · **Proactive design:** [docs/PROACTIVE.md](docs/PROACTIVE.md) · **2026 experience:** [docs/EXPERIENCE_2026.md](docs/EXPERIENCE_2026.md) · **Production wiring:** [docs/PRODUCTION_WIRING.md](docs/PRODUCTION_WIRING.md) · **Accessibility:** [docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md) · **Workspace data:** [docs/WORKSPACE.md](docs/WORKSPACE.md) · **Demo video:** [demo-video](demo-video) · **Example case:** [examples/workspace-example](examples/workspace-example)
 
 GeoResponse is an AI analyst for imagery. It is built around one decision, not a dashboard: *where do we send the three teams?* The demo is a 90-second command story. The product is an analyst workspace with an audit trail, exports and a pilot measurement pack. Everything runs offline from a local data pack.
 

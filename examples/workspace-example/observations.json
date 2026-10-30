@@ -30,7 +30,7 @@
     "modelVersion": "gr-changenet-example",
     "observation": {
       "metric": "change_fraction",
-      "changeFraction": 0.16,
+      "changeFraction": 0.34,
       "confidence": 0.9,
       "optical": true,
       "sar": true,
@@ -50,6 +50,34 @@
       "source": "sentinel-2+sentinel-1",
       "imagery": "Sentinel-2 L2A · S2A_32ULB_20210718_0_L2A + Sentinel-1 SAR",
       "acquired": "2021-07-18T10:37:10Z",
+      "evidenceBefore": "data/real/ahr-2021-flood/ahr-2021-flood-before.png",
+      "evidenceAfter": "data/real/ahr-2021-flood/ahr-2021-flood-after.png"
+    }
+  },
+  {
+    "modelVersion": "gr-changenet-example",
+    "observation": {
+      "metric": "change_fraction",
+      "changeFraction": 0.4,
+      "confidence": 0.92,
+      "optical": true,
+      "sar": true,
+      "sarConfidence": 0.86,
+      "cloud": 0.03,
+      "shadow": 0.01,
+      "snow": 0.0,
+      "season": "summer",
+      "changeType": "flood",
+      "lon": 7.1,
+      "lat": 50.545,
+      "summary": "Change persists and grows. Flood edge is inside the care campus footprint; access remains flooded.",
+      "asset": "Ahr supply corridor",
+      "valueEur": 12000000,
+      "population": 1800,
+      "access": "flooded",
+      "source": "sentinel-2+sentinel-1",
+      "imagery": "Sentinel-2 L2A · S2A_32ULB_20210721_0_L2A + Sentinel-1 SAR",
+      "acquired": "2021-07-21T10:37:00Z",
       "evidenceBefore": "data/real/ahr-2021-flood/ahr-2021-flood-before.png",
       "evidenceAfter": "data/real/ahr-2021-flood/ahr-2021-flood-after.png"
     }

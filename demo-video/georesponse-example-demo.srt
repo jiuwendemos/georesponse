@@ -1,0 +1,51 @@
+1
+00:00:00,000 --> 00:00:16,680
+GeoResponse turns satellite imagery into a decision a manager can defend. Not a map demo: a decision, the evidence behind it, and a human correction. In this video we use a real example case in the Ahr valley, with real Sentinel-2 images.
+
+2
+00:00:17,580 --> 00:00:29,820
+There are two data sources. The demo pack is the bundled synthetic scenario for a stage or booth. My workspace is your own sites. You switch in Settings, and the demo pack stays one click away.
+
+3
+00:00:30,721 --> 00:00:43,051
+The workspace starts empty. Import a CSV or GeoJSON, add one site manually, or load the bundled example. This is the difference between a demo and a product you can put your own data into.
+
+4
+00:00:43,955 --> 00:00:55,955
+We load the example case: six sites in the Ahr supply corridor. Each row carries coordinates, severity, confidence, value, population, access and notes.
+
+5
+00:00:56,862 --> 00:01:08,982
+Every site becomes a pin and a row. Red is high risk, orange is watch. The summary gives the decision-maker the shape of the problem: six sites, how many red, value at risk, and people.
+
+6
+00:01:09,882 --> 00:01:22,762
+This is not a fixed demo. Select a site and edit its name, coordinates, severity, confidence, value, population or access. Changes are saved in this browser until you connect a backend.
+
+7
+00:01:23,664 --> 00:01:33,934
+Export the list as CSV or GeoJSON. The point is not to trap your data in this app; it is to move the decision into the tools your team already uses.
+
+8
+00:01:34,834 --> 00:01:50,074
+The site list is one half. The other half is Watch, the proactive inbox. For this example we used the API: twelve quiet baseline values, then observations over time. The last observation crossed the threshold and produced this alert.
+
+9
+00:02:10,975 --> 00:02:26,545
+Watch shows the alert, not just a pin: severity, confidence, the SLA clock, the owner, the real Sentinel before and after, the value at risk, access, and why it fired against the baseline. The human sees the evidence before acting.
+
+10
+00:02:27,445 --> 00:03:10,645
+Now ask the agent. It answers from grounded tools: the portfolio briefing, this alert, and coverage. It does not guess from a prompt: it calls get_briefing, get_alert and get_coverage, and you can see each step. The answer is slower than a chat box because the work is real: it reads the alert, the baseline, the SLA and the evidence, then proposes one safe next action. Notice the answer names the alert, the baseline, the SLA and the evidence; it does not invent a number. Every write is a proposal. Nothing is approved automatically. The system never approves a claim, dispatches a crew or signs an assessment. That is the difference between an assistant and an autonomous system.
+
+11
+00:03:31,554 --> 00:03:44,604
+The agent proposes assigning a team. A human approves it here. The alert changes, the action is audited, and the proposal can be undone. The system never signs, dispatches or approves a claim on its own.
+
+12
+00:03:45,507 --> 00:03:56,567
+Switch back to the demo pack whenever you need the synthetic scenarios for a stage. Your workspace is untouched. Both paths exist on purpose: one to show, one to use.
+
+13
+00:03:57,467 --> 00:04:07,207
+Real imagery. A ranked decision. A human correction. A proactive watch. That is GeoResponse: your sites, your evidence, your decision.

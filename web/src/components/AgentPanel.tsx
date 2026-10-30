@@ -41,7 +41,7 @@ export default function AgentPanel() {
     {
       id: ++messageId,
       role: 'agent',
-      text: 'I can navigate, brief you, change the interface, explain an alert or prepare an action for your approval. I use local tools only — no external model sees your data.',
+      text: 'I can navigate, brief you, explain an alert or prepare an action for your approval. I use the configured live model when the API is running; otherwise I use local tools. Every write is a proposal.',
       steps: ['local intent parser', 'current scenario + Watch pack'],
     },
   ])
@@ -63,14 +63,38 @@ export default function AgentPanel() {
   useEffect(() => {
     if (!ui.agentOpen) return
     loadJson<ProactiveData>(dataPath('proactive.json')).then(setProactive).catch(() => undefined)
-    fetch('/api/watch/production/agent/health')
-      .then((response) => (response.ok ? response.json() : null))
-      .then((health) => {
-        setLive(Boolean(health?.configured))
-        setLiveModel(String(health?.model ?? ''))
-        setLiveBackend(String(health?.backend ?? ''))
-      })
-      .catch(() => setLive(false))
+    let cancelled = false
+    let attempts = 0
+    const check = () => {
+      fetch('/api/watch/production/agent/health')
+        .then((response) => (response.ok ? response.json() : null))
+        .then((health) => {
+          if (cancelled) return
+          if (health?.configured) {
+            setLive(true)
+            setLiveModel(String(health.model ?? ''))
+            setLiveBackend(String(health.backend ?? ''))
+            return
+          }
+          if (attempts < 4) {
+            attempts += 1
+            window.setTimeout(check, 1200)
+          } else {
+            setLive(false)
+          }
+        })
+        .catch(() => {
+          if (cancelled) return
+          if (attempts < 4) {
+            attempts += 1
+            window.setTimeout(check, 1200)
+          } else {
+            setLive(false)
+          }
+        })
+    }
+    check()
+    return () => { cancelled = true }
   }, [ui.agentOpen])
 
   useEffect(() => {
@@ -422,7 +446,7 @@ export default function AgentPanel() {
         <div className="agent-log" ref={log} aria-live="polite">
           {messages.map((message) => (
             <div key={message.id} className={`agent-msg agent-${message.role} ${message.tone === 'refuse' ? 'agent-refuse' : ''}`}>
-              <div className="agent-msg-head"><span>{message.role === 'user' ? 'You' : 'GeoResponse'}</span>{message.role === 'agent' && <small>local</small>}</div>
+              <div className="agent-msg-head"><span>{message.role === 'user' ? 'You' : 'GeoResponse'}</span>{message.role === 'agent' && <small>{live ? 'live' : 'local'}</small>}</div>
               <p>{message.text}</p>
               {message.steps && message.steps.length > 0 && (
                 <details className="agent-steps">
