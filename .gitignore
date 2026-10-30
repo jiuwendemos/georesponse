@@ -23,3 +23,18 @@ Thumbs.db
 
 # Keep generated demo packs (needed for the offline app)
 !web/public/data/**
+
+# OpenCode / agent scratch (never part of the product)
+AGENT.md
+HEARTBEAT.md
+IDENTITY.md
+SOUL.md
+USER.md
+agents/
+coding_memory/
+context/
+memory/
+messages/
+skills/
+todo/
+logs/
