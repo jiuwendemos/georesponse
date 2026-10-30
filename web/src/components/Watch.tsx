@@ -27,6 +27,14 @@ const DISMISS_REASONS = [
 ] as const
 
 const CHANNELS = ['email', 'slack', 'teams', 'sms', 'pager', 'webhook']
+function measureBbox(bbox: [number, number, number, number]): string {
+  const [west, south, east, north] = bbox
+  const lat = ((south + north) / 2) * (Math.PI / 180)
+  const widthKm = Math.abs(east - west) * 111.32 * Math.cos(lat)
+  const heightKm = Math.abs(north - south) * 111.32
+  return `${widthKm.toFixed(2)} × ${heightKm.toFixed(2)} km · ${(widthKm * heightKm).toFixed(2)} km²`
+}
+
 const OPEN_STATES = new Set(['new', 'acknowledged', 'assigned', 'investigating'])
 
 function ago(value: string | null | undefined): string {
@@ -87,6 +95,7 @@ export default function Watch() {
   const [drawing, setDrawing] = useState(false)
   const [draftBbox, setDraftBbox] = useState<[number, number, number, number] | null>(null)
   const [createOpen, setCreateOpen] = useState(false)
+  const [lastCreated, setLastCreated] = useState<string | null>(null)
   const [scopeName, setScopeName] = useState('')
   const [scopeRegion, setScopeRegion] = useState('Ahrweiler, Germany')
   const [scopeClass, setScopeClass] = useState('utility')
@@ -230,6 +239,17 @@ export default function Watch() {
     }
   }
 
+  const undoScope = () => {
+    if (!data || !lastCreated) return
+    setData({
+      ...data,
+      scopes: data.scopes.filter((scope) => scope.id !== lastCreated),
+      plans: data.plans.filter((plan) => plan.scope_id !== lastCreated),
+    })
+    setLastCreated(null)
+    setToast('Last scope creation undone. Nothing was sent and the audit keeps the attempt.')
+  }
+
   const toggleScope = (scope: ProactiveScope) => {
     if (!data) return
     const next = scope.status === 'active' ? 'paused' : 'active'
@@ -306,6 +326,7 @@ export default function Watch() {
       ],
     })
     setSelectedScope(next.id)
+    setLastCreated(next.id)
     setCreateOpen(false)
     setDrawing(false)
     setDraftBbox(null)
@@ -561,6 +582,7 @@ export default function Watch() {
                 <Icon name="pin" size={14} /> {drawing ? 'Drawing…' : 'Draw scope'}
               </button>
               <button className="btn btn-primary" onClick={() => setCreateOpen(true)}><Icon name="check" size={14} /> New scope</button>
+              <Button size="sm" variant="ghost" disabled={!lastCreated} onClick={undoScope}>Undo last scope</Button>
             </div>
           </div>
           <div className="scope-grid">
@@ -861,7 +883,30 @@ export default function Watch() {
         <label className="field-row">Asset class<select value={scopeClass} onChange={(e) => setScopeClass(e.target.value)}><option>utility</option><option>insurance</option><option>agriculture</option><option>mining</option><option>construction</option></select></label>
         <label className="field-row">Cadence<select value={scopeCadence} onChange={(e) => setScopeCadence(e.target.value)}><option>6h</option><option>12h</option><option>daily</option><option>weekly</option></select></label>
         <label className="field-row">Change type<select value={scopeChange} onChange={(e) => setScopeChange(e.target.value)}><option>flood</option><option>wildfire</option><option>construction</option><option>vegetation</option><option>erosion</option></select></label>
-        <div className="scope-bbox">{draftBbox ? `Drawn bbox: ${draftBbox.map((v) => v.toFixed(3)).join(', ')}` : 'No bbox drawn — the default demo bbox will be used.'}</div>
+        {draftBbox ? (
+          <div className="scope-bbox">
+            <span>Bounds are snapped to 0.001° (about 100 m). Edit them directly:</span>
+            <div className="bbox-grid">
+              {(['W', 'S', 'E', 'N'] as const).map((label, index) => (
+                <label key={label}>{label}
+                  <input
+                    type="number"
+                    step={0.001}
+                    value={draftBbox[index]}
+                    onChange={(event) => {
+                      const next = [...draftBbox] as [number, number, number, number]
+                      next[index] = Math.round(Number(event.target.value) * 1000) / 1000
+                      setDraftBbox(next)
+                    }}
+                  />
+                </label>
+              ))}
+            </div>
+            <b>{measureBbox(draftBbox)}</b>
+          </div>
+        ) : (
+          <div className="scope-bbox">No bbox drawn — draw on the coverage map or use the default demo bbox.</div>
+        )}
         <div className="modal-actions"><button className="btn btn-primary" onClick={createScope}>Create scope</button><button className="btn btn-ghost" onClick={() => setCreateOpen(false)}>Cancel</button></div>
       </Modal>
     </div>

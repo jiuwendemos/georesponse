@@ -74,3 +74,46 @@ def test_multi_tenant_isolation():
     assert {scope.tenant for scope in store.list_scopes("alpha")} == {"alpha"}
     assert {scope.tenant for scope in store.list_scopes("beta")} == {"beta"}
     store.close()
+
+
+def test_proposal_approval_and_undo():
+    from georesponse.proactive.demo import seed_demo
+    from georesponse.proactive.proposals import ProposalStore
+
+    local = ProactiveStore(":memory:")
+    seed_demo(local)
+    alert = local.list_alerts("demo", limit=1)[0]
+    proposals = ProposalStore(local)
+    proposal = proposals.create(tenant="demo", alert_id=alert.id, action="assign", payload={"team": "Team 2"})
+    approved = proposals.approve(proposal.id, actor="analyst")
+    assert approved["status"] == "approved"
+    assert local.get_alert(alert.id).assignee == "Team 2"
+    undone = proposals.undo(proposal.id, actor="analyst")
+    assert undone["status"] == "undone"
+    assert local.get_alert(alert.id).assignee is None
+    local.close()
+
+
+def test_agent_origin_action_requires_approved_proposal():
+    from georesponse.proactive.api import store as api_store
+    from georesponse.proactive.proposals import ProposalStore
+
+    alerts = client.get("/api/watch/alerts").json()
+    alert_id = next(item["id"] for item in alerts if item["status"] in {"new", "acknowledged"})
+    blocked = client.post(f"/api/watch/alerts/{alert_id}/action", json={"action": "assign", "actor": "agent-approved", "assignee": "Team 1"})
+    assert blocked.status_code == 400
+    assert "proposal" in blocked.json()["detail"]
+
+    proposal = ProposalStore(api_store).create(tenant="demo", alert_id=alert_id, action="assign", payload={"team": "Team 1"})
+    approved = client.post(f"/api/watch/proposals/{proposal.id}/approve", json={"actor": "analyst"})
+    assert approved.status_code == 200
+    assert approved.json()["status"] == "approved"
+
+    allowed = client.post(
+        f"/api/watch/alerts/{alert_id}/action",
+        json={"action": "acknowledge", "actor": "agent-approved", "proposal_id": proposal.id},
+    )
+    assert allowed.status_code == 200
+    undone = client.post(f"/api/watch/proposals/{proposal.id}/undo", json={"actor": "analyst"})
+    assert undone.status_code == 200
+    assert undone.json()["status"] == "undone"

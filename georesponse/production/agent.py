@@ -242,21 +242,25 @@ class LiveAgent:
             return {"alert": alert.to_dict(), "explain": self.engine.explain(alert.id), "sla": __import__("georesponse.proactive.alerts", fromlist=["sla_status"]).sla_status(alert)}
         if name == "get_coverage":
             return self.engine.watch(tenant, store.list_forecasts())["coverage"]
-        if name == "propose_assignment":
+        if name in {"propose_assignment", "propose_dismissal", "propose_handoff"}:
+            from ..proactive.proposals import ProposalStore
+
             alert = store.get_alert(args["alert_id"])
             if not alert:
                 return {"error": "not found"}
-            return {"proposal": {"action": "assign", "alertId": alert.id, "team": args["team"], "site": alert.asset}, "requiresApproval": True}
-        if name == "propose_dismissal":
-            alert = store.get_alert(args["alert_id"])
-            if not alert:
-                return {"error": "not found"}
-            return {"proposal": {"action": "dismiss", "alertId": alert.id, "reason": args["reason"], "note": args.get("note", "")}, "requiresApproval": True}
-        if name == "propose_handoff":
-            alert = store.get_alert(args["alert_id"])
-            if not alert:
-                return {"error": "not found"}
-            return {"proposal": {"action": "handoff", "alertId": alert.id, "target": args["target"]}, "requiresApproval": True}
+            action = {"propose_assignment": "assign", "propose_dismissal": "dismiss", "propose_handoff": "handoff"}[name]
+            if action == "assign":
+                payload = {"team": args["team"], "site": alert.asset}
+            elif action == "dismiss":
+                payload = {"reason": args["reason"], "note": args.get("note", "")}
+            else:
+                payload = {"target": args["target"]}
+            record = ProposalStore(store).create(tenant=alert.tenant, alert_id=alert.id, action=action, payload=payload, created_by="agent")
+            return {
+                "proposal": {"id": record.id, "action": action, "alertId": alert.id, **payload},
+                "proposalId": record.id,
+                "requiresApproval": True,
+            }
         return {"error": f"unknown tool {name}"}
 
     async def _post(self, client: httpx.AsyncClient, url: str, headers: dict, payload: dict) -> httpx.Response:

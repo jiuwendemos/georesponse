@@ -171,3 +171,22 @@ py -m georesponse.cli prune-imagery --days 90 --apply    # delete cached files
 Only `runtime/imagery` is pruned. Committed demo packs and customer source
 imagery are never touched by this command. S3 lifecycle rules are available in
 `production/storage.py` for object stores.
+
+## Agent proposals are enforced in the API
+
+The agent never mutates an alert. Write tools create a proposal:
+
+| Endpoint | Behaviour |
+|---|---|
+| `GET /api/watch/proposals` | Pending proposals for the tenant |
+| `POST /api/watch/proposals/{id}/approve` | Applies the change as a named human and stores the previous state |
+| `POST /api/watch/proposals/{id}/reject` | Rejects with a reason |
+| `POST /api/watch/proposals/{id}/undo` | Restores the previous status and assignee |
+
+`POST /api/watch/alerts/{id}/action` returns `400` for an `actor` of `agent` or
+`agent-approved` unless an approved `proposal_id` for that alert is supplied. The
+agent panel approves through the proposal endpoint, not by calling the alert
+action directly.
+
+Tests: `tests/test_api_insights.py::test_proposal_approval_and_undo` and
+`test_agent_origin_action_requires_approved_proposal`.

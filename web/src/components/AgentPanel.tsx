@@ -119,23 +119,22 @@ export default function AgentPanel() {
         })
         .then((result) => {
           const steps = (result.trace ?? []).map((step: { tool: string; arguments: Record<string, unknown> }) => `${step.tool}(${Object.keys(step.arguments ?? {}).join(', ')})`)
-          const proposals = (result.proposals ?? []).map((proposal: { action: string; alertId: string; reason?: string; target?: string; team?: string }) => ({
+          const proposals = (result.proposals ?? []).map((proposal: { id?: string; action: string; alertId: string; reason?: string; target?: string; team?: string }) => ({
             label: proposal.action === 'assign'
               ? `Open ${proposal.alertId} to assign ${proposal.team ?? 'a team'}`
               : proposal.action === 'dismiss'
                 ? `Dismiss ${proposal.alertId} as ${proposal.reason}`
                 : `Prepare ${proposal.target} draft for ${proposal.alertId}`,
             run: async () => {
-              if (proposal.action === 'dismiss') {
-                await fetch(`/api/watch/alerts/${proposal.alertId}/action`, {
+              if (proposal.id) {
+                const response = await fetch(`/api/watch/proposals/${proposal.id}/approve`, {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ action: 'dismiss', actor: 'agent-approved', reason: proposal.reason, note: 'Approved from agent panel' }),
+                  body: JSON.stringify({ actor: 'analyst', reason: 'Approved from agent panel' }),
                 })
-                app.openWatchAlert(proposal.alertId)
-              } else {
-                app.openWatchAlert(proposal.alertId)
+                if (!response.ok) throw new Error((await response.json().catch(() => ({}))).detail || 'proposal approval failed')
               }
+              app.openWatchAlert(proposal.alertId)
             },
           }))
           push({

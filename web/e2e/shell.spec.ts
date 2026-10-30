@@ -147,6 +147,19 @@ test.describe('shell', () => {
     await expect(page.locator('.mobile-location')).toContainText('Stage')
   })
 
+  test('creates and undoes a scope', async ({ page }) => {
+    await page.getByRole('button', { name: 'Watch' }).click()
+    await expect(page.locator('.watch-page')).toBeVisible()
+    await page.locator('.watch-tabs').getByRole('button', { name: 'scopes', exact: true }).click()
+    await page.getByRole('button', { name: 'New scope' }).click()
+    const dialog = page.getByRole('dialog', { name: 'Create scope' })
+    await dialog.getByPlaceholder('Ahr corridor — north bank').fill('Test corridor')
+    await dialog.getByRole('button', { name: 'Create scope' }).click()
+    await expect(page.locator('.watch-toast')).toContainText('created')
+    await page.getByRole('button', { name: 'Undo last scope' }).click()
+    await expect(page.locator('.watch-toast')).toContainText('undone')
+  })
+
   test('layer panel exposes opacity, order and saved sets', async ({ page }) => {
     const layers = page.locator('.layers')
     await expect(layers.getByLabel('Change opacity')).toBeVisible()

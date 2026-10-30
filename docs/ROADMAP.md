@@ -1063,7 +1063,7 @@ No silent demo fallback is ever allowed.
 - [ ] Roads, buildings, land use, water, contours and labels at three zoom bands **(L)**
 - [ ] Label hierarchy, collision and decluttering on stage **(M)**
 - [ ] Interruptible fly-to, fit-to-scope and reveal **(S)**
-- [ ] Draw, edit, measure and snap scopes with undo **(M)**
+- [x] Draw, edit, measure and snap scopes with undo **(M)**
 - [x] Layer panel with opacity, ordering and saved layer sets **(M)**
 - [x] Swipe/before-after compare as a first-class control **(S)**
 - [x] Mini-map, scale bar and compass **(S)**
@@ -1084,7 +1084,7 @@ No silent demo fallback is ever allowed.
 - [ ] Voice input as an accessibility path, off by default **(S)**
 - [x] Agent evaluation set with golden questions and tool traces **(M)**
 - [ ] Tool calls rendered as inspectable steps everywhere **(S)**
-- [ ] Preview/approve/undo enforced in the API, not only the UI **(M)**
+- [x] Preview/approve/undo enforced in the API, not only the UI **(M)**
 
 #### 7.B.5 Mobile and field
 

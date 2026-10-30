@@ -77,6 +77,12 @@ class ActionRequest(BaseModel):
     note: str = ""
     assignee: str | None = None
     reason: str | None = None
+    proposal_id: str | None = None
+
+
+class ProposalDecision(BaseModel):
+    actor: str = "analyst"
+    reason: str = ""
 
 
 class BulkRequest(BaseModel):
@@ -314,6 +320,17 @@ def status_update(alert_id: str, author: str, message: str) -> dict:
 @router.post("/alerts/{alert_id}/action")
 def alert_action(alert_id: str, request: ActionRequest) -> dict:
     _alert_or_404(alert_id)
+    if request.actor in {"agent", "agent-approved"}:
+        from .proposals import ProposalError, ProposalStore
+
+        if not request.proposal_id:
+            raise HTTPException(status_code=400, detail="agent-origin actions require proposal_id")
+        try:
+            proposal = ProposalStore(store).get(request.proposal_id)
+        except ProposalError as exc:
+            raise HTTPException(status_code=404, detail=str(exc)) from exc
+        if proposal.alert_id != alert_id or proposal.status != "approved":
+            raise HTTPException(status_code=403, detail="proposal is not approved for this alert")
     try:
         return engine.review(alert_id, request.action, actor=request.actor, note=request.note, assignee=request.assignee, reason=request.reason)
     except (ValueError, KeyError) as exc:
@@ -632,6 +649,46 @@ def feedback_summary(tenant: str = TENANT) -> dict:
     from .insights import feedback_summary as summary
 
     return summary(store, tenant)
+
+
+@router.get("/proposals")
+def proposals(tenant: str = TENANT, status: str | None = None) -> dict:
+    from .proposals import ProposalStore
+
+    items = ProposalStore(store).pending(tenant)
+    if status and status != "pending":
+        items = []
+    return {"tenant": tenant, "proposals": [item.to_dict() for item in items]}
+
+
+@router.post("/proposals/{proposal_id}/approve")
+def proposal_approve(proposal_id: str, request: ProposalDecision) -> dict:
+    from .proposals import ProposalError, ProposalStore
+
+    try:
+        return ProposalStore(store).approve(proposal_id, actor=request.actor)
+    except ProposalError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@router.post("/proposals/{proposal_id}/reject")
+def proposal_reject(proposal_id: str, request: ProposalDecision) -> dict:
+    from .proposals import ProposalError, ProposalStore
+
+    try:
+        return ProposalStore(store).reject(proposal_id, actor=request.actor, reason=request.reason)
+    except ProposalError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@router.post("/proposals/{proposal_id}/undo")
+def proposal_undo(proposal_id: str, request: ProposalDecision) -> dict:
+    from .proposals import ProposalError, ProposalStore
+
+    try:
+        return ProposalStore(store).undo(proposal_id, actor=request.actor)
+    except ProposalError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
 # ---------------------------------------------------------------- production
