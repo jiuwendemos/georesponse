@@ -1,11 +1,13 @@
 import { useUi } from '../ui-context'
 import { usePrefs } from '../prefs'
+import { useApp } from '../store'
 import { Modal, Icon } from './ui'
 import { Button, Field, Segmented, TextInput } from './ds'
 
 export default function SettingsPanel() {
   const ui = useUi()
   const prefs = usePrefs()
+  const app = useApp()
   const t = prefs.t
 
   return (
@@ -58,6 +60,20 @@ export default function SettingsPanel() {
             options={[
               { value: 'en', label: 'English' },
               { value: 'de', label: 'Deutsch' },
+            ]}
+          />
+        </Field>
+        <Field label={t('settings.dataMode')} hint={t('settings.dataModeHint')}>
+          <Segmented
+            value={prefs.dataMode}
+            label={t('settings.dataMode')}
+            onChange={(value) => {
+              prefs.setDataMode(value)
+              app.setMode(value === 'workspace' ? 'workspace' : 'stage')
+            }}
+            options={[
+              { value: 'demo', label: t('dataMode.demo') },
+              { value: 'workspace', label: t('dataMode.workspace') },
             ]}
           />
         </Field>

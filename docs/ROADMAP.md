@@ -1373,6 +1373,21 @@ manager proof page. Gap to a ScienceDiscovery-level workspace: about 4/10.
 - [x] Proof the manager remembers: “42 minutes, three teams, one signed assessment — and the analyst caught the false positive” **(S)**
 - [ ] Rehearse with a real room and record the reaction **(M)**
 
+### 8.F Workspace data flow
+
+- [x] Settings switch between **Demo pack** and **My workspace** **(M)**
+- [x] Empty workspace with a clear import path **(M)**
+- [x] CSV and GeoJSON import with validation and preview **(M)**
+- [x] Editable workspace map and table, persisted in the browser **(M)**
+- [x] Bundled example case with real files and API observations **(M)**
+- [x] Demo pack remains one click away in Settings **(S)**
+- [ ] Server-side workspace storage with tenant isolation **(L)**
+- [ ] Audit every import, edit and delete **(M)**
+- [ ] Wire workspace sites into Stage, Analyst and Pilot **(L)**
+- [ ] Imagery upload and evidence attachment in the UI **(L)**
+- [ ] Column mapping wizard for arbitrary CSV exports **(M)**
+- [ ] Import diff and rollback **(M)**
+
 ### 8.E Do not do
 
 - Do not add more map layers or GIS controls before the manager demo.

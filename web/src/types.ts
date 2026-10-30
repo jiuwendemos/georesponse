@@ -2,7 +2,7 @@ import type { FeatureCollection, Geometry, Polygon } from 'geojson'
 
 export type Severity = 'red' | 'orange' | 'yellow'
 export type ReviewStatus = 'pending' | 'approved' | 'flagged' | 'rejected'
-export type Mode = 'stage' | 'analyst' | 'watch' | 'dashboard' | 'method' | 'booth'
+export type Mode = 'stage' | 'analyst' | 'watch' | 'dashboard' | 'method' | 'booth' | 'workspace'
 
 export interface WhyItem {
   label: string

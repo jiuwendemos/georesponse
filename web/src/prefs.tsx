@@ -5,6 +5,7 @@ export type ThemePref = 'system' | 'light' | 'dark' | 'contrast'
 export type Density = 'comfortable' | 'compact'
 export type Language = 'en' | 'de'
 export type Role = 'all' | 'presenter' | 'analyst' | 'watch' | 'claims' | 'field' | 'admin'
+export type DataMode = 'demo' | 'workspace'
 
 interface PrefsState {
   theme: ThemePref
@@ -12,6 +13,7 @@ interface PrefsState {
   motion: boolean
   language: Language
   role: Role
+  dataMode: DataMode
 }
 
 interface PrefsContextValue extends PrefsState {
@@ -22,6 +24,7 @@ interface PrefsContextValue extends PrefsState {
   setMotion: (motion: boolean) => void
   setLanguage: (language: Language) => void
   setRole: (role: Role) => void
+  setDataMode: (mode: DataMode) => void
   t: (key: string) => string
 }
 
@@ -30,16 +33,16 @@ const KEY = 'georesponse.prefs.v2'
 export function allowedViews(role: Role): Set<string> {
   switch (role) {
     case 'presenter':
-      return new Set(['stage', 'booth'])
+      return new Set(['stage', 'booth', 'workspace'])
     case 'analyst':
-      return new Set(['stage', 'analyst', 'dashboard', 'method'])
+      return new Set(['stage', 'analyst', 'dashboard', 'method', 'workspace'])
     case 'watch':
     case 'claims':
-      return new Set(['stage', 'watch', 'dashboard', 'method'])
+      return new Set(['stage', 'watch', 'dashboard', 'method', 'workspace'])
     case 'field':
-      return new Set(['stage', 'analyst', 'method'])
+      return new Set(['stage', 'analyst', 'method', 'workspace'])
     default:
-      return new Set(['stage', 'watch', 'analyst', 'dashboard', 'method', 'booth'])
+      return new Set(['stage', 'watch', 'analyst', 'dashboard', 'method', 'booth', 'workspace'])
   }
 }
 
@@ -49,6 +52,7 @@ const DEFAULTS: PrefsState = {
   motion: true,
   language: 'en',
   role: 'all',
+  dataMode: 'demo',
 }
 
 const DICT: Record<Language, Record<string, string>> = {
@@ -118,6 +122,11 @@ const DICT: Record<Language, Record<string, string>> = {
     'role.claims': 'Claims lead',
     'role.field': 'Field responder',
     'role.admin': 'Admin',
+    'settings.dataMode': 'Data source',
+    'settings.dataModeHint': 'Demo uses the bundled scenarios. Workspace hides demo data and shows only what you import.',
+    'dataMode.demo': 'Demo pack',
+    'dataMode.workspace': 'My workspace',
+    'nav.workspace': 'Workspace',
   },
   de: {
     'nav.stage': 'Bühne',
@@ -185,6 +194,11 @@ const DICT: Record<Language, Record<string, string>> = {
     'role.claims': 'Schadenleitung',
     'role.field': 'Feld',
     'role.admin': 'Administration',
+    'settings.dataMode': 'Datenquelle',
+    'settings.dataModeHint': 'Demo nutzt die mitgelieferten Szenarien. Arbeitsbereich blendet Demo-Daten aus und zeigt nur Ihre Importe.',
+    'dataMode.demo': 'Demo-Paket',
+    'dataMode.workspace': 'Mein Arbeitsbereich',
+    'nav.workspace': 'Arbeitsbereich',
   },
 }
 
@@ -197,6 +211,7 @@ function loadPrefs(): PrefsState {
       motion: parsed.motion !== false,
       language: parsed.language === 'de' ? 'de' : 'en',
       role: (['all', 'presenter', 'analyst', 'watch', 'claims', 'field', 'admin'] as const).includes(parsed.role as never) ? (parsed.role as Role) : 'all',
+      dataMode: parsed.dataMode === 'workspace' ? 'workspace' : 'demo',
     }
   } catch {
     return DEFAULTS
@@ -231,6 +246,7 @@ export function PrefsProvider({ children }: { children: ReactNode }) {
     root.dataset.language = prefs.language
     root.lang = prefs.language
     root.dataset.role = prefs.role
+    root.dataset.dataMode = prefs.dataMode
     setFormatLocale(prefs.language)
     root.style.colorScheme = resolvedTheme === 'light' ? 'light' : 'dark'
     try {
@@ -254,6 +270,7 @@ export function PrefsProvider({ children }: { children: ReactNode }) {
       setMotion: (motion) => setPrefs((current) => ({ ...current, motion })),
       setLanguage: (language) => setPrefs((current) => ({ ...current, language })),
       setRole: (role) => setPrefs((current) => ({ ...current, role })),
+      setDataMode: (dataMode) => setPrefs((current) => ({ ...current, dataMode })),
       t: (key) => DICT[prefs.language][key] ?? DICT.en[key] ?? key,
     }),
     [prefs, resolvedTheme],

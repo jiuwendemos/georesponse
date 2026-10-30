@@ -1,0 +1,90 @@
+{
+  "type": "FeatureCollection",
+  "name": "georesponse-example-ahr-corridor",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "S-01",
+      "geometry": { "type": "Point", "coordinates": [7.1, 50.545] },
+      "properties": {
+        "name": "Bad Neuenahr care campus",
+        "severity": "red",
+        "confidence": 0.91,
+        "value_eur": 6200000,
+        "population": 1800,
+        "access": "flooded",
+        "notes": "Care campus; access road under water; 1,800 people within 700 m"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "S-02",
+      "geometry": { "type": "Point", "coordinates": [7.115, 50.548] },
+      "properties": {
+        "name": "Heppingen substation",
+        "severity": "orange",
+        "confidence": 0.86,
+        "value_eur": 3400000,
+        "population": 0,
+        "access": "restricted",
+        "notes": "Power asset remains dry; primary access is flooded"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "S-03",
+      "geometry": { "type": "Point", "coordinates": [7.128, 50.541] },
+      "properties": {
+        "name": "Heimersheim bridge",
+        "severity": "orange",
+        "confidence": 0.79,
+        "value_eur": 1100000,
+        "population": 0,
+        "access": "debris",
+        "notes": "Bridge approach blocked by debris; inspection required"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "S-04",
+      "geometry": { "type": "Point", "coordinates": [7.142, 50.536] },
+      "properties": {
+        "name": "Bachem valley road",
+        "severity": "yellow",
+        "confidence": 0.68,
+        "value_eur": 800000,
+        "population": 0,
+        "access": "slow",
+        "notes": "Single-lane access; convoy only"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "S-05",
+      "geometry": { "type": "Point", "coordinates": [7.093, 50.5455] },
+      "properties": {
+        "name": "Ahrweiler old town",
+        "severity": "red",
+        "confidence": 0.88,
+        "value_eur": 4500000,
+        "population": 700,
+        "access": "flooded",
+        "notes": "Historic centre; cellars and ground floors affected"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "S-06",
+      "geometry": { "type": "Point", "coordinates": [7.045, 50.53] },
+      "properties": {
+        "name": "Dernau vineyard block",
+        "severity": "orange",
+        "confidence": 0.72,
+        "value_eur": 1800000,
+        "population": 0,
+        "access": "clear",
+        "notes": "Slope erosion above the block; agronomist review"
+      }
+    }
+  ]
+}

@@ -43,6 +43,7 @@ export default function CommandPalette() {
     }
     const nav: Command[] = [
       { id: 'nav-stage', label: prefs.t('nav.stage'), group: 'Navigate', icon: 'play', run: close(() => app.setMode('stage')) },
+      { id: 'nav-workspace', label: prefs.t('nav.workspace'), group: 'Navigate', icon: 'grid', run: close(() => app.setMode('workspace')) },
       { id: 'nav-watch', label: prefs.t('nav.watch'), group: 'Navigate', icon: 'radar', run: close(() => app.setMode('watch')) },
       { id: 'nav-analyst', label: prefs.t('nav.analyst'), group: 'Navigate', icon: 'map', run: close(() => app.setMode('analyst')) },
       { id: 'nav-pilot', label: prefs.t('nav.pilot'), group: 'Navigate', icon: 'chart', run: close(() => app.setMode('dashboard')) },

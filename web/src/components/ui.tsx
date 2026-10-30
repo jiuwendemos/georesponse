@@ -224,6 +224,7 @@ export function TopBar() {
   const ui = useUi()
   const tabs = [
     { id: 'stage', label: 'nav.stage', icon: 'play' },
+    { id: 'workspace', label: 'nav.workspace', icon: 'grid' },
     { id: 'watch', label: 'nav.watch', icon: 'radar' },
     { id: 'analyst', label: 'nav.analyst', icon: 'map' },
     { id: 'dashboard', label: 'nav.pilot', icon: 'chart' },
@@ -286,6 +287,7 @@ export function MobileNav() {
   const ui = useUi()
   const items = [
     { id: 'stage', label: 'nav.stage', icon: 'play' },
+    { id: 'workspace', label: 'nav.workspace', icon: 'grid' },
     { id: 'watch', label: 'nav.watch', icon: 'radar' },
     { id: 'analyst', label: 'nav.analyst', icon: 'map' },
     { id: 'dashboard', label: 'nav.pilot', icon: 'chart' },

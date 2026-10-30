@@ -14,6 +14,7 @@ import Onboarding from './components/Onboarding'
 import PageSkeleton from './components/PageSkeleton'
 import ManagerProof from './components/ManagerProof'
 import ManagerCut from './components/ManagerCut'
+import Workspace, { WorkspaceGate } from './components/Workspace'
 import { Spinner } from './components/ds'
 import { ErrorBoundary, OfflineBanner } from './components/Resilience'
 import { pct } from './lib/format'
@@ -141,12 +142,19 @@ function Shell() {
       <main id="main-content" className="app-main" tabIndex={-1} role="main">
         <ErrorBoundary>
           <Suspense fallback={<PageSkeleton />}>
-            {app.mode === 'stage' && <Stage />}
-            {app.mode === 'watch' && <Watch />}
-            {app.mode === 'analyst' && <Analyst />}
-            {app.mode === 'dashboard' && <Dashboard />}
-            {app.mode === 'method' && <Method />}
-            {app.mode === 'booth' && <Booth />}
+            {prefs.dataMode === 'workspace' && !['workspace', 'method', 'booth'].includes(app.mode) ? (
+              <WorkspaceGate mode={app.mode} />
+            ) : (
+              <>
+                {app.mode === 'stage' && <Stage />}
+                {app.mode === 'watch' && <Watch />}
+                {app.mode === 'analyst' && <Analyst />}
+                {app.mode === 'dashboard' && <Dashboard />}
+                {app.mode === 'method' && <Method />}
+                {app.mode === 'booth' && <Booth />}
+                {app.mode === 'workspace' && <Workspace />}
+              </>
+            )}
           </Suspense>
         </ErrorBoundary>
       </main>

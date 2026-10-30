@@ -1,0 +1,57 @@
+[
+  {
+    "modelVersion": "gr-changenet-example",
+    "observation": {
+      "metric": "change_fraction",
+      "changeFraction": 0.02,
+      "confidence": 0.5,
+      "optical": true,
+      "sar": false,
+      "cloud": 0.08,
+      "shadow": 0.0,
+      "snow": 0.0,
+      "season": "summer",
+      "changeType": "flood",
+      "lon": 7.1,
+      "lat": 50.545,
+      "summary": "Baseline observation before the flood peak; no change above the seasonal baseline.",
+      "asset": "Ahr supply corridor",
+      "valueEur": 12000000,
+      "population": 1800,
+      "access": "clear",
+      "source": "sentinel-2",
+      "imagery": "Sentinel-2 L2A · S2B_32ULB_20210703_0_L2A",
+      "acquired": "2021-07-03T10:36:53Z",
+      "evidenceBefore": "data/real/ahr-2021-flood/ahr-2021-flood-before.png",
+      "evidenceAfter": "data/real/ahr-2021-flood/ahr-2021-flood-before.png"
+    }
+  },
+  {
+    "modelVersion": "gr-changenet-example",
+    "observation": {
+      "metric": "change_fraction",
+      "changeFraction": 0.16,
+      "confidence": 0.9,
+      "optical": true,
+      "sar": true,
+      "sarConfidence": 0.82,
+      "cloud": 0.04,
+      "shadow": 0.02,
+      "snow": 0.0,
+      "season": "summer",
+      "changeType": "flood",
+      "lon": 7.1,
+      "lat": 50.545,
+      "summary": "Flood edge crossed the corridor and reached the care campus footprint. Access is flooded.",
+      "asset": "Ahr supply corridor",
+      "valueEur": 12000000,
+      "population": 1800,
+      "access": "flooded",
+      "source": "sentinel-2+sentinel-1",
+      "imagery": "Sentinel-2 L2A · S2A_32ULB_20210718_0_L2A + Sentinel-1 SAR",
+      "acquired": "2021-07-18T10:37:10Z",
+      "evidenceBefore": "data/real/ahr-2021-flood/ahr-2021-flood-before.png",
+      "evidenceAfter": "data/real/ahr-2021-flood/ahr-2021-flood-after.png"
+    }
+  }
+]

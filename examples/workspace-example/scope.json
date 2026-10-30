@@ -1,0 +1,21 @@
+{
+  "name": "Ahr supply corridor — example case",
+  "kind": "corridor",
+  "region": "Ahrweiler, Germany",
+  "center": [7.1, 50.545],
+  "bbox": [7.03, 50.51, 7.18, 50.57],
+  "asset_class": "utility",
+  "change_types": ["flood", "erosion"],
+  "cadence": "daily",
+  "priority": 1,
+  "subscription_tier": "daily",
+  "freshness_slo_hours": 24,
+  "recipients": ["ops@example.com"],
+  "tags": ["example", "ahr"],
+  "metadata": {
+    "valueEur": 12000000,
+    "population": 1800,
+    "note": "Example case. Site values and labels are illustrative, not customer data."
+  },
+  "tenant": "demo"
+}

@@ -1,0 +1,7 @@
+id,name,lat,lon,severity,confidence,value_eur,population,access,notes
+S-01,Bad Neuenahr care campus,50.5450,7.1000,red,0.91,6200000,1800,flooded,"Care campus; access road under water; 1,800 people within 700 m"
+S-02,Heppingen substation,50.5480,7.1150,orange,0.86,3400000,0,restricted,"Power asset remains dry; primary access is flooded"
+S-03,Heimersheim bridge,50.5410,7.1280,orange,0.79,1100000,0,debris,"Bridge approach blocked by debris; inspection required"
+S-04,Bachem valley road,50.5360,7.1420,yellow,0.68,800000,0,slow,"Single-lane access; convoy only"
+S-05,Ahrweiler old town,50.5455,7.0930,red,0.88,4500000,700,flooded,"Historic centre; cellars and ground floors affected"
+S-06,Dernau vineyard block,50.5300,7.0450,orange,0.72,1800000,0,clear,"Slope erosion above the block; agronomist review"

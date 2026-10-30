@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react'
+import { cloneElement, isValidElement, type ButtonHTMLAttributes, type InputHTMLAttributes, type ReactNode } from 'react'
 import { cx } from '../lib/format'
 
 type Variant = 'primary' | 'secondary' | 'ghost' | 'danger'
@@ -81,12 +81,18 @@ export function Field({
   children: ReactNode
   id?: string
 }) {
+  // A <label> around a radiogroup would steal every radio's accessible name.
+  // Associate only real inputs; give groups their own labelled control.
+  const labelledChild =
+    !id && isValidElement<{ 'aria-label'?: string }>(children) && children.type === TextInput && !children.props['aria-label']
+      ? cloneElement(children, { 'aria-label': label })
+      : children
   return (
-    <label className={cx('ds-field', error && 'has-error')} htmlFor={id}>
-      <span className="ds-field-label">{label}</span>
-      {children}
+    <div className={cx('ds-field', error && 'has-error')}>
+      {id ? <label className="ds-field-label" htmlFor={id}>{label}</label> : <span className="ds-field-label">{label}</span>}
+      {labelledChild}
       {error ? <span className="ds-field-error" role="alert">{error}</span> : hint ? <span className="ds-field-hint">{hint}</span> : null}
-    </label>
+    </div>
   )
 }
 
