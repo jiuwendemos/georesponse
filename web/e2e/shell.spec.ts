@@ -11,6 +11,9 @@ test.describe('shell', () => {
   test.setTimeout(90_000)
 
   test.beforeEach(async ({ page }) => {
+    if (!test.info().title.includes('first-run')) {
+      await page.addInitScript(() => localStorage.setItem('georesponse.onboarded.v1', '1'))
+    }
     await page.goto('/')
     await expect(page.locator('.topbar')).toBeVisible()
   })
@@ -18,8 +21,7 @@ test.describe('shell', () => {
   test('loads the map-first stage with a real Sentinel basemap', async ({ page }) => {
     await expect(page.getByRole('main')).toBeVisible()
     await expect(page.locator('svg.map-canvas')).toBeVisible()
-    const href = await page.locator('svg.map-canvas image').first().getAttribute('href')
-    expect(href).toContain('data/real/')
+    await expect(page.locator('svg.map-canvas image').first()).toHaveAttribute('href', /data\/real\//)
     await expect(page.locator('.topbar')).toContainText('GeoResponse')
   })
 
@@ -45,6 +47,25 @@ test.describe('shell', () => {
     await expect(dialog).toBeVisible()
     await dialog.getByRole('radio', { name: 'Compact' }).click()
     await expect(page.locator('html')).toHaveAttribute('data-density', 'compact')
+  })
+
+  test('first-run welcome tour appears and can be skipped', async ({ page }) => {
+    const dialog = page.getByRole('dialog', { name: 'Welcome to GeoResponse' })
+    await expect(dialog).toBeVisible()
+    await dialog.getByRole('button', { name: 'Next' }).click()
+    await expect(dialog).toContainText('Everything is one keystroke away')
+    await dialog.getByRole('button', { name: 'Skip' }).click()
+    await expect(dialog).toBeHidden()
+  })
+
+  test('saves and restores a view from the palette', async ({ page }) => {
+    await page.keyboard.press('Control+k')
+    await page.getByRole('textbox', { name: 'Search commands' }).fill('Save current view')
+    await page.getByRole('option', { name: /Save current view/ }).click()
+    await expect(page.getByRole('dialog', { name: 'Command palette' })).toBeHidden()
+    await page.keyboard.press('Control+k')
+    await expect(page.getByRole('textbox', { name: 'Search commands' })).toBeVisible()
+    await expect(page.getByRole('option', { name: /Saved view:/ }).first()).toBeVisible()
   })
 
   test('deep links restore the view', async ({ page }) => {
@@ -73,6 +94,12 @@ test.describe('shell', () => {
     await expect(table).toBeHidden()
   })
 
+  test('map shows orientation, scale and a mini-map', async ({ page }) => {
+    await expect(page.locator('.map-minimap')).toBeVisible()
+    await expect(page.locator('.map-scale')).toHaveText(/km|m/)
+    await expect(page.locator('.map-compass')).toContainText('N')
+  })
+
   test('has no serious accessibility violations on the stage', async ({ page }) => {
     await expect(page.locator('svg.map-canvas')).toBeVisible()
     await expectNoSeriousViolations(page)
@@ -88,6 +115,15 @@ test.describe('shell', () => {
     await page.getByRole('button', { name: 'Pilot' }).click()
     await expect(page.getByRole('main')).toBeVisible()
     await expectNoSeriousViolations(page)
+  })
+
+  test('records alert quality feedback from Watch', async ({ page }) => {
+    await page.getByRole('button', { name: 'Watch' }).click()
+    await expect(page.locator('.watch-page')).toBeVisible()
+    const group = page.getByRole('group', { name: 'Alert quality feedback' })
+    await expect(group).toBeVisible()
+    await group.getByRole('button', { name: 'Useful' }).first().click()
+    await expect(page.getByRole('status')).toContainText('feedback')
   })
 
   test('role selection hides surfaces it cannot act on', async ({ page }) => {

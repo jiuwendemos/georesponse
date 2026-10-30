@@ -7,6 +7,7 @@ test.skip(process.env.CI === 'true', 'visual baselines are per-OS; generated on 
 
 async function settle(page: import('@playwright/test').Page) {
   await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.addInitScript(() => localStorage.setItem('georesponse.onboarded.v1', '1'))
   await page.goto('/')
   await expect(page.locator('svg.map-canvas')).toBeVisible()
   await page.waitForTimeout(700)

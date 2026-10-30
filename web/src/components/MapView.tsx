@@ -12,6 +12,14 @@ const MAX_ZOOM = 7
 
 type View = { cx: number; cy: number; zoom: number }
 
+function formatScale(bbox: [number, number, number, number], zoom: number): string {
+  const [west, south, east, north] = bbox
+  const lat = (south + north) / 2
+  const metres = ((east - west) * 111320 * Math.cos((lat * Math.PI) / 180)) / (W * zoom) * 84
+  if (metres >= 1000) return `${(metres / 1000).toFixed(metres >= 10000 ? 0 : 1)} km`
+  return `${Math.max(10, Math.round(metres / 10) * 10)} m`
+}
+
 const hazardColors = {
   flood: { fill: '#22d3ee', line: '#a5f3fc' },
   wildfire: { fill: '#f97316', line: '#fdba74' },
@@ -463,6 +471,21 @@ export default function MapView({ variant = 'stage' }: { variant?: 'stage' | 'an
           )}
         </g>
       </svg>
+
+      <div className="map-orientation" aria-hidden="true">
+        <svg className="map-minimap" viewBox="0 0 100 62.5" role="presentation">
+          <rect width="100" height="62.5" className="minimap-bg" />
+          <rect
+            className="minimap-view"
+            x={Math.max(0, ((view.cx - W / (2 * view.zoom)) / W) * 100)}
+            y={Math.max(0, ((view.cy - H / (2 * view.zoom)) / H) * 62.5)}
+            width={Math.min(100, (100 / view.zoom))}
+            height={Math.min(62.5, (62.5 / view.zoom))}
+          />
+        </svg>
+        <div className="map-compass"><span>N</span></div>
+        <div className="map-scale">{formatScale(scenario.meta.bbox, view.zoom)}</div>
+      </div>
 
       <div className="map-controls">
         <button className="map-ctrl" onClick={() => zoomBy(1.35)} aria-label="Zoom in">

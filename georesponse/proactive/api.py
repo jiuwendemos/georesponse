@@ -239,19 +239,19 @@ def update_plan(scope_id: str, request: PlanRequest) -> dict:
 
 
 @router.post("/scopes/{scope_id}/pause")
-def pause_scope(scope_id: str) -> dict:
+def pause_scope(scope_id: str, reason: str = "", actor: str = "api") -> dict:
     scope = _scope_or_404(scope_id)
     store.set_scope_status(scope_id, "paused")
     plan = store.get_plan(scope_id)
     if plan:
         plan.paused = True
         store.save_plan(plan)
-    store.audit(scope.tenant, "scope.paused", actor="api", detail={"scope": scope_id})
-    return {"scope": scope_id, "status": "paused"}
+    store.audit(scope.tenant, "scope.paused", actor=actor, detail={"scope": scope_id, "reason": reason})
+    return {"scope": scope_id, "status": "paused", "reason": reason}
 
 
 @router.post("/scopes/{scope_id}/resume")
-def resume_scope(scope_id: str) -> dict:
+def resume_scope(scope_id: str, reason: str = "", actor: str = "api") -> dict:
     scope = _scope_or_404(scope_id)
     store.set_scope_status(scope_id, "active")
     plan = store.get_plan(scope_id)
@@ -259,8 +259,8 @@ def resume_scope(scope_id: str) -> dict:
         plan.paused = False
         plan.kill_switch = False
         store.save_plan(plan)
-    store.audit(scope.tenant, "scope.resumed", actor="api", detail={"scope": scope_id})
-    return {"scope": scope_id, "status": "active"}
+    store.audit(scope.tenant, "scope.resumed", actor=actor, detail={"scope": scope_id, "reason": reason})
+    return {"scope": scope_id, "status": "active", "reason": reason}
 
 
 @router.post("/scopes/{scope_id}/watch-now")
@@ -580,11 +580,72 @@ def quality(tenant: str = TENANT) -> dict:
 
 
 
+# ---------------------------------------------------------------- insights
+class FeedbackRequest(BaseModel):
+    verdict: str
+    note: str = ""
+    actor: str = "analyst"
+
+
+@router.get("/since")
+def since(tenant: str = TENANT, ts: str | None = None) -> dict:
+    from .insights import what_changed
+
+    return what_changed(store, tenant, since=ts)
+
+
+@router.get("/drift")
+def drift(tenant: str = TENANT, days: int = 14) -> dict:
+    from .insights import drift as compute_drift
+
+    return compute_drift(store, tenant, days=days)
+
+
+@router.get("/notifications/analytics")
+def notifications_analytics(tenant: str = TENANT) -> dict:
+    from .insights import notification_analytics
+
+    return notification_analytics(store, tenant)
+
+
+@router.post("/alerts/{alert_id}/feedback")
+def alert_feedback(alert_id: str, request: FeedbackRequest) -> dict:
+    from .insights import record_feedback
+
+    _alert_or_404(alert_id)
+    try:
+        return record_feedback(store, alert_id, request.verdict, note=request.note, actor=request.actor)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+
+
+@router.get("/alerts/{alert_id}/feedback")
+def alert_feedback_list(alert_id: str) -> dict:
+    from .insights import alert_feedback as list_feedback
+
+    _alert_or_404(alert_id)
+    return {"alertId": alert_id, "feedback": list_feedback(store, alert_id)}
+
+
+@router.get("/feedback/summary")
+def feedback_summary(tenant: str = TENANT) -> dict:
+    from .insights import feedback_summary as summary
+
+    return summary(store, tenant)
+
+
 # ---------------------------------------------------------------- production
 class LiveAgentRequest(BaseModel):
     message: str
     history: list[dict] = Field(default_factory=list)
     tenant: str = TENANT
+
+
+@router.get("/production/worker/health")
+def worker_health() -> dict:
+    from .insights import worker_health as read_heartbeat
+
+    return read_heartbeat(str(ROOT / "runtime" / "worker-heartbeat.json"))
 
 
 @router.get("/production/doctor")
@@ -598,8 +659,16 @@ def production_doctor() -> dict:
 def agent_health() -> dict:
     from ..production.config import get_settings
 
+    from ..production.agent import PROMPT_VERSION
+
     settings = get_settings()
-    return {"configured": settings.llm.configured, "backend": settings.llm.backend, "model": settings.llm.model or None, "settings": settings.llm.safe()}
+    return {
+        "configured": settings.llm.configured,
+        "backend": settings.llm.backend,
+        "model": settings.llm.model or None,
+        "promptVersion": PROMPT_VERSION,
+        "settings": settings.llm.safe(),
+    }
 
 
 @router.post("/production/agent/chat")

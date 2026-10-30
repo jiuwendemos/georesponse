@@ -10,6 +10,7 @@ import CommandPalette from './components/CommandPalette'
 import AgentPanel from './components/AgentPanel'
 import StyleGuide from './components/StyleGuide'
 import SettingsPanel from './components/SettingsPanel'
+import Onboarding from './components/Onboarding'
 import { Spinner } from './components/ds'
 import { ErrorBoundary, OfflineBanner } from './components/Resilience'
 import { pct } from './lib/format'
@@ -154,6 +155,7 @@ function Shell() {
       <AgentPanel />
       <StyleGuide />
       <SettingsPanel />
+      <Onboarding />
       <RouteAnnouncer />
       <Toast />
     </div>

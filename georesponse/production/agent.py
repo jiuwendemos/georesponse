@@ -7,7 +7,9 @@ Set ``GEORESPONSE_LLM_API_KEY`` and ``GEORESPONSE_LLM_MODEL`` to enable it.
 
 from __future__ import annotations
 
+import asyncio
 import json
+import time
 from typing import Any
 
 import httpx
@@ -114,6 +116,70 @@ TOOLS: list[dict[str, Any]] = [
 ]
 
 
+PROMPT_VERSION = "geo-agent-2026.1"
+
+TOOL_SCHEMAS = {tool["function"]["name"]: tool["function"]["parameters"] for tool in TOOLS}
+
+UNSAFE_PATTERNS = (
+    "approve the claim automatically",
+    "auto-approve",
+    "automatically approve",
+    "dispatch without approval",
+    "dispatch automatically",
+    "auto dispatch",
+    "face recognition",
+    "track the person",
+    "identify the person",
+    "surveil",
+    "ignore the audit",
+    "bypass approval",
+)
+
+
+def validate_tool_args(name: str, args: Any) -> dict:
+    """Validate a tool call against the schema the model was given."""
+    schema = TOOL_SCHEMAS.get(name)
+    if schema is None:
+        raise ValueError(f"unknown tool: {name}")
+    if not isinstance(args, dict):
+        raise ValueError("tool arguments must be an object")
+    properties = schema.get("properties", {})
+    for required in schema.get("required", []):
+        if required not in args:
+            raise ValueError(f"{name}: missing required argument {required}")
+    if schema.get("additionalProperties") is False:
+        extra = set(args) - set(properties)
+        if extra:
+            raise ValueError(f"{name}: unexpected arguments {sorted(extra)}")
+    for key, value in args.items():
+        spec = properties.get(key, {})
+        kind = spec.get("type")
+        if kind == "string" and not isinstance(value, str):
+            raise ValueError(f"{name}.{key} must be a string")
+        if kind == "integer" and (not isinstance(value, int) or isinstance(value, bool)):
+            raise ValueError(f"{name}.{key} must be an integer")
+        if kind == "number" and not isinstance(value, (int, float)):
+            raise ValueError(f"{name}.{key} must be a number")
+        if "enum" in spec and value not in spec["enum"]:
+            raise ValueError(f"{name}.{key} must be one of {spec['enum']}")
+        if "minimum" in spec and isinstance(value, (int, float)) and value < spec["minimum"]:
+            raise ValueError(f"{name}.{key} is below the minimum")
+        if "maximum" in spec and isinstance(value, (int, float)) and value > spec["maximum"]:
+            raise ValueError(f"{name}.{key} is above the maximum")
+    return args
+
+
+def refusal_for(message: str) -> str | None:
+    lowered = message.lower()
+    if any(pattern in lowered for pattern in UNSAFE_PATTERNS):
+        return (
+            "I cannot do that. GeoResponse never approves claims, dispatches crews, "
+            "or performs surveillance automatically. I can prepare a proposal with "
+            "evidence and a named human approver, or explain the current alert."
+        )
+    return None
+
+
 class AgentUnavailable(RuntimeError):
     pass
 
@@ -123,6 +189,8 @@ class LiveAgent:
         self.engine = engine
         self.settings = settings or get_settings()
         self.transport = transport
+        self._failures = 0
+        self._opened_at = 0.0
 
     @property
     def configured(self) -> bool:
@@ -189,9 +257,42 @@ class LiveAgent:
             return {"proposal": {"action": "handoff", "alertId": alert.id, "target": args["target"]}, "requiresApproval": True}
         return {"error": f"unknown tool {name}"}
 
+    async def _post(self, client: httpx.AsyncClient, url: str, headers: dict, payload: dict) -> httpx.Response:
+        """POST with retry, backoff and a small circuit breaker."""
+        if self._failures >= 5 and (time.time() - self._opened_at) < 30:
+            raise AgentUnavailable("agent circuit is open after repeated upstream failures")
+        last: Exception | None = None
+        for attempt in range(3):
+            try:
+                response = await client.post(url, headers=headers, json=payload)
+                if response.status_code in {429, 500, 502, 503, 504}:
+                    raise httpx.HTTPStatusError(f"upstream {response.status_code}", request=response.request, response=response)
+                response.raise_for_status()
+                self._failures = 0
+                return response
+            except (httpx.TransportError, httpx.TimeoutException, httpx.HTTPStatusError) as exc:
+                last = exc
+                if attempt == 2:
+                    break
+                await asyncio.sleep(0.4 * (2 ** attempt))
+        self._failures += 1
+        self._opened_at = time.time()
+        raise AgentUnavailable(f"agent upstream failed after retries: {last}")
+
     async def chat(self, message: str, *, tenant: str, history: list[dict] | None = None) -> dict:
         if not self.configured:
             raise AgentUnavailable("LLM agent is not configured. Run `georesponse doctor`.")
+        refused = refusal_for(message)
+        if refused:
+            return {
+                "answer": refused,
+                "trace": [],
+                "proposals": [],
+                "model": self.settings.llm.model,
+                "configured": True,
+                "refused": True,
+                "promptVersion": PROMPT_VERSION,
+            }
         settings = self.settings.llm
         messages: list[dict[str, Any]] = [{"role": "system", "content": SYSTEM}]
         for item in history or []:
@@ -204,18 +305,13 @@ class LiveAgent:
         url = settings.base_url.rstrip("/") + "/chat/completions"
         async with httpx.AsyncClient(timeout=settings.timeout, transport=self.transport) as client:
             for _ in range(5):
-                response = await client.post(
-                    url,
-                    headers=headers,
-                    json={
-                        "model": settings.model,
-                        "messages": messages,
-                        "tools": TOOLS,
-                        "tool_choice": "auto",
-                        "temperature": settings.temperature,
-                    },
-                )
-                response.raise_for_status()
+                response = await self._post(client, url, headers, {
+                    "model": settings.model,
+                    "messages": messages,
+                    "tools": TOOLS,
+                    "tool_choice": "auto",
+                    "temperature": settings.temperature,
+                })
                 payload = response.json()
                 choice = payload["choices"][0]["message"]
                 tool_calls = choice.get("tool_calls") or []
@@ -226,12 +322,18 @@ class LiveAgent:
                         "proposals": proposals,
                         "model": settings.model,
                         "configured": True,
+                        "promptVersion": PROMPT_VERSION,
                     }
                 messages.append({"role": "assistant", "content": choice.get("content") or "", "tool_calls": tool_calls})
                 for call in tool_calls:
                     name = call["function"]["name"]
-                    args = json.loads(call["function"].get("arguments") or "{}")
-                    result = self._tool(name, args, tenant)
+                    try:
+                        args = validate_tool_args(name, json.loads(call["function"].get("arguments") or "{}"))
+                        result = self._tool(name, args, tenant)
+                    except (ValueError, json.JSONDecodeError) as exc:
+                        result = {"error": f"invalid tool call: {exc}"}
+                        args = {}
+                        trace.append({"tool": name, "arguments": args, "error": str(exc)})
                     if isinstance(result, dict) and result.get("requiresApproval"):
                         proposals.append(result["proposal"])
                     trace.append({"tool": name, "arguments": args, "result": result})
@@ -242,4 +344,5 @@ class LiveAgent:
             "proposals": proposals,
             "model": settings.model,
             "configured": True,
+            "promptVersion": PROMPT_VERSION,
         }

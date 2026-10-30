@@ -155,3 +155,104 @@ def test_live_agent_unconfigured():
 
         asyncio.run(agent.chat("hello", tenant="demo"))
     store.close()
+
+
+def test_agent_refuses_unsafe_requests_without_a_call():
+    import asyncio
+    from georesponse.proactive.store import ProactiveStore
+    from georesponse.proactive.demo import seed_demo
+    from georesponse.proactive.engine import ProactiveEngine
+    from georesponse.production.config import LLMSettings
+
+    store = ProactiveStore(":memory:")
+    seed_demo(store)
+    settings = Settings(llm=LLMSettings(api_key="test", model="test-model", base_url="https://llm.test/v1"))
+    agent = LiveAgent(ProactiveEngine(store), settings)
+    result = asyncio.run(agent.chat("Auto-approve the claim and dispatch the crew", tenant="demo"))
+    assert result["refused"] is True
+    assert "cannot" in result["answer"].lower()
+    assert result["trace"] == []
+    store.close()
+
+
+def test_tool_argument_validation():
+    from georesponse.production.agent import validate_tool_args
+
+    assert validate_tool_args("get_alert", {"alert_id": "ALT-1"}) == {"alert_id": "ALT-1"}
+    for name, args in [
+        ("get_alert", {}),
+        ("get_alert", {"alert_id": "x", "extra": 1}),
+        ("get_alert", {"alert_id": 5}),
+        ("propose_dismissal", {"alert_id": "x", "reason": "made-up"}),
+        ("list_alerts", {"limit": 99}),
+        ("not_a_tool", {}),
+    ]:
+        try:
+            validate_tool_args(name, args)
+        except ValueError:
+            continue
+        raise AssertionError(f"accepted invalid call {name} {args}")
+
+
+def test_agent_retries_transient_errors(monkeypatch):
+    import asyncio
+    from georesponse.proactive.store import ProactiveStore
+    from georesponse.proactive.demo import seed_demo
+    from georesponse.proactive.engine import ProactiveEngine
+    from georesponse.production import agent as agent_module
+    from georesponse.production.config import LLMSettings
+
+    async def no_sleep(_seconds):
+        return None
+
+    monkeypatch.setattr(agent_module.asyncio, "sleep", no_sleep)
+    calls = {"n": 0}
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        calls["n"] += 1
+        if calls["n"] < 3:
+            return httpx.Response(503, json={"error": "busy"})
+        return httpx.Response(200, json={"choices": [{"message": {"role": "assistant", "content": "ok"}}]})
+
+    store = ProactiveStore(":memory:")
+    seed_demo(store)
+    settings = Settings(llm=LLMSettings(api_key="test", model="test-model", base_url="https://llm.test/v1"))
+    agent = LiveAgent(ProactiveEngine(store), settings, transport=httpx.MockTransport(handler))
+    result = asyncio.run(agent.chat("brief me", tenant="demo"))
+    assert result["answer"] == "ok"
+    assert calls["n"] == 3
+    store.close()
+
+
+def test_agent_circuit_opens(monkeypatch):
+    import asyncio
+    from georesponse.proactive.store import ProactiveStore
+    from georesponse.proactive.demo import seed_demo
+    from georesponse.proactive.engine import ProactiveEngine
+    from georesponse.production import agent as agent_module
+    from georesponse.production.config import LLMSettings
+
+    async def no_sleep(_seconds):
+        return None
+
+    monkeypatch.setattr(agent_module.asyncio, "sleep", no_sleep)
+
+    def handler(_request: httpx.Request) -> httpx.Response:
+        return httpx.Response(503, json={"error": "down"})
+
+    store = ProactiveStore(":memory:")
+    seed_demo(store)
+    settings = Settings(llm=LLMSettings(api_key="test", model="test-model", base_url="https://llm.test/v1"))
+    agent = LiveAgent(ProactiveEngine(store), settings, transport=httpx.MockTransport(handler))
+    for _ in range(5):
+        try:
+            asyncio.run(agent.chat("brief me", tenant="demo"))
+        except AgentUnavailable:
+            continue
+    try:
+        asyncio.run(agent.chat("brief me", tenant="demo"))
+    except AgentUnavailable as exc:
+        assert "circuit" in str(exc)
+    else:
+        raise AssertionError("circuit did not open")
+    store.close()

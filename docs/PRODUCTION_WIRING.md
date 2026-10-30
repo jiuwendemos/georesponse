@@ -122,3 +122,25 @@ local and clearly labelled. Integration endpoints return 503 when their credenti
 > **Where the live cutover lives:** Phase 7.C in [ROADMAP.md](ROADMAP.md) is the 122-checkbox
 > programme to connect openjiuwen, NPU, imagery, notifications, enterprise systems, platform,
 > identity, observability and cutover for real.
+
+## Operator insights (verified)
+
+The proactive API now exposes the facts an operator needs between ticks:
+
+| Endpoint | Purpose |
+|---|---|
+| `GET /api/watch/since?ts=` | What changed since a timestamp (alerts, incidents, notifications, closures) |
+| `GET /api/watch/drift?days=14` | Per-scope alert-rate drift: emerging, silent, spike, quiet, stable |
+| `GET /api/watch/notifications/analytics` | Delivery rate, dead letters and send latency by channel |
+| `POST /api/watch/alerts/{id}/feedback` | useful / not_useful / wrong, stored and audited |
+| `GET /api/watch/feedback/summary` | Feedback counts and useful rate |
+| `GET /api/watch/production/worker/health` | Last worker heartbeat, age and stale flag |
+| `POST /api/watch/scopes/{id}/pause?reason=` | Pause with an audited reason |
+| `POST /api/watch/scopes/{id}/resume?reason=` | Resume with an audited reason |
+
+The agent now validates every tool call against its schema, refuses unsafe
+requests before calling a model, retries transient upstream errors with backoff
+and opens a circuit after repeated failures. It reports `promptVersion` in
+`/api/watch/production/agent/health`.
+
+Tests: `tests/test_insights.py`, `tests/test_production.py`.

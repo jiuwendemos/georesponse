@@ -3,7 +3,8 @@ import { useApp } from '../store'
 import { usePrefs } from '../prefs'
 import { useUi } from '../ui-context'
 import { dataPath, loadJson } from '../lib/data'
-import type { ProactiveData } from '../types'
+import type { Mode, ProactiveData } from '../types'
+import { loadViews, saveView, type SavedView } from '../lib/views'
 import { Icon } from './ui'
 import { Kbd } from './ds'
 
@@ -23,6 +24,7 @@ export default function CommandPalette() {
   const [query, setQuery] = useState('')
   const [active, setActive] = useState(0)
   const [proactive, setProactive] = useState<ProactiveData | null>(null)
+  const [views, setViews] = useState<SavedView[]>([])
   const input = useRef<HTMLInputElement | null>(null)
 
   useEffect(() => {
@@ -31,6 +33,7 @@ export default function CommandPalette() {
     setActive(0)
     window.setTimeout(() => input.current?.focus(), 30)
     loadJson<ProactiveData>(dataPath('proactive.json')).then(setProactive).catch(() => undefined)
+    setViews(loadViews())
   }, [ui.paletteOpen])
 
   const commands = useMemo<Command[]>(() => {
@@ -50,6 +53,7 @@ export default function CommandPalette() {
       { id: 'agent', label: 'Ask GeoResponse', group: 'Actions', icon: 'spark', hint: 'local tools', run: close(() => ui.openAgent()) },
       { id: 'design', label: 'Open design system', group: 'Actions', icon: 'grid', run: close(() => ui.openStyleGuide()) },
       { id: 'settings', label: 'Open settings', group: 'Actions', icon: 'sliders', run: close(() => ui.openSettings()) },
+      { id: 'tour', label: 'Show welcome tour', group: 'Actions', icon: 'book', run: close(() => ui.openTour()) },
       { id: 'offline', label: 'Save offline pack', group: 'Actions', icon: 'download', run: close(() => void app.saveOffline()) },
       { id: 'reset', label: 'Reset the stage', group: 'Actions', icon: 'reset', run: close(() => { app.setMode('stage'); app.reset() }) },
       { id: 'field', label: 'Open field order', group: 'Actions', icon: 'print', run: close(() => app.openFieldOrder(true)) },
@@ -83,6 +87,35 @@ export default function CommandPalette() {
         app.selectSite(site.id)
       }),
     }))
+    const saved: Command[] = views.map((view) => ({
+      id: `view-${view.id}`,
+      label: `Saved view: ${view.name}`,
+      group: 'Saved views',
+      icon: 'flag',
+      hint: view.scenarioId,
+      run: close(() => {
+        app.selectScenario(view.scenarioId)
+        app.setMode(view.mode as Mode)
+      }),
+    }))
+    const saveCurrent: Command[] = app.scenario
+      ? [{
+          id: 'save-view',
+          label: 'Save current view',
+          group: 'Saved views',
+          icon: 'flag',
+          hint: app.mode,
+          run: close(() => {
+            const view = saveView({
+              name: `${app.mode} · ${app.scenario?.meta.title ?? 'current'}`,
+              mode: app.mode,
+              scenarioId: app.scenario?.meta.id ?? '',
+            })
+            setViews(loadViews())
+            app.notify(`Saved view “${view.name}”.`, 'success')
+          }),
+        }]
+      : []
     const alerts: Command[] = (proactive?.alerts ?? []).slice(0, 10).map((alert) => ({
       id: `alert-${alert.id}`,
       label: `${alert.severity.toUpperCase()} · ${alert.title}`,
@@ -91,8 +124,8 @@ export default function CommandPalette() {
       hint: alert.status,
       run: close(() => app.openWatchAlert(alert.id)),
     }))
-    return [...nav, ...actions, ...theme, ...scenarios, ...sites, ...alerts]
-  }, [app, prefs, proactive, ui])
+    return [...nav, ...actions, ...saveCurrent, ...saved, ...theme, ...scenarios, ...sites, ...alerts]
+  }, [app, prefs, proactive, ui, views])
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()

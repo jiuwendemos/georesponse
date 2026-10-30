@@ -5,6 +5,9 @@ interface UiContextValue {
   agentOpen: boolean
   styleGuideOpen: boolean
   settingsOpen: boolean
+  tourOpen: boolean
+  openTour: () => void
+  closeTour: () => void
   openPalette: () => void
   closePalette: () => void
   openAgent: (seed?: string) => void
@@ -24,6 +27,13 @@ export function UiProvider({ children }: { children: ReactNode }) {
   const [agentSeed, setAgentSeed] = useState('')
   const [styleGuideOpen, setStyleGuideOpen] = useState(false)
   const [settingsOpen, setSettingsOpen] = useState(false)
+  const [tourOpen, setTourOpen] = useState(() => {
+    try {
+      return !localStorage.getItem('georesponse.onboarded.v1')
+    } catch {
+      return false
+    }
+  })
 
   const openAgent = useCallback((seed = '') => {
     setAgentSeed(seed)
@@ -36,6 +46,12 @@ export function UiProvider({ children }: { children: ReactNode }) {
       agentOpen,
       styleGuideOpen,
       settingsOpen,
+      tourOpen,
+      openTour: () => setTourOpen(true),
+      closeTour: () => {
+        try { localStorage.setItem('georesponse.onboarded.v1', '1') } catch { /* private mode */ }
+        setTourOpen(false)
+      },
       openPalette: () => setPaletteOpen(true),
       closePalette: () => setPaletteOpen(false),
       openAgent,
@@ -46,7 +62,7 @@ export function UiProvider({ children }: { children: ReactNode }) {
       closeSettings: () => setSettingsOpen(false),
       agentSeed,
     }),
-    [paletteOpen, agentOpen, styleGuideOpen, settingsOpen, agentSeed, openAgent],
+    [paletteOpen, agentOpen, styleGuideOpen, settingsOpen, tourOpen, agentSeed, openAgent],
   )
 
   return <UiContext.Provider value={value}>{children}</UiContext.Provider>

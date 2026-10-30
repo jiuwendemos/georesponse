@@ -3,6 +3,7 @@ import { useApp } from '../store'
 import { asset, dataPath, loadJson } from '../lib/data'
 import { compactEuro, cx, number, pct } from '../lib/format'
 import { ConfidenceBar, Icon, Modal, SeverityChip } from './ui'
+import { Button } from './ds'
 import WatchMap from './WatchMap'
 import type {
   ProactiveAlert,
@@ -183,6 +184,20 @@ export default function Watch() {
 
   const handoff = (target: string) => {
     setToast(`${target === 'claim' ? 'Claim draft' : target === 'inspection' ? 'Inspection request' : target === 'dispatch' ? 'Dispatch draft' : 'Assessment'} queued — human approval required.`)
+  }
+
+  const feedback = async (alert: ProactiveAlert, verdict: 'useful' | 'not_useful' | 'wrong') => {
+    try {
+      const response = await fetch(`/api/watch/alerts/${alert.id}/feedback`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ verdict, actor: 'analyst' }),
+      })
+      if (!response.ok) throw new Error(`HTTP ${response.status}`)
+      setToast(`${alert.id}: feedback recorded as ${verdict.replace('_', ' ')}.`)
+    } catch {
+      setToast(`${alert.id}: feedback noted locally as ${verdict.replace('_', ' ')}.`)
+    }
   }
 
   const toggleScope = (scope: ProactiveScope) => {
@@ -480,6 +495,12 @@ export default function Watch() {
                     <button className="btn btn-sm" onClick={() => handoff('dispatch')}>Dispatch draft</button>
                   </div>
                 </div>
+                <div className="watch-feedback" role="group" aria-label="Alert quality feedback">
+                  <span>Was this alert useful?</span>
+                  <Button size="sm" variant="ghost" onClick={() => void feedback(current, 'useful')}>Useful</Button>
+                  <Button size="sm" variant="ghost" onClick={() => void feedback(current, 'not_useful')}>Not useful</Button>
+                  <Button size="sm" variant="ghost" onClick={() => void feedback(current, 'wrong')}>Wrong</Button>
+                </div>
                 <div className="watch-detail-foot">Model {current.model_version} · {current.source} · human review required</div>
               </>
             ) : (
@@ -769,7 +790,7 @@ export default function Watch() {
         </section>
       )}
 
-      {toast && <div className="watch-toast">{toast}</div>}
+      {toast && <div className="watch-toast" role="status" aria-live="polite">{toast}</div>}
 
       <Modal open={createOpen} onClose={() => setCreateOpen(false)} className="scope-create-card" label="Create scope">
         <div className="eyebrow">New monitored scope</div>

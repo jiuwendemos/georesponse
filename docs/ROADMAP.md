@@ -936,7 +936,7 @@ No silent demo fallback is ever allowed.
 - [ ] Backfill and gap-fill for a scope that has never been observed **(M)**
 - [ ] Idempotent acquisitions deduped by scene id and footprint **(S)**
 - [ ] Timezone- and DST-correct schedules across tenants **(S)**
-- [ ] Pause/resume per scope with an audited reason **(S)**
+- [x] Pause/resume per scope with an audited reason **(S)**
 - [ ] Kill switch that stops sensing and notification with visible consequence text **(S)**
 - [ ] Scheduler survives restarts without duplicating work **(M)**
 
@@ -966,7 +966,7 @@ No silent demo fallback is ever allowed.
 - [ ] Bulk triage with preview and undo **(S)**
 - [ ] Per-alert audit trail visible in the UI **(S)**
 - [ ] Severity escalation as an SLA breach approaches **(M)**
-- [ ] Alert-quality feedback: useful / not useful / wrong **(S)**
+- [x] Alert-quality feedback: useful / not useful / wrong **(S)**
 - [ ] Incident timeline shared by all related alerts **(M)**
 - [ ] SLA and quality reported per team, not only per tenant **(S)**
 
@@ -1066,7 +1066,7 @@ No silent demo fallback is ever allowed.
 - [ ] Draw, edit, measure and snap scopes with undo **(M)**
 - [ ] Layer panel with opacity, ordering and saved layer sets **(M)**
 - [ ] Swipe/before-after compare as a first-class control **(S)**
-- [ ] Mini-map, scale bar and compass **(S)**
+- [x] Mini-map, scale bar and compass **(S)**
 - [ ] Pinch/drag/tap gestures and bottom-sheet detail on mobile **(M)**
 - [ ] ≤16 ms frames at 1,000 features **(M)**
 - [ ] Map camera choreography documented and tested **(S)**
@@ -1175,7 +1175,7 @@ No silent demo fallback is ever allowed.
 - [ ] Render openjiuwen streaming callbacks in the UI **(M)**
 - [ ] Agent memory/state across turns per alert and scope **(M)**
 - [ ] openjiuwen trace and telemetry export **(S)**
-- [ ] Guardrail tests for injection and unsafe actions **(M)**
+- [x] Guardrail tests for injection and unsafe actions **(M)**
 - [ ] Documented fallback with an explicit UI badge **(S)**
 - [ ] openjiuwen version upgrade policy **(S)**
 - [ ] Parity test: openjiuwen and OpenAI-compatible produce equivalent tool traces **(M)**
@@ -1186,8 +1186,8 @@ No silent demo fallback is ever allowed.
 - [ ] Key rotation and secret-vault integration **(M)**
 - [ ] Per-tenant model routing and rate limits **(M)**
 - [ ] Token/cost budget with hard stops **(M)**
-- [ ] Retry, timeout and circuit breaker **(M)**
-- [ ] Structured-output validation before any action **(M)**
+- [x] Retry, timeout and circuit breaker **(M)**
+- [x] Structured-output validation before any action **(M)**
 - [ ] Evaluation set run in CI against the live model **(M)**
 - [ ] Data-residency and retention review **(M)**
 - [ ] Prompt and model version registry **(S)**
