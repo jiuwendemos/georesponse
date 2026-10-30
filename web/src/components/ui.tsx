@@ -238,12 +238,12 @@ export function TopBar() {
 
       <nav className="nav" aria-label="Primary">
         {tabs.map((tab) => (
-          <button key={tab.id} className={cx('nav-tab', mode === tab.id && 'active')} onClick={() => setMode(tab.id)}>
+          <button key={tab.id} className={cx('nav-tab', mode === tab.id && 'active')} onClick={() => setMode(tab.id)} aria-label={prefs.t(tab.label)}>
             <Icon name={tab.icon} size={14} />
             <span>{prefs.t(tab.label)}</span>
           </button>
         ))}
-        <button className={cx('nav-tab', mode === 'booth' && 'active')} onClick={() => setMode('booth')}>
+        <button className={cx('nav-tab', mode === 'booth' && 'active')} onClick={() => setMode('booth')} aria-label={prefs.t('nav.booth')}>
           <Icon name="vote" size={14} />
           <span>{prefs.t('nav.booth')}</span>
         </button>
@@ -286,7 +286,7 @@ export function MobileNav() {
   return (
     <nav className="mobile-nav" aria-label="Mobile primary">
       {items.map((item) => (
-        <button key={item.id} className={cx('mobile-nav-item', mode === item.id && 'active')} onClick={() => setMode(item.id)}>
+        <button key={item.id} className={cx('mobile-nav-item', mode === item.id && 'active')} onClick={() => setMode(item.id)} aria-label={prefs.t(item.label)}>
           <Icon name={item.icon} size={18} />
           <span>{prefs.t(item.label)}</span>
         </button>

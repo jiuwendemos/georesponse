@@ -128,7 +128,7 @@ function Shell() {
     <div className={`app app-${app.mode}`} lang={prefs.language}>
       <a className="skip-link" href="#main-content">Skip to main content</a>
       <TopBar />
-      <main id="main-content" className="app-main" tabIndex={-1}>
+      <main id="main-content" className="app-main" tabIndex={-1} role="main">
         <Suspense fallback={<div className="page-state"><Spinner label="Loading workspace" /> Loading workspace…</div>}>
           {app.mode === 'stage' && <Stage />}
           {app.mode === 'watch' && <Watch />}

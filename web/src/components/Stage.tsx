@@ -222,7 +222,7 @@ export default function Stage() {
       </section>
 
       <aside className="hud layers">
-        <h3>Layers</h3>
+        <h2>Layers</h2>
         {(
           [
             ['flood', 'Change', scenario.meta.hazard === 'flood' ? '#22d3ee' : scenario.meta.hazard === 'wildfire' ? '#f97316' : '#a78bfa'],

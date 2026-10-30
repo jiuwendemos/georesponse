@@ -1168,7 +1168,7 @@ kbd {
   z-index: 9;
 }
 
-.layers h3 {
+.layers h2 {
   font-size: 8px;
   text-transform: uppercase;
   letter-spacing: 0.14em;
@@ -1189,6 +1189,13 @@ kbd {
 .layer input {
   accent-color: var(--cyan);
   margin: 0;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+}
+
+.layer {
+  min-height: 30px;
 }
 
 .layer .swatch {
