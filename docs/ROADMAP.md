@@ -902,6 +902,423 @@ exactly what is live. See [PRODUCTION_WIRING.md](PRODUCTION_WIRING.md).
 
 ---
 
+## Phase 7 — Make it proactive, 2026 and connected
+
+**Status: every checkbox is open. This is the programme that closes the gap between “a real
+architecture” and “a real product in daily use”.**
+
+The three questions that define it:
+
+1. **Is it proactive?** Not until a scheduler senses without being asked, detects, escalates and
+   proves the whole loop in production.
+2. **Is it 2026?** Not until the shell, map, agent, mobile, accessibility, performance and research
+   gates are all green on the working screens — not just the foundation.
+3. **Is it connected?** Not until openjiuwen is the default runtime and at least one real
+   credential-backed path is live for every service class: LLM, NPU, imagery, notifications,
+   enterprise systems, database, queue, object storage, identity and observability.
+
+**Definition of done for every box:** the box may only be checked with a reproducible command, a
+live screenshot/log, or a signed customer artefact. Mock tests alone do not count for a live box.
+No silent demo fallback is ever allowed.
+
+---
+
+### 7.A Make it genuinely proactive
+
+#### 7.A.1 Continuous sensing
+
+- [ ] Production scheduler running on the target host with a heartbeat **(M)**
+- [ ] Missed-tick alarm with owner and escalation **(M)**
+- [ ] Per-scope cadence derived from hazard, season and SLA, not a global constant **(M)**
+- [ ] Acquisition planner chooses the next best source per scope **(L)**
+- [ ] Cloud/coverage-aware scheduling with an explained retry **(M)**
+- [ ] Freshness SLO per scope with automatic escalation **(M)**
+- [ ] Backfill and gap-fill for a scope that has never been observed **(M)**
+- [ ] Idempotent acquisitions deduped by scene id and footprint **(S)**
+- [ ] Timezone- and DST-correct schedules across tenants **(S)**
+- [ ] Pause/resume per scope with an audited reason **(S)**
+- [ ] Kill switch that stops sensing and notification with visible consequence text **(S)**
+- [ ] Scheduler survives restarts without duplicating work **(M)**
+
+#### 7.A.2 Detection and baselines
+
+- [ ] Seasonal and land-cover-aware baselines per scope **(L)**
+- [ ] Flood, wildfire, construction, erosion, vegetation and water-extent detectors **(L)**
+- [ ] SAR-based detection for cloud-covered windows **(L)**
+- [ ] Confidence calibrated against adjuster-confirmed labels **(M)**
+- [ ] False-positive suppression with a reason and an audit entry **(M)**
+- [ ] Drift detection when a baseline or model degrades **(M)**
+- [ ] Severity thresholds configurable per tenant and hazard **(M)**
+- [ ] Minimum-area and persistence rules to avoid single-pixel alerts **(M)**
+- [ ] Cross-sensor corroboration (optical + SAR + weather) **(L)**
+- [ ] Explainable feature attribution for each alert **(M)**
+- [ ] Per-detector precision/recall tracked in the product **(M)**
+- [ ] Detector contract tests on a frozen evaluation set **(M)**
+
+#### 7.A.3 Alert lifecycle
+
+- [ ] Enforced transitions new → acknowledged → assigned → investigating → resolved/dismissed **(M)**
+- [ ] SLA clock with business hours, holidays and pause reasons **(M)**
+- [ ] Deduplication and merge of related alerts into an incident **(M)**
+- [ ] Ownership with handover and on-call rotation **(M)**
+- [ ] Snooze/mute with expiry and a “why now” explanation **(S)**
+- [ ] Reopen with preserved history **(S)**
+- [ ] Bulk triage with preview and undo **(S)**
+- [ ] Per-alert audit trail visible in the UI **(S)**
+- [ ] Severity escalation as an SLA breach approaches **(M)**
+- [ ] Alert-quality feedback: useful / not useful / wrong **(S)**
+- [ ] Incident timeline shared by all related alerts **(M)**
+- [ ] SLA and quality reported per team, not only per tenant **(S)**
+
+#### 7.A.4 Delivery and escalation
+
+- [ ] Real recipient routing per tenant, role and on-call schedule **(M)**
+- [ ] Quiet hours, digests and “only red wakes me” rules **(M)**
+- [ ] Retry with exponential backoff and dead-letter replay **(M)**
+- [ ] Delivery receipts and acknowledgement tracking **(M)**
+- [ ] Escalation ladder to a second recipient/team **(M)**
+- [ ] Notification deep link to the exact alert (web and push) **(M)**
+- [ ] SMS/voice fallback for red alerts **(M)**
+- [ ] Notification templates localised in English and German **(S)**
+- [ ] Rate limits and grouping so an alert storm cannot happen **(S)**
+- [ ] Delivery analytics: sent, delivered, acknowledged, time-to-ack **(S)**
+- [ ] Recipient opt-out that preserves safety-critical delivery **(M)**
+- [ ] One real end-to-end delivery to a customer recipient **(S)**
+
+#### 7.A.5 Learning loop
+
+- [ ] Adjuster-confirmed labels captured in the product **(M)**
+- [ ] Precision/recall dashboard updated from live labels **(M)**
+- [ ] Retraining trigger with a reproducible dataset snapshot **(L)**
+- [ ] Champion/challenger evaluation before promotion **(L)**
+- [ ] Regression gate on a frozen evaluation set **(M)**
+- [ ] Per-tenant threshold tuning with one-click rollback **(M)**
+- [ ] Analyst corrections feed the baseline and detector **(M)**
+- [ ] Monthly proactive-quality review artefact **(S)**
+- [ ] Model and detector changelog visible to operators **(S)**
+- [ ] Customer-facing quality report per quarter **(S)**
+
+#### 7.A.6 Operations and reliability
+
+- [ ] Worker health page with last tick, queue depth and lag **(M)**
+- [ ] Missed-tick and stale-scope alarms **(M)**
+- [ ] Backpressure and rate limits against upstream APIs **(M)**
+- [ ] Cost budget per tenant with alerts **(M)**
+- [ ] Idempotent replay of a tick or a day **(M)**
+- [ ] Load test at 1,000 scopes / 10,000 alerts **(L)**
+- [ ] Chaos test: upstream down, database down, queue down **(L)**
+- [ ] Runbook for every failure mode **(M)**
+- [ ] Backup/restore drill for proactive state **(M)**
+- [ ] Proactive SLO dashboard: coverage, freshness, latency **(M)**
+- [ ] On-call runbook with paging thresholds **(S)**
+- [ ] Post-incident review for every proactive miss **(S)**
+
+#### 7.A.7 Proactive UX
+
+- [ ] “What changed since I last looked” home **(M)**
+- [ ] Coverage and blind spots always visible **(S)**
+- [ ] “Why now” on every proactive nudge **(S)**
+- [ ] One-click acknowledge/assign/handoff from a notification **(M)**
+- [ ] Proactive digest with actions, not just text **(M)**
+- [ ] Silence a scope without silencing everything **(S)**
+- [ ] “I was wrong” feedback captured from the alert itself **(S)**
+- [ ] Proactive timeline that shows sensing → detection → decision **(M)**
+
+---
+
+### 7.B Make it true 2026
+
+#### 7.B.1 Shell and information architecture
+
+- [ ] Map-first shell where every panel is contextual and dismissible **(M)**
+- [ ] Command palette with recents, saved views and fuzzy search **(M)**
+- [ ] URL state for every alert, scope, incident, filter and layer **(M)**
+- [ ] Saved views per user and per team **(M)**
+- [ ] Workspace/tenant switcher with a visible data boundary **(S)**
+- [ ] Cross-links alert ↔ incident ↔ scope ↔ assessment ↔ claim ↔ audit **(M)**
+- [ ] Mobile breadcrumb and “where am I” indicator **(S)**
+- [ ] No dead ends: every empty/error state has a next action **(S)**
+- [ ] Section transitions without full reloads **(S)**
+- [ ] New-user orientation with a real sample scope **(M)**
+
+#### 7.B.2 Visual language
+
+- [ ] New logotype and app mark at 16 px, 32 px and stage scale **(M)**
+- [ ] Typography migration: no UI text below 11 px; HUD ≥ 12 px **(M)**
+- [ ] Self-hosted subset fonts with licensing and offline fallback **(S)**
+- [ ] Surface/elevation system with fewer borders and less glass **(M)**
+- [ ] Remove default neon glow; keep it only for deliberate moments **(S)**
+- [ ] Coherent icon set for domains, layers, alerts and actions **(M)**
+- [ ] Light/dark/projection/print map styles **(M)**
+- [ ] Print theme for field orders, stage kit and A1 map **(S)**
+- [ ] Chart system with shared axes, legends, tooltips and themes **(M)**
+- [ ] Screen-by-screen visual audit at 1440/1024/390 signed off **(M)**
+- [ ] Every screen rebuilt on tokens and primitives, no one-off CSS **(L)**
+- [ ] Dark theme no longer defaults to glass and glow **(S)**
+
+#### 7.B.3 Map craft
+
+- [ ] Real vector tiles/terrain or an intentionally stylised map **(L)**
+- [ ] Offline map pack with a size budget **(M)**
+- [ ] Roads, buildings, land use, water, contours and labels at three zoom bands **(L)**
+- [ ] Label hierarchy, collision and decluttering on stage **(M)**
+- [ ] Interruptible fly-to, fit-to-scope and reveal **(S)**
+- [ ] Draw, edit, measure and snap scopes with undo **(M)**
+- [ ] Layer panel with opacity, ordering and saved layer sets **(M)**
+- [ ] Swipe/before-after compare as a first-class control **(S)**
+- [ ] Mini-map, scale bar and compass **(S)**
+- [ ] Pinch/drag/tap gestures and bottom-sheet detail on mobile **(M)**
+- [ ] ≤16 ms frames at 1,000 features **(M)**
+- [ ] Map camera choreography documented and tested **(S)**
+
+#### 7.B.4 Agent-native UX
+
+- [ ] Streaming responses with stop, retry and partial results **(M)**
+- [ ] Ambient/inline agent on every screen, not only a sidecar **(M)**
+- [ ] Context awareness of the current alert/scope/filter without re-asking **(M)**
+- [ ] “Explain this” on every number, layer, rank and alert **(M)**
+- [ ] Confidence in words and intervals, not only decimals **(S)**
+- [ ] Per-alert and per-scope conversation history **(S)**
+- [ ] Agent permission scopes that cannot exceed the user’s rights **(M)**
+- [ ] Prompt-injection corpus and unsafe-action refusal tests **(M)**
+- [ ] Voice input as an accessibility path, off by default **(S)**
+- [ ] Agent evaluation set with golden questions and tool traces **(M)**
+- [ ] Tool calls rendered as inspectable steps everywhere **(S)**
+- [ ] Preview/approve/undo enforced in the API, not only the UI **(M)**
+
+#### 7.B.5 Mobile and field
+
+- [ ] Mobile-first layouts at 390 and 768 designed, not squeezed **(M)**
+- [ ] Bottom sheets, sticky actions and one-hand reach **(M)**
+- [ ] 44 px touch targets and no hover-only actions **(S)**
+- [ ] Installable PWA with offline shell and cached pack **(S)**
+- [ ] Push deep link into the exact alert **(M)**
+- [ ] Offline alert queue with retry and conflict handling **(M)**
+- [ ] Camera/photo upload and geotag with consent **(M)**
+- [ ] Location with explicit permission, never silent tracking **(S)**
+- [ ] Field checklist, directions handoff and check-in **(M)**
+- [ ] Mid-range Android performance budget **(M)**
+- [ ] Sunlight/high-contrast cards tested outdoors **(S)**
+- [ ] No clipped tables or tiny tap chips at 390 px **(S)**
+
+#### 7.B.6 Accessibility
+
+- [ ] WCAG 2.2 AA audit with fixes and sign-off **(M)**
+- [ ] Screen-reader audit with a real user **(M)**
+- [ ] 200% text zoom without loss of function **(S)**
+- [ ] Reduced motion for every transition **(S)**
+- [ ] Colour independence: icons, labels and patterns **(S)**
+- [ ] Accessible data table for every chart **(M)**
+- [ ] Focus order and traps verified per surface **(M)**
+- [ ] Target size ≥24 px (44 px touch) everywhere **(S)**
+- [ ] Plain-language review of critical copy **(S)**
+- [ ] Accessibility regression suite in CI for every route **(M)**
+- [ ] Captions and alt text for every product image **(S)**
+- [ ] Keyboard-only completion of the six core tasks **(M)**
+
+#### 7.B.7 Performance and resilience
+
+- [ ] LCP ≤2 s, INP ≤200 ms, CLS ≤0.05 on mid-range Android **(M)**
+- [ ] Route-level splitting including map and worker **(M)**
+- [ ] Virtualised 10k alert/scope lists **(M)**
+- [ ] Skeletons that match the final layout **(S)**
+- [ ] Memory budget and leak check **(M)**
+- [ ] Offline detection with a recoverable banner **(S)**
+- [ ] Cache strategy for packs, fonts, tiles and API **(M)**
+- [ ] Low-end device and battery test **(M)**
+- [ ] Budgets enforced in CI with trend history **(S)**
+- [ ] Error boundary per route with a diagnostic ID **(S)**
+- [ ] Partial-failure UI when data is stale **(S)**
+- [ ] Load test the UI at 10k alerts **(L)**
+
+#### 7.B.8 Motion, content and localisation
+
+- [ ] Motion tokens with decelerate/accelerate variants **(S)**
+- [ ] Panel/drawer transitions with focus management **(S)**
+- [ ] Optimistic updates with rollback **(M)**
+- [ ] No gratuitous shimmer, parallax, tilt or neon pulse **(S)**
+- [ ] Optional sound/haptic cues off by default **(S)**
+- [ ] Full German localisation including long-form copy **(M)**
+- [ ] Terminology glossary **(S)**
+- [ ] Voice and tone guide **(S)**
+- [ ] RTL-ready layout **(M)**
+- [ ] Readability check at 10 m stage distance **(S)**
+- [ ] Error copy: what happened, what to do, what not to do **(S)**
+- [ ] Empty states with one clear next action **(S)**
+
+#### 7.B.9 Research and launch
+
+- [ ] Five users per role complete the core task unaided **(M)**
+- [ ] SUS ≥ 80 and task success ≥ 90% **(M)**
+- [ ] Five-second test: “what does this product do?” **(S)**
+- [ ] Diary study with a watch operator for two weeks **(M)**
+- [ ] Benchmark five operational products **(M)**
+- [ ] Customer-facing “what changed” note **(S)**
+- [ ] Private beta by role with feature flags **(M)**
+- [ ] Remove the old shell after two green releases **(S)**
+- [ ] Launch gate: maturity scorecard green **(M)**
+- [ ] Design-debt burn-down to zero S1 **(M)**
+- [ ] Research findings published and acted on **(S)**
+- [ ] Sign-off from design, engineering and the pilot customer **(M)**
+
+---
+
+### 7.C Connect everything
+
+#### 7.C.1 openjiuwen runtime
+
+- [ ] Make openjiuwen the default deployed backend **(M)**
+- [ ] Pin and vendor the openjiuwen version in the image **(M)**
+- [ ] CI job that exercises openjiuwen in the jiuwenswarm venv **(M)**
+- [ ] Startup health check that fails loudly when openjiuwen is missing **(S)**
+- [ ] Map every GeoResponse tool to an openjiuwen `@tool` with schema **(M)**
+- [ ] Render openjiuwen streaming callbacks in the UI **(M)**
+- [ ] Agent memory/state across turns per alert and scope **(M)**
+- [ ] openjiuwen trace and telemetry export **(S)**
+- [ ] Guardrail tests for injection and unsafe actions **(M)**
+- [ ] Documented fallback with an explicit UI badge **(S)**
+- [ ] openjiuwen version upgrade policy **(S)**
+- [ ] Parity test: openjiuwen and OpenAI-compatible produce equivalent tool traces **(M)**
+
+#### 7.C.2 LLM and provider
+
+- [ ] Customer-approved provider and model committed to the deployment **(S)**
+- [ ] Key rotation and secret-vault integration **(M)**
+- [ ] Per-tenant model routing and rate limits **(M)**
+- [ ] Token/cost budget with hard stops **(M)**
+- [ ] Retry, timeout and circuit breaker **(M)**
+- [ ] Structured-output validation before any action **(M)**
+- [ ] Evaluation set run in CI against the live model **(M)**
+- [ ] Data-residency and retention review **(M)**
+- [ ] Prompt and model version registry **(S)**
+- [ ] Offline deterministic fallback clearly labelled **(S)**
+- [ ] Live smoke test on every deployment **(S)**
+- [ ] Model deprecation watch **(S)**
+
+#### 7.C.3 NPU and inference
+
+- [ ] Target NPU hardware identified (Ascend/OpenVINO/QNN) **(M)**
+- [ ] Vendor ONNX Runtime installed and pinned **(M)**
+- [ ] CANN/OpenVINO/QNN provider selected at runtime **(M)**
+- [ ] NPU acceptance run with the real model **(L)**
+- [ ] Latency/throughput benchmark on device **(M)**
+- [ ] Production roof-damage CNN replaces the damage head **(L)**
+- [ ] Model card, version and limitations in the UI **(S)**
+- [ ] Quantisation/accuracy trade-off documented **(M)**
+- [ ] Device selection and GPU/NPU fallback **(M)**
+- [ ] Inference service health and autoscaling **(M)**
+- [ ] Batch and stream inference paths tested **(M)**
+- [ ] Inference cost per tile tracked **(S)**
+
+#### 7.C.4 Imagery providers
+
+- [ ] Planet credentials and a live search **(L)**
+- [ ] Maxar credentials and a live search **(L)**
+- [ ] Airbus credentials and a live search **(L)**
+- [ ] ICEYE credentials and a live search **(L)**
+- [ ] Capella credentials and a live search **(L)**
+- [ ] Per-scene licence check and attribution **(M)**
+- [ ] Customer SFTP/drone orthophoto ingestion (LAS/GeoTIFF) **(M)**
+- [ ] Full-resolution streaming tile service **(L)**
+- [ ] Mosaic and cloud-masking pipeline **(L)**
+- [ ] SAR ingestion and processing **(L)**
+- [ ] Imagery retention and deletion **(M)**
+- [ ] Cost caps per provider **(M)**
+- [ ] Source failover with provenance **(M)**
+- [ ] Offline pack generated from live imagery **(M)**
+
+#### 7.C.5 Notifications
+
+- [ ] SMTP delivered to a real recipient **(S)**
+- [ ] Slack delivered to a real channel **(S)**
+- [ ] Teams delivered to a real channel **(S)**
+- [ ] Twilio SMS delivered to a real handset **(S)**
+- [ ] PagerDuty incident created and acknowledged **(S)**
+- [ ] Webhook HMAC verified by an independent receiver **(S)**
+- [ ] Recipient least-privilege from the IdP **(M)**
+- [ ] Delivery receipt and acknowledgement loop **(M)**
+- [ ] Templates localised in English and German **(S)**
+- [ ] Retry/dead-letter replay drill **(M)**
+- [ ] Quiet hours and escalation tested **(M)**
+- [ ] Notification metrics in the dashboard **(S)**
+
+#### 7.C.6 Enterprise integrations
+
+- [ ] Jira sandbox: create, link and status sync **(M)**
+- [ ] ServiceNow sandbox: incident round-trip **(M)**
+- [ ] Guidewire sandbox: claim draft accepted **(M)**
+- [ ] Duck Creek sandbox: claim draft accepted **(M)**
+- [ ] Maximo sandbox: work order round-trip **(M)**
+- [ ] SAP sandbox: inspection round-trip **(M)**
+- [ ] ArcGIS: feature visible on a real map **(S)**
+- [ ] SIEM: event searchable in the sandbox **(S)**
+- [ ] Draft-only semantics and approval audit **(S)**
+- [ ] Field dispatch acknowledgement loop **(M)**
+- [ ] Integration retry/idempotency **(M)**
+- [ ] Per-tenant integration credentials **(M)**
+
+#### 7.C.7 Platform services
+
+- [ ] PostgreSQL live smoke and failover **(M)**
+- [ ] Redis queue live smoke and failover **(M)**
+- [ ] MinIO/S3 live smoke and lifecycle **(M)**
+- [ ] pg_dump/pg_restore drill **(M)**
+- [ ] Object-store restore drill **(M)**
+- [ ] Multi-tenant isolation test **(M)**
+- [ ] Backup schedule and retention **(M)**
+- [ ] Migration tooling and rollback **(M)**
+- [ ] Connection pooling and limits **(S)**
+- [ ] Cost and capacity model **(S)**
+- [ ] Read replica / reporting path **(M)**
+- [ ] Disaster-recovery runbook **(M)**
+
+#### 7.C.8 Identity and security
+
+- [ ] OIDC against the customer IdP **(M)**
+- [ ] Role and tenant claims enforced in the API **(M)**
+- [ ] Agent permission scopes tied to the principal **(M)**
+- [ ] TLS/HSTS at the edge **(S)**
+- [ ] Secret vault in production **(M)**
+- [ ] Dependency and container scanning **(M)**
+- [ ] Pen test and threat-model review **(L)**
+- [ ] Audit export and tamper verification **(M)**
+- [ ] Data-retention and deletion controls **(M)**
+- [ ] Incident-response runbook **(M)**
+- [ ] API rate limiting per principal **(S)**
+- [ ] Supply-chain provenance for images **(S)**
+
+#### 7.C.9 Observability
+
+- [ ] OTLP traces/metrics/logs to the customer stack **(M)**
+- [ ] SLOs and alerting for API, worker and agent **(M)**
+- [ ] Agent trace explorer **(M)**
+- [ ] Cost dashboards per tenant **(S)**
+- [ ] Error tracking with release tagging **(S)**
+- [ ] Synthetic checks for the live app **(S)**
+- [ ] On-call rotation and escalation **(M)**
+- [ ] Post-incident review template **(S)**
+- [ ] Capacity and load dashboards **(M)**
+- [ ] Privacy-safe telemetry review **(M)**
+- [ ] Dashboard for proactive coverage and freshness **(M)**
+- [ ] Audit log export to the customer SIEM **(M)**
+
+#### 7.C.10 Cutover
+
+- [ ] `doctor` required checks green on the target host **(S)**
+- [ ] Customer imagery and assets loaded; sample pack removed **(M)**
+- [ ] One real notification delivered and acknowledged **(S)**
+- [ ] Each integration tested against a sandbox **(L)**
+- [ ] NPU acceptance run passed **(L)**
+- [ ] Backup/restore drill passed **(M)**
+- [ ] Legal, DPA and privacy sign-off **(M)**
+- [ ] Live pilot acceptance against [MONITORING_PILOT.md](MONITORING_PILOT.md) **(M)**
+- [ ] Rollback rehearsed **(M)**
+- [ ] Launch signed by product, security and the customer **(M)**
+- [ ] Hypercare window with daily review **(M)**
+- [ ] Handover pack and training for operators **(M)**
+
+---
+
 ## Not planned (unchanged)
 
 - Own satellite or imagery collection.

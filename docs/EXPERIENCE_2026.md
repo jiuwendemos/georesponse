@@ -151,3 +151,7 @@ user research and the rollout gates. The Phase 5 checkboxes remain the source of
 Still open and deliberately unchecked: the remaining screen-by-screen visual
 migration, every-component visual snapshots, full long-form German copy, user
 interviews, SUS/task-success baselines, benchmark studies and the launch gate.
+
+
+> **Where the remaining work lives:** Phase 7.B in [ROADMAP.md](ROADMAP.md) is the screen-by-screen
+> 2026 programme (106 checkboxes). Phase 5 records what is already shipped.

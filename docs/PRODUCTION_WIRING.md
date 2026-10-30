@@ -117,3 +117,8 @@ local and clearly labelled. Integration endpoints return 503 when their credenti
 - [ ] NPU acceptance run with the target model.
 - [ ] Postgres/Redis/MinIO backup and restore drill.
 - [ ] Legal/DPA/privacy sign-off.
+
+
+> **Where the live cutover lives:** Phase 7.C in [ROADMAP.md](ROADMAP.md) is the 122-checkbox
+> programme to connect openjiuwen, NPU, imagery, notifications, enterprise systems, platform,
+> identity, observability and cutover for real.
