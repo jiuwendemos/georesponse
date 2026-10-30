@@ -154,7 +154,7 @@
 
   .brand-text small {
     color: var(--soft);
-    font-size: 8.5px;
+    font-size: 11px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
   }
@@ -312,7 +312,7 @@
     text-align: right;
     z-index: 4;
     color: rgba(140, 163, 173, 0.55);
-    font-size: 7px;
+    font-size: 11px;
     font-family: var(--mono);
     pointer-events: none;
     max-width: 44%;
@@ -522,7 +522,7 @@
 
   .depot-label {
     fill: #86efac;
-    font-size: 6px;
+    font-size: 11px;
     font-family: var(--mono);
     text-transform: uppercase;
     opacity: 0.8;
@@ -573,7 +573,7 @@
   .pin-rank-svg {
     fill: #041014;
     font-family: var(--mono);
-    font-size: 7.5px;
+    font-size: 11px;
     font-weight: 800;
     text-anchor: middle;
     pointer-events: none;
@@ -604,7 +604,7 @@
   .pin-label-svg {
     fill: #e7f3f7;
     font-family: var(--sans);
-    font-size: 6.2px;
+    font-size: 11px;
     font-weight: 700;
   }
 
@@ -699,7 +699,7 @@
     display: grid;
     place-items: center;
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 700;
     color: #041014;
     background: currentColor;
@@ -713,7 +713,7 @@
     left: 17px;
     top: -9px;
     white-space: nowrap;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 700;
     color: var(--ink);
     background: rgba(4, 16, 26, 0.92);
@@ -806,7 +806,7 @@
     display: flex;
     align-items: center;
     gap: 7px;
-    font-size: 9px;
+    font-size: 11px;
     font-weight: 800;
     letter-spacing: 0.15em;
     text-transform: uppercase;
@@ -836,7 +836,7 @@
     border: 1px solid var(--line);
     backdrop-filter: blur(12px);
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     color: var(--muted);
     white-space: nowrap;
   }
@@ -876,7 +876,7 @@
 
   .mission > p {
     color: var(--muted);
-    font-size: 10.5px;
+    font-size: 11px;
     line-height: 1.55;
   }
 
@@ -902,7 +902,7 @@
 
   .mission-stats span {
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
   }
@@ -923,7 +923,7 @@
     border-radius: 6px;
     border: 1px dashed var(--line-strong);
     color: var(--soft);
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .team-row.filled {
@@ -935,7 +935,7 @@
 
   .team-name {
     font-family: var(--mono);
-    font-size: 8.5px;
+    font-size: 11px;
     color: var(--green);
     width: 38px;
     flex: 0 0 auto;
@@ -946,7 +946,7 @@
     background: none;
     text-align: left;
     padding: 0;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 600;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -995,7 +995,7 @@
     display: flex;
     justify-content: space-between;
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     margin-bottom: 5px;
@@ -1011,7 +1011,7 @@
     color: var(--muted);
     padding: 4px 2px;
     text-align: left;
-    font-size: 10px;
+    font-size: 11px;
     border-radius: 5px;
   }
 
@@ -1028,7 +1028,7 @@
     place-items: center;
     border: 1px solid var(--line-strong);
     font-family: var(--mono);
-    font-size: 8px;
+    font-size: 11px;
     flex: 0 0 auto;
   }
 
@@ -1053,7 +1053,7 @@
     background: rgba(255, 255, 255, 0.04);
     color: var(--ink);
     padding: 7px 10px;
-    font-size: 10.5px;
+    font-size: 11px;
     font-weight: 700;
     white-space: nowrap;
     transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
@@ -1092,7 +1092,7 @@
 
   .btn-sm {
     padding: 5px 7px;
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .btn-block {
@@ -1151,7 +1151,7 @@
   }
 
   .layers h2 {
-    font-size: 8px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.14em;
     color: var(--soft);
@@ -1163,7 +1163,7 @@
     align-items: center;
     gap: 7px;
     padding: 3px 0;
-    font-size: 9.5px;
+    font-size: 11px;
     color: var(--muted);
     cursor: pointer;
   }
@@ -1195,7 +1195,7 @@
     margin-top: 7px;
     padding-top: 7px;
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.1em;
   }
@@ -1209,7 +1209,7 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
-    font-size: 8.5px;
+    font-size: 11px;
     color: var(--muted);
     z-index: 8;
   }
@@ -1281,7 +1281,7 @@
 
   .time-row span {
     color: var(--soft);
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .timeline-area {
@@ -1301,7 +1301,7 @@
     display: flex;
     justify-content: space-between;
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
     font-family: var(--mono);
   }
 
@@ -1365,7 +1365,7 @@
   }
 
   .detail-rank small {
-    font-size: 7px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--soft);
@@ -1382,7 +1382,7 @@
     gap: 5px;
     flex-wrap: wrap;
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
   }
@@ -1397,7 +1397,7 @@
   .detail-loc {
     color: var(--soft);
     font-family: var(--mono);
-    font-size: 8.5px;
+    font-size: 11px;
   }
 
   .risk-arrival {
@@ -1405,7 +1405,7 @@
     margin-top: 2px;
     color: var(--amber);
     font-family: var(--sans);
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .dot-sep {
@@ -1428,7 +1428,7 @@
     align-items: center;
     gap: 6px;
     color: #fecdd3;
-    font-size: 9px;
+    font-size: 11px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.09em;
@@ -1451,7 +1451,7 @@
 
   .trust-block p {
     color: #fecdd3;
-    font-size: 9.5px;
+    font-size: 11px;
     line-height: 1.5;
     margin: 6px 0 8px;
   }
@@ -1490,7 +1490,7 @@
     position: absolute;
     top: 6px;
     font-family: var(--mono);
-    font-size: 7.5px;
+    font-size: 11px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     padding: 2px 5px;
@@ -1522,7 +1522,7 @@
     align-items: center;
     gap: 6px;
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
     margin-top: 4px;
   }
 
@@ -1533,7 +1533,7 @@
 
   .evidence-caption {
     color: var(--soft);
-    font-size: 7.5px;
+    font-size: 11px;
     margin-top: 2px;
     font-family: var(--mono);
   }
@@ -1560,7 +1560,7 @@
 
   .detail-stats span {
     color: var(--soft);
-    font-size: 7.5px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.06em;
   }
@@ -1571,7 +1571,7 @@
     align-items: center;
     margin-top: 10px;
     color: var(--muted);
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .confidence-row b {
@@ -1600,7 +1600,7 @@
 
   .why-chain h3,
   .factors h3 {
-    font-size: 8px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.14em;
     color: var(--soft);
@@ -1644,20 +1644,20 @@
   }
 
   .why-item b {
-    font-size: 7.5px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--soft);
   }
 
   .why-item strong {
-    font-size: 9.5px;
+    font-size: 11px;
     font-weight: 600;
   }
 
   .why-item small {
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .factors {
@@ -1668,7 +1668,7 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 8.5px;
+    font-size: 11px;
     color: var(--muted);
     margin-bottom: 3px;
   }
@@ -1698,7 +1698,7 @@
     width: 30px;
     text-align: right;
     font-family: var(--mono);
-    font-size: 8px;
+    font-size: 11px;
     color: var(--muted);
   }
 
@@ -1718,13 +1718,13 @@
 
   .policy-row span {
     color: var(--soft);
-    font-size: 7.5px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.07em;
   }
 
   .policy-row b {
-    font-size: 9px;
+    font-size: 11px;
     font-family: var(--mono);
   }
 
@@ -1749,7 +1749,7 @@
 
   .asset-row span {
     color: var(--muted);
-    font-size: 8px;
+    font-size: 11px;
     display: flex;
     align-items: center;
     gap: 4px;
@@ -1762,7 +1762,7 @@
   .notes-block label {
     display: block;
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     margin-bottom: 4px;
@@ -1775,7 +1775,7 @@
     border: 1px solid var(--line);
     border-radius: 7px;
     padding: 6px;
-    font-size: 9.5px;
+    font-size: 11px;
     outline: none;
   }
 
@@ -1799,7 +1799,7 @@
 
   .review-actions .btn {
     flex: 1;
-    font-size: 9.5px;
+    font-size: 11px;
     padding: 6px 5px;
   }
 
@@ -1815,7 +1815,7 @@
     gap: 6px;
     flex: 1;
     color: var(--soft);
-    font-size: 8.5px;
+    font-size: 11px;
   }
 
   .team-actions select {
@@ -1824,7 +1824,7 @@
     border: 1px solid var(--line-strong);
     border-radius: 6px;
     padding: 4px 6px;
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .rejected-note {
@@ -1837,7 +1837,7 @@
     background: rgba(251, 113, 133, 0.08);
     border: 1px solid rgba(251, 113, 133, 0.25);
     color: #fecdd3;
-    font-size: 8.5px;
+    font-size: 11px;
   }
 
   /* vote */
@@ -1918,7 +1918,7 @@
     background: rgba(34, 211, 238, 0.16);
     color: var(--cyan-soft);
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     font-weight: 800;
   }
 
@@ -1926,7 +1926,7 @@
     margin-left: auto;
     color: var(--soft);
     font-family: var(--mono);
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .vote-option b {
@@ -1935,12 +1935,12 @@
 
   .vote-meta {
     color: var(--muted);
-    font-size: 8.5px;
+    font-size: 11px;
   }
 
   .vote-option small {
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
     line-height: 1.4;
   }
 
@@ -1954,7 +1954,7 @@
   .vote-tradeoff {
     flex: 1;
     color: var(--soft);
-    font-size: 8.5px;
+    font-size: 11px;
     line-height: 1.4;
   }
 
@@ -1973,7 +1973,7 @@
     background: rgba(6, 24, 30, 0.9);
     border: 1px solid rgba(74, 222, 128, 0.3);
     color: var(--muted);
-    font-size: 9px;
+    font-size: 11px;
     backdrop-filter: blur(12px);
   }
 
@@ -2022,7 +2022,7 @@
     padding: 5px 8px;
     border-radius: 6px;
     border: 1px solid rgba(157, 201, 216, 0.14);
-    font-size: 8px;
+    font-size: 11px;
     font-family: var(--mono);
     text-transform: uppercase;
     letter-spacing: 0.06em;
@@ -2067,7 +2067,7 @@
 
   .analyst-toolbar h1 span {
     color: var(--soft);
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 500;
     margin-left: 5px;
   }
@@ -2077,7 +2077,7 @@
     gap: 12px;
     margin-left: auto;
     color: var(--soft);
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .analyst-stats b {
@@ -2122,7 +2122,7 @@
     border: 1px solid var(--line);
     border-radius: 7px;
     padding: 6px 8px;
-    font-size: 10px;
+    font-size: 11px;
     outline: none;
   }
 
@@ -2143,7 +2143,7 @@
     color: var(--soft);
     border-radius: 999px;
     padding: 3px 7px;
-    font-size: 8px;
+    font-size: 11px;
     font-weight: 700;
   }
 
@@ -2208,7 +2208,7 @@
     place-items: center;
     background: rgba(255, 255, 255, 0.05);
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     color: var(--muted);
     flex: 0 0 auto;
   }
@@ -2222,7 +2222,7 @@
   }
 
   .site-name {
-    font-size: 10.5px;
+    font-size: 11px;
     font-weight: 700;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -2231,7 +2231,7 @@
 
   .site-meta {
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -2257,7 +2257,7 @@
 
   .site-score {
     font-family: var(--mono);
-    font-size: 7.5px;
+    font-size: 11px;
     color: var(--soft);
   }
 
@@ -2268,7 +2268,7 @@
     margin-top: 7px;
     padding-top: 6px;
     color: var(--soft);
-    font-size: 7.5px;
+    font-size: 11px;
     font-family: var(--mono);
   }
 
@@ -2293,12 +2293,12 @@
 
   .analyst-empty span {
     color: var(--soft);
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .empty-list {
     color: var(--soft);
-    font-size: 9px;
+    font-size: 11px;
     padding: 12px 4px;
     text-align: center;
   }
@@ -2310,7 +2310,7 @@
     align-items: center;
     border-radius: 999px;
     padding: 2px 7px;
-    font-size: 8px;
+    font-size: 11px;
     font-weight: 800;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -2320,7 +2320,7 @@
 
   .chip-sm {
     padding: 1px 5px;
-    font-size: 7px;
+    font-size: 11px;
   }
 
   .chip-red {
@@ -2413,7 +2413,7 @@
     align-items: center;
     gap: 6px;
     color: var(--green);
-    font-size: 8.5px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     font-weight: 800;
@@ -2428,7 +2428,7 @@
   .report-head p {
     color: var(--soft);
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .report-quote {
@@ -2436,7 +2436,7 @@
     border-left: 2px solid var(--cyan);
     padding-left: 10px;
     color: var(--cyan-soft);
-    font-size: 10px;
+    font-size: 11px;
     line-height: 1.5;
   }
 
@@ -2458,14 +2458,14 @@
 
   .report-metrics span {
     color: var(--soft);
-    font-size: 7.5px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
   }
 
   .report-summary {
     color: var(--muted);
-    font-size: 10px;
+    font-size: 11px;
     line-height: 1.65;
   }
 
@@ -2477,7 +2477,7 @@
   }
 
   .report-grid h3 {
-    font-size: 8.5px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.12em;
     color: var(--soft);
@@ -2512,7 +2512,7 @@
     place-items: center;
     background: rgba(255, 255, 255, 0.05);
     font-family: var(--mono);
-    font-size: 8px;
+    font-size: 11px;
     color: var(--muted);
     flex: 0 0 auto;
   }
@@ -2524,12 +2524,12 @@
 
   .report-list b {
     display: block;
-    font-size: 9.5px;
+    font-size: 11px;
   }
 
   .report-list small {
     color: var(--soft);
-    font-size: 7.5px;
+    font-size: 11px;
   }
 
   .trace-list li {
@@ -2546,13 +2546,13 @@
     place-items: center;
     border: 1px solid var(--line-strong);
     font-family: var(--mono);
-    font-size: 7px;
+    font-size: 11px;
     color: var(--soft);
     flex: 0 0 auto;
   }
 
   .trace-list b {
-    font-size: 8.5px;
+    font-size: 11px;
     font-family: var(--mono);
     color: var(--cyan-soft);
   }
@@ -2560,7 +2560,7 @@
   .trace-list small {
     display: block;
     color: var(--soft);
-    font-size: 7.5px;
+    font-size: 11px;
   }
 
   .report-limits {
@@ -2573,7 +2573,7 @@
   .report-limits summary {
     cursor: pointer;
     color: var(--muted);
-    font-size: 9px;
+    font-size: 11px;
     font-weight: 700;
   }
 
@@ -2581,13 +2581,13 @@
     margin: 7px 0;
     padding-left: 16px;
     color: var(--soft);
-    font-size: 8.5px;
+    font-size: 11px;
     line-height: 1.55;
   }
 
   .report-limits p {
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .report-actions {
@@ -2600,7 +2600,7 @@
   .report-foot {
     margin-top: 12px;
     color: var(--soft);
-    font-size: 7.5px;
+    font-size: 11px;
     font-family: var(--mono);
   }
 
@@ -2621,7 +2621,7 @@
 
   .field-eyebrow {
     color: var(--cyan);
-    font-size: 8px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.16em;
     font-weight: 800;
@@ -2636,7 +2636,7 @@
   .field-head p {
     color: var(--soft);
     font-family: var(--mono);
-    font-size: 8.5px;
+    font-size: 11px;
   }
 
   .field-time {
@@ -2652,7 +2652,7 @@
 
   .field-time span {
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
     text-transform: uppercase;
   }
 
@@ -2675,7 +2675,7 @@
   .field-team-name {
     width: 54px;
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 800;
     color: var(--green);
   }
@@ -2691,12 +2691,12 @@
 
   .field-team-site span {
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .field-team-site.empty {
     color: var(--soft);
-    font-size: 9px;
+    font-size: 11px;
     font-style: italic;
   }
 
@@ -2707,7 +2707,7 @@
   }
 
   .field-body h3 {
-    font-size: 8px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.12em;
     color: var(--soft);
@@ -2716,7 +2716,7 @@
 
   .field-body p {
     color: var(--muted);
-    font-size: 9.5px;
+    font-size: 11px;
     line-height: 1.6;
   }
 
@@ -2728,7 +2728,7 @@
 
   .field-watch span {
     color: var(--muted);
-    font-size: 8.5px;
+    font-size: 11px;
     font-family: var(--mono);
   }
 
@@ -2754,7 +2754,7 @@
     margin-top: 14px;
     padding-top: 7px;
     color: var(--soft);
-    font-size: 7px;
+    font-size: 11px;
     font-family: var(--mono);
   }
 
@@ -2817,7 +2817,7 @@
     padding-top: 12px;
     border-top: 1px solid var(--line);
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
     font-family: var(--mono);
   }
 
@@ -2848,7 +2848,7 @@
     border-radius: 999px;
     padding: 2px 7px;
     color: var(--soft);
-    font-size: 7.5px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     white-space: nowrap;
@@ -2856,7 +2856,7 @@
 
   .card-note {
     color: var(--soft);
-    font-size: 8.5px;
+    font-size: 11px;
     line-height: 1.55;
     margin-top: 8px;
   }
@@ -2879,7 +2879,7 @@
 
   .kpi > span {
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.1em;
   }
@@ -2894,7 +2894,7 @@
   .kpi > em {
     display: block;
     color: var(--muted);
-    font-size: 8.5px;
+    font-size: 11px;
     font-style: normal;
     min-height: 24px;
   }
@@ -2950,7 +2950,7 @@
     grid-template-columns: 78px 1fr 84px;
     align-items: center;
     gap: 8px;
-    font-size: 9px;
+    font-size: 11px;
     color: var(--muted);
   }
 
@@ -2980,7 +2980,7 @@
     text-align: right;
     font-family: var(--mono);
     color: var(--ink);
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .saved-callout {
@@ -2990,7 +2990,7 @@
     background: rgba(34, 211, 238, 0.07);
     border: 1px solid rgba(34, 211, 238, 0.22);
     color: var(--muted);
-    font-size: 9.5px;
+    font-size: 11px;
   }
 
   .saved-callout b {
@@ -3043,18 +3043,18 @@
 
   .monitor-row b {
     display: block;
-    font-size: 9.5px;
+    font-size: 11px;
   }
 
   .monitor-row small {
     color: var(--soft);
-    font-size: 7.5px;
+    font-size: 11px;
     font-family: var(--mono);
   }
 
   .monitor-state {
     font-family: var(--mono);
-    font-size: 7px;
+    font-size: 11px;
     color: var(--soft);
     text-transform: uppercase;
   }
@@ -3080,7 +3080,7 @@
     grid-template-columns: 80px 1fr 24px;
     align-items: center;
     gap: 7px;
-    font-size: 8.5px;
+    font-size: 11px;
     color: var(--muted);
   }
 
@@ -3101,19 +3101,19 @@
   .reason-row b {
     text-align: right;
     font-family: var(--mono);
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .data-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 8.5px;
+    font-size: 11px;
   }
 
   .data-table th {
     text-align: left;
     color: var(--soft);
-    font-size: 7.5px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     padding: 6px 4px;
@@ -3133,7 +3133,7 @@
   .review-pill {
     border-radius: 999px;
     padding: 1px 6px;
-    font-size: 7px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
@@ -3160,7 +3160,7 @@
 
   .offer-card > p {
     color: var(--muted);
-    font-size: 10px;
+    font-size: 11px;
     line-height: 1.6;
   }
 
@@ -3168,7 +3168,7 @@
     margin: 10px 0;
     padding-left: 16px;
     color: var(--muted);
-    font-size: 9px;
+    font-size: 11px;
     line-height: 1.65;
   }
 
@@ -3197,19 +3197,19 @@
 
   .pipeline-n {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     color: var(--cyan);
   }
 
   .pipeline-step b {
     display: block;
-    font-size: 10.5px;
+    font-size: 11px;
     margin: 5px 0 3px;
   }
 
   .pipeline-step p {
     color: var(--soft);
-    font-size: 8.5px;
+    font-size: 11px;
     line-height: 1.5;
   }
 
@@ -3237,7 +3237,7 @@
 
   .definition dt {
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
   }
@@ -3245,7 +3245,7 @@
   .definition dd {
     margin: 0;
     color: var(--muted);
-    font-size: 9px;
+    font-size: 11px;
     line-height: 1.55;
   }
 
@@ -3253,7 +3253,7 @@
     display: inline-block;
     margin-right: 8px;
     color: var(--muted);
-    font-size: 8.5px;
+    font-size: 11px;
   }
 
   .weight b {
@@ -3275,7 +3275,7 @@
     gap: 6px;
     align-items: flex-start;
     color: var(--muted);
-    font-size: 9px;
+    font-size: 11px;
     line-height: 1.5;
   }
 
@@ -3295,14 +3295,14 @@
 
   .provenance-box b {
     display: block;
-    font-size: 9.5px;
+    font-size: 11px;
     margin: 3px 0;
     color: #fde68a;
   }
 
   .provenance-box p {
     color: var(--muted);
-    font-size: 8.5px;
+    font-size: 11px;
     line-height: 1.5;
     margin-bottom: 4px;
   }
@@ -3318,7 +3318,7 @@
     border-radius: 999px;
     padding: 3px 8px;
     color: var(--muted);
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .connector-state {
@@ -3326,7 +3326,7 @@
     align-items: center;
     gap: 6px;
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
     font-family: var(--mono);
     margin-top: 10px;
   }
@@ -3345,14 +3345,14 @@
 
   .integration-cols span {
     color: var(--soft);
-    font-size: 7.5px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     margin-bottom: 2px;
   }
 
   .integration-cols b {
-    font-size: 8.5px;
+    font-size: 11px;
     font-weight: 600;
     color: var(--muted);
   }
@@ -3387,7 +3387,7 @@
 
   .check p {
     color: var(--soft);
-    font-size: 8.5px;
+    font-size: 11px;
     line-height: 1.45;
   }
 
@@ -3419,7 +3419,7 @@
   .imagery-pair figcaption {
     padding: 5px 8px;
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
     font-family: var(--mono);
     border-top: 1px solid var(--line);
   }
@@ -3442,12 +3442,12 @@
   }
 
   .sector b {
-    font-size: 10.5px;
+    font-size: 11px;
   }
 
   .sector p {
     color: var(--muted);
-    font-size: 8.5px;
+    font-size: 11px;
     line-height: 1.5;
     margin: 5px 0 7px;
   }
@@ -3455,13 +3455,13 @@
   .sector small {
     display: block;
     color: var(--soft);
-    font-size: 7.5px;
+    font-size: 11px;
     line-height: 1.45;
     margin-top: 7px;
   }
 
   .sector .tag-cloud span {
-    font-size: 7px;
+    font-size: 11px;
     padding: 2px 5px;
   }
 
@@ -3472,7 +3472,7 @@
     padding: 12px;
     overflow-x: auto;
     color: #a5f3fc;
-    font-size: 9.5px;
+    font-size: 11px;
     line-height: 1.7;
     margin: 0;
   }
@@ -3536,19 +3536,19 @@
 
   .booth-step > span {
     font-family: var(--mono);
-    font-size: 7.5px;
+    font-size: 11px;
     color: var(--cyan);
   }
 
   .booth-step b {
     display: block;
-    font-size: 9.5px;
+    font-size: 11px;
     margin: 3px 0;
   }
 
   .booth-step p {
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
     line-height: 1.45;
   }
 
@@ -3593,7 +3593,7 @@
     top: 8px;
     border-radius: 999px;
     padding: 2px 7px;
-    font-size: 7.5px;
+    font-size: 11px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.08em;
@@ -3625,7 +3625,7 @@
 
   .scenario-body p {
     color: var(--muted);
-    font-size: 9px;
+    font-size: 11px;
     margin-top: 3px;
   }
 
@@ -3635,7 +3635,7 @@
     flex-wrap: wrap;
     margin-top: 7px;
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
     font-family: var(--mono);
   }
 
@@ -3645,7 +3645,7 @@
     border-left: 1px solid var(--line-strong);
     padding-left: 8px;
     margin: 9px 0 !important;
-    font-size: 8.5px !important;
+    font-size: 11px !important;
   }
 
   .scenario-actions {
@@ -3671,13 +3671,13 @@
     margin: 0;
     padding-left: 15px;
     color: var(--muted);
-    font-size: 9px;
+    font-size: 11px;
     line-height: 1.65;
   }
 
   .booth-notes p {
     color: var(--muted);
-    font-size: 9px;
+    font-size: 11px;
     line-height: 1.6;
   }
 
@@ -3707,7 +3707,7 @@
 
   .kit-head p {
     color: var(--soft);
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .kit-brand {
@@ -3734,7 +3734,7 @@
     display: grid;
     place-items: center;
     color: var(--soft);
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .kit-tokens {
@@ -3766,7 +3766,7 @@
   }
 
   .kit-token b {
-    font-size: 9px;
+    font-size: 11px;
     font-family: var(--mono);
     color: var(--green);
   }
@@ -3776,14 +3776,14 @@
     flex-direction: column;
     gap: 4px;
     color: var(--soft);
-    font-size: 8.5px;
+    font-size: 11px;
     margin-left: auto;
   }
 
   .kit-foot {
     margin-top: 12px;
     color: var(--soft);
-    font-size: 7.5px;
+    font-size: 11px;
     font-family: var(--mono);
   }
 
@@ -3828,16 +3828,16 @@
   .script-row > span {
     color: var(--cyan);
     font-family: var(--mono);
-    font-size: 8.5px;
+    font-size: 11px;
   }
 
   .script-row b {
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .script-row p {
     color: var(--muted);
-    font-size: 9px;
+    font-size: 11px;
     line-height: 1.55;
     margin-top: 2px;
   }
@@ -3845,7 +3845,7 @@
   .script-foot {
     margin-top: 12px;
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
   }
 
   /* audit */
@@ -3861,7 +3861,7 @@
 
   .audit-sub {
     color: var(--soft);
-    font-size: 9px;
+    font-size: 11px;
     margin-top: 3px;
   }
 
@@ -3874,7 +3874,7 @@
   }
 
   .audit-status {
-    font-size: 8.5px;
+    font-size: 11px;
     font-family: var(--mono);
   }
 
@@ -3915,26 +3915,26 @@
 
   .audit-row b {
     display: block;
-    font-size: 9.5px;
+    font-size: 11px;
     font-family: var(--mono);
   }
 
   .audit-row span {
     display: block;
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .audit-row small {
     display: block;
     color: var(--muted);
-    font-size: 8px;
+    font-size: 11px;
     margin-top: 2px;
   }
 
   .audit-row code {
     color: var(--soft);
-    font-size: 7.5px;
+    font-size: 11px;
   }
 
   /* provenance */
@@ -3964,25 +3964,25 @@
 
   .provenance-grid span {
     color: var(--soft);
-    font-size: 7.5px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.09em;
   }
 
   .provenance-grid b {
     display: block;
-    font-size: 10px;
+    font-size: 11px;
     margin: 2px 0;
   }
 
   .provenance-grid small {
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .provenance-weights h3,
   .provenance-rights h3 {
-    font-size: 8px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.12em;
     color: var(--soft);
@@ -3994,7 +3994,7 @@
     grid-template-columns: 70px 1fr 35px;
     gap: 7px;
     align-items: center;
-    font-size: 8.5px;
+    font-size: 11px;
     color: var(--muted);
     margin-bottom: 3px;
     text-transform: capitalize;
@@ -4016,7 +4016,7 @@
   .weight-row b {
     text-align: right;
     font-family: var(--mono);
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .provenance-rights {
@@ -4036,7 +4036,7 @@
     display: flex;
     gap: 5px;
     color: var(--muted);
-    font-size: 8.5px;
+    font-size: 11px;
   }
 
   .provenance-rights svg {
@@ -4053,7 +4053,7 @@
     background: rgba(251, 191, 36, 0.06);
     border: 1px solid rgba(251, 191, 36, 0.24);
     color: #fde68a;
-    font-size: 8.5px;
+    font-size: 11px;
   }
 
   .provenance-foot {
@@ -4062,7 +4062,7 @@
     gap: 10px;
     margin-top: 10px;
     color: var(--soft);
-    font-size: 7.5px;
+    font-size: 11px;
     font-family: var(--mono);
   }
 
@@ -4084,7 +4084,7 @@
     border: 1px solid var(--line-strong);
     box-shadow: var(--shadow);
     color: var(--ink);
-    font-size: 10px;
+    font-size: 11px;
     animation: toast-in 0.2s ease both;
   }
 
@@ -4150,7 +4150,7 @@
   }
 
   .loading-screen span {
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .loading-screen code {
@@ -4402,7 +4402,7 @@
 
   .watch-head p {
     color: var(--soft);
-    font-size: 9.5px;
+    font-size: 11px;
   }
 
   .watch-head-right {
@@ -4422,7 +4422,7 @@
   .watch-oncall span,
   .watch-oncall small {
     color: var(--soft);
-    font-size: 7.5px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
   }
@@ -4448,7 +4448,7 @@
   .watch-kpi span {
     display: block;
     color: var(--soft);
-    font-size: 7.5px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.09em;
   }
@@ -4467,7 +4467,7 @@
   .watch-kpi em {
     display: block;
     color: var(--muted);
-    font-size: 7.5px;
+    font-size: 11px;
     font-style: normal;
   }
 
@@ -4486,7 +4486,7 @@
     background: transparent;
     color: var(--soft);
     padding: 7px 12px;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 700;
     text-transform: capitalize;
   }
@@ -4511,7 +4511,7 @@
     background: rgba(34, 211, 238, 0.14);
     color: var(--cyan-soft);
     font-family: var(--mono);
-    font-size: 7.5px;
+    font-size: 11px;
   }
 
   .watch-inbox {
@@ -4615,17 +4615,17 @@
     justify-content: space-between;
     gap: 4px;
     color: var(--soft);
-    font-size: 7.5px;
+    font-size: 11px;
   }
 
   .watch-alert-main > b {
-    font-size: 9.8px;
+    font-size: 11px;
     line-height: 1.25;
   }
 
   .watch-alert-main > small {
     color: var(--soft);
-    font-size: 7.5px;
+    font-size: 11px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -4635,7 +4635,7 @@
     margin-top: 1px;
     color: var(--soft);
     font-family: var(--mono);
-    font-size: 7px;
+    font-size: 11px;
   }
 
   .watch-status.status-new {
@@ -4701,21 +4701,21 @@
 
   .scope-label {
     fill: #cdedf3;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 700;
     pointer-events: none;
   }
 
   .scope-sub {
     fill: #5f7782;
-    font-size: 7.5px;
+    font-size: 11px;
     font-family: var(--mono);
     pointer-events: none;
   }
 
   .scope-blind {
     fill: #fda4af;
-    font-size: 7px;
+    font-size: 11px;
     font-family: var(--mono);
     text-transform: uppercase;
     pointer-events: none;
@@ -4735,7 +4735,7 @@
 
   .watch-map-legend text {
     fill: #8ca3ad;
-    font-size: 8px;
+    font-size: 11px;
     font-family: var(--sans);
   }
 
@@ -4756,7 +4756,7 @@
     background: rgba(4, 16, 26, 0.9);
     border: 1px solid rgba(34, 211, 238, 0.35);
     color: var(--cyan-soft);
-    font-size: 8.5px;
+    font-size: 11px;
     z-index: 4;
   }
 
@@ -4774,7 +4774,7 @@
     border: 1px solid var(--line);
     backdrop-filter: blur(10px);
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .watch-map-strip b {
@@ -4800,7 +4800,7 @@
 
   .watch-detail-head p {
     color: var(--muted);
-    font-size: 9.5px;
+    font-size: 11px;
     line-height: 1.55;
   }
 
@@ -4809,7 +4809,7 @@
     gap: 9px;
     margin-top: 7px;
     color: var(--soft);
-    font-size: 7.5px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.06em;
   }
@@ -4817,7 +4817,7 @@
   .watch-detail-meta b {
     display: block;
     color: var(--ink);
-    font-size: 10px;
+    font-size: 11px;
     text-transform: none;
     letter-spacing: 0;
   }
@@ -4857,13 +4857,13 @@
   .watch-facts span {
     display: block;
     color: var(--soft);
-    font-size: 6.5px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.06em;
   }
 
   .watch-facts b {
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .watch-why {
@@ -4871,7 +4871,7 @@
   }
 
   .watch-why h3 {
-    font-size: 8px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.12em;
     color: var(--soft);
@@ -4882,14 +4882,14 @@
     display: flex;
     justify-content: space-between;
     color: var(--muted);
-    font-size: 8px;
+    font-size: 11px;
     margin-top: 4px;
   }
 
   .why-factor b {
     color: var(--ink);
     font-family: var(--mono);
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .why-track {
@@ -4909,7 +4909,7 @@
   .watch-why small {
     display: block;
     color: var(--soft);
-    font-size: 7.5px;
+    font-size: 11px;
     margin-top: 5px;
     line-height: 1.4;
   }
@@ -4926,19 +4926,19 @@
 
   .watch-incident span {
     color: var(--soft);
-    font-size: 7px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
   }
 
   .watch-incident b {
-    font-size: 9px;
+    font-size: 11px;
     font-family: var(--mono);
   }
 
   .watch-incident small {
     color: var(--muted);
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .watch-detail-actions {
@@ -4961,7 +4961,7 @@
     border: 1px solid var(--line-strong);
     border-radius: 6px;
     color: var(--muted);
-    font-size: 8px;
+    font-size: 11px;
     padding: 3px 5px;
   }
 
@@ -4973,7 +4973,7 @@
 
   .watch-handoff > span {
     color: var(--soft);
-    font-size: 7px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
   }
@@ -4989,7 +4989,7 @@
     margin-top: 9px;
     color: var(--soft);
     font-family: var(--mono);
-    font-size: 7px;
+    font-size: 11px;
   }
 
   .watch-empty-detail {
@@ -5001,7 +5001,7 @@
     gap: 5px;
     color: var(--soft);
     text-align: center;
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .watch-empty-detail b {
@@ -5033,7 +5033,7 @@
 
   .watch-section-head p {
     color: var(--soft);
-    font-size: 9px;
+    font-size: 11px;
     max-width: 720px;
     margin-top: 3px;
   }
@@ -5078,14 +5078,14 @@
 
   .scope-card-head p {
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .scope-state {
     align-self: flex-start;
     border-radius: 999px;
     padding: 2px 7px;
-    font-size: 7px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     background: rgba(74, 222, 128, 0.12);
@@ -5102,7 +5102,7 @@
     gap: 9px;
     margin-top: 8px;
     color: var(--soft);
-    font-size: 7.5px;
+    font-size: 11px;
   }
 
   .scope-card-stats b {
@@ -5116,7 +5116,7 @@
     flex-wrap: wrap;
     margin-top: 7px;
     color: var(--soft);
-    font-size: 7.5px;
+    font-size: 11px;
     border-top: 1px solid var(--line);
     padding-top: 6px;
   }
@@ -5169,7 +5169,7 @@
   .coverage-summary span {
     display: block;
     color: var(--soft);
-    font-size: 7px;
+    font-size: 11px;
     text-transform: uppercase;
   }
 
@@ -5213,12 +5213,12 @@
 
   .coverage-row b {
     display: block;
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .coverage-row small {
     color: var(--soft);
-    font-size: 7px;
+    font-size: 11px;
   }
 
   .coverage-status-dot {
@@ -5241,7 +5241,7 @@
   .coverage-fresh {
     color: var(--soft);
     font-family: var(--mono);
-    font-size: 7.5px;
+    font-size: 11px;
   }
 
   .calendar-list {
@@ -5258,14 +5258,14 @@
     align-items: center;
     border-bottom: 1px solid var(--line);
     padding: 4px 0;
-    font-size: 8px;
+    font-size: 11px;
     color: var(--muted);
   }
 
   .calendar-row small {
     grid-column: 2 / -1;
     color: var(--soft);
-    font-size: 7px;
+    font-size: 11px;
   }
 
   .calendar-status {
@@ -5286,7 +5286,7 @@
   .calendar-row b {
     color: var(--ink);
     font-family: var(--mono);
-    font-size: 7px;
+    font-size: 11px;
   }
 
   .coverage-detail {
@@ -5304,7 +5304,7 @@
     gap: 8px;
     margin-top: 5px;
     color: var(--soft);
-    font-size: 7.5px;
+    font-size: 11px;
   }
 
   .coverage-detail-stats b {
@@ -5322,7 +5322,7 @@
     background: rgba(4, 16, 26, 0.8);
     border: 1px solid var(--line);
     color: var(--soft);
-    font-size: 7px;
+    font-size: 11px;
   }
 
   .coverage-legend i {
@@ -5348,7 +5348,7 @@
     background: rgba(251, 113, 133, 0.06);
     border-radius: 8px;
     color: var(--muted);
-    font-size: 8.5px;
+    font-size: 11px;
   }
 
   .blindspot-banner > div {
@@ -5362,7 +5362,7 @@
 
   .blindspot-banner span {
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .forecast-strip {
@@ -5399,18 +5399,18 @@
 
   .forecast-card b {
     display: block;
-    font-size: 8.5px;
+    font-size: 11px;
   }
 
   .forecast-card small {
     color: var(--soft);
-    font-size: 7px;
+    font-size: 11px;
   }
 
   .forecast-task {
     color: var(--soft);
     font-family: var(--mono);
-    font-size: 7px;
+    font-size: 11px;
     text-transform: uppercase;
   }
 
@@ -5436,7 +5436,7 @@
     display: flex;
     justify-content: space-between;
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     border-bottom: 1px solid var(--line);
@@ -5459,13 +5459,13 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
     padding: 5px 0;
     color: var(--ink);
-    font-size: 8.5px;
+    font-size: 11px;
   }
 
   .digest-item small {
     grid-column: 2;
     color: var(--soft);
-    font-size: 7px;
+    font-size: 11px;
   }
 
   .digest-footer {
@@ -5484,13 +5484,13 @@
 
   .digest-footer .card p {
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .digest-date {
     color: var(--soft);
     font-family: var(--mono);
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .settings-grid {
@@ -5519,7 +5519,7 @@
     border-radius: 999px;
     padding: 3px 7px;
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
     text-transform: capitalize;
   }
 
@@ -5539,7 +5539,7 @@
     justify-content: space-between;
     gap: 8px;
     color: var(--soft);
-    font-size: 8.5px;
+    font-size: 11px;
     margin-top: 6px;
   }
 
@@ -5548,7 +5548,7 @@
     align-items: center;
     gap: 4px;
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .quiet-inputs input {
@@ -5562,7 +5562,7 @@
     border-radius: 6px;
     padding: 4px 6px;
     color: var(--ink);
-    font-size: 8.5px;
+    font-size: 11px;
     max-width: 58%;
   }
 
@@ -5588,13 +5588,13 @@
 
   .outbox-row b {
     display: block;
-    font-size: 8.5px;
+    font-size: 11px;
   }
 
   .outbox-row small {
     display: block;
     color: var(--soft);
-    font-size: 7px;
+    font-size: 11px;
   }
 
   .outbox-status {
@@ -5626,18 +5626,18 @@
 
   .model-row b {
     display: block;
-    font-size: 8.5px;
+    font-size: 11px;
   }
 
   .model-row small {
     color: var(--soft);
-    font-size: 7px;
+    font-size: 11px;
   }
 
   .model-metric {
     font-family: var(--mono);
     color: var(--cyan-soft);
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .gate-list {
@@ -5654,7 +5654,7 @@
     border: 1px solid var(--line);
     border-radius: 5px;
     padding: 5px;
-    font-size: 8.5px;
+    font-size: 11px;
   }
 
   .gate-row.pass {
@@ -5676,7 +5676,7 @@
 
   .gate-row small {
     color: var(--soft);
-    font-size: 7px;
+    font-size: 11px;
     text-transform: uppercase;
   }
 
@@ -5684,7 +5684,7 @@
     display: flex;
     gap: 12px;
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .governance-facts b {
@@ -5715,7 +5715,7 @@
     border-radius: 6px;
     color: var(--soft);
     font-family: var(--mono);
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .modal-actions {
@@ -5737,7 +5737,7 @@
     border: 1px solid rgba(34, 211, 238, 0.35);
     box-shadow: var(--shadow);
     color: var(--ink);
-    font-size: 9.5px;
+    font-size: 11px;
   }
 
   @media (max-width: 1200px) {
@@ -5804,7 +5804,7 @@
     display: flex;
     justify-content: space-between;
     color: var(--soft);
-    font-size: 7px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
   }
@@ -5820,7 +5820,7 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
     padding: 4px 0;
     color: var(--ink);
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .incident-link span {
@@ -5829,7 +5829,7 @@
 
   .incident-link small {
     color: var(--soft);
-    font-size: 7px;
+    font-size: 11px;
   }
 
   .scope-trend {
@@ -5838,7 +5838,7 @@
     gap: 7px;
     margin-top: 6px;
     color: var(--soft);
-    font-size: 7px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.06em;
   }
@@ -5856,7 +5856,7 @@
 
   .spark-empty {
     color: var(--soft);
-    font-size: 7px;
+    font-size: 11px;
   }
 
   .contact-list {
@@ -5872,7 +5872,7 @@
     border-bottom: 1px solid var(--line);
     padding: 4px 0;
     color: var(--muted);
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .contact-row b {
@@ -6056,49 +6056,49 @@
   /* ----------------------------------------------------------- typography */
 
   .brand-text strong { font-size: 15px; }
-  .brand-text small { font-size: 9.5px; }
+  .brand-text small { font-size: 11px; }
   .nav-tab { font-size: 12.5px; }
-  .eyebrow { font-size: 10px; }
+  .eyebrow { font-size: 11px; }
   .mission > p { font-size: 11.5px; }
-  .mission-stats span { font-size: 9px; }
-  .team-row { font-size: 10.5px; min-height: 30px; }
-  .beat { font-size: 10.5px; }
-  .layer { font-size: 10.5px; }
-  .legend { font-size: 9.5px; }
-  .time-row span { font-size: 9.5px; }
-  .stage-hint { font-size: 9px; }
+  .mission-stats span { font-size: 11px; }
+  .team-row { font-size: 11px; min-height: 30px; }
+  .beat { font-size: 11px; }
+  .layer { font-size: 11px; }
+  .legend { font-size: 11px; }
+  .time-row span { font-size: 11px; }
+  .stage-hint { font-size: 11px; }
   .site-name { font-size: 11.5px; }
-  .site-meta { font-size: 9px; }
-  .why-chain h3, .factors h3 { font-size: 9px; }
-  .why-item b { font-size: 8.5px; }
-  .why-item strong { font-size: 10.5px; }
-  .why-item small { font-size: 9px; }
-  .detail-loc { font-size: 9.5px; }
-  .policy-row span { font-size: 8.5px; }
-  .policy-row b { font-size: 10px; }
-  .card-note { font-size: 10px; }
+  .site-meta { font-size: 11px; }
+  .why-chain h3, .factors h3 { font-size: 11px; }
+  .why-item b { font-size: 11px; }
+  .why-item strong { font-size: 11px; }
+  .why-item small { font-size: 11px; }
+  .detail-loc { font-size: 11px; }
+  .policy-row span { font-size: 11px; }
+  .policy-row b { font-size: 11px; }
+  .card-note { font-size: 11px; }
   .page-head p { font-size: 12.5px; }
-  .watch-head p { font-size: 10.5px; }
-  .watch-kpi span { font-size: 8.5px; }
-  .watch-kpi em { font-size: 8.5px; }
+  .watch-head p { font-size: 11px; }
+  .watch-kpi span { font-size: 11px; }
+  .watch-kpi em { font-size: 11px; }
   .watch-tab { font-size: 11px; }
   .watch-alert-main > b { font-size: 11.2px; }
-  .watch-alert-main > small { font-size: 9px; }
-  .watch-status { font-size: 8.5px; }
-  .watch-detail-head p { font-size: 10.5px; }
-  .watch-facts span { font-size: 8px; }
-  .watch-facts b { font-size: 10px; }
-  .watch-why h3 { font-size: 9px; }
-  .why-factor { font-size: 9px; }
+  .watch-alert-main > small { font-size: 11px; }
+  .watch-status { font-size: 11px; }
+  .watch-detail-head p { font-size: 11px; }
+  .watch-facts span { font-size: 11px; }
+  .watch-facts b { font-size: 11px; }
+  .watch-why h3 { font-size: 11px; }
+  .why-factor { font-size: 11px; }
   .scope-label { font-size: 11px; }
-  .scope-sub { font-size: 8.5px; }
-  .scope-card-head p { font-size: 9px; }
-  .scope-card-stats { font-size: 8.5px; }
-  .coverage-row b { font-size: 10px; }
-  .coverage-row small { font-size: 8px; }
-  .data-table { font-size: 9.5px; }
-  .tag-cloud span { font-size: 9px; }
-  .watch-oncall span, .watch-oncall small { font-size: 8.5px; }
+  .scope-sub { font-size: 11px; }
+  .scope-card-head p { font-size: 11px; }
+  .scope-card-stats { font-size: 11px; }
+  .coverage-row b { font-size: 11px; }
+  .coverage-row small { font-size: 11px; }
+  .data-table { font-size: 11px; }
+  .tag-cloud span { font-size: 11px; }
+  .watch-oncall span, .watch-oncall small { font-size: 11px; }
 
   /* ------------------------------------------------------- shell & mobile */
 
@@ -6187,7 +6187,7 @@
       border: 0;
       background: transparent;
       color: var(--soft);
-      font-size: 10px;
+      font-size: 11px;
     }
     .mobile-nav-item.active {
       color: var(--cyan);
@@ -6216,7 +6216,7 @@
     padding: 2px 8px;
     border: 1px solid var(--line);
     color: var(--muted);
-    font-size: 9px;
+    font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -6258,7 +6258,7 @@
 
   .ds-field-label {
     color: var(--soft);
-    font-size: 10px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     font-weight: 700;
@@ -6266,7 +6266,7 @@
 
   .ds-field-hint,
   .ds-field-error {
-    font-size: 9.5px;
+    font-size: 11px;
     color: var(--soft);
   }
 
@@ -6305,7 +6305,7 @@
     color: var(--soft);
     padding: 4px 8px;
     border-radius: 5px;
-    font-size: 9.5px;
+    font-size: 11px;
     font-weight: 700;
   }
 
@@ -6322,7 +6322,7 @@
     text-align: center;
     padding: 14px;
     color: var(--muted);
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .ds-empty-icon {
@@ -6335,7 +6335,7 @@
 
   .ds-empty span {
     color: var(--soft);
-    font-size: 9.5px;
+    font-size: 11px;
   }
 
   .ds-spinner {
@@ -6364,7 +6364,7 @@
     border-radius: 4px;
     color: var(--soft);
     font-family: var(--mono);
-    font-size: 8.5px;
+    font-size: 11px;
     line-height: 1;
   }
 
@@ -6434,7 +6434,7 @@
   .palette-group-label {
     display: block;
     color: var(--soft);
-    font-size: 9px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     padding: 7px 8px 3px;
@@ -6475,7 +6475,7 @@
 
   .palette-item small {
     color: var(--soft);
-    font-size: 9px;
+    font-size: 11px;
     font-family: var(--mono);
   }
 
@@ -6483,7 +6483,7 @@
     color: var(--soft);
     opacity: 0;
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .palette-item.active .palette-enter {
@@ -6504,7 +6504,7 @@
     padding: 7px 12px;
     border-top: 1px solid var(--line);
     color: var(--soft);
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .palette-foot span {
@@ -6577,7 +6577,7 @@
 
   .agent-title small {
     color: var(--soft);
-    font-size: 9px;
+    font-size: 11px;
     font-family: var(--mono);
   }
 
@@ -6588,7 +6588,7 @@
     padding: 7px 12px;
     border-bottom: 1px solid var(--line);
     color: var(--soft);
-    font-size: 8.5px;
+    font-size: 11px;
   }
 
   .agent-log {
@@ -6605,7 +6605,7 @@
     border-radius: 9px;
     padding: 8px 9px;
     background: rgba(255, 255, 255, 0.02);
-    font-size: 10.5px;
+    font-size: 11px;
   }
 
   .agent-user {
@@ -6627,7 +6627,7 @@
     display: flex;
     justify-content: space-between;
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     margin-bottom: 3px;
@@ -6635,14 +6635,14 @@
 
   .agent-msg p {
     color: var(--ink);
-    font-size: 10.5px;
+    font-size: 11px;
     line-height: 1.5;
   }
 
   .agent-steps {
     margin-top: 6px;
     color: var(--soft);
-    font-size: 8.5px;
+    font-size: 11px;
   }
 
   .agent-steps summary {
@@ -6653,7 +6653,7 @@
     margin: 4px 0 0;
     padding-left: 16px;
     font-family: var(--mono);
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .agent-results {
@@ -6673,7 +6673,7 @@
     background: transparent;
     color: var(--ink);
     padding: 5px 6px;
-    font-size: 9.5px;
+    font-size: 11px;
   }
 
   .agent-result:hover {
@@ -6682,7 +6682,7 @@
 
   .agent-result small {
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
     font-family: var(--mono);
   }
 
@@ -6704,20 +6704,20 @@
   .agent-action span {
     display: block;
     color: var(--cyan);
-    font-size: 7.5px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
   }
 
   .agent-action b {
     display: block;
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .agent-action small {
     display: block;
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .agent-thinking {
@@ -6760,7 +6760,7 @@
     color: var(--muted);
     border-radius: 999px;
     padding: 3px 7px;
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .agent-chip:hover {
@@ -6796,7 +6796,7 @@
     gap: 8px;
     padding: 6px 12px 9px;
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
     font-family: var(--mono);
   }
 
@@ -6836,7 +6836,7 @@
   .styleguide-theme-row > div > span {
     display: block;
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     margin-bottom: 4px;
@@ -6873,12 +6873,12 @@
   }
 
   .swatch-card b {
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .swatch-card small {
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
     font-family: var(--mono);
   }
 
@@ -6890,7 +6890,7 @@
   .type-scale span {
     display: block;
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
   }
@@ -6912,7 +6912,7 @@
   }
 
   .type-scale code {
-    font-size: 10px;
+    font-size: 11px;
     color: var(--cyan);
   }
 
@@ -6937,7 +6937,7 @@
 
   .space-scale b {
     font-family: var(--mono);
-    font-size: 8px;
+    font-size: 11px;
     color: var(--soft);
   }
 
@@ -6974,7 +6974,7 @@
     align-items: center;
     gap: 5px;
     color: var(--soft);
-    font-size: 9px;
+    font-size: 11px;
     margin-top: 8px;
   }
 
@@ -6993,7 +6993,7 @@
     flex-direction: column;
     gap: 5px;
     color: var(--muted);
-    font-size: 9.5px;
+    font-size: 11px;
   }
 
   .shortcut-list span {
@@ -7006,7 +7006,7 @@
     margin: 0;
     padding-left: 18px;
     color: var(--muted);
-    font-size: 9.5px;
+    font-size: 11px;
     line-height: 1.5;
   }
 
@@ -7025,7 +7025,7 @@
     gap: 6px;
     margin-top: 8px;
     color: var(--soft);
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .settings-modal-grid {
@@ -7121,14 +7121,14 @@
   .watch-map-table table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 9.5px;
+    font-size: 11px;
   }
 
   .map-table-panel caption,
   .watch-map-table caption {
     text-align: left;
     color: var(--soft);
-    font-size: 8.5px;
+    font-size: 11px;
     padding: 0 0 6px;
   }
 
@@ -7136,7 +7136,7 @@
   .watch-map-table th {
     text-align: left;
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     padding: 5px 4px;
@@ -7163,7 +7163,7 @@
     color: var(--cyan-soft);
     border-radius: 5px;
     padding: 3px 6px;
-    font-size: 8px;
+    font-size: 11px;
     font-family: var(--mono);
     text-transform: uppercase;
   }
@@ -7203,7 +7203,7 @@
   .cluster-count {
     fill: var(--ink);
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 600;
     text-anchor: middle;
     dominant-baseline: central;
@@ -7248,7 +7248,7 @@
   .anatomy-table th {
     text-align: left;
     color: var(--soft);
-    font-size: 9px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     padding: 6px 5px;
@@ -7273,7 +7273,7 @@
     border: 1px solid var(--line-strong);
     border-radius: 999px;
     padding: 4px 9px;
-    font-size: 10px;
+    font-size: 11px;
     text-transform: capitalize;
     color: var(--muted);
   }
@@ -7306,7 +7306,7 @@
   .chart-table summary {
     cursor: pointer;
     color: var(--soft);
-    font-size: 10px;
+    font-size: 11px;
     font-family: var(--mono);
     text-transform: uppercase;
     letter-spacing: 0.06em;
@@ -7315,12 +7315,12 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 6px;
-    font-size: 10px;
+    font-size: 11px;
   }
   .chart-table caption {
     text-align: left;
     color: var(--soft);
-    font-size: 9px;
+    font-size: 11px;
     padding-bottom: 4px;
   }
   .chart-table th,
@@ -7332,7 +7332,7 @@
   }
   .chart-table th {
     color: var(--soft);
-    font-size: 8px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
@@ -7464,7 +7464,7 @@
     background: rgba(4, 16, 26, 0.72);
     color: var(--cyan-soft);
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     position: relative;
   }
   .map-compass::before {
@@ -7487,7 +7487,7 @@
     border: 1px solid var(--line);
     color: var(--muted);
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
   }
   @media print {
     .topbar, .mobile-nav, .map-controls, .map-orientation, .map-table-panel,
@@ -7511,7 +7511,7 @@
   .watch-feedback span {
     flex: 1;
     color: var(--soft);
-    font-size: 10px;
+    font-size: 11px;
     font-family: var(--mono);
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -7552,5 +7552,22 @@
   }
   .runtime-facts b {
     color: var(--ink);
+  }
+
+  .mobile-location {
+    display: none;
+  }
+  @media (max-width: 900px) {
+    .mobile-location {
+      display: block;
+      min-width: 0;
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--soft);
+      font-size: 11px;
+      padding-left: 8px;
+    }
   }
 }

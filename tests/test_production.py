@@ -264,3 +264,28 @@ def test_agent_evaluation_offline():
     result = evaluate_offline()
     assert result["passed"] is True, result["failed"]
     assert result["cases"] >= 6
+
+
+def test_agent_receives_ui_context():
+    import asyncio
+    from georesponse.proactive.store import ProactiveStore
+    from georesponse.proactive.demo import seed_demo
+    from georesponse.proactive.engine import ProactiveEngine
+    from georesponse.production.config import LLMSettings
+
+    seen = {}
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        seen.update(json.loads(request.content))
+        return httpx.Response(200, json={"choices": [{"message": {"role": "assistant", "content": "ok"}}]})
+
+    store = ProactiveStore(":memory:")
+    seed_demo(store)
+    settings = Settings(llm=LLMSettings(api_key="test", model="test-model", base_url="https://llm.test/v1"))
+    agent = LiveAgent(ProactiveEngine(store), settings, transport=httpx.MockTransport(handler))
+    asyncio.run(agent.chat("what changed?", tenant="demo", context={"mode": "watch", "scenarioId": "ahr-2021-flood", "alertId": "ALT-1001"}))
+    system = seen["messages"][0]["content"]
+    assert "ahr-2021-flood" in system
+    assert "ALT-1001" in system
+    assert "watch" in system
+    store.close()

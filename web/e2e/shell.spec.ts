@@ -142,6 +142,33 @@ test.describe('shell', () => {
     await expect(page.locator('nav.nav')).toContainText('Booth')
   })
 
+  test('shows a mobile location indicator', async ({ page }) => {
+    test.skip(test.info().project.name !== 'mobile', 'mobile-only affordance')
+    await expect(page.locator('.mobile-location')).toContainText('Stage')
+  })
+
+  test('keeps product chrome at or above the 11 px floor', async ({ page }) => {
+    const measure = () =>
+      page.evaluate(() => {
+        const small: string[] = []
+        for (const element of Array.from(document.querySelectorAll<HTMLElement>('body *'))) {
+          if (element.closest('svg')) continue
+          if (!element.getClientRects().length) continue
+          const text = (element.textContent ?? '').trim()
+          if (!text || element.children.length > 0) continue
+          const size = Number.parseFloat(getComputedStyle(element).fontSize)
+          if (size < 11) small.push(`${element.tagName}.${element.className} ${size}px`)
+        }
+        return small.slice(0, 10)
+      })
+    expect(await measure()).toEqual([])
+    for (const view of ['Watch', 'Pilot']) {
+      await page.getByRole('button', { name: view }).click()
+      await expect(page.getByRole('main')).toBeVisible()
+      expect(await measure(), view).toEqual([])
+    }
+  })
+
   test('never scrolls horizontally', async ({ page }) => {
     await page.getByRole('button', { name: 'Watch' }).click()
     await expect(page.locator('.watch-page')).toBeVisible()

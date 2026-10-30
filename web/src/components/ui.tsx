@@ -236,6 +236,9 @@ export function TopBar() {
         <span className="brand-mark"><Icon name="radar" size={18} /></span>
         <span className="brand-text"><strong>GeoResponse</strong><small>imagery → decision</small></span>
       </button>
+      <span className="mobile-location" aria-label="Current location">
+        {prefs.t(`nav.${mode === 'dashboard' ? 'pilot' : mode}`)} · {scenario?.meta.title ?? ''}
+      </span>
 
       <nav className="nav" aria-label="Primary">
         {tabs.filter((tab) => allowed.has(tab.id)).map((tab) => (

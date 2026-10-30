@@ -101,7 +101,17 @@ export default function AgentPanel() {
       fetch('/api/watch/production/agent/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: query, history, tenant: 'demo' }),
+        body: JSON.stringify({
+          message: query,
+          history,
+          tenant: 'demo',
+          context: {
+            mode: app.mode,
+            scenarioId: app.scenario?.meta.id,
+            alertId: new URLSearchParams(window.location.hash.slice(1)).get('alert') ?? undefined,
+            scopeId: new URLSearchParams(window.location.hash.slice(1)).get('scope') ?? undefined,
+          },
+        }),
       })
         .then(async (response) => {
           if (!response.ok) throw new Error((await response.json().catch(() => ({}))).detail || `agent HTTP ${response.status}`)

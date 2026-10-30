@@ -84,7 +84,7 @@ class OpenJiuwenAgent:
 
         return [tool(get_briefing), tool(list_alerts), tool(get_alert), tool(get_coverage), tool(propose_assignment), tool(propose_dismissal), tool(propose_handoff)]
 
-    async def chat(self, message: str, *, tenant: str, history: list[dict] | None = None) -> dict:
+    async def chat(self, message: str, *, tenant: str, history: list[dict] | None = None, context: dict | None = None) -> dict:
         if not self.configured:
             raise OpenJiuwenUnavailable("LLM agent is not configured")
         Model, ModelClientConfig, ModelRequestConfig, _tool, Runner, create_deep_agent = _require()
@@ -110,6 +110,10 @@ class OpenJiuwenAgent:
         except Exception:
             pass
         prompt = message
+        if context:
+            safe = {key: value for key, value in context.items() if key in {"mode", "scenarioId", "alertId", "scopeId", "filter"}}
+            if safe:
+                prompt = f"Current UI context: {json.dumps(safe, ensure_ascii=False)}\n\n{prompt}"
         if history:
             recent = "\n".join(f"{item.get('role')}: {item.get('content')}" for item in history[-6:] if item.get("content"))
             prompt = f"Conversation so far:\n{recent}\n\nUser: {message}"

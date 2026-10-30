@@ -281,7 +281,7 @@ class LiveAgent:
         self._opened_at = time.time()
         raise AgentUnavailable(f"agent upstream failed after retries: {last}")
 
-    async def chat(self, message: str, *, tenant: str, history: list[dict] | None = None) -> dict:
+    async def chat(self, message: str, *, tenant: str, history: list[dict] | None = None, context: dict | None = None) -> dict:
         if not self.configured:
             raise AgentUnavailable("LLM agent is not configured. Run `georesponse doctor`.")
         refused = refusal_for(message)
@@ -296,7 +296,12 @@ class LiveAgent:
                 "promptVersion": PROMPT_VERSION,
             }
         settings = self.settings.llm
-        messages: list[dict[str, Any]] = [{"role": "system", "content": SYSTEM}]
+        system = SYSTEM
+        if context:
+            safe = {key: value for key, value in context.items() if key in {"mode", "scenarioId", "alertId", "scopeId", "filter"}}
+            if safe:
+                system += "\nCurrent UI context (use it when the question is ambiguous): " + json.dumps(safe, ensure_ascii=False)
+        messages: list[dict[str, Any]] = [{"role": "system", "content": system}]
         for item in history or []:
             if item.get("role") in {"user", "assistant"} and item.get("content"):
                 messages.append({"role": item["role"], "content": item["content"]})

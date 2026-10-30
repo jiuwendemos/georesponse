@@ -744,7 +744,7 @@ craft, accessibility and speed.
 
 ### 5.18 Acceptance gates
 
-- [ ] No text below 11 px in product chrome **(S)**
+- [x] No text below 11 px in product chrome **(S)**
 - [ ] Light, dark and high-contrast themes pass contrast **(M)**
 - [ ] WCAG 2.2 AA audit signed off **(M)**
 - [ ] 100% keyboard-reachable core actions **(M)**
@@ -1036,9 +1036,9 @@ No silent demo fallback is ever allowed.
 - [ ] Saved views per user and per team **(M)**
 - [ ] Workspace/tenant switcher with a visible data boundary **(S)**
 - [ ] Cross-links alert ↔ incident ↔ scope ↔ assessment ↔ claim ↔ audit **(M)**
-- [ ] Mobile breadcrumb and “where am I” indicator **(S)**
+- [x] Mobile breadcrumb and “where am I” indicator **(S)**
 - [ ] No dead ends: every empty/error state has a next action **(S)**
-- [ ] Section transitions without full reloads **(S)**
+- [x] Section transitions without full reloads **(S)**
 - [ ] New-user orientation with a real sample scope **(M)**
 
 #### 7.B.2 Visual language
@@ -1065,7 +1065,7 @@ No silent demo fallback is ever allowed.
 - [ ] Interruptible fly-to, fit-to-scope and reveal **(S)**
 - [ ] Draw, edit, measure and snap scopes with undo **(M)**
 - [ ] Layer panel with opacity, ordering and saved layer sets **(M)**
-- [ ] Swipe/before-after compare as a first-class control **(S)**
+- [x] Swipe/before-after compare as a first-class control **(S)**
 - [x] Mini-map, scale bar and compass **(S)**
 - [ ] Pinch/drag/tap gestures and bottom-sheet detail on mobile **(M)**
 - [ ] ≤16 ms frames at 1,000 features **(M)**
@@ -1075,7 +1075,7 @@ No silent demo fallback is ever allowed.
 
 - [ ] Streaming responses with stop, retry and partial results **(M)**
 - [ ] Ambient/inline agent on every screen, not only a sidecar **(M)**
-- [ ] Context awareness of the current alert/scope/filter without re-asking **(M)**
+- [x] Context awareness of the current alert/scope/filter without re-asking **(M)**
 - [ ] “Explain this” on every number, layer, rank and alert **(M)**
 - [ ] Confidence in words and intervals, not only decimals **(S)**
 - [ ] Per-alert and per-scope conversation history **(S)**
@@ -1108,7 +1108,7 @@ No silent demo fallback is ever allowed.
 - [ ] 200% text zoom without loss of function **(S)**
 - [ ] Reduced motion for every transition **(S)**
 - [ ] Colour independence: icons, labels and patterns **(S)**
-- [ ] Accessible data table for every chart **(M)**
+- [x] Accessible data table for every chart **(M)**
 - [ ] Focus order and traps verified per surface **(M)**
 - [ ] Target size ≥24 px (44 px touch) everywhere **(S)**
 - [ ] Plain-language review of critical copy **(S)**

@@ -175,7 +175,7 @@ See [docs/DATA_RIGHTS.md](docs/DATA_RIGHTS.md) and the in-app **Method** page.
 georesponse/
   georesponse/            Python pipeline, ranking, assessment, exports, API, CLI
   data/                   source configs (scenario content lives in datapack.py)
-  tests/                  124 pytest checks: geometry, detection, ranking, exports, audit, API
+  tests/                  125 pytest checks: geometry, detection, ranking, exports, audit, API
   web/                    React + TypeScript SPA (custom SVG map renderer)
     public/data/          real Sentinel packs, evidence, scenes, proactive demo portfolio
   docs/                   architecture, roadmap, stage runbook, pilot, privacy, data rights

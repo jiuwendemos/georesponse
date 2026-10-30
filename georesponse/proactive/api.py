@@ -639,6 +639,7 @@ class LiveAgentRequest(BaseModel):
     message: str
     history: list[dict] = Field(default_factory=list)
     tenant: str = TENANT
+    context: dict = Field(default_factory=dict)
 
 
 @router.get("/production/worker/health")
@@ -680,7 +681,7 @@ async def agent_chat(request: LiveAgentRequest) -> dict:
     settings = get_settings()
     backend = OpenJiuwenAgent(engine, settings) if settings.llm.backend == "openjiuwen" else LiveAgent(engine, settings)
     try:
-        return await backend.chat(request.message, tenant=request.tenant, history=request.history)
+        return await backend.chat(request.message, tenant=request.tenant, history=request.history, context=request.context)
     except (AgentUnavailable, OpenJiuwenUnavailable) as exc:
         raise HTTPException(status_code=503, detail=str(exc)) from exc
     except Exception as exc:  # noqa: BLE001
