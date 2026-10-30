@@ -27,6 +27,8 @@ jobs:
           python -m georesponse.cli report
           python -m georesponse.cli connectors
           python -m georesponse.cli verify --path runtime/audit.jsonl
+      - name: Agent guardrail and schema evaluation
+        run: python -m georesponse.cli evaluate-agent
 
   web:
     runs-on: ubuntu-latest

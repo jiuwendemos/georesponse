@@ -256,3 +256,11 @@ def test_agent_circuit_opens(monkeypatch):
     else:
         raise AssertionError("circuit did not open")
     store.close()
+
+
+def test_agent_evaluation_offline():
+    from georesponse.production.evaluation import evaluate_offline
+
+    result = evaluate_offline()
+    assert result["passed"] is True, result["failed"]
+    assert result["cases"] >= 6

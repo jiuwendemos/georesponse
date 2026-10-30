@@ -144,3 +144,19 @@ and opens a circuit after repeated failures. It reports `promptVersion` in
 `/api/watch/production/agent/health`.
 
 Tests: `tests/test_insights.py`, `tests/test_production.py`.
+
+## Agent evaluation and audit export
+
+```powershell
+py -m georesponse.cli evaluate-agent          # guardrails + tool schemas, no model
+py -m georesponse.cli evaluate-agent --live   # golden questions against the configured model
+```
+
+The live run checks expected tool calls and that read-only questions never
+produce a write proposal. The offline run is part of CI.
+
+`GET /api/audit/export` returns the hash-chained audit as
+`application/x-ndjson` with `X-Audit-Verified` and `X-Audit-Message` headers.
+
+Rate limiting is now keyed by the authenticated principal (API key or OIDC
+subject) and falls back to the client address only when authentication is off.

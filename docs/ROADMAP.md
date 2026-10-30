@@ -1015,7 +1015,7 @@ No silent demo fallback is ever allowed.
 
 #### 7.A.7 Proactive UX
 
-- [ ] “What changed since I last looked” home **(M)**
+- [x] “What changed since I last looked” home **(M)**
 - [ ] Coverage and blind spots always visible **(S)**
 - [ ] “Why now” on every proactive nudge **(S)**
 - [ ] One-click acknowledge/assign/handoff from a notification **(M)**
@@ -1082,7 +1082,7 @@ No silent demo fallback is ever allowed.
 - [ ] Agent permission scopes that cannot exceed the user’s rights **(M)**
 - [ ] Prompt-injection corpus and unsafe-action refusal tests **(M)**
 - [ ] Voice input as an accessibility path, off by default **(S)**
-- [ ] Agent evaluation set with golden questions and tool traces **(M)**
+- [x] Agent evaluation set with golden questions and tool traces **(M)**
 - [ ] Tool calls rendered as inspectable steps everywhere **(S)**
 - [ ] Preview/approve/undo enforced in the API, not only the UI **(M)**
 
@@ -1264,7 +1264,7 @@ No silent demo fallback is ever allowed.
 - [ ] MinIO/S3 live smoke and lifecycle **(M)**
 - [ ] pg_dump/pg_restore drill **(M)**
 - [ ] Object-store restore drill **(M)**
-- [ ] Multi-tenant isolation test **(M)**
+- [x] Multi-tenant isolation test **(M)**
 - [ ] Backup schedule and retention **(M)**
 - [ ] Migration tooling and rollback **(M)**
 - [ ] Connection pooling and limits **(S)**
@@ -1281,10 +1281,10 @@ No silent demo fallback is ever allowed.
 - [ ] Secret vault in production **(M)**
 - [ ] Dependency and container scanning **(M)**
 - [ ] Pen test and threat-model review **(L)**
-- [ ] Audit export and tamper verification **(M)**
+- [x] Audit export and tamper verification **(M)**
 - [ ] Data-retention and deletion controls **(M)**
 - [ ] Incident-response runbook **(M)**
-- [ ] API rate limiting per principal **(S)**
+- [x] API rate limiting per principal **(S)**
 - [ ] Supply-chain provenance for images **(S)**
 
 #### 7.C.9 Observability

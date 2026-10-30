@@ -7516,4 +7516,41 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
+
+  .watch-changed {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0 16px 8px;
+    padding: 7px 10px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--cyan) 6%, var(--panel));
+    color: var(--muted);
+    font-size: 11px;
+  }
+  .watch-changed b {
+    color: var(--ink);
+  }
+  .watch-changed .btn {
+    margin-left: auto;
+  }
+  .runtime-facts {
+    display: grid;
+    gap: 4px;
+    margin: 8px 0;
+  }
+  .runtime-facts div {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 11px;
+  }
+  .runtime-facts span {
+    color: var(--soft);
+  }
+  .runtime-facts b {
+    color: var(--ink);
+  }
 }

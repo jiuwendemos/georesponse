@@ -126,6 +126,8 @@ UNSAFE_PATTERNS = (
     "automatically approve",
     "dispatch without approval",
     "dispatch automatically",
+    "dispatch the crew automatically",
+    "dispatch the crew without approval",
     "auto dispatch",
     "face recognition",
     "track the person",

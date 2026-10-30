@@ -87,14 +87,16 @@ async def api_auth_middleware(request: Request, call_next):
     from .production.auth import AuthError, authenticate, configured
 
     if request.url.path.startswith("/api") and request.url.path not in {"/api/health"}:
-        client = request.client.host if request.client else "unknown"
-        if not _limiter().allow(client):
-            return JSONResponse({"detail": "rate limit exceeded"}, status_code=429)
+        principal = None
         if configured():
             try:
-                request.state.principal = authenticate(dict(request.headers))
+                principal = authenticate(dict(request.headers))
+                request.state.principal = principal
             except AuthError as exc:
                 return JSONResponse({"detail": str(exc)}, status_code=401)
+        key = principal.subject if principal is not None else (request.client.host if request.client else "unknown")
+        if not _limiter().allow(key):
+            return JSONResponse({"detail": "rate limit exceeded"}, status_code=429)
     return await call_next(request)
 
 
@@ -236,6 +238,23 @@ def audit(request: AuditRequest) -> dict:
             "detail": request.detail,
             "imagery": request.imagery,
             "modelVersion": request.modelVersion,
+        },
+    )
+
+
+@app.get("/api/audit/export")
+def audit_export() -> Response:
+    """Download the hash-chained audit as JSONL with a verification header."""
+    events = read_events(AUDIT_PATH)
+    ok, message = verify_chain(events)
+    body = "\n".join(json.dumps(event, ensure_ascii=False) for event in events)
+    return Response(
+        content=body,
+        media_type="application/x-ndjson",
+        headers={
+            "X-Audit-Verified": str(ok).lower(),
+            "X-Audit-Message": message,
+            "Content-Disposition": 'attachment; filename="georesponse-audit.jsonl"',
         },
     )
 

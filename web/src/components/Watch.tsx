@@ -80,6 +80,10 @@ export default function Watch() {
   const [selectedScope, setSelectedScope] = useState<string | null>(null)
   const [dismissReason, setDismissReason] = useState('false_positive')
   const [toast, setToast] = useState<string | null>(null)
+  const [lastSeen] = useState<string>(() => {
+    try { return localStorage.getItem('georesponse.lastSeen') || new Date(Date.now() - 86_400_000).toISOString() } catch { return new Date(Date.now() - 86_400_000).toISOString() }
+  })
+  const [runtime, setRuntime] = useState<{ worker: Record<string, unknown> | null; analytics: Record<string, unknown> | null; jobs: Record<string, unknown> | null } | null>(null)
   const [drawing, setDrawing] = useState(false)
   const [draftBbox, setDraftBbox] = useState<[number, number, number, number] | null>(null)
   const [createOpen, setCreateOpen] = useState(false)
@@ -116,17 +120,21 @@ export default function Watch() {
   }, [])
 
   useEffect(() => {
-    if (!data || !app.watchTarget) return
-    if (app.watchTarget.alertId) {
-      const target = data.alerts.find((a) => a.id === app.watchTarget?.alertId)
+    if (!data) return
+    const params = new URLSearchParams(window.location.hash.slice(1))
+    const alertId = app.watchTarget?.alertId ?? params.get('alert')
+    const scopeId = app.watchTarget?.scopeId ?? params.get('scope')
+    if (!alertId && !scopeId) return
+    if (alertId) {
+      const target = data.alerts.find((a) => a.id === alertId)
       if (target) {
         setSelectedAlert(target.id)
         setSelectedScope(target.scope_id)
       }
-    } else if (app.watchTarget.scopeId) {
-      setSelectedScope(app.watchTarget.scopeId)
+    } else if (scopeId) {
+      setSelectedScope(scopeId)
     }
-    app.clearWatchTarget()
+    if (app.watchTarget) app.clearWatchTarget()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [app.watchTarget, data])
 
@@ -135,6 +143,23 @@ export default function Watch() {
     const timer = window.setTimeout(() => setToast(null), 3200)
     return () => window.clearTimeout(timer)
   }, [toast])
+
+  useEffect(() => {
+    // Mark the moment the operator opened Watch, after the first render.
+    const timer = window.setTimeout(() => {
+      try { localStorage.setItem('georesponse.lastSeen', new Date().toISOString()) } catch { /* private mode */ }
+    }, 5000)
+    return () => window.clearTimeout(timer)
+  }, [])
+
+  useEffect(() => {
+    if (tab !== 'settings') return
+    let alive = true
+    const read = (url: string) => fetch(url).then((response) => (response.ok ? response.json() : null)).catch(() => null)
+    Promise.all([read('/api/watch/production/worker/health'), read('/api/watch/notifications/analytics'), read('/api/watch/jobs')])
+      .then(([worker, analytics, jobs]) => { if (alive) setRuntime({ worker, analytics, jobs }) })
+    return () => { alive = false }
+  }, [tab])
 
   const alerts = data?.alerts ?? []
   const scopes = data?.scopes ?? []
@@ -156,6 +181,11 @@ export default function Watch() {
 
   const openCount = alerts.filter((a) => OPEN_STATES.has(a.status)).length
   const highRisk = alerts.filter((a) => a.severity === 'red' && OPEN_STATES.has(a.status)).length
+  const sinceLastLook = {
+    newAlerts: alerts.filter((a) => a.created_at >= lastSeen).length,
+    closed: alerts.filter((a) => (a.status === 'resolved' || a.status === 'dismissed') && (a.updated_at ?? a.created_at) >= lastSeen).length,
+    incidents: (data?.incidents ?? []).filter((i) => i.opened_at >= lastSeen).length,
+  }
 
   const updateAlert = (id: string, patch: Partial<ProactiveAlert>) => {
     setData((currentData) =>
@@ -344,6 +374,15 @@ export default function Watch() {
         <div className="watch-kpi"><span>SLA breaches</span><b className={data.dashboard.slaBreaches ? 'warn' : ''}>{data.dashboard.slaBreaches}</b><em>review clock</em></div>
         <div className="watch-kpi"><span>Alert load</span><b>{data.dashboard.fatigue.perAnalyst}</b><em>per analyst / {data.dashboard.fatigue.periodHours}h</em></div>
         <div className="watch-kpi"><span>Freshness</span><b className={data.dashboard.freshness.breached ? 'warn' : ''}>{data.dashboard.freshness.breached}</b><em>scope breach(es)</em></div>
+      </div>
+
+      <div className="watch-changed" role="status" aria-live="polite">
+        <Icon name="radar" size={14} />
+        <b>Since you last looked</b>
+        <span>{sinceLastLook.newAlerts} new alert(s)</span>
+        <span>{sinceLastLook.closed} closed</span>
+        <span>{sinceLastLook.incidents} incident(s)</span>
+        <Button size="sm" variant="ghost" onClick={() => setTab('digest')}>Review digest</Button>
       </div>
 
       <nav className="watch-tabs" aria-label="Watch sections">
@@ -732,6 +771,27 @@ export default function Watch() {
                   </div>
                 ))}
               </div>
+            </div>
+            <div className="card">
+              <span className="eyebrow">Runtime</span>
+              <h3>Worker & delivery</h3>
+              {runtime?.worker ? (
+                <div className="runtime-facts">
+                  <div><span>Worker</span><b>{runtime.worker.ok ? 'healthy' : 'stale'}</b></div>
+                  <div><span>Heartbeat age</span><b>{String(runtime.worker.ageSeconds ?? '—')}s</b></div>
+                  <div><span>Status</span><b>{String((runtime.worker.heartbeat as Record<string, unknown> | undefined)?.status ?? '—')}</b></div>
+                  <div><span>Queue depth</span><b>{runtime.jobs ? String(Object.values((runtime.jobs.queues as Record<string, number> | undefined) ?? {}).reduce((sum, value) => sum + Number(value), 0)) : '—'}</b></div>
+                </div>
+              ) : (
+                <p className="card-note">Static pack: no worker heartbeat. Run <code>py -m georesponse.production.worker</code> for live ticks.</p>
+              )}
+              {runtime?.analytics ? (
+                <div className="runtime-facts">
+                  <div><span>Delivery rate</span><b>{runtime.analytics.deliveryRate == null ? '—' : `${Math.round(Number(runtime.analytics.deliveryRate) * 100)}%`}</b></div>
+                  <div><span>Avg send</span><b>{runtime.analytics.averageSendSeconds == null ? '—' : `${runtime.analytics.averageSendSeconds}s`}</b></div>
+                  <div><span>Dead letters</span><b>{String(runtime.analytics.deadLetters ?? 0)}</b></div>
+                </div>
+              ) : null}
             </div>
             <div className="card">
               <span className="eyebrow">Model registry</span>

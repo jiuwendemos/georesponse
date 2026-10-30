@@ -127,6 +127,21 @@ def cmd_agent(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_evaluate_agent(args: argparse.Namespace) -> int:
+    from .production.evaluation import evaluate_live_sync, evaluate_offline
+
+    if not args.live:
+        result = evaluate_offline()
+    else:
+        from .proactive.api import engine
+        from .production.agent import LiveAgent
+        from .production.config import get_settings
+
+        result = evaluate_live_sync(LiveAgent(engine, get_settings()), tenant=args.tenant)
+    print(json.dumps(result, indent=2, default=str))
+    return 0 if result.get("passed") else 1
+
+
 def cmd_load_test(args: argparse.Namespace) -> int:
     from .proactive.ops import load_test
 
@@ -238,6 +253,11 @@ def main(argv: list[str] | None = None) -> int:
     agent.add_argument("--message", required=True)
     agent.add_argument("--tenant", default="demo")
     agent.set_defaults(func=cmd_agent)
+
+    evaluate = sub.add_parser("evaluate-agent", help="run the golden agent evaluation")
+    evaluate.add_argument("--live", action="store_true", help="call the configured model")
+    evaluate.add_argument("--tenant", default="demo")
+    evaluate.set_defaults(func=cmd_evaluate_agent)
 
     load = sub.add_parser("load-test", help="run the proactive load test")
     load.add_argument("--scopes", type=int, default=1000)

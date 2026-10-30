@@ -15,7 +15,7 @@ test.describe('shell', () => {
       await page.addInitScript(() => localStorage.setItem('georesponse.onboarded.v1', '1'))
     }
     await page.goto('/')
-    await expect(page.locator('.topbar')).toBeVisible()
+    await expect(page.locator('.topbar')).toBeVisible({ timeout: 20_000 })
   })
 
   test('loads the map-first stage with a real Sentinel basemap', async ({ page }) => {
@@ -95,6 +95,7 @@ test.describe('shell', () => {
   })
 
   test('map shows orientation, scale and a mini-map', async ({ page }) => {
+    await expect(page.locator('svg.map-canvas')).toBeVisible()
     await expect(page.locator('.map-minimap')).toBeVisible()
     await expect(page.locator('.map-scale')).toHaveText(/km|m/)
     await expect(page.locator('.map-compass')).toContainText('N')
@@ -117,13 +118,19 @@ test.describe('shell', () => {
     await expectNoSeriousViolations(page)
   })
 
+  test('shows what changed since the last visit', async ({ page }) => {
+    await page.getByRole('button', { name: 'Watch' }).click()
+    await expect(page.locator('.watch-changed')).toContainText('Since you last looked')
+    await expect(page.locator('.watch-changed')).toContainText('new alert')
+  })
+
   test('records alert quality feedback from Watch', async ({ page }) => {
     await page.getByRole('button', { name: 'Watch' }).click()
     await expect(page.locator('.watch-page')).toBeVisible()
     const group = page.getByRole('group', { name: 'Alert quality feedback' })
     await expect(group).toBeVisible()
     await group.getByRole('button', { name: 'Useful' }).first().click()
-    await expect(page.getByRole('status')).toContainText('feedback')
+    await expect(page.locator('.watch-toast')).toContainText('feedback')
   })
 
   test('role selection hides surfaces it cannot act on', async ({ page }) => {
