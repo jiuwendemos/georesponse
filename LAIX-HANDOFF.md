@@ -12,22 +12,22 @@ public contract names, contract fields, adapter and parity harness are unchanged
 
 | Path | Lines | Role |
 |---|---:|---|
-| `laix/__init__.py` | 81 | public exports |
-| `laix/contracts.py` | 347 | ten versioned dataclasses and shared helpers |
-| `laix/state.py` | 158 | goals, phase, belief merge, decay and expiry |
-| `laix/policy.py` | 256 | deterministic verb selection and constraint admission |
-| `laix/execution.py` | 140 | approval gate, execute, cancel, undo and receipts |
-| `laix/outcome.py` | 100 | directed metrics and attributed summary |
-| `laix/resources.py` | 94 | deep-call admission under budget |
-| `laix/runtime.py` | 203 | runtime facade and decision traces |
-| `laix/schema.py` | 139 | schema generation and structural checks |
+| `laix/__init__.py` | 86 | public exports |
+| `laix/contracts.py` | 444 | ten versioned dataclasses and shared helpers |
+| `laix/state.py` | 179 | goals, phase, belief merge, decay and expiry |
+| `laix/policy.py` | 293 | deterministic verb selection and constraint admission |
+| `laix/execution.py` | 160 | approval gate, execute, cancel, undo and receipts |
+| `laix/outcome.py` | 117 | directed metrics and attributed summary |
+| `laix/resources.py` | 114 | deep-call admission under budget |
+| `laix/runtime.py` | 225 | runtime facade and decision traces |
+| `laix/schema.py` | 162 | schema generation and structural checks |
 | `laix/schemas/laix-v1.schema.json` | 953 | committed, generated schema |
-| `laix/contract/README.md` | 43 | contract freeze note |
+| `laix/contract/README.md` | 55 | contract freeze note |
 | `laix/fixtures/replay.json` | 2240 | golden replay fixture |
-| `laix/tests/test_laix.py` | 266 | portable contract and policy tests |
-| `laix/tests/test_replay.py` | 96 | golden replay tests |
-| `laix/tests/test_isolation.py` | 114 | import and domain-noun guards |
-| `laix/README.md` | 106 | package documentation |
+| `laix/tests/test_laix.py` | 340 | portable contract and policy tests |
+| `laix/tests/test_replay.py` | 122 | golden replay tests |
+| `laix/tests/test_isolation.py` | 144 | import and domain-noun guards |
+| `laix/README.md` | 140 | package documentation |
 
 ## Public API
 
