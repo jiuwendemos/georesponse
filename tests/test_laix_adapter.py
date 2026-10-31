@@ -200,6 +200,60 @@ def test_lai_executes_an_approved_action_and_returns_a_receipt(store, scope):
     assert updated.status == "assigned"
 
 
+def test_lai_execution_forwards_the_actor_context(store, scope):
+    alert = make_alert(store, scope)
+    facade = DecisionEngineFacade(store)
+    result = facade.triage(alert)
+    decision = facade.decision(result["decision"]["decision_id"])
+    received: dict[str, object] = {}
+
+    def spy(action, context):
+        received.update(context)
+        return {"ok": True}
+
+    facade.layer.bridge().register("assign_alert", spy)
+    receipt = facade.execute(
+        decision,
+        actor="M. Keller",
+        approver="M. Keller",
+        context={"actor": "M. Keller"},
+    )
+    assert received["actor"] == "M. Keller"
+    assert receipt["status"] == "executed"
+    assert receipt["approved_by"] == "M. Keller"
+
+
+def test_lai_approval_is_scoped_to_act():
+    cases = (
+        ("wait", {"urgency": 0.1, "confidence": 0.9}, ("wait",)),
+        ("observe", {"urgency": 0.1, "confidence": 0.9, "uncertainty": 0.6}, ("observe",)),
+        ("ask", {"urgency": 0.1, "confidence": 0.9, "uncertainty": 0.6}, ("ask",)),
+        ("guide", {"urgency": 0.6, "confidence": 0.9}, ("guide",)),
+        ("act", {"urgency": 0.9, "confidence": 0.9}, ("act",)),
+        ("verify", {"urgency": 0.1, "confidence": 0.9, "verification_due": True}, ("verify",)),
+        ("escalate", {"urgency": 0.1, "confidence": 0.9, "deadline_breached": True}, ("escalate",)),
+    )
+    for verb, attributes, option_verbs in cases:
+        situation = Situation(
+            id=f"sit-{verb}",
+            at="2026-01-01T00:00:00+00:00",
+            subject="approval-scope",
+            beliefs=(Belief(id="b", proposition="the condition is real", confidence=0.9),),
+            constraints=(Constraint(id="c-approval", kind="approval", value="required", hard=True),),
+            attributes=dict(attributes),
+        )
+        options = tuple(
+            Action(id=f"opt-{item}", verb=item, name=f"do-{item}", expected_benefit=0.9)
+            for item in dict.fromkeys((*option_verbs, "wait"))
+        )
+        layer = Layer()
+        decision = layer.decide(DecisionRequest(subject=verb, at=situation.at, situation=situation, options=options))[0]
+        core = layer._core_decisions[decision.decision_id]
+        assert decision.verb == verb
+        assert decision.requires_approval is (verb == "act")
+        assert ("approval:human-required" in core.constraints_applied) is (verb == "act")
+
+
 # ---------------------------------------------------------------------- outcome
 
 
@@ -255,8 +309,15 @@ def test_local_lai_package_is_gone_and_the_installed_package_is_used():
     assert not (ROOT / "laix").exists()
     installed = Path(laix.__file__).resolve()
     assert ROOT not in installed.parents
-    assert version("laix") == "0.2.0"
+    assert version("laix") == "0.2.1"
     assert laix.SCHEMA_VERSION == "1.1"
+
+
+def test_lai_pin_is_identical_and_tagged():
+    pin = "laix @ git+https://github.com/michaelatamuk/laix.git@v0.2.1#subdirectory=python/laix"
+    assert pin in (ROOT / "pyproject.toml").read_text(encoding="utf-8")
+    assert pin in (ROOT / "requirements.txt").read_text(encoding="utf-8")
+    assert "laix.git@main" not in (ROOT / "requirements.txt").read_text(encoding="utf-8")
 
 
 def test_old_mode_flag_and_parity_runtime_are_gone():

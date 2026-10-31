@@ -119,8 +119,8 @@ class DecisionEngineFacade:
         context: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         # LAIX owns the approval gate and the receipt; GeoResponse owns the
-        # handler registered on the bridge.  ``context`` is retained for
-        # adapter callers but LAIX executes through the registered handler.
+        # handler registered on the bridge.  Forward the context so the handler
+        # receives the real actor instead of its fallback.
         receipt = self.layer.execute(decision, actor=actor, approver=approver, context=context)
         return receipt.to_dict()
 
