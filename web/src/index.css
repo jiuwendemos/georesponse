@@ -4163,6 +4163,40 @@
 
   /* ---------------------------------------------------------------- responsive */
 
+  @media (max-width: 1500px) {
+    .topbar {
+      gap: 10px;
+      padding: 0 12px;
+    }
+    .brand-text small {
+      display: none;
+    }
+    .nav {
+      margin-left: 2px;
+    }
+    .nav-tab {
+      padding: 7px 8px;
+    }
+    .command-trigger {
+      padding: 0 8px;
+    }
+    .command-trigger span {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    .topbar-right {
+      gap: 6px;
+      margin-left: 4px;
+    }
+  }
+
   @media (max-width: 1180px) {
     .site-detail {
       right: 190px;
