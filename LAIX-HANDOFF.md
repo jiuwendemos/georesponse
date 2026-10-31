@@ -2,7 +2,7 @@
 
 Branch: `laix/handoff-v1`
 Tag: `laix-handoff-v1`
-Handoff content commit: `__HANDOFF_COMMIT__`
+Handoff content commit: `8b4a812`
 
 This is a behaviour-preserving handoff pass. The policy, rule order, thresholds,
 public contract names, contract fields, adapter and parity harness are unchanged.
