@@ -10,7 +10,7 @@ from __future__ import annotations
 from importlib.metadata import PackageNotFoundError, version
 from typing import Any, Iterable
 
-from laix import SCHEMA_VERSION, Action, DecisionRequest, Layer, LayerDecision
+from laix import Action, DecisionRequest, Layer, LayerDecision
 
 from ..proactive.models import Alert, MonitoringPlan
 from ..proactive.store import ProactiveStore
@@ -94,12 +94,13 @@ class DecisionEngineFacade:
 
     # ----------------------------------------------------------------- status
     def status(self) -> dict[str, Any]:
+        layer_status = self.layer.status()
         return {
             "engine": "laix",
             "package": "laix",
             "packageVersion": _package_version(),
-            "policyVersion": self.layer.runtime.policy.version,
-            "schemaVersion": SCHEMA_VERSION,
+            "policyVersion": layer_status["policyVersion"],
+            "schemaVersion": layer_status["schemaVersion"],
         }
 
     def decision(self, decision_id: str) -> LayerDecision:

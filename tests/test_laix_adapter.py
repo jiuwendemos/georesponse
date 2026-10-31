@@ -143,7 +143,7 @@ def test_status_reports_lai_versions_and_no_mode(store):
     status = facade.status()
     assert status["engine"] == "laix"
     assert status["package"] == "laix"
-    assert status["policyVersion"] == facade.layer.runtime.policy.version
+    assert status["policyVersion"] == facade.layer.status()["policyVersion"]
     assert status["schemaVersion"] == laix.SCHEMA_VERSION
     assert not {"mode", "modes", "parity", "flag"}.intersection(status)
 
@@ -255,7 +255,7 @@ def test_local_lai_package_is_gone_and_the_installed_package_is_used():
     assert not (ROOT / "laix").exists()
     installed = Path(laix.__file__).resolve()
     assert ROOT not in installed.parents
-    assert version("laix") == "0.1.1"
+    assert version("laix") == "0.2.0"
     assert laix.SCHEMA_VERSION == "1.1"
 
 
@@ -342,8 +342,8 @@ def test_captured_parity_fixture_matches_real_lai():
                 {"case": case["id"], "captured": expected["rationale"], "actual": actual["rationale"]}
             )
 
-    # LAIX 0.1.1 changed exactly this wording in policy 2026.2.  The fixture is
-    # deliberately not edited; the difference is asserted instead of hidden.
+    # LAIX 2026.2 uses exactly this wording.  The fixture is deliberately not
+    # edited; the difference is asserted instead of hidden.
     assert len(rationale_differences) == 3
     for difference in rationale_differences:
         assert difference["captured"] == "a hard deadline or SLA is already breached"
