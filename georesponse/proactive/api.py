@@ -196,25 +196,14 @@ def overview(tenant: str = TENANT) -> dict:
         "costs": {"summary": scheduler.cost_report(store, tenant, days=30), "byScope": [{"scopeId": scope.id, "name": scope.name, "totalEur": store.total_cost(tenant, scope_id=scope.id)} for scope in scopes]},
         "killSwitch": KillSwitch(store).active(tenant),
         "audit": {"events": store.audit_events(tenant, 100), "verified": store.verify_audit(tenant)},
-        "decisionEngine": {"mode": engine.decisions.mode, "parity": engine.decisions.parity(tenant)},
+        "decisionEngine": engine.decisions.status(),
     }
 
 
 @router.get("/decision-engine")
-def decision_engine(tenant: str = TENANT) -> dict:
-    """The decision-layer contract, its mode and measured parity."""
-    return engine.decisions.status(tenant)
-
-
-@router.get("/decision-engine/evaluate")
-def evaluate_decision_engine(tenant: str = TENANT) -> dict:
-    """Re-run native vs LAIX over the current open alerts, without side effects."""
-    return engine.decisions.evaluate_all(tenant)
-
-
-@router.post("/decision-engine/reset-parity")
-def reset_decision_parity(tenant: str = TENANT) -> dict:
-    return engine.decisions.reset_parity(tenant)
+def decision_engine() -> dict:
+    """The LAIX package, policy and schema versions used by this deployment."""
+    return engine.decisions.status()
 
 
 @router.get("/scopes")

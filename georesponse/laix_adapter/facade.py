@@ -1,257 +1,132 @@
-"""Feature-flagged facade between GeoResponse triage and the LAIX core.
+"""The only decision path in GeoResponse: alert in, LAIX decision out.
 
-Modes:
-
-* ``native`` - the app's existing urgency/SLA rules decide; LAIX is not called.
-* ``shadow`` - both decide, native stays authoritative, parity is recorded.
-* ``laix``   - LAIX decides; native is still computed so a rollback is a flag
-  flip and parity keeps being measured.
-
-The default is ``native`` so an existing deployment never changes behaviour on
-upgrade.
+GeoResponse owns the alert, imagery, SLA, analyst roster, proposal registry and
+approval.  LAIX owns the generic decision.  There is no second policy and no
+runtime switch.
 """
 
 from __future__ import annotations
 
-import json
-import os
+from importlib.metadata import PackageNotFoundError, version
 from typing import Any, Iterable
 
-from laix import SCHEMA_VERSION, Decision, DecisionRuntime, ExperienceState, iso
+from laix import SCHEMA_VERSION, Action, DecisionRequest, Layer, LayerDecision
 
 from ..proactive.models import Alert, MonitoringPlan
 from ..proactive.store import ProactiveStore
 from .approval_bridge import ApprovalBridge
-from .spatial_context import (
-    DEFAULT_ANALYSTS,
-    compare,
-    laix_view,
-    native_triage,
-    options_for_alert,
-    situation_from_alert,
-)
-
-ENV_FLAG = "GEORESPONSE_DECISION_ENGINE"
-MODES = ("native", "shadow", "laix")
-DEFAULT_MODE = "native"
-PARITY_KEY = "laix:parity"
+from .spatial_context import laix_view, options_for_alert, situation_from_alert
 
 
-def configured_mode() -> str:
-    raw = (os.environ.get(ENV_FLAG) or DEFAULT_MODE).strip().lower()
-    return raw if raw in MODES else DEFAULT_MODE
-
-
-def _empty_parity() -> dict:
-    return {
-        "samples": 0,
-        "agreements": 0,
-        "mismatches": 0,
-        "agreementRate": None,
-        "byVerb": {},
-        "recent": [],
-        "lastAt": None,
-    }
+def _package_version() -> str:
+    try:
+        return version("laix")
+    except PackageNotFoundError:  # pragma: no cover - installed in every real run
+        return "unknown"
 
 
 class DecisionEngineFacade:
-    def __init__(self, store: ProactiveStore, *, mode: str | None = None) -> None:
+    def __init__(self, store: ProactiveStore) -> None:
         self.store = store
-        self.mode = mode or configured_mode()
-        if self.mode not in MODES:
-            raise ValueError(f"unknown decision-engine mode: {self.mode}")
-        self.runtime = DecisionRuntime(state=ExperienceState(subject="georesponse"))
+        self.layer = Layer()
         self.approvals = ApprovalBridge(store)
         for name, handler in self.approvals.execution_handlers().items():
-            self.runtime.bridge.register(name, handler)
+            self.layer.bridge().register(name, handler)
+        self._decisions: dict[str, Any] = {}
+        self._actions: dict[str, Action | None] = {}
 
-    # ------------------------------------------------------------------ triage
+    # ------------------------------------------------------------------ decide
     def triage(
         self,
         alert: Alert,
         *,
         plan: MonitoringPlan | None = None,
         analysts: Iterable[str] | None = None,
-        persist: bool = True,
     ) -> dict[str, Any]:
         plan = plan or MonitoringPlan(scope_id=alert.scope_id)
         roster = list(analysts) if analysts is not None else None
-        native = native_triage(alert, plan=plan, analysts=roster)
-        if self.mode == "native":
-            return {
-                "mode": self.mode,
-                "authoritativeSource": "native",
-                "native": native,
-                "laix": None,
-                "parity": None,
-                "decision": None,
-            }
-
         situation = situation_from_alert(alert, plan=plan, analysts=roster)
         options = options_for_alert(alert, plan=plan, analysts=roster)
-        decision = self.runtime.decide(situation, options)
+        decision = self.layer.decide(
+            DecisionRequest(
+                subject=alert.id,
+                at=situation.at,
+                situation=situation,
+                options=options,
+            )
+        )[0]
         action = next((item for item in options if item.id == decision.action_id), None)
-        laix = laix_view(decision, action=action, alert=alert)
-        parity = compare(native, laix)
-        authoritative = laix if self.mode == "laix" else native
-
-        if persist:
-            self._record_parity(alert, native, laix, parity)
-            if self.mode == "laix":
-                self.store.audit(
-                    alert.tenant,
-                    "laix.decision",
-                    alert_id=alert.id,
-                    actor="laix",
-                    detail={
-                        "verb": decision.verb,
-                        "action": decision.action_id,
-                        "rationale": decision.rationale,
-                        "parity": parity["agrees"],
-                    },
-                )
-
+        self._decisions[decision.decision_id] = decision
+        self._actions[decision.decision_id] = action
+        view = laix_view(decision, action=action, alert=alert)
+        self.store.audit(
+            alert.tenant,
+            "laix.decision",
+            alert_id=alert.id,
+            actor="laix",
+            detail={
+                "verb": decision.verb,
+                "action": decision.action_id,
+                "reason": decision.reason_code,
+                "rationale": decision.rationale,
+                "policy": decision.policy_version,
+            },
+        )
         return {
-            "mode": self.mode,
-            "authoritativeSource": "laix" if self.mode == "laix" else "native",
-            "native": native,
-            "laix": laix,
-            "parity": parity,
+            "engine": "laix",
+            "laix": view,
             "decision": decision.to_dict(),
-            "authoritative": authoritative,
         }
 
-    # ------------------------------------------------------------------ status
+    # ------------------------------------------------------------------ apply
     def apply(self, alert: Alert, triage: dict[str, Any]) -> Alert:
-        """Apply the authoritative verb to the alert's working state.
+        """Apply the LAIX verb to the alert's working state.
 
-        This is the only behaviour change in ``laix`` mode: an alert that LAIX
-        does not think is worth acting on is not left implying an owner, and a
-        breached SLA is tagged.  Native and shadow modes never touch the alert.
+        An alert that LAIX does not think is worth acting on must not keep an
+        implied owner.  A breached deadline is tagged for the on-call lead.
         """
-        if triage.get("mode") != "laix":
-            return alert
-        verb = triage.get("authoritative", {}).get("verb")
-        if verb in {"wait", "ask", "guide"}:
+        verb = triage.get("laix", {}).get("verb")
+        if verb in {"wait", "observe", "ask", "guide"}:
             alert.assignee = None
         elif verb == "escalate":
             alert.tags = list(dict.fromkeys([*alert.tags, "sla-escalated"]))
         return alert
 
-    def status(self, tenant: str = "demo") -> dict[str, Any]:
-        parity = self._load_parity(tenant)
+    # ----------------------------------------------------------------- status
+    def status(self) -> dict[str, Any]:
         return {
-            "mode": self.mode,
-            "flag": ENV_FLAG,
-            "modes": list(MODES),
-            "policyVersion": self.runtime.policy.version,
+            "engine": "laix",
+            "package": "laix",
+            "packageVersion": _package_version(),
+            "policyVersion": self.layer.runtime.policy.version,
             "schemaVersion": SCHEMA_VERSION,
-            "models": ["change_confirmed"],
-            "parity": parity,
-            "runtime": self.runtime.stats(),
         }
 
-    def evaluate(
-        self,
-        alert: Alert,
-        *,
-        plan: MonitoringPlan | None = None,
-        analysts: Iterable[str] | None = None,
-    ) -> dict[str, Any]:
-        """Run both engines without writing parity or touching runtime state."""
-        plan = plan or MonitoringPlan(scope_id=alert.scope_id)
-        roster = list(analysts) if analysts is not None else None
-        native = native_triage(alert, plan=plan, analysts=roster)
-        situation = situation_from_alert(alert, plan=plan, analysts=roster)
-        options = options_for_alert(alert, plan=plan, analysts=roster)
-        decision = DecisionRuntime().decide(situation, options)
-        action = next((item for item in options if item.id == decision.action_id), None)
-        laix = laix_view(decision, action=action, alert=alert)
-        return {"native": native, "laix": laix, "parity": compare(native, laix), "decision": decision.to_dict()}
+    def decision(self, decision_id: str) -> LayerDecision:
+        return self._decisions[decision_id]
 
-    def evaluate_all(self, tenant: str = "demo") -> dict[str, Any]:
-        rows = []
-        for alert in self.store.list_alerts(tenant):
-            if alert.status in {"resolved", "dismissed"}:
-                continue
-            plan = self.store.get_plan(alert.scope_id)
-            result = self.evaluate(alert, plan=plan)
-            rows.append({"alertId": alert.id, **result})
-        disagreements = [row for row in rows if not row["parity"]["agrees"]]
-        return {
-            "tenant": tenant,
-            "samples": len(rows),
-            "agreements": len(rows) - len(disagreements),
-            "agreementRate": round((len(rows) - len(disagreements)) / max(1, len(rows)), 4),
-            "disagreements": [
-                {
-                    "alertId": row["alertId"],
-                    "nativeVerb": row["native"]["verb"],
-                    "laixVerb": row["laix"]["verb"],
-                    "differences": row["parity"]["differences"],
-                }
-                for row in disagreements[:25]
-            ],
-            "evaluatedAt": iso(),
-        }
+    def action(self, decision_id: str) -> Action | None:
+        return self._actions.get(decision_id)
 
-    def parity(self, tenant: str = "demo") -> dict[str, Any]:
-        return self._load_parity(tenant)
-
-    def reset_parity(self, tenant: str = "demo") -> dict[str, Any]:
-        self.store.meta_set(f"{PARITY_KEY}:{tenant}", json.dumps(_empty_parity(), ensure_ascii=False))
-        return _empty_parity()
-
-    def _record_parity(self, alert: Alert, native: dict, laix: dict, parity: dict) -> None:
-        record = self._load_parity(alert.tenant)
-        record["samples"] += 1
-        if parity["agrees"]:
-            record["agreements"] += 1
-        else:
-            record["mismatches"] += 1
-            entry = {
-                "at": iso(),
-                "alertId": alert.id,
-                "severity": alert.severity,
-                "nativeVerb": native["verb"],
-                "laixVerb": laix["verb"],
-                "differences": parity["differences"],
-            }
-            record["recent"] = ([entry] + record["recent"])[:20]
-        key = f"{native['verb']}->{laix['verb']}"
-        record["byVerb"][key] = int(record["byVerb"].get(key, 0)) + 1
-        record["agreementRate"] = round(record["agreements"] / max(1, record["samples"]), 4)
-        record["lastAt"] = iso()
-        self.store.meta_set(f"{PARITY_KEY}:{alert.tenant}", json.dumps(record, ensure_ascii=False))
-
-    def _load_parity(self, tenant: str) -> dict:
-        raw = self.store.meta_get(f"{PARITY_KEY}:{tenant}")
-        if not raw:
-            return _empty_parity()
-        try:
-            record = json.loads(raw)
-        except json.JSONDecodeError:
-            return _empty_parity()
-        merged = _empty_parity()
-        merged.update(record if isinstance(record, dict) else {})
-        return merged
-
-    # --------------------------------------------------------------- execution
+    # -------------------------------------------------------------- execution
     def execute(
         self,
-        decision: Decision,
+        decision: LayerDecision,
         *,
         actor: str,
         approver: str | None = None,
         context: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
-        receipt = self.runtime.execute(decision, actor=actor, approver=approver, context=context or {"actor": actor})
+        # LAIX owns the approval gate and the receipt; GeoResponse owns the
+        # handler registered on the bridge.  ``context`` is retained for
+        # adapter callers but LAIX executes through the registered handler.
+        receipt = self.layer.execute(decision, actor=actor, approver=approver)
         return receipt.to_dict()
 
     def propose(
         self,
-        decision: Decision,
-        action,
+        decision: LayerDecision,
+        action: Action,
         *,
         alert_id: str,
         payload: dict[str, Any] | None = None,
@@ -260,19 +135,13 @@ class DecisionEngineFacade:
         return self.approvals.propose(decision, action, alert_id=alert_id, payload=payload, created_by=created_by)
 
 
-_FACADES: dict[tuple[int, str], DecisionEngineFacade] = {}
+_FACADES: dict[int, DecisionEngineFacade] = {}
 
 
-def get_facade(store: ProactiveStore, *, mode: str | None = None) -> DecisionEngineFacade:
-    """One facade per (store, mode) so parity counters survive requests."""
-    resolved = mode or configured_mode()
-    key = (id(store), resolved)
+def get_facade(store: ProactiveStore) -> DecisionEngineFacade:
+    key = id(store)
     facade = _FACADES.get(key)
     if facade is None:
-        facade = DecisionEngineFacade(store, mode=resolved)
+        facade = DecisionEngineFacade(store)
         _FACADES[key] = facade
     return facade
-
-
-def reset_facades() -> None:
-    _FACADES.clear()

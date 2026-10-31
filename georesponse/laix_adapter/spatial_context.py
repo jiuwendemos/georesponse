@@ -134,7 +134,7 @@ def situation_from_alert(
             "uncertainty": uncertain,
             "severity": alert.severity,
             "change_type": alert.change_type,
-            "sla_breached": bool(sla["breached"]),
+            "deadline_breached": bool(sla["breached"]),
             "sla_minutes_remaining": sla["minutesRemaining"],
             "sla_due": alert.sla_due,
             "deadline": iso(deadline) if deadline else None,
@@ -257,51 +257,6 @@ def triage_inputs(
     return situation, options_for_alert(alert, plan=plan, analysts=analysts)
 
 
-def native_verb(alert: Alert, *, plan: MonitoringPlan | None = None) -> str:
-    """The pre-LAIX triage rule, kept as the parity baseline.
-
-    It deliberately uses only measures GeoResponse already had: SLA state,
-    severity, confidence and the existing urgency score.
-    """
-    plan = plan or MonitoringPlan(scope_id=alert.scope_id)
-    sla = alert_ops.sla_status(alert)
-    if sla["breached"]:
-        return "escalate"
-    if alert.confidence <= 0.55:
-        return "ask"
-    if alert.status in {"assigned", "investigating"} and not alert.acknowledged_at:
-        return "verify"
-    if alert.urgency >= 0.75 and alert.confidence >= 0.80:
-        return "act"
-    if alert.urgency >= 0.45:
-        return "guide"
-    return "wait"
-
-
-def native_triage(
-    alert: Alert,
-    *,
-    plan: MonitoringPlan | None = None,
-    analysts: Iterable[str] | None = None,
-) -> dict:
-    plan = plan or MonitoringPlan(scope_id=alert.scope_id)
-    route = alert_ops.route_alert(alert, rules=plan.escalation, analysts=list(analysts or DEFAULT_ANALYSTS))
-    sla = alert_ops.sla_status(alert)
-    verb = native_verb(alert, plan=plan)
-    return {
-        "source": "native",
-        "verb": verb,
-        "assignee": route.get("assignee") if verb in {"act", "escalate"} else None,
-        "team": route.get("team") if verb in {"act", "escalate"} else None,
-        "routing": route.get("via"),
-        "severity": alert.severity,
-        "urgency": round(float(alert.urgency), 4),
-        "confidence": round(float(alert.confidence), 4),
-        "requiresApproval": verb == "act",
-        "slaBreached": bool(sla["breached"]),
-    }
-
-
 def laix_view(
     decision,
     *,
@@ -318,19 +273,13 @@ def laix_view(
         "assignee": params.get("assignee") if owns else None,
         "team": params.get("team") if owns else None,
         "severity": alert.severity,
-        "urgency": decision.attributes.get("urgency", round(float(alert.urgency), 4)),
+        "urgency": round(float(alert.urgency), 4),
         "confidence": round(float(decision.confidence), 4),
         "requiresApproval": decision.requires_approval,
+        "reasonCode": decision.reason_code,
         "rationale": decision.rationale,
         "policyVersion": decision.policy_version,
         "traceId": decision.trace_id,
+        "reversible": decision.reversible,
+        "costOfWaiting": decision.cost_of_waiting,
     }
-
-
-def compare(native: dict, laix_decision: dict) -> dict:
-    differences = []
-    if native["verb"] != laix_decision["verb"]:
-        differences.append({"field": "verb", "native": native["verb"], "laix": laix_decision["verb"]})
-    if native["verb"] == "act" and laix_decision["verb"] == "act" and native["assignee"] != laix_decision["assignee"]:
-        differences.append({"field": "assignee", "native": native["assignee"], "laix": laix_decision["assignee"]})
-    return {"agrees": not differences, "differences": differences}

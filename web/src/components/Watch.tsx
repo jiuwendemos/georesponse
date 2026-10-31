@@ -371,7 +371,7 @@ export default function Watch() {
             <span className="dot" /> Proactive watch · {data.tenant} · {data.mode === 'live' ? 'live store' : 'sample pack'}
           </div>
           <h1>The portfolio is already moving.<br />Here is what changed.</h1>
-          <p>{data.disclaimer} Human review is mandatory. No automatic dispatch.</p>
+          <p>{data.disclaimer} LAIX is the decision layer: it chooses wait, observe, guide, ask, act, verify or escalate. GeoResponse owns the alert, evidence and approval. Human review is mandatory. No automatic dispatch.</p>
         </div>
         <div className="watch-head-right">
           <div className="watch-oncall">

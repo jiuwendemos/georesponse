@@ -1,21 +1,31 @@
-"""Adapter parity and approval tests for the LAIX geospatial pack."""
+"""One-path LAIX adapter tests.
+
+GeoResponse calls LAIX for every alert decision. There is no native, shadow or
+parity runtime to compare against; the captured fixture is the only historical
+comparison and it records the real differences.
+"""
 
 from __future__ import annotations
 
 import json
+from importlib.metadata import version
+from pathlib import Path
 
 import pytest
+from fastapi.testclient import TestClient
 
+import laix
+from georesponse.api import app
 from georesponse.laix_adapter import (
     DecisionEngineFacade,
     OutcomeLoop,
     estimate,
-    reset_facades,
+    options_for_alert,
+    situation_from_alert,
 )
-from georesponse.proactive.engine import ProactiveEngine
+from georesponse.laix_adapter import facade as facade_module
 from georesponse.proactive.models import (
     Alert,
-    Baseline,
     MonitoringPlan,
     Scope,
     add_hours,
@@ -24,13 +34,18 @@ from georesponse.proactive.models import (
 )
 from georesponse.proactive.store import ProactiveStore
 
+from laix import Action, Belief, Constraint, DecisionRequest, Goal, Layer, Observation, Situation
+
+ROOT = Path(__file__).resolve().parents[1]
+FIXTURE = ROOT / "tests" / "fixtures" / "laix_parity_demo.json"
+client = TestClient(app)
+
 
 @pytest.fixture()
 def store():
     db = ProactiveStore(":memory:")
     yield db
     db.close()
-    reset_facades()
 
 
 @pytest.fixture()
@@ -81,158 +96,89 @@ def make_alert(store: ProactiveStore, scope: Scope, *, severity="red", confidenc
     return alert
 
 
-CASES = [
-    ("red", 0.92, 0.91, 4, "act"),
-    ("orange", 0.75, 0.62, 4, "guide"),
-    ("yellow", 0.70, 0.35, 4, "wait"),
-    ("red", 0.40, 0.95, 4, "ask"),
-    ("red", 0.92, 0.95, -1, "escalate"),
-]
+# --------------------------------------------------------------------- mapping
 
 
-@pytest.mark.parametrize("severity,confidence,urgency,sla_hours,verb", CASES)
-def test_native_and_laix_agree(store, scope, severity, confidence, urgency, sla_hours, verb):
-    alert = make_alert(store, scope, severity=severity, confidence=confidence, urgency=urgency, sla_hours=sla_hours)
-    result = DecisionEngineFacade(store, mode="shadow").triage(alert)
-    assert result["native"]["verb"] == verb
-    assert result["laix"]["verb"] == verb
-    assert result["parity"]["agrees"] is True
-    assert result["decision"]["rationale"]
+def test_alert_maps_to_a_lai_situation(store, scope):
+    alert = make_alert(store, scope, status="assigned", sla_hours=-1)
+    situation = situation_from_alert(alert)
+    assert situation.subject == scope.id
+    assert situation.beliefs[0].confidence == alert.confidence
+    assert situation.attributes["urgency"] == alert.urgency
+    assert situation.attributes["deadline_breached"] is True
+    assert situation.attributes["verification_due"] is True
+    assert "sla_breached" not in situation.attributes
+    assert any(item.kind == "approval" for item in situation.constraints)
+    assert situation.observations[0].payload["alert"] == alert.id
 
 
-def test_shadow_keeps_native_authoritative_and_records_parity(store, scope):
-    facade = DecisionEngineFacade(store, mode="shadow")
+def test_alert_maps_to_lai_action_options(store, scope):
     alert = make_alert(store, scope)
+    options = options_for_alert(alert, analysts=["Only Analyst"])
+    assert {item.verb for item in options} == {"wait", "ask", "guide", "act", "verify", "escalate"}
+    act = next(item for item in options if item.verb == "act")
+    assert act.name == "assign_alert"
+    assert act.requires_approval is True
+    assert act.params["alert_id"] == alert.id
+    assert act.params["assignee"] == "Only Analyst"
+
+
+def test_decision_maps_back_to_a_georesponse_view(store, scope):
+    alert = make_alert(store, scope)
+    facade = DecisionEngineFacade(store)
     result = facade.triage(alert)
-    assert result["authoritativeSource"] == "native"
-    parity = json.loads(store.meta_get("laix:parity:demo"))
-    assert parity["samples"] == 1
-    assert parity["agreements"] == 1
-    assert parity["agreementRate"] == 1.0
+    view = result["laix"]
+    assert result["engine"] == "laix"
+    assert view["verb"] in {"wait", "observe", "ask", "guide", "act", "verify", "escalate"}
+    assert view["action"] == result["decision"]["action_id"]
+    assert view["confidence"] == result["decision"]["confidence"]
+    assert view["policyVersion"] == facade.layer.runtime.policy.version
+    assert view["reasonCode"]
+    assert "constraintsApplied" not in view
+    assert any(event["action"] == "laix.decision" for event in store.audit_events("demo"))
 
 
-def test_triage_accepts_a_generator_roster(store, scope):
-    facade = DecisionEngineFacade(store, mode="shadow")
+def test_status_reports_lai_versions_and_no_mode(store):
+    facade = DecisionEngineFacade(store)
+    status = facade.status()
+    assert status["engine"] == "laix"
+    assert status["package"] == "laix"
+    assert status["policyVersion"] == facade.layer.runtime.policy.version
+    assert status["schemaVersion"] == laix.SCHEMA_VERSION
+    assert not {"mode", "modes", "parity", "flag"}.intersection(status)
+
+
+# ----------------------------------------------------------------------- apply
+
+
+@pytest.mark.parametrize("verb", ["wait", "observe", "ask", "guide"])
+def test_non_action_verbs_clear_an_implied_owner(store, scope, verb):
     alert = make_alert(store, scope)
-    result = facade.triage(alert, analysts=(name for name in ["Only Analyst"]))
-    assert result["native"]["assignee"] == "Only Analyst"
-    assert result["laix"]["assignee"] == "Only Analyst"
-
-
-def test_laix_mode_is_authoritative(store, scope):
-    facade = DecisionEngineFacade(store, mode="laix")
-    alert = make_alert(store, scope)
-    result = facade.triage(alert)
-    assert result["authoritativeSource"] == "laix"
-    assert result["authoritative"]["verb"] == "act"
-    assert result["decision"]["policy_version"] == facade.runtime.policy.version
-
-
-def test_laix_wait_clears_an_implied_owner(store, scope):
-    facade = DecisionEngineFacade(store, mode="laix")
-    alert = make_alert(store, scope, severity="yellow", confidence=0.7, urgency=0.35)
     alert.assignee = "A. Weber"
-    result = facade.triage(alert)
-    assert result["authoritative"]["verb"] == "wait"
-    assert facade.apply(alert, result).assignee is None
+    facade = DecisionEngineFacade(store)
+    facade.apply(alert, {"laix": {"verb": verb}})
+    assert alert.assignee is None
 
 
-def test_laix_escalation_tags_the_alert(store, scope):
-    facade = DecisionEngineFacade(store, mode="laix")
-    alert = make_alert(store, scope, sla_hours=-1)
-    result = facade.triage(alert)
-    assert result["authoritative"]["verb"] == "escalate"
-    assert "sla-escalated" in facade.apply(alert, result).tags
+def test_escalation_tags_the_alert(store, scope):
+    alert = make_alert(store, scope)
+    facade = DecisionEngineFacade(store)
+    facade.apply(alert, {"laix": {"verb": "escalate"}})
+    assert "sla-escalated" in alert.tags
 
 
-def test_native_and_shadow_never_mutate_the_alert(store, scope):
-    for mode in ("native", "shadow"):
-        facade = DecisionEngineFacade(store, mode=mode)
-        alert = make_alert(store, scope, severity="yellow", confidence=0.7, urgency=0.35)
-        alert.assignee = "A. Weber"
-        result = facade.triage(alert)
-        assert facade.apply(alert, result).assignee == "A. Weber"
-
-
-def test_evaluate_all_is_side_effect_free(store, scope):
-    facade = DecisionEngineFacade(store, mode="shadow")
-    make_alert(store, scope)
-    make_alert(store, scope, severity="orange", confidence=0.75, urgency=0.62)
-    before = facade.status("demo")["parity"]["samples"]
-    report = facade.evaluate_all("demo")
-    after = facade.status("demo")["parity"]["samples"]
-    assert report["samples"] == 2
-    assert report["agreementRate"] == 1.0
-    assert before == after
-
-
-def test_engine_reports_decision_on_ingest(store, scope, monkeypatch):
-    from georesponse.laix_adapter import reset_facades
-
-    monkeypatch.delenv("GEORESPONSE_DECISION_ENGINE", raising=False)
-    reset_facades()
-    store.save_baseline(Baseline(scope_id=scope.id, metric="change_fraction", values=[0.019, 0.021, 0.018, 0.02, 0.017] * 2).recompute())
-    engine = ProactiveEngine(store)
-    base = {
-        "metric": "change_fraction",
-        "confidence": 0.92,
-        "optical": True,
-        "sar": True,
-        "sarConfidence": 0.86,
-        "cloud": 0.03,
-        "season": "summer",
-        "changeType": "flood",
-        "lon": 7.1,
-        "lat": 50.545,
-        "summary": "Flood edge reached the site",
-        "asset": "Corridor",
-        "valueEur": 12_000_000,
-        "population": 1800,
-        "access": "flooded",
-    }
-    engine.ingest(scope.id, {**base, "changeFraction": 0.34})
-    result = engine.ingest(scope.id, {**base, "changeFraction": 0.40})
-    assert result["status"] == "alert"
-    assert result["decision"]["mode"] == "native"
-    assert result["alert"]["status"] == "new"
-
-
-def test_laix_flag_makes_engine_authoritative(store, scope, monkeypatch):
-    from georesponse.laix_adapter import reset_facades
-
-    monkeypatch.setenv("GEORESPONSE_DECISION_ENGINE", "laix")
-    reset_facades()
-    engine = ProactiveEngine(store)
-    assert engine.decisions.mode == "laix"
-    store.save_baseline(Baseline(scope_id=scope.id, metric="change_fraction", values=[0.019, 0.021, 0.018, 0.02, 0.017] * 2).recompute())
-    base = {
-        "metric": "change_fraction",
-        "confidence": 0.92,
-        "optical": True,
-        "sar": True,
-        "cloud": 0.03,
-        "changeType": "flood",
-        "lon": 7.1,
-        "lat": 50.545,
-        "summary": "Flood edge reached the site",
-        "valueEur": 12_000_000,
-        "population": 1800,
-        "access": "flooded",
-    }
-    engine.ingest(scope.id, {**base, "changeFraction": 0.34})
-    result = engine.ingest(scope.id, {**base, "changeFraction": 0.40})
-    assert result["decision"]["mode"] == "laix"
-    assert result["decision"]["authoritativeSource"] == "laix"
+# ------------------------------------------------------------- approval/execute
 
 
 def test_approval_bridge_creates_and_approves_a_proposal(store, scope):
-    facade = DecisionEngineFacade(store, mode="laix")
     alert = make_alert(store, scope)
+    facade = DecisionEngineFacade(store)
     result = facade.triage(alert)
-    decision_id = result["decision"]["id"]
-    action = facade.runtime.action_for(facade.runtime.decision(decision_id))
+    decision = facade.decision(result["decision"]["decision_id"])
+    action = facade.action(result["decision"]["decision_id"])
     assert action is not None
-    proposed = facade.propose(facade.runtime.decision(decision_id), action, alert_id=alert.id)
+
+    proposed = facade.propose(decision, action, alert_id=alert.id)
     assert proposed["proposal"]["status"] == "pending"
     assert proposed["proposal"]["action"] == "assign"
 
@@ -243,21 +189,47 @@ def test_approval_bridge_creates_and_approves_a_proposal(store, scope):
     assert updated.assignee == action.params["assignee"]
 
 
-def test_outcome_loop_attributes_acknowledgement_speed(store, scope):
-    facade = DecisionEngineFacade(store, mode="laix")
+def test_lai_executes_an_approved_action_and_returns_a_receipt(store, scope):
     alert = make_alert(store, scope)
+    facade = DecisionEngineFacade(store)
     result = facade.triage(alert)
-    decision = facade.runtime.decision(result["decision"]["id"])
-    action = facade.runtime.action_for(decision)
-    assert action is not None
+    decision = facade.decision(result["decision"]["decision_id"])
     receipt = facade.execute(decision, actor="M. Keller", approver="M. Keller")
     assert receipt["status"] == "executed"
+    updated = store.get_alert(alert.id)
+    assert updated.status == "assigned"
+
+
+# ---------------------------------------------------------------------- outcome
+
+
+def test_outcome_attribution_uses_the_lai_receipt(store, scope):
+    alert = make_alert(store, scope)
+    facade = DecisionEngineFacade(store)
+    result = facade.triage(alert)
+    decision = facade.decision(result["decision"]["decision_id"])
+    facade.execute(decision, actor="M. Keller", approver="M. Keller")
     refreshed = store.get_alert(alert.id)
-    outcome = OutcomeLoop(facade.runtime).acknowledge_speed(decision.id, refreshed, expected_minutes=240)
+    outcome = OutcomeLoop(facade.layer).acknowledge_speed(decision, refreshed, expected_minutes=240)
     assert outcome is not None
     assert outcome.label == "helped"
     assert outcome.attributed is True
     assert outcome.direction == "lower-better"
+
+
+def test_outcome_without_a_receipt_is_not_attributed(store, scope):
+    alert = make_alert(store, scope)
+    facade = DecisionEngineFacade(store)
+    result = facade.triage(alert)
+    decision = facade.decision(result["decision"]["decision_id"])
+    refreshed = store.get_alert(alert.id)
+    refreshed.acknowledged_at = add_hours(utcnow(), 0.05)
+    outcome = OutcomeLoop(facade.layer).acknowledge_speed(decision, refreshed, expected_minutes=240)
+    assert outcome is not None
+    assert outcome.attributed is False
+
+
+# ------------------------------------------------------------------- resources
 
 
 def test_sensing_budget_skips_commercial_when_budget_is_small(store, scope):
@@ -274,3 +246,107 @@ def test_sensing_budget_allows_commercial_within_budget(store, scope):
     result = estimate(plan, uncertainty=0.9)
     assert "acquire:planet" in result["allowed"]
     assert result["estimatedCostEur"] >= 450
+
+
+# ------------------------------------------------------------------- isolation
+
+
+def test_local_lai_package_is_gone_and_the_installed_package_is_used():
+    assert not (ROOT / "laix").exists()
+    installed = Path(laix.__file__).resolve()
+    assert ROOT not in installed.parents
+    assert version("laix") == "0.1.1"
+    assert laix.SCHEMA_VERSION == "1.1"
+
+
+def test_old_mode_flag_and_parity_runtime_are_gone():
+    for name in ("GEORESPONSE_DECISION_ENGINE", "MODES", "configured_mode", "ENV_FLAG", "PARITY_KEY"):
+        assert not hasattr(facade_module, name)
+    facade = DecisionEngineFacade(ProactiveStore(":memory:"))
+    for name in ("mode", "parity", "reset_parity", "evaluate", "evaluate_all"):
+        assert not hasattr(facade, name)
+
+
+def test_parity_endpoints_are_gone_and_status_has_no_mode():
+    assert client.get("/api/watch/decision-engine/evaluate").status_code in {404, 405}
+    assert client.post("/api/watch/decision-engine/reset-parity").status_code in {404, 405}
+    body = client.get("/api/watch/decision-engine").json()
+    assert body["engine"] == "laix"
+    assert body["policyVersion"]
+    assert body["schemaVersion"]
+    assert "mode" not in body
+    assert "parity" not in body
+    overview = client.get("/api/watch/overview").json()["decisionEngine"]
+    assert "mode" not in overview
+    assert "parity" not in overview
+
+
+# ---------------------------------------------------------------------- parity
+
+
+def _fixture_situation(payload: dict) -> Situation:
+    return Situation(
+        id=payload["id"],
+        at=payload["at"],
+        subject=payload["subject"],
+        observations=tuple(Observation(**item) for item in payload["observations"]),
+        beliefs=tuple(Belief(**item) for item in payload["beliefs"]),
+        goals=tuple(Goal(**item) for item in payload["goals"]),
+        constraints=tuple(Constraint(**item) for item in payload["constraints"]),
+        phase=payload["phase"],
+        horizon=payload["horizon"],
+        attributes=dict(payload["attributes"]),
+    )
+
+
+def test_captured_parity_fixture_matches_real_lai():
+    fixture = json.loads(FIXTURE.read_text(encoding="utf-8"))
+    assert fixture["contract"] == "laix-georesponse-parity"
+    assert len(fixture["cases"]) == 9
+
+    exact = 0
+    rationale_differences: list[dict] = []
+    compared = 0
+    for case in fixture["cases"]:
+        situation = _fixture_situation(case["situation"])
+        options = tuple(Action.from_dict(item) for item in case["options"])
+        layer = Layer()
+        layer.bridge().register("assign_owner", lambda action, context: {"ok": True})
+        decision = layer.decide(
+            DecisionRequest(subject=case["id"], at=situation.at, situation=situation, options=options)
+        )[0]
+        core = layer._core_decisions[decision.decision_id]
+        actual = {
+            "verb": decision.verb,
+            "actionId": decision.action_id,
+            "requiresApproval": decision.requires_approval,
+            "rationale": decision.rationale,
+            "confidence": round(decision.confidence, 6),
+            "constraintsApplied": list(core.constraints_applied),
+            "receiptStatus": None,
+        }
+        if decision.verb == "act":
+            actual["receiptStatus"] = layer.execute(
+                decision, actor="fixture-agent", approver="fixture-approver"
+            ).status
+        expected = case["laix"]
+        for field in ("verb", "actionId", "requiresApproval", "confidence", "constraintsApplied", "receiptStatus"):
+            compared += 1
+            assert actual[field] == expected[field], (case["id"], field, actual[field], expected[field])
+            exact += int(actual[field] == expected[field])
+        compared += 1
+        if actual["rationale"] == expected["rationale"]:
+            exact += 1
+        else:
+            rationale_differences.append(
+                {"case": case["id"], "captured": expected["rationale"], "actual": actual["rationale"]}
+            )
+
+    # LAIX 0.1.1 changed exactly this wording in policy 2026.2.  The fixture is
+    # deliberately not edited; the difference is asserted instead of hidden.
+    assert len(rationale_differences) == 3
+    for difference in rationale_differences:
+        assert difference["captured"] == "a hard deadline or SLA is already breached"
+        assert difference["actual"] == "a hard deadline or commitment is already breached"
+    assert compared == 63
+    assert exact == 60

@@ -75,19 +75,9 @@ class ProactiveEngine:
         incident = alert_ops.group_into_incident(self.store, alert)
         route = alert_ops.route_alert(alert, rules=plan.escalation, analysts=[self.oncall.current(now)["primary"]])
         alert.assignee = route.get("assignee")
-        triage: dict | None = None
-        try:
-            roster = [route.get("assignee")] if route.get("assignee") else None
-            triage = self.decisions.triage(alert, plan=plan, analysts=roster)
-            self.decisions.apply(alert, triage)
-        except Exception as exc:  # noqa: BLE001 - LAIX must never break ingest
-            self.store.audit(
-                scope.tenant,
-                "laix.error",
-                alert_id=alert.id,
-                actor="laix",
-                detail={"error": f"{type(exc).__name__}: {exc}"},
-            )
+        roster = [route.get("assignee")] if route.get("assignee") else None
+        triage = self.decisions.triage(alert, plan=plan, analysts=roster)
+        self.decisions.apply(alert, triage)
         self.store.save_alert(alert)
         self.store.add_cost(CostEntry(id=f"cost-{alert.id}", tenant=scope.tenant, scope_id=scope.id, kind="analyst", amount_eur=0.0))
         self.store.audit(scope.tenant, "alert.created", alert_id=alert.id, actor="pipeline", detail={"scope": scope.id, "incident": incident.id, "severity": alert.severity})

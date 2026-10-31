@@ -18,6 +18,7 @@ dependencies = [
   "onnxruntime>=1.18",
   "rasterio>=1.3",
   "cryptography>=42",
+  "laix @ git+https://github.com/michaelatamuk/laix.git@v0.1.1#subdirectory=python/laix",
 ]
 
 [project.optional-dependencies]
@@ -30,13 +31,13 @@ georesponse = "georesponse.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["georesponse*", "laix*"]
+include = ["georesponse*"]
 
 [tool.ruff]
 line-length = 120
 target-version = "py311"
 
 [tool.pytest.ini_options]
-testpaths = ["tests", "laix/tests"]
+testpaths = ["tests"]
 pythonpath = ["."]
 addopts = "-q"

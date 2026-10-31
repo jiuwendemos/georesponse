@@ -10,7 +10,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from laix import Action, Decision
+from laix import Action, LayerDecision
 
 from ..proactive import alerts as alert_ops
 from ..proactive.proposals import ProposalStore
@@ -31,7 +31,7 @@ class ApprovalBridge:
     # ------------------------------------------------------------------ create
     def propose(
         self,
-        decision: Decision,
+        decision: LayerDecision,
         action: Action | None,
         *,
         alert_id: str,

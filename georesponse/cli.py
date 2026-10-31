@@ -189,32 +189,6 @@ def cmd_proactive_demo(args: argparse.Namespace) -> int:
     return 0
 
 
-def cmd_laix_parity(args: argparse.Namespace) -> int:
-    """Compare native triage with the LAIX policy on the local store."""
-    from .laix_adapter import DecisionEngineFacade
-    from .proactive.demo import seed_demo
-    from .proactive.store import ProactiveStore
-
-    store = ProactiveStore(ROOT / "runtime" / "proactive.db")
-    if not store.list_scopes(args.tenant):
-        seed_demo(store)
-    facade = DecisionEngineFacade(store, mode="shadow")
-    report = facade.evaluate_all(args.tenant)
-    status = facade.status(args.tenant)
-    print(
-        json.dumps(
-            {
-                "mode": "shadow",
-                "policyVersion": status["policyVersion"],
-                "schemaVersion": status["schemaVersion"],
-                "report": report,
-            },
-            indent=2,
-        )
-    )
-    return 0 if report["samples"] and report["agreementRate"] >= 1.0 else 1
-
-
 def cmd_static(args: argparse.Namespace) -> int:
     import http.server
     import socketserver
@@ -316,10 +290,6 @@ def main(argv: list[str] | None = None) -> int:
 
     action = sub.add_parser("proactive-demo", help="rebuild the proactive Watch demo data")
     action.set_defaults(func=cmd_proactive_demo)
-
-    parity = sub.add_parser("laix-parity", help="compare native triage with the LAIX policy")
-    parity.add_argument("--tenant", default="demo")
-    parity.set_defaults(func=cmd_laix_parity)
 
     static = sub.add_parser("static", help="serve the built web app")
     static.add_argument("--port", type=int, default=4173)
