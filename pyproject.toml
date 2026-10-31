@@ -30,13 +30,13 @@ georesponse = "georesponse.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["georesponse*"]
+include = ["georesponse*", "laix*"]
 
 [tool.ruff]
 line-length = 120
 target-version = "py311"
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = ["tests", "laix/tests"]
 pythonpath = ["."]
 addopts = "-q"

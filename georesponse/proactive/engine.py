@@ -26,6 +26,7 @@ from .models import Alert, CostEntry, Forecast, MonitoringPlan, now_iso, parse_i
 from .notifications import NotificationService, preferences_payload
 from .scheduler import blind_spots, coverage, cost_report, freshness_slo, tick as scheduler_tick
 from .store import ProactiveStore
+from ..laix_adapter import get_facade
 
 
 class ProactiveEngine:
@@ -37,6 +38,7 @@ class ProactiveEngine:
         self.validation = ValidationGate(store)
         self.limiter = RateLimiter(limit=120, window_seconds=60)
         self.oncall = OnCallSchedule()
+        self.decisions = get_facade(store)
 
     # ------------------------------------------------------------------ ingest
     def ingest(self, scope_id: str, observation: dict, *, model_version: str = "gr-changenet-1.4.2", now: datetime | None = None) -> dict:
@@ -73,6 +75,26 @@ class ProactiveEngine:
         incident = alert_ops.group_into_incident(self.store, alert)
         route = alert_ops.route_alert(alert, rules=plan.escalation, analysts=[self.oncall.current(now)["primary"]])
         alert.assignee = route.get("assignee")
+        triage: dict | None = None
+        try:
+            roster = [route.get("assignee")] if route.get("assignee") else None
+            triage = self.decisions.triage(alert, plan=plan, analysts=roster)
+            if self.decisions.mode == "laix":
+                verb = triage["authoritative"]["verb"]
+                if verb in {"wait", "ask", "guide"}:
+                    # LAIX says this is not yet worth an owner.  Keep the alert
+                    # in the inbox, but do not imply that someone is working it.
+                    alert.assignee = None
+                elif verb == "escalate":
+                    alert.tags = list(dict.fromkeys([*alert.tags, "sla-escalated"]))
+        except Exception as exc:  # noqa: BLE001 - LAIX must never break ingest
+            self.store.audit(
+                scope.tenant,
+                "laix.error",
+                alert_id=alert.id,
+                actor="laix",
+                detail={"error": f"{type(exc).__name__}: {exc}"},
+            )
         self.store.save_alert(alert)
         self.store.add_cost(CostEntry(id=f"cost-{alert.id}", tenant=scope.tenant, scope_id=scope.id, kind="analyst", amount_eur=0.0))
         self.store.audit(scope.tenant, "alert.created", alert_id=alert.id, actor="pipeline", detail={"scope": scope.id, "incident": incident.id, "severity": alert.severity})
@@ -91,6 +113,7 @@ class ProactiveEngine:
             "route": route,
             "notifications": sent,
             "gate": gate_reason,
+            "decision": triage,
         }
 
     # --------------------------------------------------------------- lifecycle
