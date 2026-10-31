@@ -128,6 +128,32 @@ def test_laix_mode_is_authoritative(store, scope):
     assert result["decision"]["policy_version"] == facade.runtime.policy.version
 
 
+def test_laix_wait_clears_an_implied_owner(store, scope):
+    facade = DecisionEngineFacade(store, mode="laix")
+    alert = make_alert(store, scope, severity="yellow", confidence=0.7, urgency=0.35)
+    alert.assignee = "A. Weber"
+    result = facade.triage(alert)
+    assert result["authoritative"]["verb"] == "wait"
+    assert facade.apply(alert, result).assignee is None
+
+
+def test_laix_escalation_tags_the_alert(store, scope):
+    facade = DecisionEngineFacade(store, mode="laix")
+    alert = make_alert(store, scope, sla_hours=-1)
+    result = facade.triage(alert)
+    assert result["authoritative"]["verb"] == "escalate"
+    assert "sla-escalated" in facade.apply(alert, result).tags
+
+
+def test_native_and_shadow_never_mutate_the_alert(store, scope):
+    for mode in ("native", "shadow"):
+        facade = DecisionEngineFacade(store, mode=mode)
+        alert = make_alert(store, scope, severity="yellow", confidence=0.7, urgency=0.35)
+        alert.assignee = "A. Weber"
+        result = facade.triage(alert)
+        assert facade.apply(alert, result).assignee == "A. Weber"
+
+
 def test_evaluate_all_is_side_effect_free(store, scope):
     facade = DecisionEngineFacade(store, mode="shadow")
     make_alert(store, scope)

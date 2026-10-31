@@ -79,14 +79,7 @@ class ProactiveEngine:
         try:
             roster = [route.get("assignee")] if route.get("assignee") else None
             triage = self.decisions.triage(alert, plan=plan, analysts=roster)
-            if self.decisions.mode == "laix":
-                verb = triage["authoritative"]["verb"]
-                if verb in {"wait", "ask", "guide"}:
-                    # LAIX says this is not yet worth an owner.  Keep the alert
-                    # in the inbox, but do not imply that someone is working it.
-                    alert.assignee = None
-                elif verb == "escalate":
-                    alert.tags = list(dict.fromkeys([*alert.tags, "sla-escalated"]))
+            self.decisions.apply(alert, triage)
         except Exception as exc:  # noqa: BLE001 - LAIX must never break ingest
             self.store.audit(
                 scope.tenant,

@@ -122,6 +122,22 @@ class DecisionEngineFacade:
         }
 
     # ------------------------------------------------------------------ status
+    def apply(self, alert: Alert, triage: dict[str, Any]) -> Alert:
+        """Apply the authoritative verb to the alert's working state.
+
+        This is the only behaviour change in ``laix`` mode: an alert that LAIX
+        does not think is worth acting on is not left implying an owner, and a
+        breached SLA is tagged.  Native and shadow modes never touch the alert.
+        """
+        if triage.get("mode") != "laix":
+            return alert
+        verb = triage.get("authoritative", {}).get("verb")
+        if verb in {"wait", "ask", "guide"}:
+            alert.assignee = None
+        elif verb == "escalate":
+            alert.tags = list(dict.fromkeys([*alert.tags, "sla-escalated"]))
+        return alert
+
     def status(self, tenant: str = "demo") -> dict[str, Any]:
         parity = self._load_parity(tenant)
         return {
