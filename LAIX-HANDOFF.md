@@ -26,7 +26,7 @@ public contract names, contract fields, adapter and parity harness are unchanged
 | `laix/fixtures/replay.json` | 2240 | golden replay fixture |
 | `laix/tests/test_laix.py` | 266 | portable contract and policy tests |
 | `laix/tests/test_replay.py` | 96 | golden replay tests |
-| `laix/tests/test_isolation.py` | 104 | import and domain-noun guards |
+| `laix/tests/test_isolation.py` | 114 | import and domain-noun guards |
 | `laix/README.md` | 106 | package documentation |
 
 ## Public API
