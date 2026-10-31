@@ -1,0 +1,2240 @@
+{
+  "contract": "laix-replay",
+  "version": "1",
+  "capturedFrom": "georesponse@db31f7e",
+  "cases": [
+    {
+      "id": "demo-01",
+      "situation": {
+        "id": "sit-demo-01",
+        "at": "2026-01-01T00:00:00+00:00",
+        "subject": "demo-01",
+        "observations": [
+          {
+            "id": "obs-1",
+            "at": "2026-01-01T00:00:00+00:00",
+            "source": "sensor",
+            "kind": "measurement",
+            "confidence": 0.91,
+            "payload": {
+              "proposition": "situation_confirmed",
+              "statement": "the situation is confirmed",
+              "confidence": 0.91,
+              "expires_at": null
+            },
+            "cost": 0.0,
+            "latency_ms": 0,
+            "schema_version": "1.0"
+          }
+        ],
+        "beliefs": [
+          {
+            "id": "belief-1",
+            "proposition": "the situation is confirmed",
+            "confidence": 0.91,
+            "evidence": [
+              "obs-1"
+            ],
+            "updated_at": "2026-01-01T00:00:00+00:00",
+            "expires_at": null,
+            "source": "sensor",
+            "schema_version": "1.0"
+          }
+        ],
+        "goals": [
+          {
+            "id": "g-timely",
+            "statement": "decide before the deadline",
+            "priority": 0.95,
+            "metric": "time_to_decision_minutes",
+            "target": 240.0,
+            "deadline": null,
+            "schema_version": "1.0"
+          },
+          {
+            "id": "g-impact",
+            "statement": "protect what is exposed",
+            "priority": 0.7699,
+            "metric": "value_at_risk",
+            "target": 6200000.0,
+            "deadline": null,
+            "schema_version": "1.0"
+          },
+          {
+            "id": "g-attention",
+            "statement": "avoid unnecessary interruptions",
+            "priority": 0.25,
+            "metric": "interruptions",
+            "target": null,
+            "deadline": null,
+            "schema_version": "1.0"
+          }
+        ],
+        "constraints": [
+          {
+            "id": "c-policy",
+            "kind": "policy",
+            "value": 4,
+            "hard": false,
+            "statement": "decision window",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-approval",
+            "kind": "approval",
+            "value": "required",
+            "hard": true,
+            "statement": "a human approves every write",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-interruption",
+            "kind": "interruption",
+            "value": 0.9,
+            "hard": false,
+            "statement": "prefer low-interruption actions",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-risk",
+            "kind": "risk",
+            "value": 0.9,
+            "hard": true,
+            "statement": "never take an action above 90% risk",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-budget",
+            "kind": "budget",
+            "value": 2500.0,
+            "hard": false,
+            "statement": "monthly budget",
+            "schema_version": "1.0"
+          }
+        ],
+        "phase": "decide",
+        "horizon": "hours",
+        "attributes": {
+          "urgency": 0.897,
+          "confidence": 0.91,
+          "uncertainty": 0.09,
+          "sla_breached": false,
+          "verification_due": false
+        },
+        "schema_version": "1.0"
+      },
+      "options": [
+        {
+          "id": "opt-wait",
+          "verb": "wait",
+          "name": "observe",
+          "params": {},
+          "expected_benefit": 0.2,
+          "cost": 0.0,
+          "risk": 0.0,
+          "latency_ms": 0,
+          "interrupt_cost": 0.0,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "keep observing",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-ask",
+          "verb": "ask",
+          "name": "request_evidence",
+          "params": {},
+          "expected_benefit": 0.55,
+          "cost": 0.2,
+          "risk": 0.05,
+          "latency_ms": 600000,
+          "interrupt_cost": 0.2,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "request better evidence",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-guide",
+          "verb": "guide",
+          "name": "show_shortlist",
+          "params": {},
+          "expected_benefit": 0.66,
+          "cost": 0.0,
+          "risk": 0.05,
+          "latency_ms": 0,
+          "interrupt_cost": 0.3,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "surface the situation without acting",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-act",
+          "verb": "act",
+          "name": "assign_owner",
+          "params": {},
+          "expected_benefit": 0.92,
+          "cost": 0.0,
+          "risk": 0.1,
+          "latency_ms": 0,
+          "interrupt_cost": 0.65,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": true,
+          "addresses": [],
+          "rationale": "assign an owner through an approved action",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-verify",
+          "verb": "verify",
+          "name": "verify_outcome",
+          "params": {},
+          "expected_benefit": 0.5,
+          "cost": 0.0,
+          "risk": 0.0,
+          "latency_ms": 5000,
+          "interrupt_cost": 0.25,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "check whether the previous action held",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-escalate",
+          "verb": "escalate",
+          "name": "escalate_situation",
+          "params": {},
+          "expected_benefit": 0.98,
+          "cost": 0.0,
+          "risk": 0.2,
+          "latency_ms": 0,
+          "interrupt_cost": 0.95,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "raise a breached deadline",
+          "schema_version": "1.0"
+        }
+      ],
+      "expectedDecision": {
+        "verb": "act",
+        "actionId": "opt-act",
+        "requiresApproval": true,
+        "rationale": "urgency 0.90 and confidence 0.91 both clear the act thresholds (0.75, 0.80)",
+        "confidence": 0.91,
+        "constraintsApplied": [
+          "approval:human-required"
+        ],
+        "policyVersion": "2026.1"
+      },
+      "expectedReceipt": {
+        "status": "executed",
+        "actionName": "assign_owner",
+        "approvedBy": "fixture-approver",
+        "detail": {
+          "ok": true
+        }
+      }
+    },
+    {
+      "id": "demo-02",
+      "situation": {
+        "id": "sit-demo-02",
+        "at": "2026-01-01T00:00:00+00:00",
+        "subject": "demo-02",
+        "observations": [
+          {
+            "id": "obs-1",
+            "at": "2026-01-01T00:00:00+00:00",
+            "source": "sensor",
+            "kind": "measurement",
+            "confidence": 0.86,
+            "payload": {
+              "proposition": "situation_confirmed",
+              "statement": "the situation is confirmed",
+              "confidence": 0.86,
+              "expires_at": null
+            },
+            "cost": 0.0,
+            "latency_ms": 0,
+            "schema_version": "1.0"
+          }
+        ],
+        "beliefs": [
+          {
+            "id": "belief-1",
+            "proposition": "the situation is confirmed",
+            "confidence": 0.86,
+            "evidence": [
+              "obs-1"
+            ],
+            "updated_at": "2026-01-01T00:00:00+00:00",
+            "expires_at": null,
+            "source": "sensor",
+            "schema_version": "1.0"
+          }
+        ],
+        "goals": [
+          {
+            "id": "g-timely",
+            "statement": "decide before the deadline",
+            "priority": 0.6,
+            "metric": "time_to_decision_minutes",
+            "target": 240.0,
+            "deadline": null,
+            "schema_version": "1.0"
+          },
+          {
+            "id": "g-impact",
+            "statement": "protect what is exposed",
+            "priority": 0.7438,
+            "metric": "value_at_risk",
+            "target": 8400000.0,
+            "deadline": null,
+            "schema_version": "1.0"
+          },
+          {
+            "id": "g-attention",
+            "statement": "avoid unnecessary interruptions",
+            "priority": 0.25,
+            "metric": "interruptions",
+            "target": null,
+            "deadline": null,
+            "schema_version": "1.0"
+          }
+        ],
+        "constraints": [
+          {
+            "id": "c-policy",
+            "kind": "policy",
+            "value": 4,
+            "hard": false,
+            "statement": "decision window",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-approval",
+            "kind": "approval",
+            "value": "required",
+            "hard": true,
+            "statement": "a human approves every write",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-interruption",
+            "kind": "interruption",
+            "value": 0.9,
+            "hard": false,
+            "statement": "prefer low-interruption actions",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-risk",
+            "kind": "risk",
+            "value": 0.9,
+            "hard": true,
+            "statement": "never take an action above 90% risk",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-budget",
+            "kind": "budget",
+            "value": 2500.0,
+            "hard": false,
+            "statement": "monthly budget",
+            "schema_version": "1.0"
+          }
+        ],
+        "phase": "verify",
+        "horizon": "hours",
+        "attributes": {
+          "urgency": 0.735,
+          "confidence": 0.86,
+          "uncertainty": 0.14,
+          "sla_breached": false,
+          "verification_due": true
+        },
+        "schema_version": "1.0"
+      },
+      "options": [
+        {
+          "id": "opt-wait",
+          "verb": "wait",
+          "name": "observe",
+          "params": {},
+          "expected_benefit": 0.2,
+          "cost": 0.0,
+          "risk": 0.0,
+          "latency_ms": 0,
+          "interrupt_cost": 0.0,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "keep observing",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-ask",
+          "verb": "ask",
+          "name": "request_evidence",
+          "params": {},
+          "expected_benefit": 0.55,
+          "cost": 0.2,
+          "risk": 0.05,
+          "latency_ms": 600000,
+          "interrupt_cost": 0.2,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "request better evidence",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-guide",
+          "verb": "guide",
+          "name": "show_shortlist",
+          "params": {},
+          "expected_benefit": 0.66,
+          "cost": 0.0,
+          "risk": 0.05,
+          "latency_ms": 0,
+          "interrupt_cost": 0.3,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "surface the situation without acting",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-act",
+          "verb": "act",
+          "name": "assign_owner",
+          "params": {},
+          "expected_benefit": 0.92,
+          "cost": 0.0,
+          "risk": 0.1,
+          "latency_ms": 0,
+          "interrupt_cost": 0.65,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": true,
+          "addresses": [],
+          "rationale": "assign an owner through an approved action",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-verify",
+          "verb": "verify",
+          "name": "verify_outcome",
+          "params": {},
+          "expected_benefit": 0.5,
+          "cost": 0.0,
+          "risk": 0.0,
+          "latency_ms": 5000,
+          "interrupt_cost": 0.25,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "check whether the previous action held",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-escalate",
+          "verb": "escalate",
+          "name": "escalate_situation",
+          "params": {},
+          "expected_benefit": 0.98,
+          "cost": 0.0,
+          "risk": 0.2,
+          "latency_ms": 0,
+          "interrupt_cost": 0.95,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "raise a breached deadline",
+          "schema_version": "1.0"
+        }
+      ],
+      "expectedDecision": {
+        "verb": "verify",
+        "actionId": "opt-verify",
+        "requiresApproval": true,
+        "rationale": "a previous action has an unverified outcome",
+        "confidence": 0.86,
+        "constraintsApplied": [
+          "approval:human-required"
+        ],
+        "policyVersion": "2026.1"
+      },
+      "expectedReceipt": null
+    },
+    {
+      "id": "demo-03",
+      "situation": {
+        "id": "sit-demo-03",
+        "at": "2026-01-01T00:00:00+00:00",
+        "subject": "demo-03",
+        "observations": [
+          {
+            "id": "obs-1",
+            "at": "2026-01-01T00:00:00+00:00",
+            "source": "sensor",
+            "kind": "measurement",
+            "confidence": 0.79,
+            "payload": {
+              "proposition": "situation_confirmed",
+              "statement": "the situation is confirmed",
+              "confidence": 0.79,
+              "expires_at": null
+            },
+            "cost": 0.0,
+            "latency_ms": 0,
+            "schema_version": "1.0"
+          }
+        ],
+        "beliefs": [
+          {
+            "id": "belief-1",
+            "proposition": "the situation is confirmed",
+            "confidence": 0.79,
+            "evidence": [
+              "obs-1"
+            ],
+            "updated_at": "2026-01-01T00:00:00+00:00",
+            "expires_at": null,
+            "source": "sensor",
+            "schema_version": "1.0"
+          }
+        ],
+        "goals": [
+          {
+            "id": "g-timely",
+            "statement": "decide before the deadline",
+            "priority": 0.6,
+            "metric": "time_to_decision_minutes",
+            "target": 240.0,
+            "deadline": null,
+            "schema_version": "1.0"
+          },
+          {
+            "id": "g-impact",
+            "statement": "protect what is exposed",
+            "priority": 0.7331,
+            "metric": "value_at_risk",
+            "target": 4200000.0,
+            "deadline": null,
+            "schema_version": "1.0"
+          },
+          {
+            "id": "g-attention",
+            "statement": "avoid unnecessary interruptions",
+            "priority": 0.25,
+            "metric": "interruptions",
+            "target": null,
+            "deadline": null,
+            "schema_version": "1.0"
+          }
+        ],
+        "constraints": [
+          {
+            "id": "c-policy",
+            "kind": "policy",
+            "value": 4,
+            "hard": false,
+            "statement": "decision window",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-approval",
+            "kind": "approval",
+            "value": "required",
+            "hard": true,
+            "statement": "a human approves every write",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-interruption",
+            "kind": "interruption",
+            "value": 0.9,
+            "hard": false,
+            "statement": "prefer low-interruption actions",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-risk",
+            "kind": "risk",
+            "value": 0.9,
+            "hard": true,
+            "statement": "never take an action above 90% risk",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-budget",
+            "kind": "budget",
+            "value": 2500.0,
+            "hard": false,
+            "statement": "monthly budget",
+            "schema_version": "1.0"
+          }
+        ],
+        "phase": "verify",
+        "horizon": "hours",
+        "attributes": {
+          "urgency": 0.751,
+          "confidence": 0.79,
+          "uncertainty": 0.21,
+          "sla_breached": true,
+          "verification_due": true
+        },
+        "schema_version": "1.0"
+      },
+      "options": [
+        {
+          "id": "opt-wait",
+          "verb": "wait",
+          "name": "observe",
+          "params": {},
+          "expected_benefit": 0.2,
+          "cost": 0.0,
+          "risk": 0.0,
+          "latency_ms": 0,
+          "interrupt_cost": 0.0,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "keep observing",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-ask",
+          "verb": "ask",
+          "name": "request_evidence",
+          "params": {},
+          "expected_benefit": 0.55,
+          "cost": 0.2,
+          "risk": 0.05,
+          "latency_ms": 600000,
+          "interrupt_cost": 0.2,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "request better evidence",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-guide",
+          "verb": "guide",
+          "name": "show_shortlist",
+          "params": {},
+          "expected_benefit": 0.66,
+          "cost": 0.0,
+          "risk": 0.05,
+          "latency_ms": 0,
+          "interrupt_cost": 0.3,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "surface the situation without acting",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-act",
+          "verb": "act",
+          "name": "assign_owner",
+          "params": {},
+          "expected_benefit": 0.92,
+          "cost": 0.0,
+          "risk": 0.1,
+          "latency_ms": 0,
+          "interrupt_cost": 0.65,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": true,
+          "addresses": [],
+          "rationale": "assign an owner through an approved action",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-verify",
+          "verb": "verify",
+          "name": "verify_outcome",
+          "params": {},
+          "expected_benefit": 0.5,
+          "cost": 0.0,
+          "risk": 0.0,
+          "latency_ms": 5000,
+          "interrupt_cost": 0.25,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "check whether the previous action held",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-escalate",
+          "verb": "escalate",
+          "name": "escalate_situation",
+          "params": {},
+          "expected_benefit": 0.98,
+          "cost": 0.0,
+          "risk": 0.2,
+          "latency_ms": 0,
+          "interrupt_cost": 0.95,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "raise a breached deadline",
+          "schema_version": "1.0"
+        }
+      ],
+      "expectedDecision": {
+        "verb": "escalate",
+        "actionId": "opt-escalate",
+        "requiresApproval": true,
+        "rationale": "a hard deadline or SLA is already breached",
+        "confidence": 0.79,
+        "constraintsApplied": [
+          "approval:human-required"
+        ],
+        "policyVersion": "2026.1"
+      },
+      "expectedReceipt": null
+    },
+    {
+      "id": "demo-04",
+      "situation": {
+        "id": "sit-demo-04",
+        "at": "2026-01-01T00:00:00+00:00",
+        "subject": "demo-04",
+        "observations": [
+          {
+            "id": "obs-1",
+            "at": "2026-01-01T00:00:00+00:00",
+            "source": "sensor",
+            "kind": "measurement",
+            "confidence": 0.74,
+            "payload": {
+              "proposition": "situation_confirmed",
+              "statement": "the situation is confirmed",
+              "confidence": 0.74,
+              "expires_at": null
+            },
+            "cost": 0.0,
+            "latency_ms": 0,
+            "schema_version": "1.0"
+          }
+        ],
+        "beliefs": [
+          {
+            "id": "belief-1",
+            "proposition": "the situation is confirmed",
+            "confidence": 0.74,
+            "evidence": [
+              "obs-1"
+            ],
+            "updated_at": "2026-01-01T00:00:00+00:00",
+            "expires_at": null,
+            "source": "sensor",
+            "schema_version": "1.0"
+          }
+        ],
+        "goals": [
+          {
+            "id": "g-timely",
+            "statement": "decide before the deadline",
+            "priority": 0.6,
+            "metric": "time_to_decision_minutes",
+            "target": 240.0,
+            "deadline": null,
+            "schema_version": "1.0"
+          },
+          {
+            "id": "g-impact",
+            "statement": "protect what is exposed",
+            "priority": 0.6673,
+            "metric": "value_at_risk",
+            "target": 1800000.0,
+            "deadline": null,
+            "schema_version": "1.0"
+          },
+          {
+            "id": "g-attention",
+            "statement": "avoid unnecessary interruptions",
+            "priority": 0.25,
+            "metric": "interruptions",
+            "target": null,
+            "deadline": null,
+            "schema_version": "1.0"
+          }
+        ],
+        "constraints": [
+          {
+            "id": "c-policy",
+            "kind": "policy",
+            "value": 4,
+            "hard": false,
+            "statement": "decision window",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-approval",
+            "kind": "approval",
+            "value": "required",
+            "hard": true,
+            "statement": "a human approves every write",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-interruption",
+            "kind": "interruption",
+            "value": 0.9,
+            "hard": false,
+            "statement": "prefer low-interruption actions",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-risk",
+            "kind": "risk",
+            "value": 0.9,
+            "hard": true,
+            "statement": "never take an action above 90% risk",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-budget",
+            "kind": "budget",
+            "value": 1200.0,
+            "hard": false,
+            "statement": "monthly budget",
+            "schema_version": "1.0"
+          }
+        ],
+        "phase": "decide",
+        "horizon": "hours",
+        "attributes": {
+          "urgency": 0.665,
+          "confidence": 0.74,
+          "uncertainty": 0.26,
+          "sla_breached": false,
+          "verification_due": false
+        },
+        "schema_version": "1.0"
+      },
+      "options": [
+        {
+          "id": "opt-wait",
+          "verb": "wait",
+          "name": "observe",
+          "params": {},
+          "expected_benefit": 0.2,
+          "cost": 0.0,
+          "risk": 0.0,
+          "latency_ms": 0,
+          "interrupt_cost": 0.0,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "keep observing",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-ask",
+          "verb": "ask",
+          "name": "request_evidence",
+          "params": {},
+          "expected_benefit": 0.55,
+          "cost": 0.2,
+          "risk": 0.05,
+          "latency_ms": 600000,
+          "interrupt_cost": 0.2,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "request better evidence",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-guide",
+          "verb": "guide",
+          "name": "show_shortlist",
+          "params": {},
+          "expected_benefit": 0.66,
+          "cost": 0.0,
+          "risk": 0.05,
+          "latency_ms": 0,
+          "interrupt_cost": 0.3,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "surface the situation without acting",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-act",
+          "verb": "act",
+          "name": "assign_owner",
+          "params": {},
+          "expected_benefit": 0.92,
+          "cost": 0.0,
+          "risk": 0.1,
+          "latency_ms": 0,
+          "interrupt_cost": 0.65,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": true,
+          "addresses": [],
+          "rationale": "assign an owner through an approved action",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-verify",
+          "verb": "verify",
+          "name": "verify_outcome",
+          "params": {},
+          "expected_benefit": 0.5,
+          "cost": 0.0,
+          "risk": 0.0,
+          "latency_ms": 5000,
+          "interrupt_cost": 0.25,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "check whether the previous action held",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-escalate",
+          "verb": "escalate",
+          "name": "escalate_situation",
+          "params": {},
+          "expected_benefit": 0.98,
+          "cost": 0.0,
+          "risk": 0.2,
+          "latency_ms": 0,
+          "interrupt_cost": 0.95,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "raise a breached deadline",
+          "schema_version": "1.0"
+        }
+      ],
+      "expectedDecision": {
+        "verb": "guide",
+        "actionId": "opt-guide",
+        "requiresApproval": true,
+        "rationale": "urgency 0.67 clears the guide threshold 0.45 but not act",
+        "confidence": 0.74,
+        "constraintsApplied": [
+          "approval:human-required"
+        ],
+        "policyVersion": "2026.1"
+      },
+      "expectedReceipt": null
+    },
+    {
+      "id": "demo-05",
+      "situation": {
+        "id": "sit-demo-05",
+        "at": "2026-01-01T00:00:00+00:00",
+        "subject": "demo-05",
+        "observations": [
+          {
+            "id": "obs-1",
+            "at": "2026-01-01T00:00:00+00:00",
+            "source": "sensor",
+            "kind": "measurement",
+            "confidence": 0.88,
+            "payload": {
+              "proposition": "situation_confirmed",
+              "statement": "the situation is confirmed",
+              "confidence": 0.88,
+              "expires_at": null
+            },
+            "cost": 0.0,
+            "latency_ms": 0,
+            "schema_version": "1.0"
+          }
+        ],
+        "beliefs": [
+          {
+            "id": "belief-1",
+            "proposition": "the situation is confirmed",
+            "confidence": 0.88,
+            "evidence": [
+              "obs-1"
+            ],
+            "updated_at": "2026-01-01T00:00:00+00:00",
+            "expires_at": null,
+            "source": "sensor",
+            "schema_version": "1.0"
+          }
+        ],
+        "goals": [
+          {
+            "id": "g-timely",
+            "statement": "decide before the deadline",
+            "priority": 0.95,
+            "metric": "time_to_decision_minutes",
+            "target": 240.0,
+            "deadline": null,
+            "schema_version": "1.0"
+          },
+          {
+            "id": "g-impact",
+            "statement": "protect what is exposed",
+            "priority": 0.712,
+            "metric": "value_at_risk",
+            "target": 7100000.0,
+            "deadline": null,
+            "schema_version": "1.0"
+          },
+          {
+            "id": "g-attention",
+            "statement": "avoid unnecessary interruptions",
+            "priority": 0.25,
+            "metric": "interruptions",
+            "target": null,
+            "deadline": null,
+            "schema_version": "1.0"
+          }
+        ],
+        "constraints": [
+          {
+            "id": "c-policy",
+            "kind": "policy",
+            "value": 4,
+            "hard": false,
+            "statement": "decision window",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-approval",
+            "kind": "approval",
+            "value": "required",
+            "hard": true,
+            "statement": "a human approves every write",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-interruption",
+            "kind": "interruption",
+            "value": 0.9,
+            "hard": false,
+            "statement": "prefer low-interruption actions",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-risk",
+            "kind": "risk",
+            "value": 0.9,
+            "hard": true,
+            "statement": "never take an action above 90% risk",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-budget",
+            "kind": "budget",
+            "value": 1200.0,
+            "hard": false,
+            "statement": "monthly budget",
+            "schema_version": "1.0"
+          }
+        ],
+        "phase": "decide",
+        "horizon": "hours",
+        "attributes": {
+          "urgency": 0.849,
+          "confidence": 0.88,
+          "uncertainty": 0.12,
+          "sla_breached": true,
+          "verification_due": false
+        },
+        "schema_version": "1.0"
+      },
+      "options": [
+        {
+          "id": "opt-wait",
+          "verb": "wait",
+          "name": "observe",
+          "params": {},
+          "expected_benefit": 0.2,
+          "cost": 0.0,
+          "risk": 0.0,
+          "latency_ms": 0,
+          "interrupt_cost": 0.0,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "keep observing",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-ask",
+          "verb": "ask",
+          "name": "request_evidence",
+          "params": {},
+          "expected_benefit": 0.55,
+          "cost": 0.2,
+          "risk": 0.05,
+          "latency_ms": 600000,
+          "interrupt_cost": 0.2,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "request better evidence",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-guide",
+          "verb": "guide",
+          "name": "show_shortlist",
+          "params": {},
+          "expected_benefit": 0.66,
+          "cost": 0.0,
+          "risk": 0.05,
+          "latency_ms": 0,
+          "interrupt_cost": 0.3,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "surface the situation without acting",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-act",
+          "verb": "act",
+          "name": "assign_owner",
+          "params": {},
+          "expected_benefit": 0.92,
+          "cost": 0.0,
+          "risk": 0.1,
+          "latency_ms": 0,
+          "interrupt_cost": 0.65,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": true,
+          "addresses": [],
+          "rationale": "assign an owner through an approved action",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-verify",
+          "verb": "verify",
+          "name": "verify_outcome",
+          "params": {},
+          "expected_benefit": 0.5,
+          "cost": 0.0,
+          "risk": 0.0,
+          "latency_ms": 5000,
+          "interrupt_cost": 0.25,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "check whether the previous action held",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-escalate",
+          "verb": "escalate",
+          "name": "escalate_situation",
+          "params": {},
+          "expected_benefit": 0.98,
+          "cost": 0.0,
+          "risk": 0.2,
+          "latency_ms": 0,
+          "interrupt_cost": 0.95,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "raise a breached deadline",
+          "schema_version": "1.0"
+        }
+      ],
+      "expectedDecision": {
+        "verb": "escalate",
+        "actionId": "opt-escalate",
+        "requiresApproval": true,
+        "rationale": "a hard deadline or SLA is already breached",
+        "confidence": 0.88,
+        "constraintsApplied": [
+          "approval:human-required"
+        ],
+        "policyVersion": "2026.1"
+      },
+      "expectedReceipt": null
+    },
+    {
+      "id": "demo-06",
+      "situation": {
+        "id": "sit-demo-06",
+        "at": "2026-01-01T00:00:00+00:00",
+        "subject": "demo-06",
+        "observations": [
+          {
+            "id": "obs-1",
+            "at": "2026-01-01T00:00:00+00:00",
+            "source": "sensor",
+            "kind": "measurement",
+            "confidence": 0.71,
+            "payload": {
+              "proposition": "situation_confirmed",
+              "statement": "the situation is confirmed",
+              "confidence": 0.71,
+              "expires_at": null
+            },
+            "cost": 0.0,
+            "latency_ms": 0,
+            "schema_version": "1.0"
+          }
+        ],
+        "beliefs": [
+          {
+            "id": "belief-1",
+            "proposition": "the situation is confirmed",
+            "confidence": 0.71,
+            "evidence": [
+              "obs-1"
+            ],
+            "updated_at": "2026-01-01T00:00:00+00:00",
+            "expires_at": null,
+            "source": "sensor",
+            "schema_version": "1.0"
+          }
+        ],
+        "goals": [
+          {
+            "id": "g-timely",
+            "statement": "decide before the deadline",
+            "priority": 0.6,
+            "metric": "time_to_decision_minutes",
+            "target": 480.0,
+            "deadline": null,
+            "schema_version": "1.0"
+          },
+          {
+            "id": "g-impact",
+            "statement": "protect what is exposed",
+            "priority": 0.6717,
+            "metric": "value_at_risk",
+            "target": 2500000.0,
+            "deadline": null,
+            "schema_version": "1.0"
+          },
+          {
+            "id": "g-attention",
+            "statement": "avoid unnecessary interruptions",
+            "priority": 0.25,
+            "metric": "interruptions",
+            "target": null,
+            "deadline": null,
+            "schema_version": "1.0"
+          }
+        ],
+        "constraints": [
+          {
+            "id": "c-policy",
+            "kind": "policy",
+            "value": 8,
+            "hard": false,
+            "statement": "decision window",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-approval",
+            "kind": "approval",
+            "value": "required",
+            "hard": true,
+            "statement": "a human approves every write",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-interruption",
+            "kind": "interruption",
+            "value": 0.9,
+            "hard": false,
+            "statement": "prefer low-interruption actions",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-risk",
+            "kind": "risk",
+            "value": 0.9,
+            "hard": true,
+            "statement": "never take an action above 90% risk",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-budget",
+            "kind": "budget",
+            "value": 800.0,
+            "hard": false,
+            "statement": "monthly budget",
+            "schema_version": "1.0"
+          }
+        ],
+        "phase": "verify",
+        "horizon": "hours",
+        "attributes": {
+          "urgency": 0.617,
+          "confidence": 0.71,
+          "uncertainty": 0.29,
+          "sla_breached": true,
+          "verification_due": true
+        },
+        "schema_version": "1.0"
+      },
+      "options": [
+        {
+          "id": "opt-wait",
+          "verb": "wait",
+          "name": "observe",
+          "params": {},
+          "expected_benefit": 0.2,
+          "cost": 0.0,
+          "risk": 0.0,
+          "latency_ms": 0,
+          "interrupt_cost": 0.0,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "keep observing",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-ask",
+          "verb": "ask",
+          "name": "request_evidence",
+          "params": {},
+          "expected_benefit": 0.55,
+          "cost": 0.2,
+          "risk": 0.05,
+          "latency_ms": 600000,
+          "interrupt_cost": 0.2,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "request better evidence",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-guide",
+          "verb": "guide",
+          "name": "show_shortlist",
+          "params": {},
+          "expected_benefit": 0.66,
+          "cost": 0.0,
+          "risk": 0.05,
+          "latency_ms": 0,
+          "interrupt_cost": 0.3,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "surface the situation without acting",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-act",
+          "verb": "act",
+          "name": "assign_owner",
+          "params": {},
+          "expected_benefit": 0.92,
+          "cost": 0.0,
+          "risk": 0.1,
+          "latency_ms": 0,
+          "interrupt_cost": 0.65,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": true,
+          "addresses": [],
+          "rationale": "assign an owner through an approved action",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-verify",
+          "verb": "verify",
+          "name": "verify_outcome",
+          "params": {},
+          "expected_benefit": 0.5,
+          "cost": 0.0,
+          "risk": 0.0,
+          "latency_ms": 5000,
+          "interrupt_cost": 0.25,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "check whether the previous action held",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-escalate",
+          "verb": "escalate",
+          "name": "escalate_situation",
+          "params": {},
+          "expected_benefit": 0.98,
+          "cost": 0.0,
+          "risk": 0.2,
+          "latency_ms": 0,
+          "interrupt_cost": 0.95,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "raise a breached deadline",
+          "schema_version": "1.0"
+        }
+      ],
+      "expectedDecision": {
+        "verb": "escalate",
+        "actionId": "opt-escalate",
+        "requiresApproval": true,
+        "rationale": "a hard deadline or SLA is already breached",
+        "confidence": 0.71,
+        "constraintsApplied": [
+          "approval:human-required"
+        ],
+        "policyVersion": "2026.1"
+      },
+      "expectedReceipt": null
+    },
+    {
+      "id": "demo-07",
+      "situation": {
+        "id": "sit-demo-07",
+        "at": "2026-01-01T00:00:00+00:00",
+        "subject": "demo-07",
+        "observations": [
+          {
+            "id": "obs-1",
+            "at": "2026-01-01T00:00:00+00:00",
+            "source": "sensor",
+            "kind": "measurement",
+            "confidence": 0.89,
+            "payload": {
+              "proposition": "situation_confirmed",
+              "statement": "the situation is confirmed",
+              "confidence": 0.89,
+              "expires_at": null
+            },
+            "cost": 0.0,
+            "latency_ms": 0,
+            "schema_version": "1.0"
+          }
+        ],
+        "beliefs": [
+          {
+            "id": "belief-1",
+            "proposition": "the situation is confirmed",
+            "confidence": 0.89,
+            "evidence": [
+              "obs-1"
+            ],
+            "updated_at": "2026-01-01T00:00:00+00:00",
+            "expires_at": null,
+            "source": "sensor",
+            "schema_version": "1.0"
+          }
+        ],
+        "goals": [
+          {
+            "id": "g-timely",
+            "statement": "decide before the deadline",
+            "priority": 0.95,
+            "metric": "time_to_decision_minutes",
+            "target": 240.0,
+            "deadline": null,
+            "schema_version": "1.0"
+          },
+          {
+            "id": "g-impact",
+            "statement": "protect what is exposed",
+            "priority": 0.6646,
+            "metric": "value_at_risk",
+            "target": 4400000.0,
+            "deadline": null,
+            "schema_version": "1.0"
+          },
+          {
+            "id": "g-attention",
+            "statement": "avoid unnecessary interruptions",
+            "priority": 0.25,
+            "metric": "interruptions",
+            "target": null,
+            "deadline": null,
+            "schema_version": "1.0"
+          }
+        ],
+        "constraints": [
+          {
+            "id": "c-policy",
+            "kind": "policy",
+            "value": 4,
+            "hard": false,
+            "statement": "decision window",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-approval",
+            "kind": "approval",
+            "value": "required",
+            "hard": true,
+            "statement": "a human approves every write",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-interruption",
+            "kind": "interruption",
+            "value": 0.9,
+            "hard": false,
+            "statement": "prefer low-interruption actions",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-risk",
+            "kind": "risk",
+            "value": 0.9,
+            "hard": true,
+            "statement": "never take an action above 90% risk",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-budget",
+            "kind": "budget",
+            "value": 1500.0,
+            "hard": false,
+            "statement": "monthly budget",
+            "schema_version": "1.0"
+          }
+        ],
+        "phase": "verify",
+        "horizon": "hours",
+        "attributes": {
+          "urgency": 0.837,
+          "confidence": 0.89,
+          "uncertainty": 0.11,
+          "sla_breached": true,
+          "verification_due": true
+        },
+        "schema_version": "1.0"
+      },
+      "options": [
+        {
+          "id": "opt-wait",
+          "verb": "wait",
+          "name": "observe",
+          "params": {},
+          "expected_benefit": 0.2,
+          "cost": 0.0,
+          "risk": 0.0,
+          "latency_ms": 0,
+          "interrupt_cost": 0.0,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "keep observing",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-ask",
+          "verb": "ask",
+          "name": "request_evidence",
+          "params": {},
+          "expected_benefit": 0.55,
+          "cost": 0.2,
+          "risk": 0.05,
+          "latency_ms": 600000,
+          "interrupt_cost": 0.2,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "request better evidence",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-guide",
+          "verb": "guide",
+          "name": "show_shortlist",
+          "params": {},
+          "expected_benefit": 0.66,
+          "cost": 0.0,
+          "risk": 0.05,
+          "latency_ms": 0,
+          "interrupt_cost": 0.3,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "surface the situation without acting",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-act",
+          "verb": "act",
+          "name": "assign_owner",
+          "params": {},
+          "expected_benefit": 0.92,
+          "cost": 0.0,
+          "risk": 0.1,
+          "latency_ms": 0,
+          "interrupt_cost": 0.65,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": true,
+          "addresses": [],
+          "rationale": "assign an owner through an approved action",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-verify",
+          "verb": "verify",
+          "name": "verify_outcome",
+          "params": {},
+          "expected_benefit": 0.5,
+          "cost": 0.0,
+          "risk": 0.0,
+          "latency_ms": 5000,
+          "interrupt_cost": 0.25,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "check whether the previous action held",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-escalate",
+          "verb": "escalate",
+          "name": "escalate_situation",
+          "params": {},
+          "expected_benefit": 0.98,
+          "cost": 0.0,
+          "risk": 0.2,
+          "latency_ms": 0,
+          "interrupt_cost": 0.95,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "raise a breached deadline",
+          "schema_version": "1.0"
+        }
+      ],
+      "expectedDecision": {
+        "verb": "escalate",
+        "actionId": "opt-escalate",
+        "requiresApproval": true,
+        "rationale": "a hard deadline or SLA is already breached",
+        "confidence": 0.89,
+        "constraintsApplied": [
+          "approval:human-required"
+        ],
+        "policyVersion": "2026.1"
+      },
+      "expectedReceipt": null
+    },
+    {
+      "id": "demo-08",
+      "situation": {
+        "id": "sit-demo-08",
+        "at": "2026-01-01T00:00:00+00:00",
+        "subject": "demo-08",
+        "observations": [
+          {
+            "id": "obs-1",
+            "at": "2026-01-01T00:00:00+00:00",
+            "source": "sensor",
+            "kind": "measurement",
+            "confidence": 0.76,
+            "payload": {
+              "proposition": "situation_confirmed",
+              "statement": "the situation is confirmed",
+              "confidence": 0.76,
+              "expires_at": null
+            },
+            "cost": 0.0,
+            "latency_ms": 0,
+            "schema_version": "1.0"
+          }
+        ],
+        "beliefs": [
+          {
+            "id": "belief-1",
+            "proposition": "the situation is confirmed",
+            "confidence": 0.76,
+            "evidence": [
+              "obs-1"
+            ],
+            "updated_at": "2026-01-01T00:00:00+00:00",
+            "expires_at": null,
+            "source": "sensor",
+            "schema_version": "1.0"
+          }
+        ],
+        "goals": [
+          {
+            "id": "g-timely",
+            "statement": "decide before the deadline",
+            "priority": 0.6,
+            "metric": "time_to_decision_minutes",
+            "target": 480.0,
+            "deadline": null,
+            "schema_version": "1.0"
+          },
+          {
+            "id": "g-impact",
+            "statement": "protect what is exposed",
+            "priority": 0.664,
+            "metric": "value_at_risk",
+            "target": 2800000.0,
+            "deadline": null,
+            "schema_version": "1.0"
+          },
+          {
+            "id": "g-attention",
+            "statement": "avoid unnecessary interruptions",
+            "priority": 0.25,
+            "metric": "interruptions",
+            "target": null,
+            "deadline": null,
+            "schema_version": "1.0"
+          }
+        ],
+        "constraints": [
+          {
+            "id": "c-policy",
+            "kind": "policy",
+            "value": 8,
+            "hard": false,
+            "statement": "decision window",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-approval",
+            "kind": "approval",
+            "value": "required",
+            "hard": true,
+            "statement": "a human approves every write",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-interruption",
+            "kind": "interruption",
+            "value": 0.9,
+            "hard": false,
+            "statement": "prefer low-interruption actions",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-risk",
+            "kind": "risk",
+            "value": 0.9,
+            "hard": true,
+            "statement": "never take an action above 90% risk",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-budget",
+            "kind": "budget",
+            "value": 400.0,
+            "hard": false,
+            "statement": "monthly budget",
+            "schema_version": "1.0"
+          }
+        ],
+        "phase": "decide",
+        "horizon": "hours",
+        "attributes": {
+          "urgency": 0.669,
+          "confidence": 0.76,
+          "uncertainty": 0.24,
+          "sla_breached": false,
+          "verification_due": false
+        },
+        "schema_version": "1.0"
+      },
+      "options": [
+        {
+          "id": "opt-wait",
+          "verb": "wait",
+          "name": "observe",
+          "params": {},
+          "expected_benefit": 0.2,
+          "cost": 0.0,
+          "risk": 0.0,
+          "latency_ms": 0,
+          "interrupt_cost": 0.0,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "keep observing",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-ask",
+          "verb": "ask",
+          "name": "request_evidence",
+          "params": {},
+          "expected_benefit": 0.55,
+          "cost": 0.2,
+          "risk": 0.05,
+          "latency_ms": 600000,
+          "interrupt_cost": 0.2,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "request better evidence",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-guide",
+          "verb": "guide",
+          "name": "show_shortlist",
+          "params": {},
+          "expected_benefit": 0.66,
+          "cost": 0.0,
+          "risk": 0.05,
+          "latency_ms": 0,
+          "interrupt_cost": 0.3,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "surface the situation without acting",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-act",
+          "verb": "act",
+          "name": "assign_owner",
+          "params": {},
+          "expected_benefit": 0.92,
+          "cost": 0.0,
+          "risk": 0.1,
+          "latency_ms": 0,
+          "interrupt_cost": 0.65,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": true,
+          "addresses": [],
+          "rationale": "assign an owner through an approved action",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-verify",
+          "verb": "verify",
+          "name": "verify_outcome",
+          "params": {},
+          "expected_benefit": 0.5,
+          "cost": 0.0,
+          "risk": 0.0,
+          "latency_ms": 5000,
+          "interrupt_cost": 0.25,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "check whether the previous action held",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-escalate",
+          "verb": "escalate",
+          "name": "escalate_situation",
+          "params": {},
+          "expected_benefit": 0.98,
+          "cost": 0.0,
+          "risk": 0.2,
+          "latency_ms": 0,
+          "interrupt_cost": 0.95,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "raise a breached deadline",
+          "schema_version": "1.0"
+        }
+      ],
+      "expectedDecision": {
+        "verb": "guide",
+        "actionId": "opt-guide",
+        "requiresApproval": true,
+        "rationale": "urgency 0.67 clears the guide threshold 0.45 but not act",
+        "confidence": 0.76,
+        "constraintsApplied": [
+          "approval:human-required"
+        ],
+        "policyVersion": "2026.1"
+      },
+      "expectedReceipt": null
+    },
+    {
+      "id": "demo-09",
+      "situation": {
+        "id": "sit-demo-09",
+        "at": "2026-01-01T00:00:00+00:00",
+        "subject": "demo-09",
+        "observations": [
+          {
+            "id": "obs-1",
+            "at": "2026-01-01T00:00:00+00:00",
+            "source": "sensor",
+            "kind": "measurement",
+            "confidence": 0.84,
+            "payload": {
+              "proposition": "situation_confirmed",
+              "statement": "the situation is confirmed",
+              "confidence": 0.84,
+              "expires_at": null
+            },
+            "cost": 0.0,
+            "latency_ms": 0,
+            "schema_version": "1.0"
+          }
+        ],
+        "beliefs": [
+          {
+            "id": "belief-1",
+            "proposition": "the situation is confirmed",
+            "confidence": 0.84,
+            "evidence": [
+              "obs-1"
+            ],
+            "updated_at": "2026-01-01T00:00:00+00:00",
+            "expires_at": null,
+            "source": "sensor",
+            "schema_version": "1.0"
+          }
+        ],
+        "goals": [
+          {
+            "id": "g-timely",
+            "statement": "decide before the deadline",
+            "priority": 0.95,
+            "metric": "time_to_decision_minutes",
+            "target": 480.0,
+            "deadline": null,
+            "schema_version": "1.0"
+          },
+          {
+            "id": "g-impact",
+            "statement": "protect what is exposed",
+            "priority": 0.7377,
+            "metric": "value_at_risk",
+            "target": 64000000.0,
+            "deadline": null,
+            "schema_version": "1.0"
+          },
+          {
+            "id": "g-attention",
+            "statement": "avoid unnecessary interruptions",
+            "priority": 0.25,
+            "metric": "interruptions",
+            "target": null,
+            "deadline": null,
+            "schema_version": "1.0"
+          }
+        ],
+        "constraints": [
+          {
+            "id": "c-policy",
+            "kind": "policy",
+            "value": 8,
+            "hard": false,
+            "statement": "decision window",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-approval",
+            "kind": "approval",
+            "value": "required",
+            "hard": true,
+            "statement": "a human approves every write",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-interruption",
+            "kind": "interruption",
+            "value": 0.9,
+            "hard": false,
+            "statement": "prefer low-interruption actions",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-risk",
+            "kind": "risk",
+            "value": 0.9,
+            "hard": true,
+            "statement": "never take an action above 90% risk",
+            "schema_version": "1.0"
+          },
+          {
+            "id": "c-budget",
+            "kind": "budget",
+            "value": 2000.0,
+            "hard": false,
+            "statement": "monthly budget",
+            "schema_version": "1.0"
+          }
+        ],
+        "phase": "decide",
+        "horizon": "hours",
+        "attributes": {
+          "urgency": 0.847,
+          "confidence": 0.84,
+          "uncertainty": 0.16,
+          "sla_breached": false,
+          "verification_due": false
+        },
+        "schema_version": "1.0"
+      },
+      "options": [
+        {
+          "id": "opt-wait",
+          "verb": "wait",
+          "name": "observe",
+          "params": {},
+          "expected_benefit": 0.2,
+          "cost": 0.0,
+          "risk": 0.0,
+          "latency_ms": 0,
+          "interrupt_cost": 0.0,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "keep observing",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-ask",
+          "verb": "ask",
+          "name": "request_evidence",
+          "params": {},
+          "expected_benefit": 0.55,
+          "cost": 0.2,
+          "risk": 0.05,
+          "latency_ms": 600000,
+          "interrupt_cost": 0.2,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "request better evidence",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-guide",
+          "verb": "guide",
+          "name": "show_shortlist",
+          "params": {},
+          "expected_benefit": 0.66,
+          "cost": 0.0,
+          "risk": 0.05,
+          "latency_ms": 0,
+          "interrupt_cost": 0.3,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "surface the situation without acting",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-act",
+          "verb": "act",
+          "name": "assign_owner",
+          "params": {},
+          "expected_benefit": 0.92,
+          "cost": 0.0,
+          "risk": 0.1,
+          "latency_ms": 0,
+          "interrupt_cost": 0.65,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": true,
+          "addresses": [],
+          "rationale": "assign an owner through an approved action",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-verify",
+          "verb": "verify",
+          "name": "verify_outcome",
+          "params": {},
+          "expected_benefit": 0.5,
+          "cost": 0.0,
+          "risk": 0.0,
+          "latency_ms": 5000,
+          "interrupt_cost": 0.25,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "check whether the previous action held",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-escalate",
+          "verb": "escalate",
+          "name": "escalate_situation",
+          "params": {},
+          "expected_benefit": 0.98,
+          "cost": 0.0,
+          "risk": 0.2,
+          "latency_ms": 0,
+          "interrupt_cost": 0.95,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "raise a breached deadline",
+          "schema_version": "1.0"
+        }
+      ],
+      "expectedDecision": {
+        "verb": "act",
+        "actionId": "opt-act",
+        "requiresApproval": true,
+        "rationale": "urgency 0.85 and confidence 0.84 both clear the act thresholds (0.75, 0.80)",
+        "confidence": 0.84,
+        "constraintsApplied": [
+          "approval:human-required"
+        ],
+        "policyVersion": "2026.1"
+      },
+      "expectedReceipt": {
+        "status": "executed",
+        "actionName": "assign_owner",
+        "approvedBy": "fixture-approver",
+        "detail": {
+          "ok": true
+        }
+      }
+    },
+    {
+      "id": "quickstart",
+      "situation": {
+        "id": "sit-quickstart",
+        "at": "2026-01-01T00:00:00+00:00",
+        "subject": "example",
+        "observations": [],
+        "beliefs": [
+          {
+            "id": "risk",
+            "proposition": "the risk is real",
+            "confidence": 0.9,
+            "evidence": [],
+            "updated_at": "2026-01-01T00:00:00+00:00",
+            "expires_at": null,
+            "source": "observation",
+            "schema_version": "1.0"
+          }
+        ],
+        "goals": [],
+        "constraints": [],
+        "phase": "observe",
+        "horizon": "minutes",
+        "attributes": {
+          "urgency": 0.9
+        },
+        "schema_version": "1.0"
+      },
+      "options": [
+        {
+          "id": "opt-wait",
+          "verb": "wait",
+          "name": "observe",
+          "params": {},
+          "expected_benefit": 0.2,
+          "cost": 0.0,
+          "risk": 0.0,
+          "latency_ms": 0,
+          "interrupt_cost": 0.0,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": false,
+          "addresses": [],
+          "rationale": "",
+          "schema_version": "1.0"
+        },
+        {
+          "id": "opt-act",
+          "verb": "act",
+          "name": "assign_owner",
+          "params": {
+            "owner": "team-2"
+          },
+          "expected_benefit": 0.9,
+          "cost": 0.0,
+          "risk": 0.0,
+          "latency_ms": 0,
+          "interrupt_cost": 0.0,
+          "destructive": false,
+          "reversible": true,
+          "requires_approval": true,
+          "addresses": [],
+          "rationale": "",
+          "schema_version": "1.0"
+        }
+      ],
+      "expectedDecision": {
+        "verb": "act",
+        "actionId": "opt-act",
+        "requiresApproval": true,
+        "rationale": "urgency 0.90 and confidence 0.90 both clear the act thresholds (0.75, 0.80)",
+        "confidence": 0.9,
+        "constraintsApplied": [
+          "approval:human-required"
+        ],
+        "policyVersion": "2026.1"
+      },
+      "expectedReceipt": {
+        "status": "executed",
+        "actionName": "assign_owner",
+        "approvedBy": "fixture-approver",
+        "detail": {
+          "ok": true
+        }
+      }
+    }
+  ]
+}
