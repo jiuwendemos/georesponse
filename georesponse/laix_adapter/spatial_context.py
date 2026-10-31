@@ -287,16 +287,17 @@ def native_triage(
     plan = plan or MonitoringPlan(scope_id=alert.scope_id)
     route = alert_ops.route_alert(alert, rules=plan.escalation, analysts=list(analysts or DEFAULT_ANALYSTS))
     sla = alert_ops.sla_status(alert)
+    verb = native_verb(alert, plan=plan)
     return {
         "source": "native",
-        "verb": native_verb(alert, plan=plan),
-        "assignee": route.get("assignee"),
-        "team": route.get("team"),
+        "verb": verb,
+        "assignee": route.get("assignee") if verb in {"act", "escalate"} else None,
+        "team": route.get("team") if verb in {"act", "escalate"} else None,
         "routing": route.get("via"),
         "severity": alert.severity,
         "urgency": round(float(alert.urgency), 4),
         "confidence": round(float(alert.confidence), 4),
-        "requiresApproval": True,
+        "requiresApproval": verb == "act",
         "slaBreached": bool(sla["breached"]),
     }
 
@@ -308,13 +309,14 @@ def laix_view(
     alert: Alert,
 ) -> dict:
     params = dict(action.params) if action else {}
+    owns = decision.verb in {"act", "escalate"}
     return {
         "source": "laix",
         "verb": decision.verb,
         "action": decision.action_id,
         "actionName": action.name if action else None,
-        "assignee": params.get("assignee"),
-        "team": params.get("team"),
+        "assignee": params.get("assignee") if owns else None,
+        "team": params.get("team") if owns else None,
         "severity": alert.severity,
         "urgency": decision.attributes.get("urgency", round(float(alert.urgency), 4)),
         "confidence": round(float(decision.confidence), 4),
