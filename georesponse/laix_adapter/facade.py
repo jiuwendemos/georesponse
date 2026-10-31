@@ -75,7 +75,8 @@ class DecisionEngineFacade:
         persist: bool = True,
     ) -> dict[str, Any]:
         plan = plan or MonitoringPlan(scope_id=alert.scope_id)
-        native = native_triage(alert, plan=plan, analysts=analysts)
+        roster = list(analysts) if analysts is not None else None
+        native = native_triage(alert, plan=plan, analysts=roster)
         if self.mode == "native":
             return {
                 "mode": self.mode,
@@ -86,8 +87,8 @@ class DecisionEngineFacade:
                 "decision": None,
             }
 
-        situation = situation_from_alert(alert, plan=plan, analysts=analysts)
-        options = options_for_alert(alert, plan=plan, analysts=analysts)
+        situation = situation_from_alert(alert, plan=plan, analysts=roster)
+        options = options_for_alert(alert, plan=plan, analysts=roster)
         decision = self.runtime.decide(situation, options)
         action = next((item for item in options if item.id == decision.action_id), None)
         laix = laix_view(decision, action=action, alert=alert)
@@ -143,9 +144,10 @@ class DecisionEngineFacade:
     ) -> dict[str, Any]:
         """Run both engines without writing parity or touching runtime state."""
         plan = plan or MonitoringPlan(scope_id=alert.scope_id)
-        native = native_triage(alert, plan=plan, analysts=analysts)
-        situation = situation_from_alert(alert, plan=plan, analysts=analysts)
-        options = options_for_alert(alert, plan=plan, analysts=analysts)
+        roster = list(analysts) if analysts is not None else None
+        native = native_triage(alert, plan=plan, analysts=roster)
+        situation = situation_from_alert(alert, plan=plan, analysts=roster)
+        options = options_for_alert(alert, plan=plan, analysts=roster)
         decision = DecisionRuntime().decide(situation, options)
         action = next((item for item in options if item.id == decision.action_id), None)
         laix = laix_view(decision, action=action, alert=alert)

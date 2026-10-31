@@ -111,6 +111,14 @@ def test_shadow_keeps_native_authoritative_and_records_parity(store, scope):
     assert parity["agreementRate"] == 1.0
 
 
+def test_triage_accepts_a_generator_roster(store, scope):
+    facade = DecisionEngineFacade(store, mode="shadow")
+    alert = make_alert(store, scope)
+    result = facade.triage(alert, analysts=(name for name in ["Only Analyst"]))
+    assert result["native"]["assignee"] == "Only Analyst"
+    assert result["laix"]["assignee"] == "Only Analyst"
+
+
 def test_laix_mode_is_authoritative(store, scope):
     facade = DecisionEngineFacade(store, mode="laix")
     alert = make_alert(store, scope)
