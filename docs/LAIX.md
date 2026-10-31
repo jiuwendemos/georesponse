@@ -105,6 +105,13 @@ After the switch to LAIX v0.1.1:
 - 3 of 9 rationale strings differ only in the policy wording: the captured core
   said `a hard deadline or SLA is already breached`; LAIX 2026.2 says
   `a hard deadline or commitment is already breached`.
+- The captured native baseline and the captured LAIX decisions agree on verb,
+  action id and confidence for all 9 cases. They differ on `requires_approval`
+  for the 7 non-`act` cases: native marked only `act`, while LAIX marks every
+  decision when the Situation carries a hard approval constraint. GeoResponse
+  never executes `wait`, `observe`, `ask`, `guide`, `verify` or `escalate`, so
+  this is conservative metadata, not an extra write. Whether LAIX should scope
+  the flag to actionable verbs is a product decision for LAIX.
 
 That wording change is reported by `tests/test_laix_adapter.py`; it is not
 hidden by editing the fixture or the LAIX contract.

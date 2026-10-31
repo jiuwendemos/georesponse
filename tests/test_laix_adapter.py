@@ -350,3 +350,17 @@ def test_captured_parity_fixture_matches_real_lai():
         assert difference["actual"] == "a hard deadline or commitment is already breached"
     assert compared == 63
     assert exact == 60
+
+
+def test_captured_native_baseline_difference_is_explicit():
+    fixture = json.loads(FIXTURE.read_text(encoding="utf-8"))
+    differences = [
+        case
+        for case in fixture["cases"]
+        if case["native"]["requiresApproval"] != case["laix"]["requiresApproval"]
+    ]
+    assert len(differences) == 7
+    for case in differences:
+        assert case["laix"]["verb"] != "act"
+        assert case["native"]["requiresApproval"] is False
+        assert case["laix"]["requiresApproval"] is True
