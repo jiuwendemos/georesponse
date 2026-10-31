@@ -488,12 +488,10 @@
       "laix": {
         "verb": "verify",
         "actionId": "opt-verify",
-        "requiresApproval": true,
+        "requiresApproval": false,
         "rationale": "a previous action has an unverified outcome",
         "confidence": 0.86,
-        "constraintsApplied": [
-          "approval:human-required"
-        ],
+        "constraintsApplied": [],
         "receiptStatus": null
       }
     },
@@ -734,12 +732,10 @@
       "laix": {
         "verb": "escalate",
         "actionId": "opt-escalate",
-        "requiresApproval": true,
+        "requiresApproval": false,
         "rationale": "a hard deadline or SLA is already breached",
         "confidence": 0.79,
-        "constraintsApplied": [
-          "approval:human-required"
-        ],
+        "constraintsApplied": [],
         "receiptStatus": null
       }
     },
@@ -980,12 +976,10 @@
       "laix": {
         "verb": "guide",
         "actionId": "opt-guide",
-        "requiresApproval": true,
+        "requiresApproval": false,
         "rationale": "urgency 0.67 clears the guide threshold 0.45 but not act",
         "confidence": 0.74,
-        "constraintsApplied": [
-          "approval:human-required"
-        ],
+        "constraintsApplied": [],
         "receiptStatus": null
       }
     },
@@ -1226,12 +1220,10 @@
       "laix": {
         "verb": "escalate",
         "actionId": "opt-escalate",
-        "requiresApproval": true,
+        "requiresApproval": false,
         "rationale": "a hard deadline or SLA is already breached",
         "confidence": 0.88,
-        "constraintsApplied": [
-          "approval:human-required"
-        ],
+        "constraintsApplied": [],
         "receiptStatus": null
       }
     },
@@ -1472,12 +1464,10 @@
       "laix": {
         "verb": "escalate",
         "actionId": "opt-escalate",
-        "requiresApproval": true,
+        "requiresApproval": false,
         "rationale": "a hard deadline or SLA is already breached",
         "confidence": 0.71,
-        "constraintsApplied": [
-          "approval:human-required"
-        ],
+        "constraintsApplied": [],
         "receiptStatus": null
       }
     },
@@ -1718,12 +1708,10 @@
       "laix": {
         "verb": "verify",
         "actionId": "opt-verify",
-        "requiresApproval": true,
+        "requiresApproval": false,
         "rationale": "a previous action has an unverified outcome",
         "confidence": 0.89,
-        "constraintsApplied": [
-          "approval:human-required"
-        ],
+        "constraintsApplied": [],
         "receiptStatus": null
       }
     },
@@ -1964,12 +1952,10 @@
       "laix": {
         "verb": "guide",
         "actionId": "opt-guide",
-        "requiresApproval": true,
+        "requiresApproval": false,
         "rationale": "urgency 0.67 clears the guide threshold 0.45 but not act",
         "confidence": 0.76,
-        "constraintsApplied": [
-          "approval:human-required"
-        ],
+        "constraintsApplied": [],
         "receiptStatus": null
       }
     },

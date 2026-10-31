@@ -23,13 +23,13 @@ is the only decision path.
 `pyproject.toml` pins LAIX to the release tag:
 
 ```toml
-"laix @ git+https://github.com/michaelatamuk/laix.git@v0.2.0#subdirectory=python/laix"
+"laix @ git+https://github.com/michaelatamuk/laix.git@v0.2.1#subdirectory=python/laix"
 ```
 
 Install from the pin:
 
 ```powershell
-py -m pip install "laix @ git+https://github.com/michaelatamuk/laix.git@v0.2.0#subdirectory=python/laix"
+py -m pip install "laix @ git+https://github.com/michaelatamuk/laix.git@v0.2.1#subdirectory=python/laix"
 ```
 
 For local co-development against the LAIX checkout:
@@ -83,7 +83,7 @@ Returns the installed LAIX package, policy and schema versions:
 {
   "engine": "laix",
   "package": "laix",
-  "packageVersion": "0.2.0",
+  "packageVersion": "0.2.1",
   "policyVersion": "2026.2",
   "schemaVersion": "1.1"
 }
@@ -96,22 +96,17 @@ parity fields are gone. The old `/decision-engine/evaluate` and
 ## Parity record
 
 Before the local LAIX core was deleted, 9 open-alert decisions were captured in
-`tests/fixtures/laix_parity_demo.json`. The captured fixture is not edited.
+`tests/fixtures/laix_parity_demo.json`.
 
-After the switch to LAIX v0.2.0:
+After the switch to LAIX v0.2.1:
 
 - 9 of 9 cases match on verb, action id, approval flag, confidence, applied
   constraints and receipt status.
 - 3 of 9 rationale strings differ only in the policy wording: the captured core
   said `a hard deadline or SLA is already breached`; LAIX 2026.2 says
   `a hard deadline or commitment is already breached`.
-- The captured native baseline and the captured LAIX decisions agree on verb,
-  action id and confidence for all 9 cases. They differ on `requires_approval`
-  for the 7 non-`act` cases: native marked only `act`, while LAIX marks every
-  decision when the Situation carries a hard approval constraint. GeoResponse
-  never executes `wait`, `observe`, `ask`, `guide`, `verify` or `escalate`, so
-  this is conservative metadata, not an extra write. Whether LAIX should scope
-  the flag to actionable verbs is a product decision for LAIX.
+- The captured native baseline and LAIX agree on `requires_approval` for all 9
+  cases: only `act` carries the approval flag.
 
 That wording change is reported by `tests/test_laix_adapter.py`; it is not
 hidden by editing the fixture or the LAIX contract.

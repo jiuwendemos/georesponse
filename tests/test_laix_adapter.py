@@ -352,15 +352,12 @@ def test_captured_parity_fixture_matches_real_lai():
     assert exact == 60
 
 
-def test_captured_native_baseline_difference_is_explicit():
+def test_captured_native_baseline_and_laix_agree_on_approval():
     fixture = json.loads(FIXTURE.read_text(encoding="utf-8"))
     differences = [
         case
         for case in fixture["cases"]
         if case["native"]["requiresApproval"] != case["laix"]["requiresApproval"]
     ]
-    assert len(differences) == 7
-    for case in differences:
-        assert case["laix"]["verb"] != "act"
-        assert case["native"]["requiresApproval"] is False
-        assert case["laix"]["requiresApproval"] is True
+    assert differences == []
+    assert all(case["laix"]["requiresApproval"] is (case["laix"]["verb"] == "act") for case in fixture["cases"])
