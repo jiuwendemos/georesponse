@@ -310,7 +310,7 @@ def test_local_lai_package_is_gone_and_the_installed_package_is_used():
     installed = Path(laix.__file__).resolve()
     assert ROOT not in installed.parents
     assert version("laix") == "0.6.0"
-    assert laix.SCHEMA_VERSION == "1.1"
+    assert laix.SCHEMA_VERSION == "0.6.0"
 
 
 def test_lai_pin_is_identical_and_tagged():
