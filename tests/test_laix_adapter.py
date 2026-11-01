@@ -309,12 +309,12 @@ def test_local_lai_package_is_gone_and_the_installed_package_is_used():
     assert not (ROOT / "laix").exists()
     installed = Path(laix.__file__).resolve()
     assert ROOT not in installed.parents
-    assert version("laix") == "0.6.0"
-    assert laix.SCHEMA_VERSION == "0.6.0"
+    assert version("laix") == "0.7.0"
+    assert laix.SCHEMA_VERSION == "0.7.0"
 
 
 def test_lai_pin_is_identical_and_tagged():
-    pin = "laix @ git+https://github.com/michaelatamuk/laix.git@v0.6.0#subdirectory=packages/python/laix"
+    pin = "laix @ git+https://github.com/michaelatamuk/laix.git@v0.7.0#subdirectory=packages/python/laix"
     assert pin in (ROOT / "pyproject.toml").read_text(encoding="utf-8")
     assert pin in (ROOT / "requirements.txt").read_text(encoding="utf-8")
     assert "laix.git@main" not in (ROOT / "requirements.txt").read_text(encoding="utf-8")

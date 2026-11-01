@@ -23,13 +23,13 @@ is the only decision path.
 `pyproject.toml` pins LAIX to the release tag:
 
 ```toml
-"laix @ git+https://github.com/michaelatamuk/laix.git@v0.6.0#subdirectory=packages/python/laix"
+"laix @ git+https://github.com/michaelatamuk/laix.git@v0.7.0#subdirectory=packages/python/laix"
 ```
 
 Install from the pin:
 
 ```powershell
-py -m pip install "laix @ git+https://github.com/michaelatamuk/laix.git@v0.6.0#subdirectory=packages/python/laix"
+py -m pip install "laix @ git+https://github.com/michaelatamuk/laix.git@v0.7.0#subdirectory=packages/python/laix"
 ```
 
 For local co-development against the LAIX checkout:
@@ -83,7 +83,7 @@ Returns the installed LAIX package, policy and schema versions:
 {
   "engine": "laix",
   "package": "laix",
-  "packageVersion": "0.6.0",
+  "packageVersion": "0.7.0",
   "policyVersion": "2026.2",
   "schemaVersion": "1.1"
 }
@@ -98,7 +98,7 @@ parity fields are gone. The old `/decision-engine/evaluate` and
 Before the local LAIX core was deleted, 9 open-alert decisions were captured in
 `tests/fixtures/laix_parity_demo.json`.
 
-After the switch to LAIX v0.6.0:
+After the switch to LAIX v0.7.0:
 
 - 9 of 9 cases match on verb, action id, approval flag, confidence, applied
   constraints and receipt status.
