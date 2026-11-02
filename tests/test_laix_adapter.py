@@ -34,7 +34,7 @@ from georesponse.proactive.models import (
 )
 from georesponse.proactive.store import ProactiveStore
 
-from laix import Action, Belief, Constraint, DecisionRequest, Goal, Layer, Observation, Situation
+from laix import ActionOption, Belief, Constraint, DecisionRequest, Goal, Layer, Observation, Situation
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = ROOT / "tests" / "fixtures" / "laix_parity_demo.json"
@@ -243,15 +243,14 @@ def test_lai_approval_is_scoped_to_act():
             attributes=dict(attributes),
         )
         options = tuple(
-            Action(id=f"opt-{item}", verb=item, name=f"do-{item}", expected_benefit=0.9)
+            ActionOption(id=f"opt-{item}", verb=item, name=f"do-{item}", expected_benefit=0.9)
             for item in dict.fromkeys((*option_verbs, "wait"))
         )
         layer = Layer()
         decision = layer.decide(DecisionRequest(subject=verb, at=situation.at, situation=situation, options=options))[0]
-        core = layer._core_decisions[decision.decision_id]
         assert decision.verb == verb
         assert decision.requires_approval is (verb == "act")
-        assert ("approval:human-required" in core.constraints_applied) is (verb == "act")
+        assert ("approval:human-required" in decision.constraints_applied) is (verb == "act")
 
 
 # ---------------------------------------------------------------------- outcome
@@ -309,12 +308,12 @@ def test_local_lai_package_is_gone_and_the_installed_package_is_used():
     assert not (ROOT / "laix").exists()
     installed = Path(laix.__file__).resolve()
     assert ROOT not in installed.parents
-    assert version("laix") == "0.7.0"
-    assert laix.SCHEMA_VERSION == "0.7.0"
+    assert version("laix") == "0.8.0"
+    assert laix.SCHEMA_VERSION == "0.8.0"
 
 
 def test_lai_pin_is_identical_and_tagged():
-    pin = "laix @ git+https://github.com/michaelatamuk/laix.git@v0.7.0#subdirectory=packages/python/laix"
+    pin = "laix @ git+https://github.com/michaelatamuk/laix.git@v0.8.0#subdirectory=packages/python/laix"
     assert pin in (ROOT / "pyproject.toml").read_text(encoding="utf-8")
     assert pin in (ROOT / "requirements.txt").read_text(encoding="utf-8")
     assert "laix.git@main" not in (ROOT / "requirements.txt").read_text(encoding="utf-8")
@@ -370,20 +369,19 @@ def test_captured_parity_fixture_matches_real_lai():
     compared = 0
     for case in fixture["cases"]:
         situation = _fixture_situation(case["situation"])
-        options = tuple(Action.from_dict(item) for item in case["options"])
+        options = tuple(ActionOption.from_dict(item) for item in case["options"])
         layer = Layer()
         layer.bridge().register("assign_owner", lambda action, context: {"ok": True})
         decision = layer.decide(
             DecisionRequest(subject=case["id"], at=situation.at, situation=situation, options=options)
         )[0]
-        core = layer._core_decisions[decision.decision_id]
         actual = {
             "verb": decision.verb,
             "actionId": decision.action_id,
             "requiresApproval": decision.requires_approval,
             "rationale": decision.rationale,
             "confidence": round(decision.confidence, 6),
-            "constraintsApplied": list(core.constraints_applied),
+            "constraintsApplied": list(decision.constraints_applied),
             "receiptStatus": None,
         }
         if decision.verb == "act":

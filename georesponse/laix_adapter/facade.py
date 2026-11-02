@@ -10,7 +10,7 @@ from __future__ import annotations
 from importlib.metadata import PackageNotFoundError, version
 from typing import Any, Iterable
 
-from laix import Action, DecisionRequest, Layer, LayerDecision
+from laix import ActionOption, DecisionRequest, Layer, Decision
 
 from ..proactive.models import Alert, MonitoringPlan
 from ..proactive.store import ProactiveStore
@@ -33,7 +33,7 @@ class DecisionEngineFacade:
         for name, handler in self.approvals.execution_handlers().items():
             self.layer.bridge().register(name, handler)
         self._decisions: dict[str, Any] = {}
-        self._actions: dict[str, Action | None] = {}
+        self._actions: dict[str, ActionOption | None] = {}
 
     # ------------------------------------------------------------------ decide
     def triage(
@@ -103,16 +103,16 @@ class DecisionEngineFacade:
             "schemaVersion": layer_status["schemaVersion"],
         }
 
-    def decision(self, decision_id: str) -> LayerDecision:
+    def decision(self, decision_id: str) -> Decision:
         return self._decisions[decision_id]
 
-    def action(self, decision_id: str) -> Action | None:
+    def action(self, decision_id: str) -> ActionOption | None:
         return self._actions.get(decision_id)
 
     # -------------------------------------------------------------- execution
     def execute(
         self,
-        decision: LayerDecision,
+        decision: Decision,
         *,
         actor: str,
         approver: str | None = None,
@@ -126,8 +126,8 @@ class DecisionEngineFacade:
 
     def propose(
         self,
-        decision: LayerDecision,
-        action: Action,
+        decision: Decision,
+        action: ActionOption,
         *,
         alert_id: str,
         payload: dict[str, Any] | None = None,

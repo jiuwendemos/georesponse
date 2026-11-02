@@ -7,7 +7,7 @@ skipped and why.
 
 from __future__ import annotations
 
-from laix import Budget, ResourcePlan, ResourcePolicy, SensingOption
+from laix import Budget, ResourcePlan, ResourceScheduler, SensingOption
 
 from ..proactive.models import MonitoringPlan
 
@@ -74,7 +74,7 @@ def budget_for_plan(plan: MonitoringPlan) -> Budget:
 
 
 def schedule_for_plan(plan: MonitoringPlan, *, uncertainty: float) -> ResourcePlan:
-    policy = ResourcePolicy()
+    policy = ResourceScheduler()
     return policy.schedule(options_for_plan(plan), budget=budget_for_plan(plan), uncertainty=uncertainty)
 
 

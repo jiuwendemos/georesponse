@@ -10,7 +10,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from laix import Action, LayerDecision
+from laix import ActionOption, Decision
 
 from ..proactive import alerts as alert_ops
 from ..proactive.proposals import ProposalStore
@@ -31,8 +31,8 @@ class ApprovalBridge:
     # ------------------------------------------------------------------ create
     def propose(
         self,
-        decision: LayerDecision,
-        action: Action | None,
+        decision: Decision,
+        action: ActionOption | None,
         *,
         alert_id: str,
         payload: dict[str, Any] | None = None,
@@ -58,7 +58,7 @@ class ApprovalBridge:
         }
 
     @staticmethod
-    def _payload(action: Action) -> dict[str, Any]:
+    def _payload(action: ActionOption) -> dict[str, Any]:
         if action.name == "assign_alert":
             return {
                 "team": action.params.get("assignee") or action.params.get("team"),
@@ -83,14 +83,14 @@ class ApprovalBridge:
             "dismiss_alert": self._dismiss,
         }
 
-    def _assign(self, action: Action, context: dict[str, Any]) -> dict[str, Any]:
+    def _assign(self, action: ActionOption, context: dict[str, Any]) -> dict[str, Any]:
         alert_id = str(action.params["alert_id"])
         actor = str(context.get("actor", "laix-approved"))
         assignee = action.params.get("assignee") or action.params.get("team")
         updated = alert_ops.transition(self.store, alert_id, "assign", actor=actor, assignee=assignee)
         return {"alertId": alert_id, "status": updated.status, "assignee": updated.assignee}
 
-    def _handoff(self, action: Action, context: dict[str, Any]) -> dict[str, Any]:
+    def _handoff(self, action: ActionOption, context: dict[str, Any]) -> dict[str, Any]:
         # A handoff is a draft in the target system; GeoResponse does not send
         # claims or dispatch crews on its own.
         return {
@@ -100,7 +100,7 @@ class ApprovalBridge:
             "actor": str(context.get("actor", "laix-approved")),
         }
 
-    def _dismiss(self, action: Action, context: dict[str, Any]) -> dict[str, Any]:
+    def _dismiss(self, action: ActionOption, context: dict[str, Any]) -> dict[str, Any]:
         alert_id = str(action.params["alert_id"])
         actor = str(context.get("actor", "laix-approved"))
         reason = str(action.params.get("reason", "false-positive"))

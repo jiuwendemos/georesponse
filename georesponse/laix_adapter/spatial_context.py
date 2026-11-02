@@ -10,7 +10,7 @@ import math
 from typing import Iterable
 
 from laix import (
-    Action,
+    ActionOption,
     Belief,
     Constraint,
     Goal,
@@ -149,7 +149,7 @@ def options_for_alert(
     *,
     plan: MonitoringPlan | None = None,
     analysts: Iterable[str] | None = None,
-) -> tuple[Action, ...]:
+) -> tuple[ActionOption, ...]:
     """The six verbs as concrete GeoResponse affordances.
 
     Assignment is reversible, but still requires a human approval because the
@@ -168,7 +168,7 @@ def options_for_alert(
         "sla_due": alert.sla_due,
     }
     return (
-        Action(
+        ActionOption(
             id=f"opt-wait-{alert.id}",
             verb="wait",
             name="observe_alert",
@@ -179,7 +179,7 @@ def options_for_alert(
             params=dict(params),
             rationale="keep watching; no analyst is disturbed",
         ),
-        Action(
+        ActionOption(
             id=f"opt-ask-{alert.id}",
             verb="ask",
             name="request_better_evidence",
@@ -192,7 +192,7 @@ def options_for_alert(
             params=dict(params),
             rationale="ask for a clearer view, a radar pass or an analyst label",
         ),
-        Action(
+        ActionOption(
             id=f"opt-guide-{alert.id}",
             verb="guide",
             name="show_ranked_shortlist",
@@ -204,7 +204,7 @@ def options_for_alert(
             params=dict(params),
             rationale="put the alert and its evidence in front of the analyst",
         ),
-        Action(
+        ActionOption(
             id=f"opt-act-{alert.id}",
             verb="act",
             name="assign_alert",
@@ -218,7 +218,7 @@ def options_for_alert(
             params=dict(params),
             rationale="assign an owner to the alert; a human must approve it",
         ),
-        Action(
+        ActionOption(
             id=f"opt-verify-{alert.id}",
             verb="verify",
             name="verify_alert_outcome",
@@ -231,7 +231,7 @@ def options_for_alert(
             params=dict(params),
             rationale="check whether the analyst action and SLA outcome held",
         ),
-        Action(
+        ActionOption(
             id=f"opt-escalate-{alert.id}",
             verb="escalate",
             name="escalate_sla",
@@ -252,7 +252,7 @@ def triage_inputs(
     plan: MonitoringPlan | None = None,
     analysts: Iterable[str] | None = None,
     now: str | None = None,
-) -> tuple[Situation, tuple[Action, ...]]:
+) -> tuple[Situation, tuple[ActionOption, ...]]:
     situation = situation_from_alert(alert, plan=plan, analysts=analysts, now=now)
     return situation, options_for_alert(alert, plan=plan, analysts=analysts)
 
@@ -260,7 +260,7 @@ def triage_inputs(
 def laix_view(
     decision,
     *,
-    action: Action | None,
+    action: ActionOption | None,
     alert: Alert,
 ) -> dict:
     params = dict(action.params) if action else {}

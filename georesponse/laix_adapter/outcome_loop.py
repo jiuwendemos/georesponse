@@ -7,7 +7,7 @@ only attributed when LAIX has a matching execution receipt.
 
 from __future__ import annotations
 
-from laix import Layer, LayerDecision, Outcome, parse_iso
+from laix import Layer, Decision, Outcome, parse_iso
 
 from ..proactive.models import Alert
 
@@ -23,13 +23,13 @@ class OutcomeLoop:
     def __init__(self, layer: Layer) -> None:
         self.layer = layer
 
-    def _attributed(self, decision: LayerDecision) -> bool:
+    def _attributed(self, decision: Decision) -> bool:
         return any(
             receipt.decision_id == decision.decision_id and receipt.status == "executed"
             for receipt in self.layer.runtime.receipts()
         )
 
-    def acknowledge_speed(self, decision: LayerDecision, alert: Alert, *, expected_minutes: float) -> Outcome | None:
+    def acknowledge_speed(self, decision: Decision, alert: Alert, *, expected_minutes: float) -> Outcome | None:
         actual = _minutes(alert.acknowledged_at, alert.created_at)
         if actual is None:
             return None
@@ -44,7 +44,7 @@ class OutcomeLoop:
             note="SLA window as the reference; attributed only when an execution receipt exists",
         )
 
-    def resolution_speed(self, decision: LayerDecision, alert: Alert, *, expected_minutes: float) -> Outcome | None:
+    def resolution_speed(self, decision: Decision, alert: Alert, *, expected_minutes: float) -> Outcome | None:
         actual = _minutes(alert.resolved_at, alert.created_at)
         if actual is None:
             return None
@@ -58,7 +58,7 @@ class OutcomeLoop:
             evidence={"alertId": alert.id, "resolvedAt": alert.resolved_at},
         )
 
-    def analyst_feedback(self, decision: LayerDecision, *, verdict: str, note: str = "") -> Outcome:
+    def analyst_feedback(self, decision: Decision, *, verdict: str, note: str = "") -> Outcome:
         """Record a human label.  It is useful, but it is not causal proof."""
         normalised = verdict.strip().lower()
         label = "helped" if normalised in {"useful", "correct", "true-positive"} else "hurt"
