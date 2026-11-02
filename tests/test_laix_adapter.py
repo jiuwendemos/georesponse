@@ -313,7 +313,7 @@ def test_local_lai_package_is_gone_and_the_installed_package_is_used():
 
 
 def test_lai_pin_is_identical_and_tagged():
-    pin = "laix @ git+https://github.com/michaelatamuk/laix.git@v0.8.0#subdirectory=packages/python/laix"
+    pin = "laix @ git+https://github.com/michaelatamuk/laix.git@v0.8.1#subdirectory=packages/python/laix"
     assert pin in (ROOT / "pyproject.toml").read_text(encoding="utf-8")
     assert pin in (ROOT / "requirements.txt").read_text(encoding="utf-8")
     assert "laix.git@main" not in (ROOT / "requirements.txt").read_text(encoding="utf-8")
